@@ -3,7 +3,7 @@ This project is proposed to aim at developing a smart digital system that would 
 
 ## Steps to run the application
 
-## Clone the repository
+### Clone the repository
 
 ### Client - React app
 - Open terminal
