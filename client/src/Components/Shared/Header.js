@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 function Header() {
   // Mock session,
   const userSession = {
-    userType: "UnRegistered", // Change different user types: "Admin", "UnRegistered", "Registered"
+    userType: "Registered", // Change different user types: "Admin", "UnRegistered", "Registered"
   };
 
   // component for Registered User
