@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { getCurrentDateInfo } from './Utils';
 
 function Header() {
   // Mock session,
   const userSession = {
-    userType: "Registered", // Change different user types: "Admin", "UnRegistered", "Registered"
+    userType: "Admin", // Change different user types: "Admin", "UnRegistered", "Registered"
   };
+ 
+  const {formattedDate, dayOfWeek, dayOfMonth } = getCurrentDateInfo();
 
   // component for Registered User
   const RegisteredHeader = () => ( 
@@ -18,8 +21,9 @@ function Header() {
         <div className="row">
           <div className="col-md-4">
             <div className="header-date">
-              <h6>April 2024</h6>
-              <p className="text-start font-xs color-text-paragraph-2">Monday 01</p>
+            <h6>{formattedDate}</h6>
+              <p className="text-start font-xs color-text-paragraph-2">{dayOfWeek} {dayOfMonth}</p>
+
             </div>
           </div>
           <div className="col-md-5">
@@ -45,6 +49,7 @@ function Header() {
               <div className="info-member"> <strong className="color-brand-1">Steven Jobs</strong>
                 <div className="dropdown"><a className="font-xs color-text-paragraph-2 icon-down" id="dropdownProfile" type="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static">User</a>
                   <ul className="dropdown-menu dropdown-menu-light dropdown-menu-end" aria-labelledby="dropdownProfile">
+                    <li><a className="dropdown-item" href="login.html">Profile</a></li>
                     <li><a className="dropdown-item" href="login.html">Logout</a></li>
                   </ul>
                 </div>
@@ -70,7 +75,9 @@ function Header() {
           <div className="col-md-4">
             <div className="header-date">
               <h6>April 2024</h6>
-              <p className="text-start font-xs color-text-paragraph-2">Monday 01</p>
+              <h6>{formattedDate}</h6>
+              <p className="text-start font-xs color-text-paragraph-2">{dayOfWeek} {dayOfMonth}</p>
+
             </div>
           </div>
           <div className="col-md-6">
@@ -92,7 +99,7 @@ function Header() {
 
   );
 
-  // Define the component for Registered User
+  // Define the component for Admin
   const AdminHeader = () => ( 
   <div className="container">
     <div className="main-header">
@@ -104,20 +111,19 @@ function Header() {
         <div className="row">
           <div className="col-md-4">
             <div className="header-date">
-              <h6>April 2024</h6>
-              <p className="text-start font-xs color-text-paragraph-2">Monday 01</p>
+              <h6>{formattedDate}</h6>
+              <p className="text-start font-xs color-text-paragraph-2">{dayOfWeek} {dayOfMonth}</p>
             </div>
           </div>
           <div className="col-md-5">
-            <div className="header-location">
+          <div className="header-location">
               <div className="dropdown"> 
-                <i className="bi bi-geo-alt-fill" /> 	&nbsp;&nbsp;<a className="font-sm  icon-down" id="dropdownProfile" type="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static"><strong className="color-brand-1">Kwun Tong</strong> 	&nbsp;</a>
-                <ul className="dropdown-menu dropdown-menu-light dropdown-menu-end" aria-labelledby="dropdownProfile">
-                  <li><a className="dropdown-item" href="#">Sham Shui Po</a></li>
-                  <li><a className="dropdown-item" href="#">Sheung Wan</a></li>
-                </ul>
+                <i className="bi bi-speedometer2" /> 	&nbsp;&nbsp;<a className="">
+                  <strong className="color-brand-1">Administrator Dashboard</strong> 	&nbsp;</a>
+                
               </div>
             </div>
+        
           </div>
           <div className="col-md-3">
             <div className="dropdown d-inline-block"><a className="btn btn-notify" id="dropdownNotify" type="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static" />
@@ -128,9 +134,10 @@ function Header() {
               </ul>
             </div>
             <div className="member-login"><img alt src="imgs/profile.png" />
-              <div className="info-member"> <strong className="color-brand-1">Steven Jobs</strong>
-                <div className="dropdown"><a className="font-xs color-text-paragraph-2 icon-down" id="dropdownProfile" type="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static">User</a>
+              <div className="info-member"> <strong className="color-brand-1">Jeff Bezos</strong>
+                <div className="dropdown"><a className="font-xs color-text-paragraph-2 icon-down" id="dropdownProfile" type="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static">Admin</a>
                   <ul className="dropdown-menu dropdown-menu-light dropdown-menu-end" aria-labelledby="dropdownProfile">
+                    <li><a className="dropdown-item" href="login.html">Profile</a></li>
                     <li><a className="dropdown-item" href="login.html">Logout</a></li>
                   </ul>
                 </div>
