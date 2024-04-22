@@ -1,13 +1,14 @@
 import React from 'react';
 import {BrowserRouter as Router,Routes, Route} from 'react-router-dom';
 
-import PublicHeader from './Components/Header';
-import PublicNavbar from './Components/Navbar';
-import PublicLogin from './Components/Login';
-import PublicFooter from './Components/Footer';
+import PublicHeader from './Components/Shared/Header';
+import PublicNavbar from './Components/Shared/Navbar';
+import PublicLogin from './Components/Shared/Login';
+import PublicFooter from './Components/Shared/Footer';
 import RegDashbord from './Components/RegUser/RegDashbord';
-import Dashboard from "./Components/User/Dashboard";
-import MobileNavbar from './Components/MobileNavbar';
+import NonRegDashbord from "./Components/NonRegUser/NonRegDashbord";
+import AdminDashbord from "./Components/Admin/AdminDashbord";
+import MobileNavbar from './Components/Shared/MobileNavbar';
 
 // Mock session object
 const session = {
@@ -24,9 +25,10 @@ function App() {
         <main class="main">
           <PublicNavbar />
           <Routes>
-            <Route exact path="/" element={<Dashboard />} />
-            <Route exact path="/home" element={<Dashboard />} />
+            <Route exact path="/" element={<NonRegDashbord />} />
+            <Route exact path="/home" element={<NonRegDashbord />} />
             <Route exact path="/dashboard" element={<RegDashbord />} />
+            <Route exact path="/admin-dashboard" element={<AdminDashbord />} />
           </Routes>
         </main>
         <PublicFooter />
