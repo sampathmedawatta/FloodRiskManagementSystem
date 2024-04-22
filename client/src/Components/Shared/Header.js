@@ -7,8 +7,7 @@ function Header() {
   };
 
   // component for Registered User
-  const RegisteredHeader = () => (
-    <header className="header sticky-bar"> 
+  const RegisteredHeader = () => ( 
   <div className="container">
     <div className="main-header">
       <div className="header-left">
@@ -56,13 +55,11 @@ function Header() {
       </div>
     </div>
   </div>
-</header>
 
   );
 
   // Define the component for Loggedin User
   const UnRegisterHeader = () => (
-<header classname="header sticky-bar"> 
   <div className="container">
     <div className="main-header">
       <div className="header-left">
@@ -92,13 +89,11 @@ function Header() {
       </div>
     </div>
   </div>
-</header>
 
   );
 
   // Define the component for Registered User
-  const AdminHeader = () => (
-    <header className="header sticky-bar"> 
+  const AdminHeader = () => ( 
   <div className="container">
     <div className="main-header">
       <div className="header-left">
@@ -146,7 +141,6 @@ function Header() {
       </div>
     </div>
   </div>
-</header>
   );
 
   // Render the appropriate header based on the user's session
