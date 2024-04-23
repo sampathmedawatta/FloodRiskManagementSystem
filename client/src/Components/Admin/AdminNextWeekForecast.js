@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getCurrentDateInfo } from "../Shared/Utils";
 function AdminNextWeekForecast() {
-  const {nextWeekStart, nextWeekEnd } =
-    getCurrentDateInfo();
+  const { nextWeekStart, nextWeekEnd } = getCurrentDateInfo();
 
   return (
     <div class="col-md-6">
