@@ -961,7 +961,6 @@ h6,
   font-size: 12px;
   line-height: 18px;
   color: #A0ABB8;
-  background: url(../imgs/job-type.svg) no-repeat 0px 3px;
   display: inline-block;
   padding: 0px 0px 0px 15px;
   margin-right: 12px;
@@ -970,7 +969,6 @@ h6,
   font-size: 12px;
   line-height: 18px;
   color: #A0ABB8;
-  background: url(../imgs/time.svg) no-repeat 0px 3px;
   display: inline-block;
   padding: 0px 0px 0px 15px;
   margin-right: 12px;
@@ -979,7 +977,6 @@ h6,
   font-size: 12px;
   line-height: 18px;
   color: #A0ABB8;
-  background: url(../imgs/marker.svg) no-repeat 0px 3px;
   display: inline-block;
   padding: 0px 0px 0px 15px;
   margin-right: 12px;
@@ -1100,7 +1097,6 @@ h6,
   font-size: 12px;
   line-height: 18px;
   color: #A0ABB8;
-  background: url(../imgs/marker.svg) no-repeat 0px 3px;
   display: inline-block;
   padding: 0px 0px 0px 15px;
   margin-right: 12px;
@@ -1367,7 +1363,6 @@ h6,
   right: 15px;
   height: 25px;
   width: 25px;
-  background: url(../imgs/template/icons/flash.svg) no-repeat 0px 0px;
 }
 .card-grid-2 .card-grid-2-image-left {
   padding: 30px 20px 15px 20px;
@@ -1529,18 +1524,7 @@ svg .icon {
 .box-swiper .swiper-button-prev:after {
   content: "";
 }
-.box-swiper .swiper-button-next {
-  background: url(../imgs/slider/swiper/next.svg) no-repeat 0px 0px;
-}
-.box-swiper .swiper-button-next:hover {
-  background: url(../imgs/slider/swiper/next-active.svg) no-repeat 0px 0px;
-}
-.box-swiper .swiper-button-prev {
-  background: url(../imgs/slider/swiper/prev.svg) no-repeat 0px 0px;
-}
-.box-swiper .swiper-button-prev:hover {
-  background: url(../imgs/slider/swiper/prev-active.svg) no-repeat 0px 0px;
-}
+
 .box-swiper .swiper-button-next,
 .box-swiper .swiper-button-prev {
   width: 40px;
@@ -1662,7 +1646,7 @@ svg .icon {
   width: 21px;
   height: 22px;
   border-radius: 5px;
-  background: #05264eurl(../imgs/template/icons/tick.svg) no-repeat center;
+  background: #05264e url() no-repeat center;
 }
 
 /*COMPONENTS -> FORM*/
@@ -5537,3 +5521,27 @@ select {
     border-radius: 0.25em;
     background-color: #5cb85c;   
 }
+.thead-header{
+  background-color: #dee2e6;
+  color:#05264e;
+  text-align: center;
+  white-space: nowrap;
+}
+.risklevel-high{
+color: #842029 !important;
+background-color: #f8d7da;
+border-color: #f5c2c7;
+padding: 5%;
+}
+.risklevel-moderate{
+  color: #664d03 !important;
+  background-color: #fff3cd;
+  border-color: #ffecb5;
+  padding: 5%;
+  }
+  .risklevel-norisk{
+    color: #0f5132 !important;
+    background-color: #d1e7dd;
+    border-color: #badbcc;
+    padding: 5%;
+   }
