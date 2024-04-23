@@ -418,7 +418,6 @@ h6 {
 .font-xs {
   font-weight: 500 !important;
   font-size: 12px !important;
-  line-height: 18px !important;
 }
 
 .font-xxs {
@@ -894,7 +893,7 @@ h6,
   border-radius: 16px;
   background-color: #ffffff;
   padding: 22px 19px;
-  margin-bottom: 30px;
+  margin-bottom: 5px;
   border: 1px solid #E0E6F7;
   display: flex;
   width: 100%;
@@ -1180,7 +1179,7 @@ h6,
   text-decoration: none;
   color: #05264e;
 }
-.card-grid-2 a:hover {
+.card-grid-1 a:hover {
   color: #05264e;
 }
 .card-grid-2 .card-grid-2-image-rd {
@@ -5172,7 +5171,7 @@ select {
 .panel-white {
   background-color: #ffffff;
   border-radius: 16px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   border: 1px solid #E0E6F7;
 }
 
@@ -5200,7 +5199,7 @@ select {
 }
 
 .panel-body {
-  padding: 30px;
+  padding: 15px;
 }
 
 .menudrop {
@@ -5586,3 +5585,7 @@ padding: 5%;
   line-height: 12px;
   font-weight: 600 !important;
 }  
+.hover-color:hover {
+  background-color:#d5d5d6;
+
+}

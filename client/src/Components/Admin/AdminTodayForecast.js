@@ -7,7 +7,8 @@ function AdminTodayForecast(){
     const {today} = getCurrentDateInfo();
     return(
   
-<div className="col-xxl-8 col-xl-7 col-lg-7">
+<div className="col-xxl-7 col-xl-6 col-lg-6">
+
       <div className="section-box">
         <div className="container"> 
           <div className="panel-white">
@@ -137,21 +138,6 @@ function AdminTodayForecast(){
                   </tbody></table>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div className="section-box">
-        <div className="container"> 
-          <div className="panel-white">
-            <div className="panel-head"> 
-              <h5>Latest Jobs</h5><a className="menudrop" id="dropdownMenu3" type="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static" />
-              <ul className="dropdown-menu dropdown-menu-light dropdown-menu-end" aria-labelledby="dropdownMenu3">
-                <li><a className="dropdown-item active" href="#">Add new</a></li>
-                <li><a className="dropdown-item" href="#">Settings</a></li>
-                <li><a className="dropdown-item" href="#">Actions</a></li>
-              </ul>
-            </div>
-            <div className="panel-body" />
           </div>
         </div>
       </div>

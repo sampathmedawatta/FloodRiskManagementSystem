@@ -109,7 +109,7 @@ function Navbar(){
                       <span class="name">&nbsp;&nbsp;&nbsp;Flood History &nbsp;&nbsp;</span></a>
                   </li>
                   <li> <a class="dashboard" href="#">
-                    <i class="bi bi-exclamation-triangle fs-5"></i>
+                    <i class="bi bi-exclamation-triangle-fill fs-5"></i>
                       <span class="name">&nbsp;&nbsp;&nbsp;Alerts&nbsp;&nbsp;</span></a>
                   </li>
                   <li> <a class="dashboard" href="#">
@@ -122,15 +122,15 @@ function Navbar(){
                   </li>
                   <li> <a class="dashboard" href="#">
                     <i class="bi bi-people-fill fs-5"></i>
-                      <span class="name">&nbsp;&nbsp;&nbsp;Users</span></a>
+                      <span class="name">&nbsp;&nbsp;&nbsp;Manage Users</span></a>
                   </li>
                   <li> <a class="dashboard" href="#">
                     <i class="bi bi-newspaper fs-5"></i>
-                      <span class="name">&nbsp;&nbsp;&nbsp;Update News &nbsp;&nbsp;</span></a>
+                      <span class="name">&nbsp;&nbsp;&nbsp;Manage News &nbsp;&nbsp;</span></a>
                   </li>
                   <li> <a class="dashboard" href="#">
                     <i class="bi bi-question-circle-fill fs-5"></i>
-                      <span class="name">&nbsp;&nbsp;&nbsp;Update FAQ &nbsp;&nbsp;</span></a>
+                      <span class="name">&nbsp;&nbsp;&nbsp;Manage FAQ &nbsp;&nbsp;</span></a>
                   </li>
 
 
