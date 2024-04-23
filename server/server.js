@@ -1,30 +1,13 @@
-const express = require('express');
+const express = require("express");
+
+const port = process.env.PORT || 3001
+
 const app = express();
-const port = 3000;
-const data = require("./data.json");
-const fs = require("fs");
 
-console.log(data);
+app.use(express.json());
 
-const newUser = [
-  {
-    userId: "111",
-    title: "user 4",
-  }
-];
+app.use("/faqs", require("./routes/faqsRoute"));
 
-
-
-app.get("/api",(req,res) =>{
-    res.json({ users: ["user one", "user two", "user three", "user four"] });
-
-    fs.writeFile("data.json", JSON.stringify(newUser), (err) => {
-      if (err) throw err;
-      console.log(err);
-    });
-    
-})
-
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+app.listen(port, ()=>
+  console.log('Server started on port '+ port)
+)
