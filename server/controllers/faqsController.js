@@ -61,11 +61,7 @@ exports.updateFAQ = (request, response) => {
     return response.status(404).json({ message: "faq not found" });
   }
 
-  const { name, title, description, active } = request.body;
-
-  if (name) {
-    faq.name = name;
-  }
+  const { title, description, active } = request.body;
 
   if (title) {
     faq.title = title;
