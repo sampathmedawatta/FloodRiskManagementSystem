@@ -4,7 +4,7 @@ import { getCurrentDateInfo } from './Utils';
 function Header() {
   // Mock session,
   const userSession = {
-    userType: "Admin", // Change different user types: "Admin", "UnRegistered", "Registered"
+    userType: "Registered", // Change different user types: "Admin", "UnRegistered", "Registered"
   };
  
   const {formattedDate, dayOfWeek, dayOfMonth } = getCurrentDateInfo();
