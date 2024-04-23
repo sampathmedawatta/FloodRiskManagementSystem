@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 function RegMainAlert(){
     return(
 <div>
-  <br /><br />
+  <br/>
   <div className="row">
     <div className="col-lg-12">
       <div className="alert alert-danger" role="alert">
