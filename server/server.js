@@ -1,30 +1,22 @@
-const express = require('express');
+const swaggerUi = require("swagger-ui-express");
+const express = require("express");
+
+const port = process.env.PORT || 3001
+
 const app = express();
-const port = 3000;
-const data = require("./data.json");
-const fs = require("fs");
+app.use(express.json());
 
-console.log(data);
-
-const newUser = [
-  {
-    userId: "111",
-    title: "user 4",
-  }
-];
+app.use("/faqs", require("./routes/faqsRoute"));
+app.use("/news", require("./routes/newsRoute"));
+app.use("/inquiries", require("./routes/inquiryRoute"));
+app.use("/alerts", require("./routes/alertsRoute"));
+app.use("/user", require("./routes/userRoute"));
+app.use("/admin", require("./routes/adminRoute"));
 
 
+const swaggerDocument = require("./swagger-output.json");
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-app.get("/api",(req,res) =>{
-    res.json({ users: ["user one", "user two", "user three", "user four"] });
-
-    fs.writeFile("data.json", JSON.stringify(newUser), (err) => {
-      if (err) throw err;
-      console.log(err);
-    });
-    
-})
-
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+app.listen(port, ()=>
+  console.log('Server started on port '+ port)
+)
