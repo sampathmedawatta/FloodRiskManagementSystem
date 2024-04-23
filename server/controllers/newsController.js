@@ -47,8 +47,8 @@ exports.getNewsById = (request, response) => {
 exports.createNews = (request, response) => {
   const { title, location, description, imageURL, active } = request.body;
 
-  if (!name) {
-    return response.status(422).json({ message: "Name is required" });
+  if (!title) {
+    return response.status(422).json({ message: "title is required" });
   }
 
   const id = crypto.randomUUID();
@@ -72,7 +72,7 @@ exports.updateNews = (request, response) => {
     return response.status(404).json({ message: "news not found" });
   }
 
-  const { name, title, location, description, imageURL, active } = request.body;
+  const { title, location, description, imageURL, active } = request.body;
 
   if (title) {
     news.title = title;

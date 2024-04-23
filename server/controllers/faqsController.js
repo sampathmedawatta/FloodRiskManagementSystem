@@ -36,10 +36,10 @@ exports.getFAQById = (request, response) => {
 };
 
 exports.createFAQ = (request, response) => {
-  const { name, title, description, active } = request.body;
+  const { title, description, active } = request.body;
 
-  if (!name) {
-    return response.status(422).json({ message: "Name is required" });
+  if (!title) {
+    return response.status(422).json({ message: "title is required" });
   }
 
   const id = crypto.randomUUID();
