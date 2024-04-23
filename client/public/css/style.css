@@ -592,9 +592,10 @@ iframe {
   margin-top: 62px;
 }
 .main .nav {
-  max-width: 250px;
+  max-width: 250px ;
   width: 100%;
   padding: 5px;
+  height: 100%;
   background-color: #ffffff;
   position: relative;
   bottom: 0px;
@@ -605,7 +606,8 @@ iframe {
   width: 100%;
   display: inline-block;
   overflow: hidden;
-  margin-left: 5px;
+  margin-left: 0.5%;
+  margin-right: 0.5%;
 }
 
 .container {
@@ -2343,7 +2345,7 @@ option {
   margin-left: 3px;
 }
 .main-menu li a.dashboard {
-  padding-left: 30px;
+  padding-left: 20px;
   
 }
 .main-menu li a.candidates {
@@ -2861,7 +2863,7 @@ option {
 }
 
 .footer .box-footer {
-  padding: 25px 0px 0px 0px;
+  padding: 0px 5px 0px 0px;
   border-top: 1px solid #E0E6F6;
 }
 .footer .menu-footer {
