@@ -11,6 +11,7 @@ app.use("/news", require("./routes/newsRoute"));
 app.use("/inquiries", require("./routes/inquiryRoute"));
 app.use("/alerts", require("./routes/alertsRoute"));
 app.use("/user", require("./routes/userRoute"));
+app.use("/admin", require("./routes/adminRoute"));
 
 app.listen(port, ()=>
   console.log('Server started on port '+ port)
