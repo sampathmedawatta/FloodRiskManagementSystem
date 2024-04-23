@@ -418,7 +418,6 @@ h6 {
 .font-xs {
   font-weight: 500 !important;
   font-size: 12px !important;
-  line-height: 18px !important;
 }
 
 .font-xxs {
@@ -592,9 +591,10 @@ iframe {
   margin-top: 62px;
 }
 .main .nav {
-  max-width: 250px;
+  max-width: 250px ;
   width: 100%;
   padding: 5px;
+  height: 100%;
   background-color: #ffffff;
   position: relative;
   bottom: 0px;
@@ -605,7 +605,8 @@ iframe {
   width: 100%;
   display: inline-block;
   overflow: hidden;
-  margin-left: 5px;
+  margin-left: 0.5%;
+  margin-right: 0.5%;
 }
 
 .container {
@@ -892,7 +893,7 @@ h6,
   border-radius: 16px;
   background-color: #ffffff;
   padding: 22px 19px;
-  margin-bottom: 30px;
+  margin-bottom: 5px;
   border: 1px solid #E0E6F7;
   display: flex;
   width: 100%;
@@ -1178,7 +1179,7 @@ h6,
   text-decoration: none;
   color: #05264e;
 }
-.card-grid-2 a:hover {
+.card-grid-1 a:hover {
   color: #05264e;
 }
 .card-grid-2 .card-grid-2-image-rd {
@@ -2343,7 +2344,7 @@ option {
   margin-left: 3px;
 }
 .main-menu li a.dashboard {
-  padding-left: 30px;
+  padding-left: 20px;
   
 }
 .main-menu li a.candidates {
@@ -2861,7 +2862,7 @@ option {
 }
 
 .footer .box-footer {
-  padding: 25px 0px 0px 0px;
+  padding: 0px 5px 0px 0px;
   border-top: 1px solid #E0E6F6;
 }
 .footer .menu-footer {
@@ -5170,7 +5171,7 @@ select {
 .panel-white {
   background-color: #ffffff;
   border-radius: 16px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   border: 1px solid #E0E6F7;
 }
 
@@ -5198,7 +5199,7 @@ select {
 }
 
 .panel-body {
-  padding: 30px;
+  padding: 15px;
 }
 
 .menudrop {
@@ -5584,3 +5585,7 @@ padding: 5%;
   line-height: 12px;
   font-weight: 600 !important;
 }  
+.hover-color:hover {
+  background-color:#d5d5d6;
+
+}
