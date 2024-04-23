@@ -9,6 +9,7 @@ app.use(express.json());
 app.use("/faqs", require("./routes/faqsRoute"));
 app.use("/news", require("./routes/newsRoute"));
 app.use("/inquiries", require("./routes/inquiryRoute"));
+app.use("/alerts", require("./routes/alertsRoute"));
 
 app.listen(port, ()=>
   console.log('Server started on port '+ port)
