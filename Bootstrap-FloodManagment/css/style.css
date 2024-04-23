@@ -5537,3 +5537,41 @@ select {
     border-radius: 0.25em;
     background-color: #5cb85c;   
 }
+.thead-header {
+  background-color: #dee2e6;
+  color: #05264e;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.risklevel-high {
+  color: #842029 !important;
+  background-color: #f8d7da;
+  border-color: #f5c2c7;
+  padding: 5%;
+}
+
+.risklevel-moderate {
+  color: #664d03 !important;
+  background-color: #fff3cd;
+  border-color: #ffecb5;
+  padding: 5%;
+}
+
+.risklevel-norisk {
+  color: #0f5132 !important;
+  background-color: #d1e7dd;
+  border-color: #badbcc;
+  padding: 5%;
+}
+
+.font-box-flood {
+  font-weight: 700;
+  font-size: 36px;
+}
+
+.text-10 {
+  font-size: 10px;
+  line-height: 12px;
+  font-weight: 600 !important;
+}
