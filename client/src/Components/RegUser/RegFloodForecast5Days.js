@@ -29,7 +29,6 @@ function RegFloodForecast5Days() {
       }
       return [];
     };
-    console.log(getForecastData());
     setForecastData(getForecastData());
   }, [myLocation]);
 
