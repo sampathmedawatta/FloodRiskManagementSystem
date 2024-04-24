@@ -24,7 +24,7 @@ function AdminTwoWeeksForecast() {
                 </div>
               </div>
             </div>
-            <div className="panel-body">
+            <div>
             <FloodForecastTable></FloodForecastTable>
             </div>
           </div>
