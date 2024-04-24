@@ -1,7 +1,40 @@
 import React from "react";
 
-
 const ForecastPopup = ({ location, forecast, selectedDay, onClose }) => {
+
+     const handleCreateAlert = () => {
+       console.log(
+         "alert - " +
+           forecast.riskLevel +
+           " - " +
+           location +
+           " - " +
+           forecast.date
+       );
+     };
+
+     const handleCreateNews = () => {
+       console.log(
+         "news - " +
+           forecast.riskLevel +
+           " - " +
+           location +
+           " - " +
+           forecast.date
+       );
+     };
+
+     const handleCreateInformAuth = () => {
+       console.log(
+         "inform auth - " +
+           forecast.riskLevel +
+           " - " +
+           location +
+           " - " +
+           forecast.date
+       );
+     };
+
   return (
     <div className="popup">
       <div className="popup-content">
@@ -18,32 +51,44 @@ const ForecastPopup = ({ location, forecast, selectedDay, onClose }) => {
           </div>
         </div>
         <div className="row">
-          <div class="col-md-5">
+          <div class="col-md-4">
             <p className={forecast.riskLevel.toLowerCase()}>
               {forecast.riskLevel} Risk
             </p>
           </div>
-          <div class="col-md-7">
-            <p>
-              {forecast.date} - {forecast.day}
-            </p>
-          </div>
-        </div>
-
-        <div className="row">
-          <div class="col-md-6">
-            <button onClick={onClose}>Create Alert</button>
-          </div>
-          <div class="col-md-6">
-            <button onClick={onClose}>Send Notification</button>
+          <div class="col-md-8">
+            <p>{forecast.date}</p>
+            <p>{forecast.day}</p>
           </div>
         </div>
         <div className="row">
-          <div class="col-md-6">
-            <button onClick={onClose}>Create a News</button>
+          <div class="col-md-12">
+            <button
+              className="btn btn-login hover-up w-100"
+              onClick={handleCreateAlert}
+            >
+              Create Alert
+            </button>
           </div>
-          <div class="col-md-6">
-            <button onClick={onClose}>Inform Authorities</button>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <button
+              className="btn btn-login hover-up w-100"
+              onClick={handleCreateNews}
+            >
+              Create a News
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <button
+              className="btn btn-login hover-up w-100"
+              onClick={handleCreateInformAuth}
+            >
+              Inform Authorities
+            </button>
           </div>
         </div>
       </div>

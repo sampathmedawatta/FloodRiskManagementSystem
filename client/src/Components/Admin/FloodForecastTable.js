@@ -388,30 +388,6 @@ const FloodForecastTable = ({ location }) => {
   const [selectedDay, setSelectedDay] = useState(null); // State to hold the selected day
   const [selectedLocation, setSelectedLocation] = useState(null);
 
-  // Function to get the day of the week from the date
-  function getDayOfWeek(dateString) {
-    const days = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-    ];
-    const date = new Date(dateString);
-    return days[date.getDay()];
-  }
-
-  // Update the 'day' property for each forecast entry
-  response.data.forEach((location) => {
-    location.forecast.forEach((entry) => {
-      entry.day = getDayOfWeek(entry.date);
-    });
-  });
-
-  console.log(response);
-  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -441,8 +417,12 @@ const FloodForecastTable = ({ location }) => {
             <tr>
               <th></th>
               {forecastData.length > 0 &&
-                forecastData[0].forecast.map((dayForecast, index) => (
-                  <th key={index}>Day {index + 1}</th>
+                forecastData[0].forecast.map((day, index) => (
+                  <th key={index}>
+                    {" "}
+                    <p>{day.day}</p>
+                    <p>{day.date}</p>
+                  </th>
                 ))}
             </tr>
           </thead>
