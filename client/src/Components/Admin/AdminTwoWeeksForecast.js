@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getCurrentDateInfo } from "../Shared/Utils";
+import FloodForecastTable from "./FloodForecastTable";
 
 function AdminTwoWeeksForecast() {
   const { today, twoWeeksDate } = getCurrentDateInfo();
@@ -23,7 +24,9 @@ function AdminTwoWeeksForecast() {
                 </div>
               </div>
             </div>
-            <div className="panel-body">Two Weeks Flood Forecast</div>
+            <div className="panel-body">
+            <FloodForecastTable></FloodForecastTable>
+            </div>
           </div>
         </div>
       </div>
