@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { getCurrentDateInfo } from './Utils';
+import { locations, notificationList } from "../../utils/HeaderItems";
 
 function Header() {
   // Mock session,
   const userSession = {
-    userType: "Admin", // Change different user types: "Admin", "UnRegistered", "Registered"
+    userType: "Registered", // Change different user types: "Admin", "UnRegistered", "Registered"
   };
  
   const {formattedDate, dayOfWeek, dayOfMonth } = getCurrentDateInfo();
@@ -31,8 +32,10 @@ function Header() {
               <div className="dropdown"> 
                 <i className="bi bi-geo-alt-fill" /> 	&nbsp;&nbsp;<a className="font-sm  icon-down" id="dropdownProfile" type="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static"><strong className="color-brand-1">Kwun Tong</strong> 	&nbsp;</a>
                 <ul className="dropdown-menu dropdown-menu-light dropdown-menu-end" aria-labelledby="dropdownProfile">
-                  <li><a className="dropdown-item" href="#">Sham Shui Po</a></li>
-                  <li><a className="dropdown-item" href="#">Sheung Wan</a></li>
+                  {locations.map(location => (
+                    <li key={location.id}><a className="dropdown-item" href="#">{location.locationName}</a></li>
+                  ))
+                  }
                 </ul>
               </div>
             </div>
@@ -40,9 +43,9 @@ function Header() {
           <div className="col-md-3">
             <div className="dropdown d-inline-block"><a className="btn btn-notify" id="dropdownNotify" type="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static" />
               <ul className="dropdown-menu dropdown-menu-light dropdown-menu-end" aria-labelledby="dropdownNotify">
-                <li><a className="dropdown-item active" href="#">10 notifications</a></li>
-                <li><a className="dropdown-item" href="#">12 messages</a></li>
-                <li><a className="dropdown-item" href="#">20 replies</a></li>
+                {notificationList.map(notification => (
+                  <li key={notification.id}><a className="dropdown-item active" href="#">{notification.count} {notification.title}</a></li>
+                ))}
               </ul>
             </div>
             <div className="member-login"><img alt src="imgs/profile.png" />
