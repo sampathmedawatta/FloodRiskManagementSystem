@@ -5591,29 +5591,32 @@ padding: 5%;
 }
 .low {
   color: #0f5132 !important;
-    background-color: #d1e7dd !important;
-    border-color: #badbcc !important;
-    font-weight: 500;
-      font-size: 14px !important;
-      line-height: 22px !important;
+  background-color: #d1e7dd !important;
+  border-color: #badbcc !important;
+  font-weight: 500;
+  font-size: 14px !important;
+  line-height: 22px !important;
+  padding: 5%;
 }
 
-.medium {
+.moderate {
   color: #664d03 !important;
-    background-color: #fff3cd !important;
-    border-color: #ffecb5 !important;
-        font-weight: 500;
-          font-size: 14px !important;
-          line-height: 22px !important;
+  background-color: #d1e7dd !important;
+  border-color: #badbcc !important;
+  font-weight: 500;
+  font-size: 14px !important;
+  line-height: 22px !important;
+  padding: 5%;
 }
 
 .high {
   color: #842029 !important;
-    background-color: #f8d7da !important;
-    border-color: #f5c2c7 !important;
-    font-weight: 500;
-      font-size: 14px !important;
-      line-height: 22px !important;
+  background-color: #d1e7dd !important;
+  border-color: #badbcc !important;
+  font-weight: 500;
+  font-size: 14px !important;
+  line-height: 22px !important;
+  padding: 5%;
 }
 
 .popup {

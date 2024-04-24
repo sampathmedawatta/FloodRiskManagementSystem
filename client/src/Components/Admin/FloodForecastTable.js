@@ -1,6 +1,386 @@
 import React, { useState, useEffect } from "react";
 import ForecastPopup from "./ForecastPopup";
 
+const response = {
+  data: [
+    {
+      location: "Hong Kong Observatory",
+      forecast: [
+        {
+          date: "2024-04-24",
+          day: "Wednesday",
+          riskLevel: "Low",
+        },
+        {
+          date: "2024-04-25",
+          day: "Thursday",
+          riskLevel: "Low",
+        },
+        {
+          date: "2024-04-26",
+          day: "Friday",
+          riskLevel: "Moderate",
+        },
+        {
+          date: "2024-04-27",
+          day: "Saturday",
+          riskLevel: "High",
+        },
+        {
+          date: "2024-04-28",
+          day: "Sunday",
+          riskLevel: "High",
+        },
+        {
+          date: "2024-04-29",
+          day: "Monday",
+          riskLevel: "Moderate",
+        },
+        {
+          date: "2024-04-30",
+          day: "Tuesday",
+          riskLevel: "Low",
+        },
+        {
+          date: "2024-05-01",
+          day: "Wednesday",
+          riskLevel: "Low",
+        },
+        {
+          date: "2024-05-02",
+          day: "Thursday",
+          riskLevel: "Low",
+        },
+        {
+          date: "2024-05-03",
+          day: "Friday",
+          riskLevel: "Moderate",
+        },
+        {
+          date: "2024-05-04",
+          day: "Saturday",
+          riskLevel: "High",
+        },
+        {
+          date: "2024-05-05",
+          day: "Sunday",
+          riskLevel: "High",
+        },
+        {
+          date: "2024-05-06",
+          day: "Monday",
+          riskLevel: "Moderate",
+        },
+        {
+          date: "2024-05-07",
+          day: "Tuesday",
+          riskLevel: "Low",
+        },
+      ],
+    },
+    {
+      location: "Shek Kong",
+      forecast: [
+        {
+          date: "2024-04-24",
+          day: "Wednesday",
+          riskLevel: "Moderate",
+        },
+        {
+          date: "2024-04-25",
+          day: "Thursday",
+          riskLevel: "Moderate",
+        },
+        {
+          date: "2024-04-26",
+          day: "Friday",
+          riskLevel: "High",
+        },
+        {
+          date: "2024-04-27",
+          day: "Saturday",
+          riskLevel: "High",
+        },
+        {
+          date: "2024-04-28",
+          day: "Sunday",
+          riskLevel: "High",
+        },
+        {
+          date: "2024-04-29",
+          day: "Monday",
+          riskLevel: "High",
+        },
+        {
+          date: "2024-04-30",
+          day: "Tuesday",
+          riskLevel: "Moderate",
+        },
+        {
+          date: "2024-05-01",
+          day: "Wednesday",
+          riskLevel: "Moderate",
+        },
+        {
+          date: "2024-05-02",
+          day: "Thursday",
+          riskLevel: "Moderate",
+        },
+        {
+          date: "2024-05-03",
+          day: "Friday",
+          riskLevel: "High",
+        },
+        {
+          date: "2024-05-04",
+          day: "Saturday",
+          riskLevel: "High",
+        },
+        {
+          date: "2024-05-05",
+          day: "Sunday",
+          riskLevel: "High",
+        },
+        {
+          date: "2024-05-06",
+          day: "Monday",
+          riskLevel: "High",
+        },
+        {
+          date: "2024-05-07",
+          day: "Tuesday",
+          riskLevel: "Moderate",
+        },
+      ],
+    },
+    {
+      location: "Cheung Chau",
+      forecast: [
+        {
+          date: "2024-04-24",
+          day: "Wednesday",
+          riskLevel: "Low",
+        },
+        {
+          date: "2024-04-25",
+          day: "Thursday",
+          riskLevel: "Low",
+        },
+        {
+          date: "2024-04-26",
+          day: "Friday",
+          riskLevel: "Low",
+        },
+        {
+          date: "2024-04-27",
+          day: "Saturday",
+          riskLevel: "Low",
+        },
+        {
+          date: "2024-04-28",
+          day: "Sunday",
+          riskLevel: "Moderate",
+        },
+        {
+          date: "2024-04-29",
+          day: "Monday",
+          riskLevel: "Moderate",
+        },
+        {
+          date: "2024-04-30",
+          day: "Tuesday",
+          riskLevel: "High",
+        },
+        {
+          date: "2024-05-01",
+          day: "Wednesday",
+          riskLevel: "Low",
+        },
+        {
+          date: "2024-05-02",
+          day: "Thursday",
+          riskLevel: "Low",
+        },
+        {
+          date: "2024-05-03",
+          day: "Friday",
+          riskLevel: "Low",
+        },
+        {
+          date: "2024-05-04",
+          day: "Saturday",
+          riskLevel: "Low",
+        },
+        {
+          date: "2024-05-05",
+          day: "Sunday",
+          riskLevel: "Moderate",
+        },
+        {
+          date: "2024-05-06",
+          day: "Monday",
+          riskLevel: "Moderate",
+        },
+        {
+          date: "2024-05-07",
+          day: "Tuesday",
+          riskLevel: "High",
+        },
+      ],
+    },
+    {
+      location: "Tseung Kawn",
+      forecast: [
+        {
+          date: "2024-04-24",
+          day: "Wednesday",
+          riskLevel: "High",
+        },
+        {
+          date: "2024-04-25",
+          day: "Thursday",
+          riskLevel: "High",
+        },
+        {
+          date: "2024-04-26",
+          day: "Friday",
+          riskLevel: "High",
+        },
+        {
+          date: "2024-04-27",
+          day: "Saturday",
+          riskLevel: "High",
+        },
+        {
+          date: "2024-04-28",
+          day: "Sunday",
+          riskLevel: "High",
+        },
+        {
+          date: "2024-04-29",
+          day: "Monday",
+          riskLevel: "High",
+        },
+        {
+          date: "2024-04-30",
+          day: "Tuesday",
+          riskLevel: "High",
+        },
+        {
+          date: "2024-05-01",
+          day: "Wednesday",
+          riskLevel: "High",
+        },
+        {
+          date: "2024-05-02",
+          day: "Thursday",
+          riskLevel: "High",
+        },
+        {
+          date: "2024-05-03",
+          day: "Friday",
+          riskLevel: "High",
+        },
+        {
+          date: "2024-05-04",
+          day: "Saturday",
+          riskLevel: "High",
+        },
+        {
+          date: "2024-05-05",
+          day: "Sunday",
+          riskLevel: "High",
+        },
+        {
+          date: "2024-05-06",
+          day: "Monday",
+          riskLevel: "High",
+        },
+        {
+          date: "2024-05-07",
+          day: "Tuesday",
+          riskLevel: "High",
+        },
+      ],
+    },
+    {
+      location: "Tai Po",
+      forecast: [
+        {
+          date: "2024-04-24",
+          day: "Wednesday",
+          riskLevel: "Moderate",
+        },
+        {
+          date: "2024-04-25",
+          day: "Thursday",
+          riskLevel: "Moderate",
+        },
+        {
+          date: "2024-04-26",
+          day: "Friday",
+          riskLevel: "Moderate",
+        },
+        {
+          date: "2024-04-27",
+          day: "Saturday",
+          riskLevel: "High",
+        },
+        {
+          date: "2024-04-28",
+          day: "Sunday",
+          riskLevel: "High",
+        },
+        {
+          date: "2024-04-29",
+          day: "Monday",
+          riskLevel: "Moderate",
+        },
+        {
+          date: "2024-04-30",
+          day: "Tuesday",
+          riskLevel: "Low",
+        },
+        {
+          date: "2024-05-01",
+          day: "Wednesday",
+          riskLevel: "Moderate",
+        },
+        {
+          date: "2024-05-02",
+          day: "Thursday",
+          riskLevel: "Moderate",
+        },
+        {
+          date: "2024-05-03",
+          day: "Friday",
+          riskLevel: "Moderate",
+        },
+        {
+          date: "2024-05-04",
+          day: "Saturday",
+          riskLevel: "High",
+        },
+        {
+          date: "2024-05-05",
+          day: "Sunday",
+          riskLevel: "High",
+        },
+        {
+          date: "2024-05-06",
+          day: "Monday",
+          riskLevel: "Moderate",
+        },
+        {
+          date: "2024-05-07",
+          day: "Tuesday",
+          riskLevel: "Low",
+        },
+      ],
+    },
+  ],
+};
+
 const FloodForecastTable = ({ location }) => {
   const [forecastData, setForecastData] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
@@ -8,109 +388,35 @@ const FloodForecastTable = ({ location }) => {
   const [selectedDay, setSelectedDay] = useState(null); // State to hold the selected day
   const [selectedLocation, setSelectedLocation] = useState(null);
 
+  // Function to get the day of the week from the date
+  function getDayOfWeek(dateString) {
+    const days = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+    const date = new Date(dateString);
+    return days[date.getDay()];
+  }
+
+  // Update the 'day' property for each forecast entry
+  response.data.forEach((location) => {
+    location.forecast.forEach((entry) => {
+      entry.day = getDayOfWeek(entry.date);
+    });
+  });
+
+  console.log(response);
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
-       
-        const response = {
-          data: [
-            {
-              location: "Location 1",
-              forecast: {
-                day1: "Low",
-                day2: "Low",
-                day3: "Medium",
-                day4: "High",
-                day5: "High",
-                day6: "Medium",
-                day7: "Low",
-                day8: "Low",
-                day9: "Low",
-                day10: "Medium",
-                day11: "High",
-                day12: "High",
-                day13: "Medium",
-                day14: "Low",
-              },
-            },
-            {
-              location: "Location 2",
-              forecast: {
-                day1: "Medium",
-                day2: "Medium",
-                day3: "High",
-                day4: "High",
-                day5: "High",
-                day6: "High",
-                day7: "Medium",
-                day8: "Medium",
-                day9: "Medium",
-                day10: "High",
-                day11: "High",
-                day12: "High",
-                day13: "High",
-                day14: "Medium",
-              },
-            },
-            {
-              location: "Location 3",
-              forecast: {
-                day1: "Low",
-                day2: "Low",
-                day3: "Low",
-                day4: "Low",
-                day5: "Medium",
-                day6: "Medium",
-                day7: "High",
-                day8: "Low",
-                day9: "Low",
-                day10: "Low",
-                day11: "Low",
-                day12: "Medium",
-                day13: "Medium",
-                day14: "High",
-              },
-            },
-            {
-              location: "Location 4",
-              forecast: {
-                day1: "High",
-                day2: "High",
-                day3: "High",
-                day4: "High",
-                day5: "High",
-                day6: "High",
-                day7: "High",
-                day8: "High",
-                day9: "High",
-                day10: "High",
-                day11: "High",
-                day12: "High",
-                day13: "High",
-                day14: "High",
-              },
-            },
-            {
-              location: "Location 5",
-              forecast: {
-                day1: "Medium",
-                day2: "Medium",
-                day3: "Medium",
-                day4: "High",
-                day5: "High",
-                day6: "Medium",
-                day7: "Low",
-                day8: "Medium",
-                day9: "Medium",
-                day10: "Medium",
-                day11: "High",
-                day12: "High",
-                day13: "Medium",
-                day14: "Low",
-              },
-            },
-          ],
-        };
+        // write a code to get data from API
+
         setForecastData(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -123,7 +429,7 @@ const FloodForecastTable = ({ location }) => {
   const togglePopup = (location, forecast, day) => {
     setSelectedLocation(location);
     setClickedForecast(forecast);
-    setSelectedDay(day); 
+    setSelectedDay(day);
     setShowPopup(!showPopup);
   };
 
@@ -134,195 +440,31 @@ const FloodForecastTable = ({ location }) => {
           <thead className="border-bottom">
             <tr>
               <th></th>
-              <th>Day 1</th>
-              <th>Day 2</th>
-              <th>Day 3</th>
-              <th>Day 4</th>
-              <th>Day 5</th>
-              <th>Day 6</th>
-              <th>Day 7</th>
-              <th>Day 8</th>
-              <th>Day 9</th>
-              <th>Day 10</th>
-              <th>Day 11</th>
-              <th>Day 12</th>
-              <th>Day 13</th>
-              <th>Day 14</th>
+              {forecastData.length > 0 &&
+                forecastData[0].forecast.map((dayForecast, index) => (
+                  <th key={index}>Day {index + 1}</th>
+                ))}
             </tr>
           </thead>
           <tbody>
             {forecastData.map((locationData, index) => (
               <tr key={index}>
                 <td>{locationData.location}</td>
-                <td
-                  className={locationData.forecast.day1.toLowerCase()}
-                  onClick={() =>
-                    togglePopup(
-                      locationData.location,
-                      locationData.forecast,
-                      "1"
-                    )
-                  }
-                >
-                  {locationData.forecast.day1}
-                </td>
-                <td
-                  className={locationData.forecast.day2.toLowerCase()}
-                  onClick={() =>
-                    togglePopup(
-                      locationData.location,
-                      locationData.forecast,
-                      "2"
-                    )
-                  }
-                >
-                  {locationData.forecast.day2}
-                </td>
-                <td
-                  className={locationData.forecast.day3.toLowerCase()}
-                  onClick={() =>
-                    togglePopup(
-                      locationData.location,
-                      locationData.forecast,
-                      "3"
-                    )
-                  }
-                >
-                  {locationData.forecast.day3}
-                </td>
-                <td
-                  className={locationData.forecast.day4.toLowerCase()}
-                  onClick={() =>
-                    togglePopup(
-                      locationData.location,
-                      locationData.forecast,
-                      "4"
-                    )
-                  }
-                >
-                  {locationData.forecast.day4}
-                </td>
-                <td
-                  className={locationData.forecast.day5.toLowerCase()}
-                  onClick={() =>
-                    togglePopup(
-                      locationData.location,
-                      locationData.forecast,
-                      "5"
-                    )
-                  }
-                >
-                  {locationData.forecast.day5}
-                </td>
-                <td
-                  className={locationData.forecast.day6.toLowerCase()}
-                  onClick={() =>
-                    togglePopup(
-                      locationData.location,
-                      locationData.forecast,
-                      "6"
-                    )
-                  }
-                >
-                  {locationData.forecast.day6}
-                </td>
-                <td
-                  className={locationData.forecast.day7.toLowerCase()}
-                  onClick={() =>
-                    togglePopup(
-                      locationData.location,
-                      locationData.forecast,
-                      "7"
-                    )
-                  }
-                >
-                  {locationData.forecast.day7}
-                </td>
-
-                <td
-                  className={locationData.forecast.day8.toLowerCase()}
-                  onClick={() =>
-                    togglePopup(
-                      locationData.location,
-                      locationData.forecast,
-                      "8"
-                    )
-                  }
-                >
-                  {locationData.forecast.day1}
-                </td>
-                <td
-                  className={locationData.forecast.day9.toLowerCase()}
-                  onClick={() =>
-                    togglePopup(
-                      locationData.location,
-                      locationData.forecast,
-                      "9"
-                    )
-                  }
-                >
-                  {locationData.forecast.day2}
-                </td>
-                <td
-                  className={locationData.forecast.day10.toLowerCase()}
-                  onClick={() =>
-                    togglePopup(
-                      locationData.location,
-                      locationData.forecast,
-                      "10"
-                    )
-                  }
-                >
-                  {locationData.forecast.day3}
-                </td>
-                <td
-                  className={locationData.forecast.day11.toLowerCase()}
-                  onClick={() =>
-                    togglePopup(
-                      locationData.location,
-                      locationData.forecast,
-                      "11"
-                    )
-                  }
-                >
-                  {locationData.forecast.day4}
-                </td>
-                <td
-                  className={locationData.forecast.day12.toLowerCase()}
-                  onClick={() =>
-                    togglePopup(
-                      locationData.location,
-                      locationData.forecast,
-                      "12"
-                    )
-                  }
-                >
-                  {locationData.forecast.day5}
-                </td>
-                <td
-                  className={locationData.forecast.day13.toLowerCase()}
-                  onClick={() =>
-                    togglePopup(
-                      locationData.location,
-                      locationData.forecast,
-                      "13"
-                    )
-                  }
-                >
-                  {locationData.forecast.day6}
-                </td>
-                <td
-                  className={locationData.forecast.day14.toLowerCase()}
-                  onClick={() =>
-                    togglePopup(
-                      locationData.location,
-                      locationData.forecast,
-                      "14"
-                    )
-                  }
-                >
-                  {locationData.forecast.day7}
-                </td>
+                {locationData.forecast.map((dayForecast, dayIndex) => (
+                  <td
+                    key={dayIndex}
+                    className={dayForecast.riskLevel.toLowerCase()}
+                    onClick={() =>
+                      togglePopup(
+                        locationData.location,
+                        dayForecast,
+                        `Day ${dayIndex + 1}`
+                      )
+                    }
+                  >
+                    {dayForecast.riskLevel}
+                  </td>
+                ))}
               </tr>
             ))}
           </tbody>

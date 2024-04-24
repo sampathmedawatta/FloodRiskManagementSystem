@@ -9,9 +9,7 @@ const ForecastPopup = ({ location, forecast, selectedDay, onClose }) => {
           <div className="panel-head">
             <div className="row">
               <div class="col-md-10">
-                <h6 className="text-start">
-                  {location}
-                </h6>
+                <h6 className="text-start">{location}</h6>
               </div>
               <div class="col-md-2">
                 <p onClick={onClose}>X</p>
@@ -20,11 +18,15 @@ const ForecastPopup = ({ location, forecast, selectedDay, onClose }) => {
           </div>
         </div>
         <div className="row">
-          <div class="col-md-4">
-            <p className={forecast.day8.toLowerCase()}>Moderate Risk</p>
+          <div class="col-md-5">
+            <p className={forecast.riskLevel.toLowerCase()}>
+              {forecast.riskLevel} Risk
+            </p>
           </div>
-          <div class="col-md-8">
-            <p> {selectedDay} May - Wednessday </p>
+          <div class="col-md-7">
+            <p>
+              {forecast.date} - {forecast.day}
+            </p>
           </div>
         </div>
 
