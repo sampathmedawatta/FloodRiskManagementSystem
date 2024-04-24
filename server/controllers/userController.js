@@ -1,4 +1,5 @@
 const crypto = require("crypto");
+const bcrypt = require("bcrypt");
 
 const users = [
   {
@@ -6,6 +7,7 @@ const users = [
     fName: "fName",
     lName: "lName",
     email: "email@email.com",
+    password: "sdsdssdsdsd",
     contactNo: "0123456789",
     preferedLocation: "Location 1",
     address: "Address 1",
@@ -19,6 +21,7 @@ const users = [
     fName: "fName",
     lName: "lName",
     email: "email@email.com",
+    password: "sdsdssdsdsd",
     contactNo: "0123456789",
     preferedLocation: "Location 1",
     address: "Address 1",
@@ -32,6 +35,7 @@ const users = [
     fName: "fName",
     lName: "lName",
     email: "email@email.com",
+    password: "sdsdssdsdsd",
     contactNo: "0123456789",
     preferedLocation: "Location 1",
     address: "Address 1",
@@ -56,11 +60,12 @@ exports.getUserById = (request, response) => {
   response.status(200).json(user);
 };
 
-exports.createUser = (request, response) => {
+exports.createUser = async (request, response) => {
   const {
     fName,
     lName,
     email,
+    password,
     contactNo,
     preferedLocation,
     address,
@@ -70,17 +75,22 @@ exports.createUser = (request, response) => {
     active,
   } = request.body;
 
-  if (!title) {
-    return response.status(422).json({ message: "title is required" });
+  if (!email) {
+    return response.status(422).json({ message: "email is required" });
+  }
+  if (!password) {
+    return response.status(422).json({ message: "password is required" });
   }
 
   const id = crypto.randomUUID();
+  const hashPassword = await bcrypt.hash(password, 10);
 
   users.push({
     id,
     fName,
     lName,
     email,
+    hashPassword,
     contactNo,
     preferedLocation,
     address,
