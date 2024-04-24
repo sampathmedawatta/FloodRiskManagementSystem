@@ -558,6 +558,9 @@
                 "email": {
                   "example": "any"
                 },
+                "password": {
+                  "example": "any"
+                },
                 "contactNo": {
                   "example": "any"
                 },
@@ -823,6 +826,39 @@
           },
           "404": {
             "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/login/": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "uName": {
+                  "example": "any"
+                },
+                "password": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
