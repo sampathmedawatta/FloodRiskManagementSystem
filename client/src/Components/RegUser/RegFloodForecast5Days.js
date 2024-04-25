@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import ForecastService  from "../../services/forecast.service";
+import ForecastService from "../../services/forecast.service";
 import ForecastCard from "./ForecastCard";
 import { useLocation } from "../../contexts/LocationContext";
+import WeatherObservationCard from "./WeatherObservationCard";
 
 function RegFloodForecast5Days() {
   const [forecastData, setForecastData] = useState([]);
-  const {location} = useLocation()
+  const { location } = useLocation();
 
   useEffect(() => {
     const getForecastData = async () => {
@@ -50,8 +51,7 @@ function RegFloodForecast5Days() {
                     <div className="col-md-10">
                       <h6 className="text-start">
                         <i className="bi bi-tsunami fs-5" />
-                        &nbsp;&nbsp;Flood Forecast for {location} - Next 5
-                        Days
+                        &nbsp;&nbsp;Flood Forecast for {location} - Next 5 Days
                       </h6>
                     </div>
                     <div className="col-md-2">
@@ -82,20 +82,18 @@ function RegFloodForecast5Days() {
             </div>
           </div>
           <div className="section-box">
-            <div className="container">
-              <div className="panel-white">
-                <div className="panel-head">
-                  <h5>Latest Jobs</h5>
-                  <a
-                    className="menudrop"
-                    id="dropdownMenu3"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                    data-bs-display="static"
-                  />
+            <div className="row">
+              <div className="col-6">
+                <div className="container">
+                  <div className="panel-white">
+                    <div className="panel-body" />
+                  </div>
                 </div>
-                <div className="panel-body" />
+              </div>
+              <div className="col-6">
+                
+                  <WeatherObservationCard />
+      
               </div>
             </div>
           </div>
@@ -105,4 +103,3 @@ function RegFloodForecast5Days() {
   );
 }
 export default RegFloodForecast5Days;
-
