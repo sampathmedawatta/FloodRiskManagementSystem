@@ -771,7 +771,17 @@ h6,
   transform: translateY(-2px);
   transition: 0.2s;
 }
+.btn.btn-pops {
+  color: #ffffff;
+  background-color: #05264e;
+  padding: 5px;
 
+  margin-left: 8px;
+}
+.btn.btn-pops:hover {
+  transform: translateY(-2px);
+  transition: 0.2s;
+}
 .btn.btn-login {
   color: #ffffff;
   background-color: #05264e;
@@ -5338,30 +5348,25 @@ option {
 }
 
 .paginations .pager li .pager-prev {
-  background: url(../imgs/icons/page-prev.svg) no-repeat center;
-  height: 28px;
-  width: 28px;
-  margin-right: 15px;
+  content: "\F231";
+  font-family: "bootstrap-icons";
+  display: inline-block;
 }
 
 .paginations .pager li .pager-prev:hover {
-  background: url(../imgs/icons/page-prev-hover.svg) no-repeat center;
+ 
+  cursor: pointer;
+
 }
 
 .paginations .pager li .pager-next {
-  background: url(../imgs/icons/page-next.svg) no-repeat center;
-  height: 28px;
-  width: 28px;
-  margin-left: 15px;
+  content:  "\F22D";
+  font-family: "bootstrap-icons";
+  display: inline-block; 
 }
 
 .paginations .pager li .pager-next:hover {
-  background: url(../imgs/icons/page-next-hover.svg) no-repeat center;
-}
-
-.icon-edu {
-  background: url(../imgs/edu.svg) no-repeat left center;
-  padding-left: 31px;
+  cursor: pointer;
 }
 
 .box-upload {
@@ -6108,6 +6113,17 @@ select {
   color: #05264e;
   background-color: #e0e0e0;
   border-color: none !important;
+}
+.word-limit {
+  max-width: 1000px; /* adjust the width according to your needs */
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* Number of lines to show */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.more-content {
+  display: inline;
 }
 
 .mapPopup {
