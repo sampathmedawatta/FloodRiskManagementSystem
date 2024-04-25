@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { getUserSession } from './SessionUtils';
+import { getUserSession } from "./SessionUtils";
+import NavbarItem from "./NavbarItem";
+import { registeredUserNavItems } from "../../utils/NavbarItems";
 
 function Navbar() {
   // Mock session,
@@ -16,83 +18,14 @@ function Navbar() {
     <div class="nav">
       <nav class="nav-main-menu">
         <ul class="main-menu">
-          <li>
-            {" "}
-            <a
-              className={`dashboard ${
-                isActiveLink("/dashboard") ? "active" : ""
-              }`}
-              href="/dashboard"
-            >
-              <Link to="/dashboard" className="nav-link px-0 align-middle">
-                <i class="bi bi-house-door-fill fs-5"></i>
-                <span class="name">&nbsp;&nbsp;Dashboard &nbsp;&nbsp;</span>
-              </Link>
-            </a>
-          </li>
-          <li>
-            {" "}
-            <a
-              className={`dashboard ${isActiveLink("/") ? "active" : ""}`}
-              href="/"
-            >
-              <Link to="/" className="nav-link px-0 align-middle">
-                <i class="bi bi-tsunami fs-5"></i>
-                <span class="name">
-                  &nbsp;&nbsp;Flood Forecast &nbsp;&nbsp;
-                </span>
-              </Link>
-            </a>
-          </li>
-          <li>
-            {" "}
-            <a
-              className={`dashboard ${isActiveLink("/") ? "active" : ""}`}
-              href="/"
-            >
-              <Link to="/" className="nav-link px-0 align-middle">
-                <i class="bi bi-clock-history fs-5"></i>
-                <span class="name">&nbsp;&nbsp;Flood History &nbsp;&nbsp;</span>
-              </Link>
-            </a>
-          </li>
-          <li>
-            {" "}
-            <a
-              className={`dashboard ${isActiveLink("/") ? "active" : ""}`}
-              href="/"
-            >
-              <Link to="/" className="nav-link px-0 align-middle">
-                <i class="bi bi-newspaper fs-5"></i>
-                <span class="name">&nbsp;&nbsp; News Feed &nbsp;&nbsp;</span>
-              </Link>
-            </a>
-          </li>
-          <li>
-            {" "}
-            <a
-              className={`dashboard ${isActiveLink("/faq") ? "active" : ""}`}
-              href="/faq"
-            >
-              <Link to="/faq" className="nav-link px-0 align-middle">
-                <i class="bi bi-question-circle-fill fs-5"></i>
-                <span class="name">&nbsp;&nbsp;FAQ &nbsp;&nbsp;</span>
-              </Link>
-            </a>
-          </li>
-
-          <li>
-            {" "}
-            <a
-              className={`dashboard ${isActiveLink("/") ? "active" : ""}`}
-              href="/"
-            >
-              <Link to="/" className="nav-link px-0 align-middle">
-                <i class="bi bi-chat-text-fill fs-5"></i>
-                <span class="name">&nbsp;&nbsp;Ask Your Query&nbsp;&nbsp;</span>
-              </Link>
-            </a>
-          </li>
+          {registeredUserNavItems.map((navItem) => (
+            <NavbarItem
+              active={isActiveLink(navItem.link)}
+              icon={navItem.icon}
+              title={navItem.title}
+              link={navItem.link}
+            />
+          ))}
         </ul>
       </nav>
     </div>
@@ -158,7 +91,10 @@ function Navbar() {
               }`}
               href="/admin-dashboard"
             >
-              <Link to="/admin-dashboard" className="nav-link px-0 align-middle">
+              <Link
+                to="/admin-dashboard"
+                className="nav-link px-0 align-middle"
+              >
                 <i class="bi bi-house-door-fill fs-5"></i>
                 <span class="name">&nbsp;&nbsp;Dashboard &nbsp;&nbsp;</span>
               </Link>
@@ -263,7 +199,9 @@ function Navbar() {
           <li>
             {" "}
             <a
-              className={`dashboard ${isActiveLink("/manage-faq") ? "active" : ""}`}
+              className={`dashboard ${
+                isActiveLink("/manage-faq") ? "active" : ""
+              }`}
               href="/manage-faq"
             >
               <Link to="/manage-faq" className="nav-link px-0 align-middle">
