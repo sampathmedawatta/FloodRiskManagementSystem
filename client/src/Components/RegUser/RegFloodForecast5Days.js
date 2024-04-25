@@ -1,37 +1,44 @@
 import React, { useState, useEffect } from "react";
 import ForecastService  from "../../services/forecast.service";
 import ForecastCard from "./ForecastCard";
+import { useLocation } from "../../contexts/LocationContext";
 
 function RegFloodForecast5Days() {
   const [forecastData, setForecastData] = useState([]);
-  const myLocation = "Hong Kong Observatory";
+  const {location} = useLocation()
   const today = new Date();
 
   useEffect(() => {
-    const getForecastData = () => {
-      const forecastResponse = ForecastService.getForecast()
-      if (forecastResponse) {
-        const filteredLocation = forecastResponse.find(
-          (location) => location.location === myLocation
-        );
-
-        if (filteredLocation) {
-          const filteredForecast = filteredLocation.forecast.filter((item) => {
-            const forecastDate = new Date(item.date);
-            // Check if forecast date is after today and within 5 days
-            return (
-              forecastDate.getDate() > today.getDate() &&
-              forecastDate - today < 5 * 24 * 60 * 60 * 1000
+    const getForecastData = async () => {
+      try {
+        const forecastResponse = await ForecastService.getForecast();
+        //filter location and forecast data according to dropdown selection
+        if (forecastResponse) {
+          let filteredLocation = forecastResponse.find(
+            (loc) => loc.location === location
+          );
+          console.log(forecastResponse)
+          if (filteredLocation) {
+            const filteredForecast = filteredLocation.forecast.filter(
+              (item) => {
+                const forecastDate = new Date(item.date);
+                const today = new Date();
+                // Check if forecast date is after today and within 5 days
+                return (
+                  forecastDate.getDate() > today.getDate() &&
+                  forecastDate - today < 5 * 24 * 60 * 60 * 1000
+                );
+              }
             );
-          });
-
-          return filteredForecast;
+            setForecastData(filteredForecast);
+          }
         }
+      } catch (error) {
+        console.error("Error fetching forecast data:", error);
       }
-      return [];
     };
-    setForecastData(getForecastData());
-  }, [myLocation]);
+    getForecastData();
+  }, [location]);
 
   return (
     <div>
@@ -45,7 +52,7 @@ function RegFloodForecast5Days() {
                     <div className="col-md-10">
                       <h6 className="text-start">
                         <i className="bi bi-tsunami fs-5" />
-                        &nbsp;&nbsp;Flood Forecast for {myLocation} - Next 5
+                        &nbsp;&nbsp;Flood Forecast for {location} - Next 5
                         Days
                       </h6>
                     </div>
