@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { response } from "../../services/forecast.service";
+import ForecastService  from "../../services/forecast.service";
 import ForecastCard from "./ForecastCard";
 
 function RegFloodForecast5Days() {
@@ -9,8 +9,9 @@ function RegFloodForecast5Days() {
 
   useEffect(() => {
     const getForecastData = () => {
-      if (response) {
-        const filteredLocation = response.data.find(
+      const forecastResponse = ForecastService.getForecast()
+      if (forecastResponse) {
+        const filteredLocation = forecastResponse.find(
           (location) => location.location === myLocation
         );
 

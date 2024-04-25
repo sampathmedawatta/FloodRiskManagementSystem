@@ -13,10 +13,10 @@ function AdminDashbord() {
         <AdminTodayForecast />
         <AdminMap />
       </div>
-      <div className="row">
+   {/*<divclassName="row">
         <AdminWeeklyForecast />
         <AdminNextWeekForecast />
-      </div>
+      </div>*/}
       <div className="row">
         <AdminTwoWeeksForecast />
       </div>
