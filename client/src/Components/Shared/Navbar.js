@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { getUserSession } from './SessionUtils';
 
 function Navbar() {
   // Mock session,
-  const userSession = {
-    userType: "Registered", // Change different user types: "Admin", "UnRegistered", "Registered"
-  };
+  const userSession = getUserSession();
+
   const location = useLocation();
   const isActiveLink = (link) => {
     return window.location.pathname === link;
@@ -156,9 +156,9 @@ function Navbar() {
               className={`dashboard ${
                 isActiveLink("/admin-dashboard") ? "active" : ""
               }`}
-              href="/"
+              href="/admin-dashboard"
             >
-              <Link to="/" className="nav-link px-0 align-middle">
+              <Link to="/admin-dashboard" className="nav-link px-0 align-middle">
                 <i class="bi bi-house-door-fill fs-5"></i>
                 <span class="name">&nbsp;&nbsp;Dashboard &nbsp;&nbsp;</span>
               </Link>
@@ -263,10 +263,10 @@ function Navbar() {
           <li>
             {" "}
             <a
-              className={`dashboard ${isActiveLink("/") ? "active" : ""}`}
-              href="/"
+              className={`dashboard ${isActiveLink("/manage-faq") ? "active" : ""}`}
+              href="/manage-faq"
             >
-              <Link to="/" className="nav-link px-0 align-middle">
+              <Link to="/manage-faq" className="nav-link px-0 align-middle">
                 <i class="bi bi-question-circle-fill fs-5"></i>
                 <span class="name">
                   &nbsp;&nbsp;&nbsp;Manage FAQ &nbsp;&nbsp;

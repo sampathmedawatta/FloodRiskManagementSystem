@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { getCurrentDateInfo } from './Utils';
+import { getUserSession } from './SessionUtils';
 
 function Header() {
   // Mock session,
-  const userSession = {
-    userType: "Admin", // Change different user types: "Admin", "UnRegistered", "Registered"
-  };
+  // Get user session from sessionUtils
+  const userSession = getUserSession();
  
   const {formattedDate, dayOfWeek, dayOfMonth } = getCurrentDateInfo();
 
