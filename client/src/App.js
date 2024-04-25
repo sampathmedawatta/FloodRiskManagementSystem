@@ -1,6 +1,7 @@
 import React from 'react';
 import {BrowserRouter as Router,Routes, Route} from 'react-router-dom';
 
+
 import PublicHeader from './Components/Shared/Header';
 import PublicNavbar from './Components/Shared/Navbar';
 import PublicLogin from './Components/Shared/Login';
@@ -9,7 +10,7 @@ import RegDashbord from './Components/RegUser/RegDashbord';
 import NonRegDashbord from "./Components/NonRegUser/NonRegDashbord";
 import AdminDashbord from "./Components/Admin/AdminDashbord";
 import MobileNavbar from './Components/Shared/MobileNavbar';
-
+import Faq from './Components/Shared/Faqtable';
 // Mock session object
 const session = {
   role: 'user' 
@@ -29,6 +30,7 @@ function App() {
             <Route exact path="/home" element={<NonRegDashbord />} />
             <Route exact path="/dashboard" element={<RegDashbord />} />
             <Route exact path="/admin-dashboard" element={<AdminDashbord />} />
+            <Route exact path="/faq" element={<Faq />} />
           </Routes>
         </main>
         <PublicFooter />
