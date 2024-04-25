@@ -18,7 +18,6 @@ function Header() {
     const fetchLocations = async () => {
       try {
         const response = await LocationService.getLocation();
-        console.log(response, "heheh");
         if (response) {
           setLocations(response);
         }

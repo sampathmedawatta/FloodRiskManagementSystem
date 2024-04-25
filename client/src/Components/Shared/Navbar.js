@@ -10,7 +10,6 @@ function Navbar() {
   };
   const location = useLocation();
   const isActiveLink = (link) => {
-    console.log(window.location.pathname)
     return window.location.pathname === link;
   };
   

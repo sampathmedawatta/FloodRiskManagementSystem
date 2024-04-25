@@ -17,7 +17,6 @@ function RegFloodForecast5Days() {
           let filteredLocation = forecastResponse.find(
             (loc) => loc.location === location
           );
-          console.log(forecastResponse)
           if (filteredLocation) {
             const filteredForecast = filteredLocation.forecast.filter(
               (item) => {
