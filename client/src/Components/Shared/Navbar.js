@@ -12,7 +12,7 @@ function Navbar() {
   const isActiveLink = (link) => {
     return window.location.pathname === link;
   };
-
+  
   // component for Registered User
   const RegisteredHeader = () => (
     <div class="nav">
