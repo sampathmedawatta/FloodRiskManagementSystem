@@ -6,7 +6,7 @@ import { getCurrentDateInfo } from "../Shared/Utils";
 function AdminTodayForecast() {
   const { today } = getCurrentDateInfo();
   return (
-    <div className="col-xxl-7 col-xl-6 col-lg-6">
+    <div className="col-xxl-12 col-xl-6 col-lg-6">
       <div className="section-box">
         <div className="container">
           <div className="panel-white">
