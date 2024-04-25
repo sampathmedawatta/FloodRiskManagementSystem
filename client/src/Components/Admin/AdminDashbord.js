@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AdminTodayForecast from "./AdminTodayForecast";
 import AdminWeeklyForecast from "./AdminWeeklyForecast";
+import Map from "./Map";
 import AdminMap from "./AdminMap";
 import AdminNextWeekForecast from "./AdminNextWeekForecast";
 import AdminTwoWeeksForecast from "./AdminTwoWeeksForecast";
@@ -10,10 +11,14 @@ function AdminDashbord() {
     <div className="box-content">
       <br />
       <div className="row">
-        <AdminTodayForecast />
-        <AdminMap />
+        <div className="col-md-6">
+          <AdminTodayForecast />
+        </div>
+        <div className="col-md-6">
+          <AdminMap></AdminMap>
+        </div>
       </div>
-   {/*<divclassName="row">
+      {/*<divclassName="row">
         <AdminWeeklyForecast />
         <AdminNextWeekForecast />
       </div>*/}

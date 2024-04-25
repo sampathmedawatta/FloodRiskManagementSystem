@@ -12,7 +12,7 @@ import { toStringHDMS } from "ol/coordinate.js";
 import Feature from "ol/Feature.js";
 import OSM from "ol/source/OSM";
 import { fromLonLat } from "ol/proj";
-
+import { Style, Icon } from "ol/style";
 
 const response = {
   locations: [
@@ -63,6 +63,27 @@ const OLMap = () => {
     setlocationList(response.locations);
 
     const initialCenter = fromLonLat([114.123489, 22.370157]); 
+    const locations = {};
+
+    locationList.forEach((location) => {
+        const lat = parseFloat(location.lat.value);
+        const long = parseFloat(location.long.value);
+        const item = location.item;
+
+        if (!isNaN(lat) && !isNaN(long)) {
+          const coordinates = fromLonLat([long, lat]);
+
+          if (!locations[coordinates]) {
+            locations[coordinates] = {
+              cluster: new Feature({
+                geometry: new Point(coordinates),
+                name: item.name,
+                description: item.value,
+              }),
+            };
+          }
+        }
+    })
 
     const iconFeature = new Feature({
       geometry: new Point(initialCenter),
@@ -71,9 +92,36 @@ const OLMap = () => {
       rainfall: 500,
     });
 
-    const vectorSource = new VectorSource({
-      features: [iconFeature],
-    });
+    const vectorSource = new VectorSource();
+    
+    for (const key in locations) {
+        if (locations.hasOwnProperty(key)) {
+          const cluster = locations[key].cluster;
+
+          cluster.setStyle(
+            new Style({
+              image: new Icon({
+                src:
+                  "data:image/svg+xml," +
+                  encodeURIComponent(
+                    '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="48" viewBox="0 0 32 48"><path fill="#de2e2e" d="M16 0c-8.837 0-16 7.163-16 16 0 17.063 16 32 16 32s16-14.937 16-32c0-8.837-7.163-16-16-16zm0 24c-4.418 0-8-3.582-8-8s3.582-8 8-8 8 3.582 8 8-3.582 8-8 8z"/></svg>'
+                  ),
+                anchor: [0.5, 1],
+              }),
+            })
+          );
+
+          // Display sensor info when clicking a cluster
+         // cluster.setProperties({ items, itemCount });
+
+          vectorSource.addFeature(cluster);
+
+        }
+    }
+
+    // const vectorSource = new VectorSource({
+    //   features: [iconFeature],
+    // });
 
     const vectorLayer = new VectorLayer({
       source: vectorSource,
