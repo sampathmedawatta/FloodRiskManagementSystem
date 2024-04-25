@@ -10,11 +10,15 @@ function AdminDashbord() {
     <div className="box-content">
       <br />
       <div className="row">
-        <AdminTodayForecast />
-        <AdminMap />
+        <div className="col-md-6">
+          <AdminTodayForecast />
+        </div>
+        <div className="col-md-6">
+          <AdminMap></AdminMap>
+        </div>
       </div>
-   {/*<divclassName="row">
-        <AdminWeeklyForecast />
+      {/*<divclassName="row">
+        <AdminWeeklyForecast /> 
         <AdminNextWeekForecast />
       </div>*/}
       <div className="row">

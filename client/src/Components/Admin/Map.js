@@ -38,7 +38,7 @@ const MapComponent = ({ locations }) => {
 
     // Create an overlay to display popup
     const popupElement = document.createElement("div");
-    popupElement.className = "mapPopup";
+    popupElement.className = "mapPopup"; 
     const popup = new Overlay({
       element: popupElement,
       positioning: "bottom-center",
@@ -61,7 +61,7 @@ const MapComponent = ({ locations }) => {
         <span>${location.type} - ${location.value}</span><br> 
         <span>${location.address}</span><br> 
         <span>${location.contact}</span><br> 
-        </div>`;
+        </div>`; 
       } else {
         popup.setPosition(undefined);
       }
@@ -93,7 +93,7 @@ const MapComponent = ({ locations }) => {
   return <div id="map" style={{ width: "100%", height: "400px" }} />;
 };
 
-const AdminMap = () => {
+const MarkerPopupMap = () => {
   const response = {
     locations: [
       {
@@ -133,4 +133,4 @@ const AdminMap = () => {
   );
 };
 
-export default AdminMap;
+export default MarkerPopupMap;
