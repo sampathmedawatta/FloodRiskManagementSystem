@@ -17,9 +17,9 @@ function Header() {
   useEffect(() => {
     const fetchLocations = async () => {
       try {
-        const response = await LocationService.getLocation();
+        const response = await LocationService.getLocations();
         if (response) {
-          setLocations(response);
+          setLocations(response.locations);
         }
       } catch (error) {
         console.error("Error fetching locations:", error);
@@ -73,14 +73,14 @@ function Header() {
                     aria-labelledby="dropdownProfile"
                   >
                     {locations?.map((location) => (
-                      <li key={location.id}>
+                      <li key={location.item.name}>
                         <button
                           className="dropdown-item"
                           onClick={() =>
-                            handleLocationSelect(location.locationName)
+                            handleLocationSelect(location.item.name)
                           } // Call handleLocationSelect when a location is clicked
                         >
-                          {location.locationName}
+                          {location.item.name}
                         </button>
                       </li>
                     ))}

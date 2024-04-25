@@ -6109,3 +6109,19 @@ select {
   background-color: #e0e0e0;
   border-color: none !important;
 }
+
+.mapPopup {
+   
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        font-size: 80%;
+
+}
+
+.mapPopupContent {
+  background-color: white;
+}
