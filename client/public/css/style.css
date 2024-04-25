@@ -228,7 +228,7 @@ nput[type=number]:focus,
   }
 }
 strong {
-  font-weight: bold;
+  font-weight: bold !important;
 }
 
 a {
@@ -1973,45 +1973,6 @@ option {
 .preloader img {
   max-width: 250px;
 }
-
-.rate {
-  height: 21px;
-  padding: 0 10px;
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: center;
-}
-.rate:not(:checked) > input {
-  position: absolute;
-  visibility: hidden;
-}
-.rate:not(:checked) > label {
-  float: right;
-  width: 21px;
-  height: 21px;
-  overflow: hidden;
-  white-space: nowrap;
-  cursor: pointer;
-  font-size: 30px;
-  color: #ccc;
-  margin-right: 3px;
-}
-.rate:not(:checked) > label.checked:before {
-  background: url(../imgs/template/icons/star.svg) no-repeat;
-}
-.rate > input:checked ~ label:before {
-  background: url(../imgs/template/icons/star.svg) no-repeat;
-}
-.rate.small {
-  transform: scale(0.7);
-  -moz-transform: scale(0.7);
-  -webkit-transform: scale(0.7);
-  -o-transform: scale(0.7);
-  -ms-transform: scale(0.7);
-  padding: 0;
-}
-
-
 .breadcrumbs {
   background-color: #ffffff;
   border-radius: 6px;
@@ -5584,7 +5545,17 @@ padding: 5%;
   font-size: 10px;
   line-height: 12px;
   font-weight: 600 !important;
+} 
+.text-8 {
+  font-size: 8px;
+  line-height: 10px;
+  font-weight: 600 !important;
 }  
+.text-12 {
+  font-size: 12px;
+  font-weight: 600 !important;
+}  
+.h
 .hover-color:hover {
   background-color:#d5d5d6;
 
@@ -5594,9 +5565,9 @@ padding: 5%;
   background-color: #d1e7dd !important;
   border-color: #badbcc !important;
   font-weight: 500;
-  font-size: 14px !important;
-  line-height: 22px !important;
-  padding: 5%;
+  font-size: 12px !important;
+  line-height: 14px !important;
+  padding: 2%;
 }
 
 .moderate {
@@ -5604,9 +5575,9 @@ padding: 5%;
   background-color: #fff3cd !important;
   border-color: #ffecb5 !important;
   font-weight: 500;
-  font-size: 14px !important;
-  line-height: 22px !important;
-  padding: 5%;
+  font-size: 12px !important;
+  line-height: 14px !important;
+  padding: 2%;
 }
 
 .high {
@@ -5614,11 +5585,13 @@ padding: 5%;
   background-color: #f8d7da !important;
   border-color: #f5c2c7 !important;
   font-weight: 500;
-  font-size: 14px !important;
-  line-height: 22px !important;
-  padding: 5%;
+  font-size: 12px !important;
+  line-height: 14px !important;
+  padding: 2%;
 }
-
+.td-nowrap {
+  white-space: nowrap;
+}
 .popup {
   position: fixed;
   top: 50%;
@@ -5666,4 +5639,7 @@ padding: 5%;
 
 .popup button:hover {
   background-color: #0056b3;
+}
+.pointer-cursor {
+  cursor: pointer;
 }

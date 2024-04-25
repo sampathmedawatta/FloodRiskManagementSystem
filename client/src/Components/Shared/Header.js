@@ -41,13 +41,6 @@ function Header() {
             </div>
           </div>
           <div className="col-md-3">
-            <div className="dropdown d-inline-block"><a className="btn btn-notify" id="dropdownNotify" type="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static" />
-              <ul className="dropdown-menu dropdown-menu-light dropdown-menu-end" aria-labelledby="dropdownNotify">
-                {notificationList.map(notification => (
-                  <li key={notification.id}><a className="dropdown-item active" href="#">{notification.count} {notification.title}</a></li>
-                ))}
-              </ul>
-            </div>
             <div className="member-login"><img alt src="imgs/profile.png" />
               <div className="info-member"> <strong className="color-brand-1">Steven Jobs</strong>
                 <div className="dropdown"><a className="font-xs color-text-paragraph-2 icon-down" id="dropdownProfile" type="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static">User</a>
@@ -118,7 +111,7 @@ function Header() {
               <p className="text-start font-xs color-text-paragraph-2">{dayOfWeek} {dayOfMonth}</p>
             </div>
           </div>
-          <div className="col-md-5">
+          <div className="col-md-6">
           <div className="header-location">
               <div className="dropdown"> 
                 <i className="bi bi-speedometer2" /> 	&nbsp;&nbsp;<a className="">
@@ -128,14 +121,7 @@ function Header() {
             </div>
         
           </div>
-          <div className="col-md-3">
-            <div className="dropdown d-inline-block"><a className="btn btn-notify" id="dropdownNotify" type="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static" />
-              <ul className="dropdown-menu dropdown-menu-light dropdown-menu-end" aria-labelledby="dropdownNotify">
-                <li><a className="dropdown-item active" href="#">10 notifications</a></li>
-                <li><a className="dropdown-item" href="#">12 messages</a></li>
-                <li><a className="dropdown-item" href="#">20 replies</a></li>
-              </ul>
-            </div>
+          <div className="col-md-2">
             <div className="member-login"><img alt src="imgs/profile.png" />
               <div className="info-member"> <strong className="color-brand-1">Jeff Bezos</strong>
                 <div className="dropdown"><a className="font-xs color-text-paragraph-2 icon-down" id="dropdownProfile" type="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static">Admin</a>

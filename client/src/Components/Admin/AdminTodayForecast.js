@@ -164,6 +164,7 @@ function AdminTodayForecast() {
                   </tbody>
                 </table>
               </div>
+              <p class="text-end font-xs color-text-paragraph-2"><a href="your_link_here" class="color-text-paragraph-2">See More</a></p>
             </div>
           </div>
         </div>
