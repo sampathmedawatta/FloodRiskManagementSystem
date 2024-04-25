@@ -1,25 +1,32 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
-
-function RegMainAlert(){
-    return(
-<div>
-  <br/>
-  <div className="row">
-    <div className="col-lg-12">
-      <div className="alert alert-danger" role="alert">
-        <i className="bi bi-exclamation-octagon-fill" /> &nbsp;&nbsp; Heavy rainfall expected in the next 12 hours. Potential flooding in low-lying areas. Take necessary precautions and stay tuned for updates. &nbsp;&nbsp; <a href="#" className="alert-link"> See More</a>
+function RegMainAlert({ message, alertType }) {
+  const getAlertClassName = (type) => {
+    switch (type) {
+      case "danger":
+        return "alert alert-danger";
+      case "warning":
+        return "alert alert-warning";
+      case "safe":
+        return "alert alert-success";
+      default:
+        return "alert";
+    }
+  };
+  return (
+    <div className="row">
+      <div className="col-lg-12">
+        <div className={getAlertClassName(alertType)} role="alert">
+          <i className="bi bi-exclamation-octagon-fill" /> &nbsp;&nbsp;{" "}
+          {message}&nbsp;&nbsp;{" "}
+          <Link to={"/dashboard"} className="alert-link">
+            {" "}
+            See More
+          </Link>
+        </div>
       </div>
-      <div className="alert alert-warning" role="alert">
-        <i className="bi bi-exclamation-octagon-fill" /> &nbsp;&nbsp; Heavy rainfall expected in the next 12 hours. Potential flooding in low-lying areas. Take necessary precautions and stay tuned for updates. &nbsp;&nbsp; <a href="#" className="alert-link"> See More</a>
-      </div>
-      <div className="alert alert-success" role="alert">
-        <i className="bi bi-exclamation-octagon-fill" /> &nbsp;&nbsp; Heavy rainfall expected in the next 12 hours. Potential flooding in low-lying areas. Take necessary precautions and stay tuned for updates. &nbsp;&nbsp; <a href="#" className="alert-link"> See More</a>
-      </div></div>
-  </div>
-</div>
-
-        
-    );
+    </div>
+  );
 }
 export default RegMainAlert;

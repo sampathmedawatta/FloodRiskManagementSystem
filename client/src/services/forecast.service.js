@@ -10,7 +10,7 @@ const headers = {
   //Authorization: "Bearer your-access-token", // Add any custom headers as needed
 };
 
-const response = {
+export const response = {
   data: [
     {
       location: "Hong Kong Observatory",
