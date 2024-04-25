@@ -7,9 +7,7 @@ function Faq() {
       <br />
       <div className="row">
         <Faqtable />
-
       </div>
-
     </div>
   );
 }
