@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { API_BASE_URL } from "../Shared/apiConfig";
 import axios from "axios";
+import AdminCreateFAQ from "./AdminFaqCreate";
+import AdminFaqEdit from "./AdminFaqEdit";
+
+import Pagination from "./Pagination";
 
 function AdminFaqManage() {
   const [faqs, setFaqs] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
 
   useEffect(() => {
     fetchData();
@@ -13,13 +20,14 @@ function AdminFaqManage() {
     try {
       const response = await axios.get(`${API_BASE_URL}/faqs/`);
       const sortedFaqs = response.data.sort((a, b) => {
-        return new Date(a.createdTime) - new Date(b.createdTime);
+        return new Date(b.createdTime) - new Date(a.createdTime);
       });
       setFaqs(sortedFaqs);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
-  };
+  };  
+
   const publishFaq = async (id, active) => {
     try {
       await axios.put(`${API_BASE_URL}/faqs/${id}`, { active: !active });
@@ -37,6 +45,39 @@ function AdminFaqManage() {
       console.error("Error updating status:", error);
     }
   };
+
+  const editFAQ= async (id) => {
+    try {
+      await axios.put(`${API_BASE_URL}/faqs/${id}`, );
+      fetchData(); // Refresh data after update
+    } catch (error) {
+      console.error("Error updating status:", error);
+    }
+  };
+
+const createFAQ = async (title, description) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/faqs`, {
+      title,
+      description,
+      active: true,
+    });
+    fetchData();
+    setShowModal(false);
+  } catch (error) {
+    console.error("Error creating FAQ:", error);
+  }
+};
+
+
+  const toggleModal = () => {
+    setShowModal(!showModal); // Toggle the showModal state
+  };
+  const toggleEdit = () => {
+    setShowModal(!showModal); 
+  };
+  
+
   return (
     <div className="col-md-12">
       <div className="box-content">
@@ -57,6 +98,21 @@ function AdminFaqManage() {
             </div>
             <div>
               <div className="panel-body">
+                <div class="row">
+                  <div class="col-md-10"></div>
+
+                  <div class="col-md-2">
+                    <button
+                      type="button"
+                      class="btn btn-login hover-up text-12 w-100"
+                      onClick={toggleModal}
+                    >
+                      <i class="bi bi-question-circle-fill" /> &nbsp; Create New
+                      FAQ
+                    </button>
+                  </div>
+                </div>
+                <br></br>
                 <div className="table-responsive">
                   <table className="table no-wrap user-table mb-0">
                     <thead className="border-bottom thead-header">
@@ -92,12 +148,12 @@ function AdminFaqManage() {
                       {faqs.map((faq, index) => (
                         <tr key={index}>
                           <td className="text-left pl-4">
-                            <span className="text-muted font-sm">
+                            <span className="text-muted  text-justify font-sm">
                               {faq.title}
                             </span>
                           </td>
                           <td className="text-left">
-                            <p className="text-muted font-sm word-limit">
+                            <p className="text-muted text-justify font-sm word-limit">
                               {faq.description}
                             </p>
                           </td>
@@ -112,83 +168,56 @@ function AdminFaqManage() {
                             </span>
                           </td>
                           <td className="text-left">
-      {faq.active ? (
-        <>
-          <button type="button" className="btn btn-pops">
-            <i className="bi bi-file-earmark-text-fill fs-6"></i>
-          </button>
-          <button type="button" className="btn btn-pops"
-          onClick={() => unpublishFaq(faq.id)}>
-            <i className="bi bi-trash fs-6"></i>
-          </button>
-        </>
-      ) : (
-        <button
-          type="button"
-          className="btn btn-pops "
-          onClick={() => publishFaq(faq.id, faq.active)}
-        >
-          <i className="bi bi-check-circle-fill fs-6"></i>
-        </button>
-      )}
-    </td>
+                            {faq.active ? (
+                              <>
+                                <button type="button" className="btn btn-pops" onClick={() => toggleEdit(faq.id)}>
+                                
+                                  <i className="bi bi-file-earmark-text-fill fs-6"></i>
+                                </button>
+                                <button
+                                  type="button"
+                                  className="btn btn-pops"
+                                  onClick={() => unpublishFaq(faq.id)}
+                                >
+                                  <i className="bi bi-trash fs-6"></i>
+                                </button>
+                              </>
+                            ) : (
+                              <button
+                                type="button"
+                                className="btn btn-pops "
+                                onClick={() => publishFaq(faq.id, faq.active)}
+                              >
+                                <i className="bi bi-check-circle-fill fs-6"></i>
+                              </button>
+                            )}
+                          </td>
                         </tr>
                       ))}
                     </tbody>
                   </table>
                 </div>
-                <div class="paginations text-center">
-                  <ul class="pager">
-                    <li>
-                      <a class="pager-prev" href="#"></a>{" "}
-                      <i class="bi bi-caret-left-fill"></i>
-                    </li>
-                    <li>
-                      <a class="pager-number active" href="#">
-                        1
-                      </a>
-                    </li>
-                    <li>
-                      <a class="pager-number" href="#">
-                        2
-                      </a>
-                    </li>
-                    <li>
-                      <a class="pager-number" href="#">
-                        3
-                      </a>
-                    </li>
-                    <li>
-                      <a class="pager-number" href="#">
-                        4
-                      </a>
-                    </li>
-                    <li>
-                      <a class="pager-number" href="#">
-                        5
-                      </a>
-                    </li>
-                    <li>
-                      <a class="pager-number " href="#">
-                        6
-                      </a>
-                    </li>
-                    <li>
-                      <a class="pager-number" href="#">
-                        7
-                      </a>
-                    </li>
-                    <li>
-                      <a class="pager-next" href="#"></a>
-                      <i class="bi bi-caret-right-fill"></i>
-                    </li>
-                  </ul>
-                </div>
+                <Pagination />
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      <AdminCreateFAQ
+        showModal={showModal}
+        toggleModal={toggleModal}
+        title={title}
+        setTitle={setTitle}
+        description={description}
+        setDescription={setDescription}
+        createFAQ={createFAQ}
+      />
+        <AdminFaqEdit
+        showModal={showModal}
+        toggleModal={toggleEdit}
+        editFAQ={editFAQ}
+      />
     </div>
   );
 }
