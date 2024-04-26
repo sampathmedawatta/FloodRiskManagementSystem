@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { API_BASE_URL } from "../Shared/apiConfig";
 import axios from "axios";
-import AdminCreateFAQ from "./AdminCreateFAQ";
+import AdminCreateFAQ from "./AdminFaqCreate";
+import AdminFaqEdit from "./AdminFaqEdit";
+
 import Pagination from "./Pagination";
 
 function AdminFaqManage() {
@@ -44,6 +46,15 @@ function AdminFaqManage() {
     }
   };
 
+  const editFAQ= async (id) => {
+    try {
+      await axios.put(`${API_BASE_URL}/faqs/${id}`, );
+      fetchData(); // Refresh data after update
+    } catch (error) {
+      console.error("Error updating status:", error);
+    }
+  };
+
 const createFAQ = async (title, description) => {
   try {
     const response = await axios.post(`${API_BASE_URL}/faqs`, {
@@ -58,9 +69,14 @@ const createFAQ = async (title, description) => {
   }
 };
 
+
   const toggleModal = () => {
     setShowModal(!showModal); // Toggle the showModal state
   };
+  const toggleEdit = () => {
+    setShowModal(!showModal); 
+  };
+  
 
   return (
     <div className="col-md-12">
@@ -154,7 +170,8 @@ const createFAQ = async (title, description) => {
                           <td className="text-left">
                             {faq.active ? (
                               <>
-                                <button type="button" className="btn btn-pops">
+                                <button type="button" className="btn btn-pops" onClick={() => toggleEdit(faq.id)}>
+                                
                                   <i className="bi bi-file-earmark-text-fill fs-6"></i>
                                 </button>
                                 <button
@@ -195,6 +212,11 @@ const createFAQ = async (title, description) => {
         description={description}
         setDescription={setDescription}
         createFAQ={createFAQ}
+      />
+        <AdminFaqEdit
+        showModal={showModal}
+        toggleModal={toggleEdit}
+        editFAQ={editFAQ}
       />
     </div>
   );
