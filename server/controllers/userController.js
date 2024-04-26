@@ -1,5 +1,5 @@
-const crypto = require("crypto");
 const bcrypt = require("bcrypt");
+const User = require("../modules/userModel");
 
 const users = [
   {
@@ -75,6 +75,11 @@ exports.createUser = async (request, response) => {
     active,
   } = request.body;
 
+  const userAvulable = await User.findOne({ email });
+  if (userAvulable) {
+    response.status(400).json({ message: "user already exist"});
+  }
+
   if (!email) {
     return response.status(422).json({ message: "email is required" });
   }
@@ -82,11 +87,9 @@ exports.createUser = async (request, response) => {
     return response.status(422).json({ message: "password is required" });
   }
 
-  const id = crypto.randomUUID();
   const hashPassword = await bcrypt.hash(password, 10);
 
-  users.push({
-    id,
+  const user = await User.create({
     fName,
     lName,
     email,
@@ -100,6 +103,12 @@ exports.createUser = async (request, response) => {
     active,
   });
 
+   if (user) {
+     response.status(201).json({ _id: user.id, email: user.email });
+   } else {
+     return response.status(422).json({ message: "user creation failed" });
+   }
+   
   response.status(201).json({ message: "user created successfully", id });
 };
 
