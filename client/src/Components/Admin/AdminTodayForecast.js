@@ -12,13 +12,13 @@ function AdminTodayForecast() {
           <div className="panel-white">
             <div className="panel-head">
               <div className="row">
-                <div className="col-md-10">
+                <div className="col-md-9">
                   <h6 className="text-left">
                     <i className="bi bi-tsunami fs-5" />
                     &nbsp;&nbsp;Today's Flooding Forecast
                   </h6>
                 </div>
-                <div className="col-md-2">
+                <div className="col-md-3">
                   <p className="text-right font-xs color-text-paragraph-2">
                     {today}
                   </p>

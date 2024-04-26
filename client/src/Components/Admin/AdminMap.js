@@ -127,7 +127,7 @@ const MapComponent = ({ locations }) => {
     };
   }, [locations]);
 
-  return <div id="map" style={{ width: "100%", height: "400px" }} />;
+  return <div id="map" className="" style={{ width: "100%", height: "460px" }} />;
 };
 
 const AdminMap = () => {
@@ -149,7 +149,15 @@ const AdminMap = () => {
   }, []);
 
   return (
-    <div>{locations !== null && <MapComponent locations={locations} />}</div>
+    <div>   
+         <div className="section-box">
+    <div className="container">
+      <div className="">            
+      <div className="row">
+      
+
+      
+      {locations !== null && <MapComponent locations={locations} />}</div></div></div> </div></div> 
   );
 };
 
