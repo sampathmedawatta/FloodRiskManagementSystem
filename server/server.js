@@ -1,25 +1,12 @@
 const swaggerUi = require("swagger-ui-express");
 const express = require("express");
 const cors = require("cors");
-const mongoose = require("mongoose");
+const connectDb = require("./config/dbConnection");
 
 const port = process.env.PORT || 3001
+connectDb();
 
 const app = express();
-
-///connect to mongodb
-const dbUrl = `mongodb+srv://COS80001db:test123@cluster0.xjkc2gt.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
-const connect = mongoose.connect(dbUrl,{
-    usenewurlparser: true,
-    useunifiedtopology:true
-}).then(()=>{
-    app.listen(5000,()=>{
-        console.log('server start on port 5000 and db connected');
-    });
-}).catch((error)=>{
-    console.log('db connection is faild');
-})
-
 
 app.use(cors());
 app.use(express.json());
