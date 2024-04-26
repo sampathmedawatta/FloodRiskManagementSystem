@@ -40,9 +40,6 @@ function AdminTodayForecast() {
                         Wind (KmH)
                       </th>
                       <th scope="col" className>
-                        Water Level (mm)
-                      </th>
-                      <th scope="col" className>
                         Flood Level (%)
                       </th>
                       <th scope="col" className>
@@ -54,9 +51,6 @@ function AdminTodayForecast() {
                     <tr>
                       <td className="text-center pl-4">
                         <span className="text-muted font-sm">Kwun Tong</span>
-                      </td>
-                      <td className="text-center">
-                        <span className="text-muted font-sm">15</span>
                       </td>
                       <td className="text-center">
                         <span className="text-muted font-sm">15</span>
@@ -83,9 +77,7 @@ function AdminTodayForecast() {
                       <td className="text-center">
                         <span className="text-muted font-sm">15</span>
                       </td>
-                      <td className="text-center">
-                        <span className="text-muted font-sm">61%</span>
-                      </td>
+              
                       <td className="text-center">
                         <span className="text-muted font-sm">61%</span>
                       </td>
@@ -109,9 +101,6 @@ function AdminTodayForecast() {
                         <span className="text-muted font-sm">61%</span>
                       </td>
                       <td className="text-center">
-                        <span className="text-muted font-sm">61%</span>
-                      </td>
-                      <td className="text-center">
                         <span className="text-muted font-sm risklevel-high">
                           High
                         </span>
@@ -131,9 +120,6 @@ function AdminTodayForecast() {
                         <span className="text-muted font-sm">61%</span>
                       </td>
                       <td className="text-center">
-                        <span className="text-muted font-sm">61%</span>
-                      </td>
-                      <td className="text-center">
                         <span className="text-muted font-sm risklevel-norisk">
                           No
                         </span>
@@ -148,9 +134,6 @@ function AdminTodayForecast() {
                       </td>
                       <td className="text-center">
                         <span className="text-muted font-sm">15</span>
-                      </td>
-                      <td className="text-center">
-                        <span className="text-muted font-sm">61%</span>
                       </td>
                       <td className="text-center">
                         <span className="text-muted font-sm">61%</span>
