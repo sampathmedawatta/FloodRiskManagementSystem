@@ -127,7 +127,7 @@ const MapComponent = ({ locations }) => {
     };
   }, [locations]);
 
-  return <div id="map" className="" style={{ width: "100%", height: "460px" }} />;
+  return <div id="map" className="" style={{ width: "100%", height: "340px" }} />;
 };
 
 const AdminMap = () => {
