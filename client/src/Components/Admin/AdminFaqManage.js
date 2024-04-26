@@ -1,12 +1,14 @@
-
 import React, { useState, useEffect } from "react";
 import { API_BASE_URL } from "../Shared/apiConfig";
 import axios from "axios";
 import AdminCreateFAQ from "./AdminCreateFAQ";
+import Pagination from "./Pagination";
 
 function AdminFaqManage() {
   const [faqs, setFaqs] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
 
   useEffect(() => {
     fetchData();
@@ -16,13 +18,13 @@ function AdminFaqManage() {
     try {
       const response = await axios.get(`${API_BASE_URL}/faqs/`);
       const sortedFaqs = response.data.sort((a, b) => {
-        return new Date(a.createdTime) - new Date(b.createdTime);
+        return new Date(b.createdTime) - new Date(a.createdTime);
       });
       setFaqs(sortedFaqs);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
-  };
+  };  
 
   const publishFaq = async (id, active) => {
     try {
@@ -42,26 +44,23 @@ function AdminFaqManage() {
     }
   };
 
-  const createFAQ = async (title, description) => {
-    try {
-      const response = await axios.post(`${API_BASE_URL}/faqs/create`, {
-        title,
-        description,
-        active: true,
-      });
-      fetchData();
-      setShowModal(false);
-    } catch (error) {
-      console.error("Error creating FAQ:", error);
-    }
-  };
+const createFAQ = async (title, description) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/faqs`, {
+      title,
+      description,
+      active: true,
+    });
+    fetchData();
+    setShowModal(false);
+  } catch (error) {
+    console.error("Error creating FAQ:", error);
+  }
+};
 
   const toggleModal = () => {
-    console.log("Toggling modal");
-    setShowModal(!showModal);
+    setShowModal(!showModal); // Toggle the showModal state
   };
-
-  console.log("showModal:", showModal);
 
   return (
     <div className="col-md-12">
@@ -87,25 +86,116 @@ function AdminFaqManage() {
                   <div class="col-md-10"></div>
 
                   <div class="col-md-2">
-                  <button
-  className="btn btn-login hover-up text-12 w-100"
-  onClick={() => toggleModal()}
->
-  <i className="bi bi-info-square-fill" /> &nbsp; Create New FAQ
-</button>
+                    <button
+                      type="button"
+                      class="btn btn-login hover-up text-12 w-100"
+                      onClick={toggleModal}
+                    >
+                      <i class="bi bi-question-circle-fill" /> &nbsp; Create New
+                      FAQ
+                    </button>
                   </div>
                 </div>
-                <br />
+                <br></br>
                 <div className="table-responsive">
-                  {/* Table content */}
+                  <table className="table no-wrap user-table mb-0">
+                    <thead className="border-bottom thead-header">
+                      <tr>
+                        <th
+                          scope="col"
+                          className="pl-4"
+                          style={{ width: "30%", textAlign: "left" }}
+                        >
+                          Title
+                        </th>
+                        <th
+                          scope="col"
+                          style={{ width: "50%", textAlign: "left" }}
+                        >
+                          Description
+                        </th>
+                        <th
+                          scope="col"
+                          style={{ width: "10%", textAlign: "left" }}
+                        >
+                          Status
+                        </th>
+                        <th
+                          scope="col"
+                          style={{ width: "10%", textAlign: "left" }}
+                        >
+                          Manage
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {faqs.map((faq, index) => (
+                        <tr key={index}>
+                          <td className="text-left pl-4">
+                            <span className="text-muted  text-justify font-sm">
+                              {faq.title}
+                            </span>
+                          </td>
+                          <td className="text-left">
+                            <p className="text-muted text-justify font-sm word-limit">
+                              {faq.description}
+                            </p>
+                          </td>
+
+                          <td className="text-left">
+                            <span
+                              className={`label-status ${
+                                faq.active ? "label-active" : "label-inactive"
+                              }`}
+                            >
+                              {faq.active ? "Active" : "Inactive"}
+                            </span>
+                          </td>
+                          <td className="text-left">
+                            {faq.active ? (
+                              <>
+                                <button type="button" className="btn btn-pops">
+                                  <i className="bi bi-file-earmark-text-fill fs-6"></i>
+                                </button>
+                                <button
+                                  type="button"
+                                  className="btn btn-pops"
+                                  onClick={() => unpublishFaq(faq.id)}
+                                >
+                                  <i className="bi bi-trash fs-6"></i>
+                                </button>
+                              </>
+                            ) : (
+                              <button
+                                type="button"
+                                className="btn btn-pops "
+                                onClick={() => publishFaq(faq.id, faq.active)}
+                              >
+                                <i className="bi bi-check-circle-fill fs-6"></i>
+                              </button>
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
+                <Pagination />
               </div>
             </div>
           </div>
         </div>
-        {showModal && <AdminCreateFAQ AdminCreateFAQ={createFAQ} />}
       </div>
 
+      <AdminCreateFAQ
+        showModal={showModal}
+        toggleModal={toggleModal}
+        title={title}
+        setTitle={setTitle}
+        description={description}
+        setDescription={setDescription}
+        createFAQ={createFAQ}
+      />
     </div>
   );
 }
