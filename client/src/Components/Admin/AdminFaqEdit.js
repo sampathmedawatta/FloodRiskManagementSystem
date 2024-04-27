@@ -18,60 +18,51 @@ function AdminFaqEdit({ showModal, toggleModal, faq, editFAQ }) {
     zIndex: "1001",
     maxWidth: "80%",
     maxHeight: "80%",
-    overflow: "auto"
+    overflow: "auto",
   };
 
   const modalTitleStyle = {
     fontSize: "1.2rem",
-    marginBottom: "15px"
+    marginBottom: "15px",
   };
 
   useEffect(() => {
-    console.log("FAQ prop in AdminFaqEdit:", faq);
     if (faq) {
-      console.log("Setting title and description:", faq.title, faq.description);
       setTitle(faq.title || "");
       setDescription(faq.description || "");
     }
   }, [faq]);
 
   const handleUpdateFAQ = () => {
-    console.log("Updating FAQ...");
     if (!title.trim()) {
-      console.log("Title is empty");
       setTitleError(true);
     } else {
-      console.log("Title is not empty:", title);
       setTitleError(false);
     }
 
     if (!description.trim()) {
-      console.log("Description is empty");
       setDescriptionError(true);
     } else {
-      console.log("Description is not empty:", description);
       setDescriptionError(false);
     }
 
     if (title.trim() && description.trim()) {
-      console.log("Updating FAQ with title and description:", title, description);
       editFAQ(faq.id, { title, description });
       toggleModal(); // Close modal after updating FAQ
     }
   };
-
-  console.log("showModal:", showModal);
-
   return (
-  
-    <div className={`modal fade ${showModal ? "show" : ""}`}   style={{ display: showModal ? "block" : "none" }}
-  >
-
-
+    <div
+      className={`modal fade ${showModal ? "show" : ""}`}
+      style={{ display: showModal ? "block" : "none" }}
+    >
       <div className="modal-dialog modal-dialog-centered" role="document">
         <div className="modal-content">
           <div className="modal-header">
-            <h6 className="modal-title" id=""> <i className="bi bi-pencil-square"></i>&nbsp;&nbsp;Edit FAQ</h6>
+            <h6 className="modal-title" id="">
+              {" "}
+              <i className="bi bi-pencil-square"></i>&nbsp;&nbsp;Edit FAQ
+            </h6>
             <button
               type="button"
               data-dismiss="modal"
@@ -83,41 +74,44 @@ function AdminFaqEdit({ showModal, toggleModal, faq, editFAQ }) {
             </button>
           </div>
           <div className="modal-body">
-          <div class="form-group">
+            <div class="form-group">
               <label class="font-sm mb-10 " required>
                 Title *
               </label>
-            <input
-              type="text"
-              placeholder="Title"
-              className={`form-control ${titleError ? "is-invalid" : ""}`}
-              value={title}
-              onChange={(e) => {
-                setTitle(e.target.value);
-                setTitleError(false); // Clear error when typing
-              }}
-            />
-            {titleError && (
-              <div className="invalid-feedback">Title is required</div>
-            )}
-       </div>
-       <div class="form-group">
+              <input
+                type="text"
+                placeholder="Title"
+                className={`form-control ${titleError ? "is-invalid" : ""}`}
+                value={title}
+                onChange={(e) => {
+                  setTitle(e.target.value);
+                  setTitleError(false); // Clear error when typing
+                }}
+              />
+              {titleError && (
+                <div className="invalid-feedback">Title is required</div>
+              )}
+            </div>
+            <div class="form-group">
               <label class="font-sm mb-10 " required>
-              Description *
+                Description *
               </label>
-            <textarea
-              placeholder="Description"
-              className={`form-control ${descriptionError ? "is-invalid" : ""}`}
-              value={description}
-              onChange={(e) => {
-                setDescription(e.target.value);
-                setDescriptionError(false); // Clear error when typing
-              }}
-            ></textarea>
-            {descriptionError && (
-              <div className="invalid-feedback">Description is required</div>
-            )}
-          </div></div>
+              <textarea
+                placeholder="Description"
+                className={`form-control ${
+                  descriptionError ? "is-invalid" : ""
+                }`}
+                value={description}
+                onChange={(e) => {
+                  setDescription(e.target.value);
+                  setDescriptionError(false); // Clear error when typing
+                }}
+              ></textarea>
+              {descriptionError && (
+                <div className="invalid-feedback">Description is required</div>
+              )}
+            </div>
+          </div>
           <div className="row modal-footer">
             <div className="col-md-8"></div>
             <div className="col-md-4 d-flex justify-content-end">
@@ -130,7 +124,6 @@ function AdminFaqEdit({ showModal, toggleModal, faq, editFAQ }) {
               </button>
             </div>
           </div>
-        
         </div>
       </div>
     </div>
