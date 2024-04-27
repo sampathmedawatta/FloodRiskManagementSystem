@@ -4,7 +4,7 @@ function AdminFaqList({ faqs, toggleEditModal, handleFAQAction }) {
   return (
     <tbody>
       {faqs.map((faq, index) => (
-        <tr key={index}>
+        <tr key={index} className="tr-border">
           <td className="text-left pl-4">
             <span className="text-muted  text-justify font-sm">{faq.title}</span>
           </td>

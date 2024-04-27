@@ -29,7 +29,7 @@ function AdminTodayForecast() {
               <div className="table-responsive">
                 <table className="table no-wrap user-table mb-0">
                   <thead className="border-bottom thead-header">
-                    <tr>
+                    <tr className="tr-border">
                       <th scope="col" className="pl-4">
                         Location
                       </th>
@@ -48,7 +48,7 @@ function AdminTodayForecast() {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
+                    <tr className="tr-border">
                       <td className="text-center pl-4">
                         <span className="text-muted font-sm">Kwun Tong</span>
                       </td>
@@ -67,7 +67,7 @@ function AdminTodayForecast() {
                         </span>
                       </td>
                     </tr>
-                    <tr>
+                    <tr className="tr-border">
                       <td className="text-center">
                         <span className="text-muted font-sm">Kwun Tong</span>
                       </td>
@@ -87,7 +87,7 @@ function AdminTodayForecast() {
                         </span>
                       </td>
                     </tr>
-                    <tr>
+                    <tr className="tr-border">
                       <td className="text-center">
                         <span className="text-muted font-sm">Kwun Tong</span>
                       </td>
@@ -106,7 +106,7 @@ function AdminTodayForecast() {
                         </span>
                       </td>
                     </tr>
-                    <tr>
+                    <tr className="tr-border">
                       <td className="text-center">
                         <span className="text-muted font-sm">Kwun Tong</span>
                       </td>
@@ -125,7 +125,7 @@ function AdminTodayForecast() {
                         </span>
                       </td>
                     </tr>
-                    <tr>
+                    <tr className="tr-border">
                       <td className="text-center">
                         <span className="text-muted font-sm">Kwun Tong</span>
                       </td>
