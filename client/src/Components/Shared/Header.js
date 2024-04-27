@@ -43,7 +43,7 @@ function Header() {
         <div className="header-left">
           <div className="header-logo">
             <a className="d-flex" href="registered-user-home.html">
-              <img alt="CorpU" src="imgs/logo.svg" />
+              <img alt="floodm" src="imgs/logo.svg" />
             </a>
           </div>
         </div>

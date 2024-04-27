@@ -2,25 +2,114 @@ const crypto = require("crypto");
 
 const inquiries = [
   {
-    id: "0dfe3b7e-df47-4e3b-aa31-1017eb2a68e3",
-    title: "inquiry1",
-    description: "inquiry description",
-    publishDate: "01/05/2024",
-    active: true,
+    id: "1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6",
+    messageTitle: "Inquiry 1",
+    messageDescription: "This is the first inquiry message description.",
+    messageDate: "2024-04-01T00:00:00.000Z",
+    inquiryStatus: "PENDING",
+    replyTitle: "",
+    replyDescription: "",
+    replyDate: "",
   },
   {
-    id: "0dfe3b7e-df47-4e3b-aa31-1017eb2a68e4",
-    title: "inquiry1",
-    description: "inquiry description",
-    publishDate: "01/05/2024",
-    active: true,
+    id: "2b3c4d5e-6f7g-8h9i-0j1k-2l3m4n5o6p",
+    messageTitle: "Inquiry 2",
+    messageDescription: "This is the second inquiry message description.",
+    messageDate: "2024-04-15T00:00:00.000Z",
+    inquiryStatus: "PENDING",
+    replyTitle: "",
+    replyDescription: "",
+    replyDate: "",
   },
   {
-    id: "0dfe3b7e-df47-4e3b-aa31-1017eb2a68e5",
-    title: "inquiry1",
-    description: "inquiry description",
-    publishDate: "01/05/2024",
-    active: true,
+    id: "3c4d5e6f-7g8h-9i0j-1k2l-3m4n5o6p7q",
+    messageTitle: "Inquiry 3",
+    messageDescription: "This is the third inquiry message description.",
+    messageDate: "2024-04-20T00:00:00.000Z",
+    inquiryStatus: "REPLY",
+    replyTitle: "Reply to Inquiry 3",
+    replyDescription: "This is the reply to the third inquiry.",
+    replyDate: "2024-04-21T00:00:00.000Z",
+  },
+  {
+    id: "4d5e6f7g-8h9i-0j1k-2l3m-4n5o6p7q8r",
+    messageTitle: "Inquiry 4",
+    messageDescription: "This is the fourth inquiry message description.",
+    messageDate: "2024-04-25T00:00:00.000Z",
+    inquiryStatus: "DISABLE",
+    replyTitle: "",
+    replyDescription: "",
+    replyDate: "",
+  },
+  {
+    id: "5e6f7g8h-9i0j-1k2l-3m4n-5o6p7q8r9s",
+    messageTitle: "Inquiry 5",
+    messageDescription: "This is the fifth inquiry message description.",
+    messageDate: "2024-05-01T00:00:00.000Z",
+    inquiryStatus: "REPLY",
+    replyTitle: "Reply to Inquiry 5",
+    replyDescription: "This is the reply to the fifth inquiry.",
+    replyDate: "2024-05-02T00:00:00.000Z",
+  },
+  {
+    id: "6f7g8h9i-0j1k-2l3m-4n5o-6p7q8r9s0t",
+    messageTitle: "Inquiry 6",
+    messageDescription: "This is the sixth inquiry message description.",
+    messageDate: "2024-05-10T00:00:00.000Z",
+    inquiryStatus: "PENDING",
+    replyTitle: "",
+    replyDescription: "",
+    replyDate: "",
+  },
+  {
+    id: "6f7g8h9i-0j1k-2l3m-4n5o-6p7q8r9s0t",
+    messageTitle: "Inquiry 13",
+    messageDescription: "This is the sixth inquiry message description.",
+    messageDate: "2024-05-12T00:00:00.000Z",
+    inquiryStatus: "PENDING",
+    replyTitle: "",
+    replyDescription: "",
+    replyDate: "",
+  },
+  {
+    id: "7g8h9i0j-1k2l-3m4n-5o6p-7q8r9s0t1u",
+    messageTitle: "Inquiry 7",
+    messageDescription: "This is the seventh inquiry message description.",
+    messageDate: "2024-05-15T00:00:00.000Z",
+    inquiryStatus: "PENDING",
+    replyTitle: "",
+    replyDescription: "",
+    replyDate: "",
+  },
+  {
+    id: "8h9i0j1k-2l3m-4n5o-6p7q-8r9s0t1u2v",
+    messageTitle: "Inquiry 8",
+    messageDescription: "This is the eighth inquiry message description.",
+    messageDate: "2024-05-20T00:00:00.000Z",
+    inquiryStatus: "DISABLE",
+    replyTitle: "",
+    replyDescription: "",
+    replyDate: "",
+  },
+  {
+    id: "9i0j1k2l-3m4n-5o6p-7q8r-9s0t1u2v3w",
+    messageTitle: "Inquiry 9",
+    messageDescription: "This is the ninth inquiry message description.",
+    messageDate: "2024-05-25T00:00:00.000Z",
+    inquiryStatus: "REPLY",
+    replyTitle: "Reply to Inquiry 9",
+    replyDescription: "This is the reply to the ninth inquiry.",
+    replyDate: "2024-05-26T00:00:00.000Z",
+  },
+  {
+    id: "0j1k2l3m-4n5o-6p7q-8r9s-0t1u2v3w4x",
+    messageTitle: "Inquiry 10",
+    messageDescription: "This is the tenth inquiry message description.",
+    messageDate: "2024-05-30T00:00:00.000Z",
+    inquiryStatus: "PENDING",
+    replyTitle: "",
+    replyDescription: "",
+    replyDate: "",
   },
 ];
 
@@ -39,20 +128,27 @@ exports.getInquiryById = (request, response) => {
 };
 
 exports.createInquiry = (request, response) => {
-  const { title, description, publishDate, active } = request.body;
+  const { messageTitle, messageDescription, messageDate, inquiryStatus } =
+    request.body;
 
-  if (!title) {
-    return response.status(422).json({ message: "title is required" });
+  if (!messageTitle) {
+    return response.status(422).json({ message: "Message Title is required" });
   }
 
   const id = crypto.randomUUID();
+  const date = new Date();
+  // messageDate= date.toISOString();
+  // replyDate= date.toISOString();
 
   inquiries.push({
     id,
-    title,
-    description,
-    publishDate,
-    active,
+    messageTitle,
+    messageDescription,
+    messageDate,
+    replyTitle,
+    replyDescription,
+    replyDate,
+    inquiryStatus, //PENDING,REPLY,DISABLE
   });
 
   response.status(201).json({ message: "inquiry created successfully", id });
@@ -62,32 +158,30 @@ exports.updateInquiry = (request, response) => {
   const inquiry = inquiries.find((inquiry) => inquiry.id == request.params.id);
 
   if (!inquiry) {
-    return response.status(404).json({ message: "inquiry not found" });
+    return response.status(404).json({ message: "Inquiry not found" });
   }
 
-  const { title, description, publishDate, active } = request.body;
+  const { messageTitle, messageDescription, messageDate, inquiryStatus } = request.body;
 
-  if (title) {
-    inquiry.title = title;
+  if (messageTitle) {
+    inquiry.messageTitle = messageTitle;
   }
-
-  if (description) {
-    inquiry.description = description;
+  if (messageDescription) {
+    inquiry.messageDescription = messageDescription;
   }
-
-  if (publishDate) {
-    inquiry.publishDate = publishDate;
+  if (messageDate) {
+    inquiry.messageDate = messageDate;
   }
-
-  if ("active" in request.body) {
-    inquiry.active = active;
+  if (inquiryStatus) {
+    inquiry.inquiryStatus = inquiryStatus;
   }
-
   response.status(200).json({ message: "inquiry updated successfully" });
 };
 
 exports.deleteInquiry = (request, response) => {
-  const inquiryIndex = inquiries.findIndex((inquiry) => inquiry.id == request.params.id);
+  const inquiryIndex = inquiries.findIndex(
+    (inquiry) => inquiry.id == request.params.id
+  );
 
   if (inquiryIndex == -1) {
     return response.status(404).json({ message: "inquiry not found" });
