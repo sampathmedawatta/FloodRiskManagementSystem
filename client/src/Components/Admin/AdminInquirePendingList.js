@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-function AdminInquirePendingList({ pendingInquiries }) {
+function AdminInquirePendingList({ pendingInquiries,toggleSendMsg }) {
   const [userNames, setUserNames] = useState({});
 
   useEffect(() => {
@@ -57,9 +57,14 @@ function AdminInquirePendingList({ pendingInquiries }) {
             </p>
           </td>
           <td className="text-left">
-            <button type="button" className="btn btn-pops ">
-              <i className="bi bi-reply-all-fill fs-6"></i>
-            </button>
+      
+             <button
+                type="button"
+                className="btn btn-pops "
+                onClick={() => toggleSendMsg(inquiry)}
+              >
+                <i className="bi  bi-reply-all-fill fs-6"></i>
+              </button>
           </td>
         </tr>
       ))}
