@@ -19,7 +19,10 @@ function Header() {
       try {
         const response = await LocationService.getLocations();
         if (response) {
-          setLocations(response.locations);
+          const floodLocations = response.locations.filter(
+            (location) => location.type === "Flood"
+          );
+          setLocations(floodLocations);
         }
       } catch (error) {
         console.error("Error fetching locations:", error);
@@ -73,14 +76,14 @@ function Header() {
                     aria-labelledby="dropdownProfile"
                   >
                     {locations?.map((location) => (
-                      <li key={location.item.name}>
+                      <li key={location.name}>
                         <button
                           className="dropdown-item"
                           onClick={() =>
-                            handleLocationSelect(location.item.name)
+                            handleLocationSelect(location.name)
                           } // Call handleLocationSelect when a location is clicked
                         >
-                          {location.item.name}
+                          {location.name}
                         </button>
                       </li>
                     ))}
