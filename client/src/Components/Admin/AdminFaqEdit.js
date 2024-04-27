@@ -5,26 +5,6 @@ function AdminFaqEdit({ showModal, toggleModal, faq, editFAQ }) {
   const [description, setDescription] = useState("");
   const [titleError, setTitleError] = useState(false);
   const [descriptionError, setDescriptionError] = useState(false);
-  const modalContainerStyle = {
-    position: "fixed",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    backgroundColor: "#ffffff",
-    border: "1px solid #ccc",
-    borderRadius: "5px",
-    padding: "20px",
-    boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
-    zIndex: "1001",
-    maxWidth: "80%",
-    maxHeight: "80%",
-    overflow: "auto",
-  };
-
-  const modalTitleStyle = {
-    fontSize: "1.2rem",
-    marginBottom: "15px",
-  };
 
   useEffect(() => {
     if (faq) {
@@ -33,24 +13,29 @@ function AdminFaqEdit({ showModal, toggleModal, faq, editFAQ }) {
     }
   }, [faq]);
 
-  const handleUpdateFAQ = () => {
-    if (!title.trim()) {
-      setTitleError(true);
-    } else {
-      setTitleError(false);
-    }
+  const handleUpdateFAQ = async () => {
+    try {
+      if (!title.trim()) {
+        setTitleError(true);
+      } else {
+        setTitleError(false);
+      }
 
-    if (!description.trim()) {
-      setDescriptionError(true);
-    } else {
-      setDescriptionError(false);
-    }
+      if (!description.trim()) {
+        setDescriptionError(true);
+      } else {
+        setDescriptionError(false);
+      }
 
-    if (title.trim() && description.trim()) {
-      editFAQ(faq.id, { title, description });
-      toggleModal(); // Close modal after updating FAQ
+      if (title.trim() && description.trim()) {
+        await editFAQ(faq.id, "edit", { title, description });
+        toggleModal(); // Close modal after updating FAQ
+      }
+    } catch (error) {
+      console.error("Error updating FAQ:", error);
     }
   };
+
   return (
     <div
       className={`modal fade ${showModal ? "show" : ""}`}
