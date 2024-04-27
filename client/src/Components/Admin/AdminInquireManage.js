@@ -3,12 +3,10 @@ import { API_BASE_URL } from "../Shared/apiConfig";
 import axios from "axios";
 
 import Pagination from "./Pagination";
-import AdminInquireTable from "./AdminInquireTable";
+import AdminInquirePendingTable from "./AdminInquirePendingTable";
 
 function AdminInquireManage() {
-  const [pendingInquiries, setPendingInquiries] = useState([]);
-
-  const [faqToEdit, setFaqToEdit] = useState(null);
+const [pendingInquiries, setPendingInquiries] = useState([]);
 
   useEffect(() => {
     fetchData();
@@ -96,7 +94,7 @@ function AdminInquireManage() {
                   <div className="col-md-2"></div>
                 </div>
                 <br></br>
-                <AdminInquireTable pendingInquiries={pendingInquiries} />
+                <AdminInquirePendingTable pendingInquiries={pendingInquiries} />
                 <Pagination />
               </div>
             </div>

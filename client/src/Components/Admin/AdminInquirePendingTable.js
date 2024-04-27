@@ -1,7 +1,7 @@
 import React from "react";
-import AdminInquireList from "./AdminInquireList";
+import AdminInquirePendingList from "./AdminInquirePendingList";
 
-function AdminInquireTable({ pendingInquiries }) {
+function AdminInquirePendingTable({ pendingInquiries }) {
   return (
     <div className="table-responsive">
       <table className="table no-wrap user-table mb-0">
@@ -30,10 +30,10 @@ function AdminInquireTable({ pendingInquiries }) {
             </th>
           </tr>
         </thead>
-        <AdminInquireList pendingInquiries={pendingInquiries} />
+        <AdminInquirePendingList pendingInquiries={pendingInquiries} />
       </table>
     </div>
   );
 }
 
-export default AdminInquireTable;
+export default AdminInquirePendingTable;
