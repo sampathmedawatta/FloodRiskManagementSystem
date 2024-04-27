@@ -159,10 +159,10 @@ function Navbar() {
           <li>
             {" "}
             <a
-              className={`dashboard ${isActiveLink("/") ? "active" : ""}`}
-              href="/"
+              className={`dashboard ${isActiveLink("/manage-inquires") ? "active" : ""}`}
+              href="/manage-inquires"
             >
-              <Link to="/" className="nav-link px-0 align-middle">
+              <Link to="/manage-inquires" className="nav-link px-0 align-middle">
                 <i class="bi bi-envelope fs-5"></i>
                 <span class="name">
                   &nbsp;&nbsp;&nbsp;Manage Inquiries&nbsp;&nbsp;

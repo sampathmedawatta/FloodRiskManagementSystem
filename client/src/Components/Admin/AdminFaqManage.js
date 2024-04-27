@@ -96,13 +96,17 @@ function AdminFaqManage() {
                       className="btn btn-login hover-up text-12 w-100"
                       onClick={toggleCreateModal}
                     >
-                      <i className="bi bi-question-circle-fill" /> &nbsp;
-                      Create New FAQ
+                      <i className="bi bi-question-circle-fill" /> &nbsp; Create
+                      New FAQ
                     </button>
                   </div>
                 </div>
                 <br></br>
-                <AdminFaqTable faqs={faqs} toggleEditModal={toggleEditModal} handleFAQAction={handleFAQAction} />
+                <AdminFaqTable
+                  faqs={faqs}
+                  toggleEditModal={toggleEditModal}
+                  handleFAQAction={handleFAQAction}
+                />
                 <Pagination />
               </div>
             </div>

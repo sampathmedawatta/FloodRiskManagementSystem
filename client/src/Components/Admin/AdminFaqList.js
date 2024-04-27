@@ -5,14 +5,27 @@ function AdminFaqList({ faqs, toggleEditModal, handleFAQAction }) {
     <tbody>
       {faqs.map((faq, index) => (
         <tr key={index} className="tr-border">
+          <td className="text-left">
+            <p className="text-muted text-justify font-sm word-limit">
+              {index + 1}
+            </p>
+          </td>
           <td className="text-left pl-4">
-            <span className="text-muted  text-justify font-sm">{faq.title}</span>
+            <span className="text-muted  text-justify font-sm">
+              {faq.title}
+            </span>
           </td>
           <td className="text-left">
-            <p className="text-muted text-justify font-sm word-limit">{faq.description}</p>
+            <p className="text-muted text-justify font-sm word-limit">
+              {faq.description}
+            </p>
           </td>
           <td className="text-left">
-            <span className={`label-status ${faq.active ? "label-active" : "label-inactive"}`}>
+            <span
+              className={`label-status ${
+                faq.active ? "label-active" : "label-inactive"
+              }`}
+            >
               {faq.active ? "Active" : "Inactive"}
             </span>
           </td>

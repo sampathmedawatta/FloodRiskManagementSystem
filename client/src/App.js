@@ -11,6 +11,7 @@ import AdminDashbord from "./Components/Admin/AdminDashbord";
 import MobileNavbar from './Components/Shared/MobileNavbar';
 import Faq from './Components/Shared/Faqtable';
 import AdminFaq from "./Components/Admin/AdminFaq";
+import AdminInquires from "./Components/Admin/AdminInquire";
 import { getUserSession } from './Components/Shared/SessionUtils';
 
 const userSession = getUserSession();
@@ -32,6 +33,7 @@ function App() {
             {/* For Admins */}
             {isAdmin && <Route path="admin-dashboard" element={<AdminDashbord />} />}
             {isAdmin && <Route path="manage-faq" element={<AdminFaq />} />}
+            {isAdmin && <Route path="manage-inquires" element={<AdminInquires />} />}
 
             {/* For Registered Users */}
             {isRegistered && <Route path="dashboard" element={<RegDashbord />} />}
