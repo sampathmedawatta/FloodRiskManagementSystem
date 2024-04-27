@@ -7,7 +7,18 @@ function AdminFaqTable({ faqs, toggleEditModal, handleFAQAction }) {
       <table className="table no-wrap user-table mb-0">
         <thead className="border-bottom thead-header">
           <tr>
-            <th scope="col" className="pl-4" style={{ width: "30%", textAlign: "left" }}>
+            <th
+              scope="col"
+              className="pl-4"
+              style={{ width: "1%", textAlign: "left" }}
+            >
+              #
+            </th>
+            <th
+              scope="col"
+              className="pl-4"
+              style={{ width: "30%", textAlign: "left" }}
+            >
               Title
             </th>
             <th scope="col" style={{ width: "50%", textAlign: "left" }}>
@@ -21,7 +32,11 @@ function AdminFaqTable({ faqs, toggleEditModal, handleFAQAction }) {
             </th>
           </tr>
         </thead>
-        <AdminFaqList faqs={faqs} toggleEditModal={toggleEditModal} handleFAQAction={handleFAQAction} />
+        <AdminFaqList
+          faqs={faqs}
+          toggleEditModal={toggleEditModal}
+          handleFAQAction={handleFAQAction}
+        />
       </table>
     </div>
   );

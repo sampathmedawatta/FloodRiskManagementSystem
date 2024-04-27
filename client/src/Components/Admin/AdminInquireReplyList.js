@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from "react";
+import { API_BASE_URL } from "../Shared/apiConfig";
 import axios from "axios";
 
-function AdminInquirePendingList({ pendingInquiries }) {
+function AdminInquireReplyList({ replyInquiries }) {
   const [userNames, setUserNames] = useState({});
 
   useEffect(() => {
     // Fetch user details for each pending inquiry
     const fetchUserDetails = async () => {
-      const userDetailsPromises = pendingInquiries.map((inquiry) =>
-        axios.get(`http://localhost:3001/user/${inquiry.userid}`)
+      const userDetailsPromises = replyInquiries.map((inquiry) =>
+      axios.get(`http://localhost:3001/user/${inquiry.userid}`)
       );
 
       try {
         const userDetailsResponses = await Promise.all(userDetailsPromises);
         const userNamesMap = userDetailsResponses.reduce((acc, response) => {
-          acc[
-            response.data._id
-          ] = `${response.data.fName} ${response.data.lName}`;
+          acc[response.data._id] = `${response.data.fName} ${response.data.lName}`;
           return acc;
         }, {});
         setUserNames(userNamesMap);
@@ -26,19 +25,25 @@ function AdminInquirePendingList({ pendingInquiries }) {
     };
 
     fetchUserDetails();
-  }, [pendingInquiries]);
+  }, [replyInquiries]);
 
-  if (!pendingInquiries || pendingInquiries.length === 0) {
+  if (!replyInquiries || replyInquiries.length === 0) {
     return <tbody>No pending inquiries to display</tbody>;
   }
 
   return (
     <tbody>
-      {pendingInquiries.map((inquiry, index) => (
+      {replyInquiries.map((inquiry, index) => (
+        
         <tr key={index} className="tr-border">
           <td className="text-left">
             <p className="text-muted text-justify font-sm word-limit">
-              {index + 1}
+            {index + 1}
+            </p>
+          </td>
+                    <td className="text-left">
+            <p className="text-muted text-justify font-sm word-limit">
+              {userNames[inquiry.userid] || "Name"}
             </p>
           </td>
           <td className="text-left pl-4">
@@ -53,13 +58,13 @@ function AdminInquirePendingList({ pendingInquiries }) {
           </td>
           <td className="text-left">
             <p className="text-muted text-justify font-sm word-limit">
-              {userNames[inquiry.userid] || "Name"}
+            {inquiry.replyTitle}
             </p>
           </td>
           <td className="text-left">
-            <button type="button" className="btn btn-pops ">
-              <i className="bi bi-reply-all-fill fs-6"></i>
-            </button>
+          <p className="text-muted text-justify font-sm word-limit">
+            {inquiry.replyDescription}
+            </p>
           </td>
         </tr>
       ))}
@@ -67,4 +72,4 @@ function AdminInquirePendingList({ pendingInquiries }) {
   );
 }
 
-export default AdminInquirePendingList;
+export default AdminInquireReplyList;

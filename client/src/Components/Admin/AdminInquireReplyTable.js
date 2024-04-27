@@ -1,7 +1,7 @@
 import React from "react";
-import AdminInquirePendingList from "./AdminInquirePendingList";
+import AdminInquireReplyList from "./AdminInquireReplyList";
 
-function AdminInquirePendingTable({ pendingInquiries }) {
+function AdminInquireReplyTable({ replyInquiries }) {
   return (
     <div className="table-responsive">
       <table className="table no-wrap user-table mb-0">
@@ -14,33 +14,39 @@ function AdminInquirePendingTable({ pendingInquiries }) {
             >
               #
             </th>
-
             <th
               scope="col"
               className="pl-4"
-              style={{ width: "25%", textAlign: "left" }}
+              style={{ width: "10%", textAlign: "left" }}
             >
-              Title
+              Customer Name
             </th>
-            <th scope="col" style={{ width: "45%", textAlign: "left" }}>
-              Message
+            <th scope="col" style={{ width: "15%", textAlign: "left" }}>
+              Inquiry Title
+            </th>
+            <th scope="col" style={{ width: "25%", textAlign: "left" }}>
+              Inquiry
             </th>
             <th
               scope="col"
               className="pl-4"
               style={{ width: "20%", textAlign: "left" }}
             >
-              Customer Name
+              Reply Title
             </th>
-            <th scope="col" style={{ width: "10%", textAlign: "left" }}>
-              Reply
+            <th
+              scope="col"
+              className="pl-4"
+              style={{ width: "35%", textAlign: "left" }}
+            >
+              Reply Message
             </th>
           </tr>
         </thead>
-        <AdminInquirePendingList pendingInquiries={pendingInquiries} />
+        <AdminInquireReplyList replyInquiries={replyInquiries} />
       </table>
     </div>
   );
 }
 
-export default AdminInquirePendingTable;
+export default AdminInquireReplyTable;

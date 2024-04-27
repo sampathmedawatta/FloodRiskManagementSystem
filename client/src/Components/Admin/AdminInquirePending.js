@@ -5,7 +5,7 @@ import axios from "axios";
 import Pagination from "./Pagination";
 import AdminInquirePendingTable from "./AdminInquirePendingTable";
 
-function AdminInquireManage() {
+function AdminInquirePending() {
 const [pendingInquiries, setPendingInquiries] = useState([]);
 
   useEffect(() => {
@@ -105,4 +105,4 @@ const [pendingInquiries, setPendingInquiries] = useState([]);
   );
 }
 
-export default AdminInquireManage;
+export default AdminInquirePending;

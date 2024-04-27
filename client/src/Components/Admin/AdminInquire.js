@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
-import AdminInquireManage from "./AdminInquireManage";
+import AdminInquirePending from "./AdminInquirePending";
+import AdminInquireReply from "./AdminInquireReply";
 
 function AdminInquire() {
   return (
     <div className="box-content">
       <br />
       <div className="row">
-        <AdminInquireManage />  
+        <AdminInquirePending />  
+      </div>
+      <div className="row">
+        <AdminInquireReply />  
       </div>
     </div>
   );
