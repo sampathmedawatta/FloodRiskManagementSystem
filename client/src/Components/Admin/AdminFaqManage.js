@@ -3,7 +3,6 @@ import { API_BASE_URL } from "../Shared/apiConfig";
 import axios from "axios";
 import AdminCreateFAQ from "./AdminFaqCreate";
 import AdminFaqEdit from "./AdminFaqEdit";
-
 import Pagination from "./Pagination";
 
 function AdminFaqManage() {
@@ -28,38 +27,26 @@ function AdminFaqManage() {
     } catch (error) {
       console.error("Error fetching data:", error);
     }
-  };  
-
-  const publishFaq = async (id, active) => {
-    try {
-      await axios.put(`${API_BASE_URL}/faqs/${id}`, { active: !active });
-      fetchData(); // Refresh data after update
-    } catch (error) {
-      console.error("Error updating status:", error);
-    }
   };
 
-  const unpublishFaq = async (id) => {
+  const handleFAQAction = async (id, action, updatedData) => {
     try {
-      await axios.put(`${API_BASE_URL}/faqs/${id}`, { active: false });
+      if (action === "edit") {
+        await axios.put(`${API_BASE_URL}/faqs/${id}`, updatedData);
+      } else if (action === "publish") {
+        await axios.put(`${API_BASE_URL}/faqs/${id}`, { active: true });
+      } else if (action === "unpublish") {
+        await axios.put(`${API_BASE_URL}/faqs/${id}`, { active: false });
+      }
       fetchData(); // Refresh data after update
     } catch (error) {
-      console.error("Error updating status:", error);
-    }
-  };
-
-  const editFAQ= async (id,updatedData) => {
-    try {
-      await axios.put(`${API_BASE_URL}/faqs/${id}`, updatedData);
-      fetchData(); // Refresh data after update
-    } catch (error) {
-      console.error("Error updating status:", error);
+      console.error("Error updating FAQ:", error);
     }
   };
 
   const createFAQ = async (title, description) => {
     try {
-      const response = await axios.post(`${API_BASE_URL}/faqs`, {
+      await axios.post(`${API_BASE_URL}/faqs`, {
         title,
         description,
         active: true,
@@ -76,11 +63,9 @@ function AdminFaqManage() {
   };
 
   const toggleEditModal = (faq) => {
-    console.log("Toggling edit modal");
-    setShowEditModal(!showEditModal); 
-    setFaqToEdit(faq); 
+    setShowEditModal(!showEditModal);
+    setFaqToEdit(faq);
   };
-  
 
   return (
     <div className="col-md-12">
@@ -102,17 +87,17 @@ function AdminFaqManage() {
             </div>
             <div>
               <div className="panel-body">
-                <div class="row">
-                  <div class="col-md-10"></div>
+                <div className="row">
+                  <div className="col-md-10"></div>
 
-                  <div class="col-md-2">
+                  <div className="col-md-2">
                     <button
                       type="button"
-                      class="btn btn-login hover-up text-12 w-100"
+                      className="btn btn-login hover-up text-12 w-100"
                       onClick={toggleCreateModal}
                     >
-                      <i class="bi bi-question-circle-fill" /> &nbsp; Create New
-                      FAQ
+                      <i className="bi bi-question-circle-fill" /> &nbsp;
+                      Create New FAQ
                     </button>
                   </div>
                 </div>
@@ -174,13 +159,21 @@ function AdminFaqManage() {
                           <td className="text-left">
                             {faq.active ? (
                               <>
-                                <button type="button" className="btn btn-pops" onClick={() => toggleEditModal(faq)}>
+                                <button
+                                  type="button"
+                                  className="btn btn-pops"
+                                  onClick={() =>
+                                    toggleEditModal(faq)
+                                  }
+                                >
                                   <i className="bi bi-pencil-square fs-6"></i>
                                 </button>
                                 <button
                                   type="button"
                                   className="btn btn-pops"
-                                  onClick={() => unpublishFaq(faq.id)}
+                                  onClick={() =>
+                                    handleFAQAction(faq.id, "unpublish")
+                                  }
                                 >
                                   <i className="bi bi-trash fs-6"></i>
                                 </button>
@@ -189,7 +182,9 @@ function AdminFaqManage() {
                               <button
                                 type="button"
                                 className="btn btn-pops "
-                                onClick={() => publishFaq(faq.id, faq.active)}
+                                onClick={() =>
+                                  handleFAQAction(faq.id, "publish")
+                                }
                               >
                                 <i className="bi bi-check-circle-fill fs-6"></i>
                               </button>
@@ -219,11 +214,10 @@ function AdminFaqManage() {
       <AdminFaqEdit
         showModal={showEditModal}
         toggleModal={toggleEditModal}
-        faq={faqToEdit} 
-        editFAQ={editFAQ}
+        faq={faqToEdit}
+        editFAQ={handleFAQAction}
       />
     </div>
   );
 }
-
 export default AdminFaqManage;
