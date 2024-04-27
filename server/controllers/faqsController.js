@@ -85,12 +85,9 @@ exports.createFAQ = (request, response) => {
     return response.status(422).json({ message: "title is required" });
   }
 
-  //const id = crypto.randomUUID();
-  const id = uuidv4();
-  console.log(id);
+  const id = crypto.randomUUID();
   const date = new Date();
   const createdTime = date.toISOString();
-  console.log(createdTime);
 
   faqs.push({
     id,
