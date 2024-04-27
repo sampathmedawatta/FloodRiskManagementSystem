@@ -12,13 +12,13 @@ function AdminTodayForecast() {
           <div className="panel-white">
             <div className="panel-head">
               <div className="row">
-                <div className="col-md-10">
+                <div className="col-md-9">
                   <h6 className="text-left">
                     <i className="bi bi-tsunami fs-5" />
                     &nbsp;&nbsp;Today's Flooding Forecast
                   </h6>
                 </div>
-                <div className="col-md-2">
+                <div className="col-md-3">
                   <p className="text-right font-xs color-text-paragraph-2">
                     {today}
                   </p>
@@ -29,7 +29,7 @@ function AdminTodayForecast() {
               <div className="table-responsive">
                 <table className="table no-wrap user-table mb-0">
                   <thead className="border-bottom thead-header">
-                    <tr>
+                    <tr className="tr-border">
                       <th scope="col" className="pl-4">
                         Location
                       </th>
@@ -40,9 +40,6 @@ function AdminTodayForecast() {
                         Wind (KmH)
                       </th>
                       <th scope="col" className>
-                        Water Level (mm)
-                      </th>
-                      <th scope="col" className>
                         Flood Level (%)
                       </th>
                       <th scope="col" className>
@@ -51,12 +48,9 @@ function AdminTodayForecast() {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
+                    <tr className="tr-border">
                       <td className="text-center pl-4">
                         <span className="text-muted font-sm">Kwun Tong</span>
-                      </td>
-                      <td className="text-center">
-                        <span className="text-muted font-sm">15</span>
                       </td>
                       <td className="text-center">
                         <span className="text-muted font-sm">15</span>
@@ -73,7 +67,7 @@ function AdminTodayForecast() {
                         </span>
                       </td>
                     </tr>
-                    <tr>
+                    <tr className="tr-border">
                       <td className="text-center">
                         <span className="text-muted font-sm">Kwun Tong</span>
                       </td>
@@ -83,9 +77,7 @@ function AdminTodayForecast() {
                       <td className="text-center">
                         <span className="text-muted font-sm">15</span>
                       </td>
-                      <td className="text-center">
-                        <span className="text-muted font-sm">61%</span>
-                      </td>
+              
                       <td className="text-center">
                         <span className="text-muted font-sm">61%</span>
                       </td>
@@ -95,7 +87,7 @@ function AdminTodayForecast() {
                         </span>
                       </td>
                     </tr>
-                    <tr>
+                    <tr className="tr-border">
                       <td className="text-center">
                         <span className="text-muted font-sm">Kwun Tong</span>
                       </td>
@@ -104,9 +96,6 @@ function AdminTodayForecast() {
                       </td>
                       <td className="text-center">
                         <span className="text-muted font-sm">15</span>
-                      </td>
-                      <td className="text-center">
-                        <span className="text-muted font-sm">61%</span>
                       </td>
                       <td className="text-center">
                         <span className="text-muted font-sm">61%</span>
@@ -117,7 +106,7 @@ function AdminTodayForecast() {
                         </span>
                       </td>
                     </tr>
-                    <tr>
+                    <tr className="tr-border">
                       <td className="text-center">
                         <span className="text-muted font-sm">Kwun Tong</span>
                       </td>
@@ -126,9 +115,6 @@ function AdminTodayForecast() {
                       </td>
                       <td className="text-center">
                         <span className="text-muted font-sm">15</span>
-                      </td>
-                      <td className="text-center">
-                        <span className="text-muted font-sm">61%</span>
                       </td>
                       <td className="text-center">
                         <span className="text-muted font-sm">61%</span>
@@ -139,7 +125,7 @@ function AdminTodayForecast() {
                         </span>
                       </td>
                     </tr>
-                    <tr>
+                    <tr className="tr-border">
                       <td className="text-center">
                         <span className="text-muted font-sm">Kwun Tong</span>
                       </td>
@@ -148,9 +134,6 @@ function AdminTodayForecast() {
                       </td>
                       <td className="text-center">
                         <span className="text-muted font-sm">15</span>
-                      </td>
-                      <td className="text-center">
-                        <span className="text-muted font-sm">61%</span>
                       </td>
                       <td className="text-center">
                         <span className="text-muted font-sm">61%</span>

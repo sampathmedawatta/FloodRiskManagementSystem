@@ -11,7 +11,7 @@ export const useLocation = () => useContext(LocationContext);
 const LocationProvider = ({ children }) => {
   const [location, setLocation] = useState("Kwun Tong");
   //we can remove this id after implementing user auth part
-  const userId = "0dfe3b7e-df47-4e3b-aa31-1017eb2a68e4";
+  const userId = "662b88f73d3f48e2ac19ec8a";
 
   useEffect(() => {
     const fetchLocationData = async () => {

@@ -771,6 +771,7 @@ h6,
   transform: translateY(-2px);
   transition: 0.2s;
 }
+
 .btn.btn-pops {
   color: #ffffff;
   background-color: #05264e;
@@ -778,10 +779,12 @@ h6,
 
   margin-left: 8px;
 }
+
 .btn.btn-pops:hover {
   transform: translateY(-2px);
   transition: 0.2s;
 }
+
 .btn.btn-login {
   color: #ffffff;
   background-color: #05264e;
@@ -1891,6 +1894,10 @@ option {
   top: 15px;
   right: 15px;
   z-index: 2;
+}
+
+.modal-footer {
+  border-top: none !important;
 }
 
 .apply-job-form .text-brand-2 {
@@ -5354,15 +5361,15 @@ option {
 }
 
 .paginations .pager li .pager-prev:hover {
- 
+
   cursor: pointer;
 
 }
 
 .paginations .pager li .pager-next {
-  content:  "\F22D";
+  content: "\F22D";
   font-family: "bootstrap-icons";
-  display: inline-block; 
+  display: inline-block;
 }
 
 .paginations .pager li .pager-next:hover {
@@ -6104,40 +6111,51 @@ select {
 .accordion-button:focus {
   box-shadow: none !important;
 }
+
 .accordion-button:not(.collapsed) {
   background: #05264e;
   color: #ffffff !important;
   border-color: none !important;
 }
+
 .accordion-button.collapsed {
   color: #05264e;
   background-color: #e0e0e0;
   border-color: none !important;
 }
+
 .word-limit {
-  max-width: 1000px; /* adjust the width according to your needs */
+  max-width: 1000px;
+  /* adjust the width according to your needs */
   display: -webkit-box;
-  -webkit-line-clamp: 4; /* Number of lines to show */
+  -webkit-line-clamp: 4;
+  /* Number of lines to show */
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 .more-content {
   display: inline;
 }
 
 .mapPopup {
-   
-    transform: translate(-50%, -50%);
-    background-color: white;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-        font-size: 80%;
+
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  font-size: 80%;
 
 }
 
 .mapPopupContent {
   background-color: white;
+}
+
+.tr-border {
+  border-bottom: 1px solid #E0E6F7;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }
