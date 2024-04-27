@@ -8,9 +8,11 @@ import Pagination from "./Pagination";
 
 function AdminFaqManage() {
   const [faqs, setFaqs] = useState([]);
-  const [showModal, setShowModal] = useState(false);
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [faqToEdit, setFaqToEdit] = useState(null);
 
   useEffect(() => {
     fetchData();
@@ -46,35 +48,37 @@ function AdminFaqManage() {
     }
   };
 
-  const editFAQ= async (id) => {
+  const editFAQ= async (id,updatedData) => {
     try {
-      await axios.put(`${API_BASE_URL}/faqs/${id}`, );
+      await axios.put(`${API_BASE_URL}/faqs/${id}`, updatedData);
       fetchData(); // Refresh data after update
     } catch (error) {
       console.error("Error updating status:", error);
     }
   };
 
-const createFAQ = async (title, description) => {
-  try {
-    const response = await axios.post(`${API_BASE_URL}/faqs`, {
-      title,
-      description,
-      active: true,
-    });
-    fetchData();
-    setShowModal(false);
-  } catch (error) {
-    console.error("Error creating FAQ:", error);
-  }
-};
-
-
-  const toggleModal = () => {
-    setShowModal(!showModal); // Toggle the showModal state
+  const createFAQ = async (title, description) => {
+    try {
+      const response = await axios.post(`${API_BASE_URL}/faqs`, {
+        title,
+        description,
+        active: true,
+      });
+      fetchData();
+      setShowCreateModal(false);
+    } catch (error) {
+      console.error("Error creating FAQ:", error);
+    }
   };
-  const toggleEdit = () => {
-    setShowModal(!showModal); 
+
+  const toggleCreateModal = () => {
+    setShowCreateModal(!showCreateModal);
+  };
+
+  const toggleEditModal = (faq) => {
+    console.log("Toggling edit modal");
+    setShowEditModal(!showEditModal); 
+    setFaqToEdit(faq); 
   };
   
 
@@ -105,7 +109,7 @@ const createFAQ = async (title, description) => {
                     <button
                       type="button"
                       class="btn btn-login hover-up text-12 w-100"
-                      onClick={toggleModal}
+                      onClick={toggleCreateModal}
                     >
                       <i class="bi bi-question-circle-fill" /> &nbsp; Create New
                       FAQ
@@ -170,9 +174,8 @@ const createFAQ = async (title, description) => {
                           <td className="text-left">
                             {faq.active ? (
                               <>
-                                <button type="button" className="btn btn-pops" onClick={() => toggleEdit(faq.id)}>
-                                
-                                  <i className="bi bi-file-earmark-text-fill fs-6"></i>
+                                <button type="button" className="btn btn-pops" onClick={() => toggleEditModal(faq)}>
+                                  <i className="bi bi-pencil-square fs-6"></i>
                                 </button>
                                 <button
                                   type="button"
@@ -205,17 +208,18 @@ const createFAQ = async (title, description) => {
       </div>
 
       <AdminCreateFAQ
-        showModal={showModal}
-        toggleModal={toggleModal}
+        showModal={showCreateModal}
+        toggleModal={toggleCreateModal}
         title={title}
         setTitle={setTitle}
         description={description}
         setDescription={setDescription}
         createFAQ={createFAQ}
       />
-        <AdminFaqEdit
-        showModal={showModal}
-        toggleModal={toggleEdit}
+      <AdminFaqEdit
+        showModal={showEditModal}
+        toggleModal={toggleEditModal}
+        faq={faqToEdit} 
         editFAQ={editFAQ}
       />
     </div>
