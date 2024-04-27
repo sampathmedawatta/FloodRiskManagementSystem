@@ -3,6 +3,7 @@ import { API_BASE_URL } from "../Shared/apiConfig";
 import axios from "axios";
 import AdminCreateFAQ from "./AdminFaqCreate";
 import AdminFaqEdit from "./AdminFaqEdit";
+import AdminFaqTable from "./AdminFaqTable";
 import Pagination from "./Pagination";
 
 function AdminFaqManage() {
@@ -89,7 +90,6 @@ function AdminFaqManage() {
               <div className="panel-body">
                 <div className="row">
                   <div className="col-md-10"></div>
-
                   <div className="col-md-2">
                     <button
                       type="button"
@@ -102,106 +102,13 @@ function AdminFaqManage() {
                   </div>
                 </div>
                 <br></br>
-                <div className="table-responsive">
-                  <table className="table no-wrap user-table mb-0">
-                    <thead className="border-bottom thead-header">
-                      <tr>
-                        <th
-                          scope="col"
-                          className="pl-4"
-                          style={{ width: "30%", textAlign: "left" }}
-                        >
-                          Title
-                        </th>
-                        <th
-                          scope="col"
-                          style={{ width: "50%", textAlign: "left" }}
-                        >
-                          Description
-                        </th>
-                        <th
-                          scope="col"
-                          style={{ width: "10%", textAlign: "left" }}
-                        >
-                          Status
-                        </th>
-                        <th
-                          scope="col"
-                          style={{ width: "10%", textAlign: "left" }}
-                        >
-                          Manage
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {faqs.map((faq, index) => (
-                        <tr key={index}>
-                          <td className="text-left pl-4">
-                            <span className="text-muted  text-justify font-sm">
-                              {faq.title}
-                            </span>
-                          </td>
-                          <td className="text-left">
-                            <p className="text-muted text-justify font-sm word-limit">
-                              {faq.description}
-                            </p>
-                          </td>
-
-                          <td className="text-left">
-                            <span
-                              className={`label-status ${
-                                faq.active ? "label-active" : "label-inactive"
-                              }`}
-                            >
-                              {faq.active ? "Active" : "Inactive"}
-                            </span>
-                          </td>
-                          <td className="text-left">
-                            {faq.active ? (
-                              <>
-                                <button
-                                  type="button"
-                                  className="btn btn-pops"
-                                  onClick={() =>
-                                    toggleEditModal(faq)
-                                  }
-                                >
-                                  <i className="bi bi-pencil-square fs-6"></i>
-                                </button>
-                                <button
-                                  type="button"
-                                  className="btn btn-pops"
-                                  onClick={() =>
-                                    handleFAQAction(faq.id, "unpublish")
-                                  }
-                                >
-                                  <i className="bi bi-trash fs-6"></i>
-                                </button>
-                              </>
-                            ) : (
-                              <button
-                                type="button"
-                                className="btn btn-pops "
-                                onClick={() =>
-                                  handleFAQAction(faq.id, "publish")
-                                }
-                              >
-                                <i className="bi bi-check-circle-fill fs-6"></i>
-                              </button>
-                            )}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                <AdminFaqTable faqs={faqs} toggleEditModal={toggleEditModal} handleFAQAction={handleFAQAction} />
                 <Pagination />
               </div>
             </div>
           </div>
         </div>
       </div>
-
       <AdminCreateFAQ
         showModal={showCreateModal}
         toggleModal={toggleCreateModal}
@@ -220,4 +127,5 @@ function AdminFaqManage() {
     </div>
   );
 }
+
 export default AdminFaqManage;

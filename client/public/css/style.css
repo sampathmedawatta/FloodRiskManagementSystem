@@ -1892,6 +1892,9 @@ option {
   right: 15px;
   z-index: 2;
 }
+.modal-footer{
+  border-top: none !important;
+}
 
 .apply-job-form .text-brand-2 {
   background: #d5deff;
