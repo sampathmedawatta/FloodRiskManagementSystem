@@ -42,7 +42,7 @@ function Header() {
       <div className="main-header">
         <div className="header-left">
           <div className="header-logo">
-            <a className="d-flex" href="registered-user-home.html">
+            <a className="d-flex" href="/">
               <img alt="floodm" src="imgs/logo.svg" />
             </a>
           </div>
@@ -140,7 +140,7 @@ function Header() {
         <div className="header-left">
           <div className="header-logo">
             <a className="d-flex" href="login.html">
-              <img alt="CorpU" src="imgs/logo.svg" />
+              <img alt="FloodManager" src="imgs/logo.svg" />
             </a>
           </div>
         </div>
@@ -191,8 +191,8 @@ function Header() {
       <div className="main-header">
         <div className="header-left">
           <div className="header-logo">
-            <a className="d-flex" href="registered-user-home.html">
-              <img alt="CorpU" src="imgs/logo.svg" />
+            <a className="d-flex" href="/">
+              <img alt="FloodManager" src="imgs/logo.svg" />
             </a>
           </div>
         </div>

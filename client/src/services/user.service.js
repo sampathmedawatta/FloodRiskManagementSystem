@@ -17,9 +17,32 @@ const getUserById = async (id) => {
     return response.data
   })
 }
-
-const UserService = {
-  getUserById
+const getAllUsers = async () => {
+  try {
+    const response = await axiosInstance.get(`/`, { headers });
+    const sortedUsers = response.data.sort((a, b) => new Date(b.registeredDate) - new Date(a.registeredDate));
+    return sortedUsers;
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    throw error;
+  }
 }
+const updateUser = async (id, updatedFields) => {
+  try {
+    const response = await axiosInstance.put(`/${id}`, updatedFields, headers );
+    return response.data;
+  } catch (error) {
+    console.error(`Error updating user with ID ${id}:`, error);
+    throw error;
+  }
+}
+const UserService = {
+  getUserById,
+  getAllUsers,
+  updateUser
+}
+
+
+
 
 export default UserService;

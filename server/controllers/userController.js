@@ -2,14 +2,13 @@ const bcrypt = require("bcrypt");
 const User = require("../modules/userModel");
 
 exports.getAllUsers = async (request, response) => {
-   const users = await User.find();
+  const users = await User.find();
 
   response.status(200).json(users);
 };
 
 exports.getUserById = async (request, response) => {
-
-  const user = await User.findOne({ _id: request.params.id });  
+  const user = await User.findOne({ _id: request.params.id });
 
   if (!user) {
     return response.status(404).json({ message: "user not found" });
@@ -28,25 +27,30 @@ exports.createUser = async (request, response) => {
     preferedLocation,
     address,
     state,
+    type,
     postCode,
   } = request.body;
 
-  const userAvulable = await User.findOne({ email });
-  if (userAvulable) {
-    response.status(400).json({ message: "user already exist"});
+  const userAvailable = await User.findOne({ email });
+  if (userAvailable) {
+    return response.status(400).json({ message: "User already exists" });
   }
 
   if (!email) {
-    return response.status(422).json({ message: "email is required" });
+    return response.status(422).json({ message: "Email is required" });
   }
   if (!password) {
-    return response.status(422).json({ message: "password is required" });
+    return response.status(422).json({ message: "Password is required" });
+  }
+
+  if (type !== "REGISTEREDUSER" && type !== "ADMIN") {
+    return response.status(422).json({ message: "Invalid user type" });
   }
 
   const hashPassword = await bcrypt.hash(password, 10);
 
-  const date = new Date();
-  
+  const currentDate = new Date();
+
   const newUser = await User.create({
     fName,
     lName,
@@ -56,17 +60,17 @@ exports.createUser = async (request, response) => {
     preferedLocation,
     address,
     state,
+    registeredDate: currentDate, // Set the registration date
     postCode,
-    date,
-    active: true
+    type,
+    active: true,
   });
 
-   if (newUser) {
-     response.status(201).json({ _id: newUser.id, email: newUser.email });
-   } else {
-     return response.status(422).json({ message: "user creation failed" });
-   }
-   
+  if (newUser) {
+    response.status(201).json({ _id: newUser.id, email: newUser.email });
+  } else {
+    return response.status(422).json({ message: "User creation failed" });
+  }
 };
 
 exports.updateUser = async (request, response) => {
@@ -84,6 +88,7 @@ exports.updateUser = async (request, response) => {
     address,
     state,
     postCode,
+    type,
     active,
   } = request.body;
 
@@ -115,10 +120,12 @@ exports.updateUser = async (request, response) => {
     user.postCode = postCode;
   }
 
+  if (type) {
+    user.type = type;
+  }
   if ("active" in request.body) {
     user.active = active;
   }
-
 
   const updateResponse = await User.findByIdAndUpdate(
     {
@@ -137,20 +144,21 @@ exports.updateUser = async (request, response) => {
     }
   );
 
-  response
-    .status(200)
-    .json({ message: "user updated successfully - " });
+  response.status(200).json({ message: "user updated successfully - " });
 };
 
 exports.deleteUser = async (request, response) => {
-  try{
-  const deleteResponse = await User.findOneAndDelete({ _id: request.params.id });
+  try {
+    const deleteResponse = await User.findOneAndDelete({
+      _id: request.params.id,
+    });
 
     if (deleteResponse) {
-      return response.status(200).json({ message: "user deleted successfully" });
+      return response
+        .status(200)
+        .json({ message: "user deleted successfully" });
     }
-  }
-  catch(error){
-    response.status(500).send({ message: "Somthoing went wrong!" });
+  } catch (error) {
+    response.status(500).send({ message: "Something went wrong!" });
   }
 };

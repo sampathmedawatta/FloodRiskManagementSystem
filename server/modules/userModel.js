@@ -29,18 +29,22 @@ const userSchema = mongoose.Schema(
     },
     address: {
       type: String,
-      require: true,
+      require: false,
     },
     state: {
       type: String,
-      require: true,
+      require: false,
     },
     postCode: {
       type: Number,
-      require: true,
+      require: false,
     },
     registeredDate: {
       type: Date,
+      require: true,
+    },
+    type: {
+      type: String,
       require: true,
     },
     active: {
