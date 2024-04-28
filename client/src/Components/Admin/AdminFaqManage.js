@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { API_BASE_URL } from "../Shared/apiConfig";
+import FaqService from "../../services/faq.service";
 import axios from "axios";
 import AdminCreateFAQ from "./AdminFaqCreate";
 import AdminFaqEdit from "./AdminFaqEdit";
@@ -20,34 +21,34 @@ function AdminFaqManage() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/faqs/`);
-      const sortedFaqs = response.data.sort((a, b) => {
-        return new Date(b.createdTime) - new Date(a.createdTime);
-      });
-      setFaqs(sortedFaqs);
+      const response = await FaqService.getAllFaqs();
+      if (response.length > 0) {
+        setFaqs(response);
+      } else {
+        console.warn("No FAQs found in the response.");
+      }
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error("Error fetching Users:", error);
     }
   };
 
   const handleFAQAction = async (id, action, updatedData) => {
     try {
       if (action === "edit") {
-        await axios.put(`${API_BASE_URL}/faqs/${id}`, updatedData);
+        await FaqService.updateFaq(id, updatedData);
       } else if (action === "publish") {
-        await axios.put(`${API_BASE_URL}/faqs/${id}`, { active: true });
+        await FaqService.updateFaq(id, { active: true });
       } else if (action === "unpublish") {
-        await axios.put(`${API_BASE_URL}/faqs/${id}`, { active: false });
+        await FaqService.updateFaq(id, { active: false });
       }
       fetchData(); // Refresh data after update
     } catch (error) {
       console.error("Error updating FAQ:", error);
     }
   };
-
   const createFAQ = async (title, description) => {
     try {
-      await axios.post(`${API_BASE_URL}/faqs`, {
+      await FaqService.createFaq({
         title,
         description,
         active: true,
@@ -58,7 +59,6 @@ function AdminFaqManage() {
       console.error("Error creating FAQ:", error);
     }
   };
-
   const toggleCreateModal = () => {
     setShowCreateModal(!showCreateModal);
   };
