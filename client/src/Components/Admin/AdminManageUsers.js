@@ -27,6 +27,8 @@ function AdminManageUsers() {
       console.error("Error fetching Users:", error);
     }
   };
+  const activeUsersCount = users.filter(user => user.active).length;
+  const inactiveUsersCount = users.length - activeUsersCount;
   const userStatus = async (id, action) => {
     try {
       if (action === "publish") {
@@ -45,7 +47,7 @@ function AdminManageUsers() {
       <div className="col-md-12">
         <div className="box-content">
           <div className="container">
-            <div className="panel-white">
+          <div className="panel-white">
               <div className="panel-head">
                 <div className="row">
                   <div className="col-md-7">
@@ -59,6 +61,49 @@ function AdminManageUsers() {
                   </div>
                 </div>
               </div>
+              <div>
+                <div className="panel-body">
+                  <div className="row row justify-content-end">
+                    <div className="col-3 ">
+                      <div className="card-style-1">
+                        <div className="card-info">
+                          <span className="col">
+                            <i className="bi bi-people-fill fs-6 color-brand-1" />
+                            &nbsp;&nbsp;{" "}
+                            <strong>
+                              Active  Users &nbsp;&nbsp;
+                            </strong>
+                            <p className="label-active"> {activeUsersCount} </p>
+                          </span>
+                        </div>
+                      </div>
+                    </div>{" "}
+                    <div className="col-3">
+                      <div className="card-style-1">
+                        <div className="card-info">
+                          <span className="col">
+                            <i className="bi bi-people-fill fs-6 color-brand-1" />
+                            &nbsp;&nbsp;{" "}
+                            <strong>
+                              Inactive Users &nbsp;&nbsp;
+                            </strong>
+                            <p className="label-inactive"> {inactiveUsersCount}</p>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="col-md-12">
+        <div className="box-content">
+          <div className="container">
+            <div className="panel-white">
+  
               <div>
                 <div className="panel-body">
                   <div className="row">
