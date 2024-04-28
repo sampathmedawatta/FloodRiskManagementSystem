@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { API_BASE_URL } from "../Shared/apiConfig";
+import Pagination from "./Pagination";
 import axios from "axios";
 import AdminInquirePendingTable from "./AdminInquirePendingTable";
 import AdminInquireSendReply from "./AdminInquireSendReply";
@@ -39,14 +40,32 @@ function AdminInquirePending() {
 
   const sendReply = async (replyTitle, replyDescription) => {
     try {
-      const updatedInquiry = { ...selectedInquiry, replyTitle, replyDescription };
-      await axios.put(`${API_BASE_URL}/inquiries/${selectedInquiry.id}`, updatedInquiry);
+      const date = new Date();
+      const replyDate = date.toISOString();
+      const inquiryStatus = "REPLY";
+      const updatedInquiry = {
+        ...selectedInquiry,
+        replyTitle: replyTitle,
+        replyDescription: replyDescription,
+        replyDate: replyDate,
+        inquiryStatus: inquiryStatus,
+      };
+      console.log(updatedInquiry);
+      await axios.put(
+        `${API_BASE_URL}/inquiries/${selectedInquiry.id}`,
+        updatedInquiry
+      );
       setShowReplyModal(false);
       fetchData(); // Refresh data after update
+      // Delay reload by 500 milliseconds (adjust as needed)
+      setTimeout(() => {
+        window.location.reload(); // Reload the page after successful update
+      }, 500);
     } catch (error) {
       console.error("Error sending reply:", error);
     }
   };
+  
 
   return (
     <div className="col-md-12">
@@ -71,6 +90,7 @@ function AdminInquirePending() {
                 sendReply={sendReply}
                 inquiry={selectedInquiry} // Pass the selected inquiry here
               />
+              <Pagination />
             </div>
           </div>
         </div>
