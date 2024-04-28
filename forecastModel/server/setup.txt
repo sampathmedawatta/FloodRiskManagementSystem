@@ -1,0 +1,13 @@
+pip install fastapi
+pip install uvicorn
+pip install requests
+
+pip install pymongo
+
+Run the API 
+cd <your folder>
+uvicorn main:app --reload
+
+Copy the url : from the line "Uvicorn running on http://........" and past on your browser
+
+
