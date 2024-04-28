@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { API_BASE_URL } from "../Shared/apiConfig";
 import FaqService from "../../services/faq.service";
 import axios from "axios";
 import AdminCreateFAQ from "./AdminFaqCreate";
