@@ -277,16 +277,16 @@
             "schema": {
               "type": "object",
               "properties": {
-                "title": {
+                "messageTitle": {
                   "example": "any"
                 },
-                "description": {
+                "messageDescription": {
                   "example": "any"
                 },
-                "publishDate": {
+                "messageDate": {
                   "example": "any"
                 },
-                "active": {
+                "inquiryStatus": {
                   "example": "any"
                 }
               }
@@ -338,16 +338,25 @@
             "schema": {
               "type": "object",
               "properties": {
-                "title": {
+                "messageTitle": {
                   "example": "any"
                 },
-                "description": {
+                "messageDescription": {
                   "example": "any"
                 },
-                "publishDate": {
+                "messageDate": {
                   "example": "any"
                 },
-                "active": {
+                "inquiryStatus": {
+                  "example": "any"
+                },
+                "replyTitle": {
+                  "example": "any"
+                },
+                "replyDescription": {
+                  "example": "any"
+                },
+                "replyDate": {
                   "example": "any"
                 }
               }
@@ -358,8 +367,14 @@
           "200": {
             "description": "OK"
           },
+          "400": {
+            "description": "Bad Request"
+          },
           "404": {
             "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },
@@ -573,13 +588,10 @@
                 "state": {
                   "example": "any"
                 },
+                "type": {
+                  "example": "any"
+                },
                 "postCode": {
-                  "example": "any"
-                },
-                "registeredDate": {
-                  "example": "any"
-                },
-                "active": {
                   "example": "any"
                 }
               }
@@ -589,6 +601,9 @@
         "responses": {
           "201": {
             "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
           },
           "422": {
             "description": "Unprocessable Entity"
@@ -637,9 +652,6 @@
                 "lName": {
                   "example": "any"
                 },
-                "email": {
-                  "example": "any"
-                },
                 "contactNo": {
                   "example": "any"
                 },
@@ -655,7 +667,7 @@
                 "postCode": {
                   "example": "any"
                 },
-                "registeredDate": {
+                "type": {
                   "example": "any"
                 },
                 "active": {
@@ -688,8 +700,8 @@
           "200": {
             "description": "OK"
           },
-          "404": {
-            "description": "Not Found"
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }

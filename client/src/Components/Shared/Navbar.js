@@ -173,14 +173,28 @@ function Navbar() {
           <li>
             {" "}
             <a
-              className={`dashboard ${isActiveLink("/") ? "active" : ""}`}
-              href="/"
+              className={`dashboard ${isActiveLink("/manage-admins") ? "active" : ""}`}
+              href="/manage-admins"
             >
-              <Link to="/" className="nav-link px-0 align-middle">
+              <Link to="/manage-admins" className="nav-link px-0 align-middle">
+                <i class="bi bi-person-fill-gear fs-5"></i>
+                <span class="name">&nbsp;&nbsp;&nbsp;Manage Admins</span>
+              </Link>
+            </a>
+            
+          </li>
+          <li>
+            {" "}
+            <a
+              className={`dashboard ${isActiveLink("/manage-users") ? "active" : ""}`}
+              href="/manage-users"
+            >
+              <Link to="/manage-users" className="nav-link px-0 align-middle">
                 <i class="bi bi-people-fill fs-5"></i>
                 <span class="name">&nbsp;&nbsp;&nbsp;Manage Users</span>
               </Link>
             </a>
+            
           </li>
           <li>
             {" "}
