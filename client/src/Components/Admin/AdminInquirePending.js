@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { API_BASE_URL } from "../Shared/apiConfig";
 import Pagination from "./Pagination";
 import axios from "axios";
+import InquiriesService from "../../services/inquires.service";
 import AdminInquirePendingTable from "./AdminInquirePendingTable";
 import AdminInquireSendReply from "./AdminInquireSendReply";
 
@@ -18,18 +19,19 @@ function AdminInquirePending() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/inquiries/`);
-      const sortedInquiries = response.data.sort((a, b) => {
-        return new Date(b.messageDate) - new Date(a.messageDate);
-      });
-
-      // Filter inquiries "PENDING"
-      const pendingInquiries = sortedInquiries.filter(
-        (inquiry) => inquiry.inquiryStatus === "PENDING"
-      );
-      setPendingInquiries(pendingInquiries);
+      const response = await InquiriesService.getAllInquiries();
+      if (response) {
+        const filteredInquires = response.filter(
+          (inquires) => inquires.inquiryStatus === "PENDING"
+        );
+        if (filteredInquires.length > 0) {
+          setPendingInquiries(filteredInquires);
+        } else {
+          console.warn("No PENDING inquires found in the response.");
+        }
+      }
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error("Error fetching Users:", error);
     }
   };
 
@@ -65,7 +67,6 @@ function AdminInquirePending() {
       console.error("Error sending reply:", error);
     }
   };
-  
 
   return (
     <div className="col-md-12">

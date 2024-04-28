@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { API_BASE_URL } from "../Shared/apiConfig";
-import axios from "axios";
-
 import InquiriesService from "../../services/inquires.service";
 import Pagination from "./Pagination";
 import AdminInquireReplyTable from "./AdminInquireReplyTable";
@@ -26,7 +23,7 @@ const [replyInquiries, setReplyInquiries] = useState([]);
            setReplyInquiries(filteredInquires);
         } else {
           console.warn(
-            "No users with type 'REGISTEREDUSER' found in the response."
+            "No REPLY inquires found in the response."
           );
         }
       }
