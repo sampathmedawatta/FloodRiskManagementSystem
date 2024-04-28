@@ -1,28 +1,39 @@
 import React, { useState } from "react";
 
 function AdminInquireSendReply({ showModal, toggleModal, sendReply, inquiry }) {
+  // State variables for reply title, message, and error flags
   const [replyTitle, setReplyTitle] = useState("");
   const [replyMessage, setReplyMessage] = useState("");
-  const [replytitleError, setTitleError] = useState(false);
-  const [replymessageError, setMessageError] = useState(false);
+  const [replyTitleError, setReplyTitleError] = useState(false);
+  const [replyMessageError, setReplyMessageError] = useState(false);
 
+  // Function to handle sending reply
   const handleSend = () => {
-    // Validation
-    if (!replyTitle.trim()) {
-      setTitleError(true);
+    // Validation for both reply title and message
+    if (!replyTitle.trim() && !replyMessage.trim()) {
+      setReplyTitleError(true);
+      setReplyMessageError(true);
       return;
     }
+    // Validation for reply title
+    if (!replyTitle.trim()) {
+      setReplyTitleError(true);
+      return;
+    }
+    // Validation for reply message
     if (!replyMessage.trim()) {
-      setMessageError(true);
+      setReplyMessageError(true);
       return;
     }
     // Proceed with sending reply
     sendReply(replyTitle, replyMessage);
     // Close modal
     toggleModal();
-    // Reset form fields
+    // Reset form fields and errors
     setReplyTitle("");
     setReplyMessage("");
+    setReplyTitleError(false);
+    setReplyMessageError(false);
   };
 
   return (
@@ -48,58 +59,55 @@ function AdminInquireSendReply({ showModal, toggleModal, sendReply, inquiry }) {
           </div>
           <div className="modal-body">
             <div className="form-group">
-              <label className="font-sm mb-10" required>
-                Inquiry Title
-              </label>
+              <label className="font-sm mb-10">Inquiry Title</label>
               <input
-                type="text"
-                className={`form-control'}`}
-                //value={inquiry.messageTitle}
+                className="form-control"
+                value={inquiry?.messageTitle || ""}
                 readOnly
               />
             </div>
             <div className="form-group">
-              <label className="font-sm mb-10" required>
-                Inquiry
-              </label>
+              <label className="font-sm mb-10">Inquiry</label>
               <textarea
-                className={`form-control`}
-                //value={inquiry.messageDescription}
+                className="form-control"
+                value={inquiry?.messageDescription || ""}
                 readOnly
               />
             </div>
             <div className="form-group">
-              <label className="font-sm mb-10" required>
-                Reply Title
-              </label>
+              <label className="font-sm mb-10">Reply Title *</label>
               <input
                 placeholder="Reply Title"
-                className={`form-control ${replytitleError ? "is-invalid" : ""}`}
+                className={`form-control ${
+                  replyTitleError ? "is-invalid" : ""
+                }`}
                 value={replyTitle}
                 onChange={(e) => {
                   setReplyTitle(e.target.value);
-                  setTitleError(false); // Clear error when typing
+                  setReplyTitleError(false); // Clear error when typing
                 }}
               />
-              {replytitleError && (
+              {replyTitleError && (
                 <div className="invalid-feedback">Reply Title is required</div>
               )}
             </div>
             <div className="form-group">
-              <label className="font-sm mb-10" required>
-                Reply Message *
-              </label>
+              <label className="font-sm mb-10">Reply Message *</label>
               <textarea
                 placeholder="Reply Message"
-                className={`form-control ${replymessageError ? "is-invalid" : ""}`}
+                className={`form-control ${
+                  replyMessageError ? "is-invalid" : ""
+                }`}
                 value={replyMessage}
                 onChange={(e) => {
                   setReplyMessage(e.target.value);
-                  setMessageError(false); // Clear error when typing
+                  setReplyMessageError(false); // Clear error when typing
                 }}
               />
-              {replymessageError && (
-                <div className="invalid-feedback">Reply Message is required</div>
+              {replyMessageError && (
+                <div className="invalid-feedback">
+                  Reply Message is required
+                </div>
               )}
             </div>
           </div>

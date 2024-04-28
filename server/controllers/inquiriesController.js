@@ -139,55 +139,97 @@ exports.getInquiryById = (request, response) => {
 };
 
 exports.createInquiry = (request, response) => {
-  const { messageTitle, messageDescription, messageDate, inquiryStatus } =
-    request.body;
+  const { messageTitle, messageDescription, messageDate, inquiryStatus } = request.body;
 
+  // Validate messageTitle
   if (!messageTitle) {
     return response.status(422).json({ message: "Message Title is required" });
   }
 
-  const id = crypto.randomUUID();
-  const date = new Date();
-  // messageDate= date.toISOString();
-  // replyDate= date.toISOString();
+  // Validate messageDescription
+  if (!messageDescription) {
+    return response.status(422).json({ message: "Message Description is required" });
+  }
 
+  // Validate messageDate format
+  let date;
+  try {
+    date = new Date(messageDate);
+    if (isNaN(date.getTime())) {
+      throw new Error("Invalid date format");
+    }
+  } catch (error) {
+    return response.status(422).json({ message: "Invalid date format" });
+  }
+
+  const replyTitle = "";
+  const replyDescription = "";
+  const replyDate = "";
+
+  // Validate inquiryStatus
+  const allowedStatus = ["PENDING", "REPLY", "DISABLE"];
+  if (!inquiryStatus || !allowedStatus.includes(inquiryStatus)) {
+    return response.status(422).json({ message: "Invalid inquiry status" });
+  }
+
+  const id = crypto.randomUUID();
   inquiries.push({
     id,
     messageTitle,
     messageDescription,
-    messageDate,
+    messageDate: date.toISOString(),
     replyTitle,
     replyDescription,
     replyDate,
-    inquiryStatus, //PENDING,REPLY,DISABLE
+    inquiryStatus,
   });
 
-  response.status(201).json({ message: "inquiry created successfully", id });
+  response.status(201).json({ message: "Inquiry created successfully", id });
 };
 
 exports.updateInquiry = (request, response) => {
-  const inquiry = inquiries.find((inquiry) => inquiry.id == request.params.id);
+  try {
+    const inquiryId = request.params.id;
+    const inquiry = inquiries.find((inquiry) => inquiry.id == inquiryId);
 
-  if (!inquiry) {
-    return response.status(404).json({ message: "Inquiry not found" });
-  }
+    if (!inquiry) {
+      return response.status(404).json({ message: "Inquiry not found" });
+    }
 
-  const { messageTitle, messageDescription, messageDate, inquiryStatus } = request.body;
+    const { messageTitle, messageDescription, messageDate, inquiryStatus, replyTitle, replyDescription, replyDate } = request.body;
 
-  if (messageTitle) {
-    inquiry.messageTitle = messageTitle;
+    if (!Object.keys(request.body).length) {
+      return response.status(400).json({ message: "Request body cannot be empty" });
+    }
+    if (messageTitle) {
+      inquiry.messageTitle = messageTitle;
+    }
+    if (messageDescription) {
+      inquiry.messageDescription = messageDescription;
+    }
+    if (messageDate) {
+      inquiry.messageDate = messageDate;
+    }
+    if (inquiryStatus) {
+      inquiry.inquiryStatus = inquiryStatus;
+    }
+    if (replyTitle) {
+      inquiry.replyTitle = replyTitle;
+    }
+    if (replyDescription) {
+      inquiry.replyDescription = replyDescription;
+    }
+    if (replyDate) {
+      inquiry.replyDate = replyDate;
+    }
+
+    response.status(200).json({ message: "Inquiry updated successfully" });
+  } catch (error) {
+    console.error("Error:", error);
+    response.status(500).json({ message: "Internal server error" });
   }
-  if (messageDescription) {
-    inquiry.messageDescription = messageDescription;
-  }
-  if (messageDate) {
-    inquiry.messageDate = messageDate;
-  }
-  if (inquiryStatus) {
-    inquiry.inquiryStatus = inquiryStatus;
-  }
-  response.status(200).json({ message: "inquiry updated successfully" });
 };
+
 
 exports.deleteInquiry = (request, response) => {
   const inquiryIndex = inquiries.findIndex(
