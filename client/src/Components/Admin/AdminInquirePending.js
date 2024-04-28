@@ -53,15 +53,19 @@ function AdminInquirePending() {
       console.log(updatedInquiry);
       await axios.put(
         `${API_BASE_URL}/inquiries/${selectedInquiry.id}`,
-        updatedInquiry,
-       // window.location.reload() // Reload the page
+        updatedInquiry
       );
       setShowReplyModal(false);
       fetchData(); // Refresh data after update
+      // Delay reload by 500 milliseconds (adjust as needed)
+      setTimeout(() => {
+        window.location.reload(); // Reload the page after successful update
+      }, 500);
     } catch (error) {
       console.error("Error sending reply:", error);
     }
   };
+  
 
   return (
     <div className="col-md-12">
