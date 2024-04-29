@@ -15,6 +15,7 @@ This project is proposed to aim at developing a smart digital system that would 
 - Open another  terminal 
 - Move to client folder: cd client
 - Install packages: npm install
+- run -> node swagger.js
 - Run the client: npm start
 
 Always run the server vefore the client.
