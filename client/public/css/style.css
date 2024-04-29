@@ -6180,3 +6180,16 @@ select {
   border-bottom: 1px solid #E0E6F7;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }
+
+.news-item-date-text {
+  font-size: 12px;
+}
+
+.news-item-title-text {
+  font-size: 14px;
+  font-weight: 700 !important;
+}
+
+.news-item-body-text {
+  font-size: 12px;
+}
