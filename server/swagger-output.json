@@ -670,6 +670,9 @@
                 "type": {
                   "example": "any"
                 },
+                "hasLoggedIn": {
+                  "example": "any"
+                },
                 "active": {
                   "example": "any"
                 }

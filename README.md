@@ -15,6 +15,14 @@ This project is proposed to aim at developing a smart digital system that would 
 - Open another  terminal 
 - Move to client folder: cd client
 - Install packages: npm install
+- run -> node swagger.js
 - Run the client: npm start
 
 Always run the server vefore the client.
+
+### ML Model - Python/ Jupyter notebook
+- Open terminal
+- Move to ML project folder
+- install dependancies (check setup.txt)
+- use command -> uvicorn main:app --reload
+- copy the url and run it on borwser
