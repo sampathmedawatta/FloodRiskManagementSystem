@@ -7,10 +7,13 @@ import PublicLogin from './Components/Shared/Login';
 import PublicFooter from './Components/Shared/Footer';
 import RegDashbord from './Components/RegUser/RegDashbord';
 import NonRegDashbord from "./Components/NonRegUser/NonRegDashbord";
-import AdminDashbord from "./Components/Admin/AdminDashbord";
 import MobileNavbar from './Components/Shared/MobileNavbar';
 import Faq from './Components/Shared/Faqtable';
+import AdminDashbord from "./Components/Admin/AdminDashbord";
 import AdminFaq from "./Components/Admin/AdminFaq";
+import AdminInquires from "./Components/Admin/AdminInquire";
+import AdminManageAdmins from "./Components/Admin/AdminManageAdmins";
+import AdminManageUsers from "./Components/Admin/AdminManageUsers";
 import { getUserSession } from './Components/Shared/SessionUtils';
 
 const userSession = getUserSession();
@@ -32,6 +35,9 @@ function App() {
             {/* For Admins */}
             {isAdmin && <Route path="admin-dashboard" element={<AdminDashbord />} />}
             {isAdmin && <Route path="manage-faq" element={<AdminFaq />} />}
+            {isAdmin && <Route path="manage-inquires" element={<AdminInquires />} />}
+            {isAdmin && <Route path="manage-admins" element={<AdminManageAdmins />} />}
+            {isAdmin && <Route path="manage-users" element={<AdminManageUsers />} />}
 
             {/* For Registered Users */}
             {isRegistered && <Route path="dashboard" element={<RegDashbord />} />}

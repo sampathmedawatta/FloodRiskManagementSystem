@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:3000/user",
+  baseURL: "http://localhost:3000/faqs",
   withCredentials: false, // Allow cookies to be sent with requests (if applicable)
 });
 
@@ -10,39 +10,48 @@ const headers = {
   //Authorization: "Bearer your-access-token", // Add any custom headers as needed
 };
 
-const getUserById = async (id) => {
+
+const createFaq = async (parms) => {
+  return await axiosInstance
+  .post("/", parms, {
+    headers,
+  })
+  .then((response) => {
+    return response.data
+  })
+}
+
+const getFaqsById = async (id) => {
   return await axiosInstance
   .get(`/${id}`, headers)
   .then((response) => {
     return response.data
   })
 }
-const getAllUsers = async () => {
+const getAllFaqs = async () => {
   try {
     const response = await axiosInstance.get(`/`, { headers });
-    const sortedUsers = response.data.sort((a, b) => new Date(b.registeredDate) - new Date(a.registeredDate));
+    const sortedUsers = response.data.sort((a, b) => new Date(b.createdTime) - new Date(a.createdTime));
     return sortedUsers;
   } catch (error) {
     console.error("Error fetching users:", error);
     throw error;
   }
 }
-const updateUser = async (id, updatedFields) => {
+const updateFaq = async (id, updatedFields) => {
   try {
     const response = await axiosInstance.put(`/${id}`, updatedFields, headers );
     return response.data;
   } catch (error) {
-    console.error(`Error updating user with ID ${id}:`, error);
+    console.error(`Error updating Faq with ID ${id}:`, error);
     throw error;
   }
 }
-const UserService = {
-  getUserById,
-  getAllUsers,
-  updateUser
+const FaqService = {
+  getFaqsById,
+  getAllFaqs,
+  updateFaq,
+  createFaq
 }
 
-
-
-
-export default UserService;
+export default FaqService;

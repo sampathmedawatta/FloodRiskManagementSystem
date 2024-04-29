@@ -19,7 +19,10 @@ function Header() {
       try {
         const response = await LocationService.getLocations();
         if (response) {
-          setLocations(response.locations);
+          const floodLocations = response.locations.filter(
+            (location) => location.type === "Flood"
+          );
+          setLocations(floodLocations);
         }
       } catch (error) {
         console.error("Error fetching locations:", error);
@@ -39,8 +42,8 @@ function Header() {
       <div className="main-header">
         <div className="header-left">
           <div className="header-logo">
-            <a className="d-flex" href="registered-user-home.html">
-              <img alt="CorpU" src="imgs/logo.svg" />
+            <a className="d-flex" href="/">
+              <img alt="floodm" src="imgs/logo.svg" />
             </a>
           </div>
         </div>
@@ -66,21 +69,21 @@ function Header() {
                     aria-expanded="false"
                     data-bs-display="static"
                   >
-                    <strong className="color-brand-1">Kwun Tong</strong> &nbsp;
+                    <strong className="color-brand-1">{location}</strong> &nbsp;
                   </a>
                   <ul
                     className="dropdown-menu dropdown-menu-light dropdown-menu-end"
                     aria-labelledby="dropdownProfile"
                   >
                     {locations?.map((location) => (
-                      <li key={location.item.name}>
+                      <li key={location.name}>
                         <button
                           className="dropdown-item"
                           onClick={() =>
-                            handleLocationSelect(location.item.name)
+                            handleLocationSelect(location.name)
                           } // Call handleLocationSelect when a location is clicked
                         >
-                          {location.item.name}
+                          {location.name}
                         </button>
                       </li>
                     ))}
@@ -137,7 +140,7 @@ function Header() {
         <div className="header-left">
           <div className="header-logo">
             <a className="d-flex" href="login.html">
-              <img alt="CorpU" src="imgs/logo.svg" />
+              <img alt="FloodManager" src="imgs/logo.svg" />
             </a>
           </div>
         </div>
@@ -188,8 +191,8 @@ function Header() {
       <div className="main-header">
         <div className="header-left">
           <div className="header-logo">
-            <a className="d-flex" href="registered-user-home.html">
-              <img alt="CorpU" src="imgs/logo.svg" />
+            <a className="d-flex" href="/">
+              <img alt="FloodManager" src="imgs/logo.svg" />
             </a>
           </div>
         </div>

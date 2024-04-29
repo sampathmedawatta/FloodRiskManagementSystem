@@ -3,7 +3,10 @@ import React, { useState, useEffect } from "react";
 import RegMainAlert from "./RegMainAlert";
 import RegFloodForecast5Days from "./RegFloodForecast5Days";
 import AlertService from "../../services/alert.service";
+import Map from "../Shared/Map";
 import { useLocation } from "../../contexts/LocationContext";
+import WeatherObservationCard from "./WeatherObservationCard";
+import NewsFeedCard from "./NewsFeedCard";
 
 function RegDashbord() {
 
@@ -30,15 +33,32 @@ function RegDashbord() {
   
   return (
     <div className="box-content">
-      {alertData?.length > 0 &&
-        alertData?.map((alert) => (
-          <RegMainAlert
-            key={alert.id}
-            message={alert.description}
-            alertType={alert.riskLevel}
-          />
-        ))}
-      <RegFloodForecast5Days />
+      <div className="row">
+        {alertData?.length > 0 &&
+          alertData?.map((alert) => (
+            <RegMainAlert
+              key={alert.id}
+              message={alert.description}
+              alertType={alert.riskLevel}
+            />
+          ))}
+      </div>
+      <div className="row">
+        <div className="col-md-12">
+          <RegFloodForecast5Days />
+        </div>
+        </div>
+        <div className="row">
+        <div className="col-md-6">
+          <Map></Map>
+        </div>
+        <div className="col-md-6">
+          <WeatherObservationCard/>
+        </div>
+        <div className="col-md-6">
+          <NewsFeedCard/>
+        </div>
+      </div>
     </div>
   );
 }

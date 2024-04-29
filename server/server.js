@@ -1,10 +1,13 @@
 const swaggerUi = require("swagger-ui-express");
 const express = require("express");
 const cors = require("cors");
+const connectDb = require("./config/dbConnection");
 
 const port = process.env.PORT || 3001
+connectDb();
 
 const app = express();
+
 app.use(cors());
 app.use(express.json());
 
