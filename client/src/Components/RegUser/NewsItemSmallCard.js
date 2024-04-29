@@ -9,18 +9,17 @@ const NewsItemSmallCard = ({newsData}) => {
   const truncatedBody = newsData.description.length > 100 ? newsData.description.substring(0, 100) + '...' : newsData.description;
   
   return (
-    <div class="card mb-3">
-      <div class="row g-0">
-        <div class="col-md-4">
+    <div className="card mb-3">
+      <div className="row g-0">
+        <div className="col-md-4">
           <img
             src="https://images.unsplash.com/photo-1485617359743-4dc5d2e53c89?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            class="img-fluid rounded-start"
+            className="img-fluid rounded-start news-card-image"
             alt="news"
-            style={{ objectFit: "cover", width: "100%", height: "100%" }}
           />
         </div>
-        <div class="col-md-8">
-          <div class="card-body">
+        <div className="col-md-8">
+          <div className="card-body">
             <div className="row">
               <div className="col-sm-8">
                 <p className="text-start text-truncate news-item-title-text">
@@ -34,11 +33,11 @@ const NewsItemSmallCard = ({newsData}) => {
               </div>
             </div>
             <div className="row min-h-100">
-              <p class="news-item-body-text text-truncate">
+              <p className="news-item-body-text text-truncate">
                 {truncatedBody}
               </p>
-              <p class="card-text">
-                <small class="text-12">Read more ...</small>
+              <p className="card-text">
+                <small className="text-12">Read more ...</small>
               </p>
             </div>
           </div>
