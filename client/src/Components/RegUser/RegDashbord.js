@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from "react";
-
 import RegMainAlert from "./RegMainAlert";
 import RegFloodForecast5Days from "./RegFloodForecast5Days";
-import AlertService from "../../services/alert.service";
 import Map from "../Shared/Map";
-import { useLocation } from "../../contexts/LocationContext";
+import AlertService from "../../services/alert.service";
 import WeatherObservationCard from "./WeatherObservationCard";
 import NewsFeedCard from "./NewsFeedCard";
 
 function RegDashbord() {
 
   const [alertData, setAlertData] = useState(null);
-  // const {location} = useLocation(); can use this after modifying alert data to existing locations
+  //TODO: const {location} = useLocation(); can use this after modifying alert data to existing locations
   const location = "location"
 
     useEffect(() => {
