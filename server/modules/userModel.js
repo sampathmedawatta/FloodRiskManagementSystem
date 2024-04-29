@@ -25,7 +25,7 @@ const userSchema = mongoose.Schema(
     },
     preferedLocation: {
       type: String,
-      require: true,
+      require: false,
     },
     address: {
       type: String,
@@ -51,6 +51,10 @@ const userSchema = mongoose.Schema(
       type: Boolean,
       require: true,
     },
+    hasLoggedIn: {
+      type: Boolean,
+      require: false,
+    }
   },
   {
     timestamp: true,

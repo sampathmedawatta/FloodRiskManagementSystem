@@ -1,6 +1,6 @@
 import React from "react";
 
-const AdminManageUserTable = ({ users, userStatus }) => {
+const AdminManageAdminTable = ({ users, userStatus }) => {
   return (
     <div className="panel-body">
       <div className="row">
@@ -24,15 +24,17 @@ const AdminManageUserTable = ({ users, userStatus }) => {
                 <th scope="col" style={{ textAlign: "left" }}>
                   Contact No
                 </th>
+
                 <th scope="col" style={{ textAlign: "left" }}>
                   Joined Date
                 </th>
                 <th scope="col" style={{ textAlign: "left" }}>
-                  Preferred Location
+                  Has Logged In
                 </th>
                 <th scope="col" style={{ textAlign: "left" }}>
                   Status
                 </th>
+
                 <th scope="col" style={{ textAlign: "left" }}>
                   Manage
                 </th>
@@ -40,7 +42,7 @@ const AdminManageUserTable = ({ users, userStatus }) => {
             </thead>
             <tbody>
               {users.map((user, index) => (
-                <tr className="tr-border"  key={index}>
+                <tr className="tr-border" key={index}>
                   <td className="text-left">
                     <p className="text-muted text-justify font-sm word-limit">
                       {index + 1}
@@ -71,9 +73,13 @@ const AdminManageUserTable = ({ users, userStatus }) => {
                     </p>
                   </td>
                   <td className="text-left">
-                    <p className="text-muted text-justify font-sm word-limit">
-                      {user.preferedLocation}
-                    </p>
+                    <span
+                      className={`label-status ${
+                        user.hasLoggedIn ? "label-active" : "label-inactive"
+                      }`}
+                    >
+                      {user.hasLoggedIn ? "Yes" : "No"}
+                    </span>
                   </td>
                   <td className="text-left">
                     <span
@@ -113,4 +119,4 @@ const AdminManageUserTable = ({ users, userStatus }) => {
   );
 };
 
-export default AdminManageUserTable;
+export default AdminManageAdminTable;

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import FaqService from "../../services/faq.service";
-import axios from "axios";
 import AdminCreateFAQ from "./AdminFaqCreate";
 import AdminFaqEdit from "./AdminFaqEdit";
 import AdminFaqTable from "./AdminFaqTable";
