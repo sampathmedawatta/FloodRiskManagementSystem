@@ -10,7 +10,7 @@ const EmergencyContact = () => {
               <div className="row">
                 <div className="col">
                   <h6 className="text-start">
-                    <i className="bi bi-newspaper fs-5" />
+                    <i className="bi bi-phone-vibrate" />
                     &nbsp;&nbsp;Emergency Contact
                   </h6>
                 </div>
