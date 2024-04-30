@@ -27,7 +27,6 @@ function Header() {
           console.error("Error fetching locations:", error);
         }
       };
-  
       fetchLocations();
     }, []);
   

@@ -20,6 +20,7 @@ const response = {
       type: "Flood",
       address: "Hong Kong Island",
       contact: "-",
+      refLocation: "Hong Kong Island",
     },
     {
       latitude: 22.26132,
@@ -29,6 +30,7 @@ const response = {
       type: "Flood",
       address: "Cheung Chau",
       contact: "-",
+      refLocation: "Cheung Chau",
     },
     {
       latitude: 22.26132,
@@ -38,6 +40,7 @@ const response = {
       type: "Flood",
       address: "Yau Ma Tei",
       contact: "-",
+      refLocation: "Yau Ma Tei",
     },
     {
       latitude: 22.26132,
@@ -47,6 +50,7 @@ const response = {
       type: "Flood",
       address: "Shek Kong",
       contact: "-",
+      refLocation: "Shek Kong",
     },
     {
       latitude: 22.26132,
@@ -56,6 +60,7 @@ const response = {
       type: "Flood",
       address: "Sha Tin",
       contact: "-",
+      refLocation: "Sha Tin",
     },
     {
       latitude: 22.28464,
@@ -65,6 +70,7 @@ const response = {
       type: "Pump Station",
       address: "Wong Nai Chung Rd, Happy Valley, Hong Kong",
       contact: "+852 6469 8700",
+      refLocation: "Hong Kong Island",
     },
     {
       latitude: 22.31896,
@@ -74,6 +80,7 @@ const response = {
       type: "Police",
       address: "3 Yau Cheung Rd, Yau Ma Tei, Hong Kong",
       contact: "+852 3661 1652",
+      refLocation: "Hong Kong Island",
     },
     {
       latitude: 22.27635,
@@ -83,6 +90,7 @@ const response = {
       type: "Police",
       address: "60 Sing Woo Rd, Happy Valley, Hong Kong",
       contact: "+852 3661 1610",
+      refLocation: "Sha Tin",
     },
     {
       latitude: 22.2878,
@@ -92,6 +100,7 @@ const response = {
       type: "Police",
       address: "1 Arsenal St, Admiralty, Hong Kong",
       contact: "+852 3661 1612",
+      refLocation: "Sha Tin",
     },
     {
       latitude: 22.29098,
@@ -101,6 +110,7 @@ const response = {
       type: "Police",
       address: "Hong Kong, Central, Hollywood Rd, 10",
       contact: "+852 3661 1602",
+      refLocation: "Shek Kong",
     },
     {
       latitude: 22.29797,
@@ -110,6 +120,7 @@ const response = {
       type: "Police",
       address: "343 Java Rd, Tsat Tsz Mui, Hong Kong",
       contact: "+852 3661 1608",
+      refLocation: "Shek Kong",
     },
     {
       latitude: 22.30958,
@@ -119,6 +130,7 @@ const response = {
       type: "Police",
       address: "8 Catering Road West Chek Lap Kok, Lantau Island, Hong Kong",
       contact: "+852 3661 1688",
+      refLocation: "Yau Ma Tei",
     },
     {
       latitude: 22.34752,
@@ -128,6 +140,7 @@ const response = {
       type: "Hospital",
       address: "1 Mok Cheong Street, 1 Mok Cheong St, Hong Kong",
       contact: "+852 3651 8888",
+      refLocation: "Sha Tin",
     },
     {
       latitude: 22.26495,
@@ -137,6 +150,7 @@ const response = {
       type: "Hospital",
       address: "40 Stubbs Rd, Happy Valley, Hong Kong",
       contact: "+852 3651 8888",
+      refLocation: "Sha Tin",
     },
     {
       latitude: 22.26217,
@@ -146,6 +160,7 @@ const response = {
       type: "Hospital",
       address: "41 Mount Kellett Rd, The Peak, Hong Kong",
       contact: "+852 2849 0111",
+      refLocation: "Sha Tin",
     },
     {
       latitude: 22.27589,
@@ -155,6 +170,7 @@ const response = {
       type: "Hospital",
       address: "9 Sandy Bay Rd, Pok Fu Lam, Hong Kong",
       contact: "+852 2855 6111",
+      refLocation: "Sha Tin",
     },
     {
       latitude: 22.28626,
@@ -164,6 +180,7 @@ const response = {
       type: "Hospital",
       address: "8 Chung Yan Rd, Hong Kong",
       contact: "+852 3467 7000",
+      refLocation: "Sha Tin",
     },
     ,
     {
@@ -174,6 +191,7 @@ const response = {
       type: "Hospital",
       address: "Main block, Pok Fu Lam Rd, Hong Kong",
       contact: "+852 2255 3838",
+      refLocation: "Sha Tin",
     },
   ],
 };
@@ -182,9 +200,13 @@ const getLocations = async () => {
   return await response;
 };
 
+const getFloodLocations = async () => {
+  return response.locations.filter((location) => location.type === "Flood");
+};
+
 const LocationService = {
   getLocations,
-
+  getFloodLocations,
 };
 
 export default LocationService;
