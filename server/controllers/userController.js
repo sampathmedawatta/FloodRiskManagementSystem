@@ -63,7 +63,9 @@ exports.createUser = async (request, response) => {
     registeredDate: currentDate, // Set the registration date
     postCode,
     type,
+    hasLoggedIn:false,
     active: true,
+    
   });
 
   if (newUser) {
@@ -89,6 +91,7 @@ exports.updateUser = async (request, response) => {
     state,
     postCode,
     type,
+    hasLoggedIn,
     active,
   } = request.body;
 
@@ -127,6 +130,10 @@ exports.updateUser = async (request, response) => {
     user.active = active;
   }
 
+  if (typeof hasLoggedIn === 'boolean') {
+    user.hasLoggedIn = hasLoggedIn;
+  }
+
   const updateResponse = await User.findByIdAndUpdate(
     {
       _id: request.params.id,
@@ -140,6 +147,7 @@ exports.updateUser = async (request, response) => {
       address: user.address,
       state: user.state,
       postCode: user.postCode,
+      hasLoggedIn: user.hasLoggedIn,
       active: user.active,
     }
   );

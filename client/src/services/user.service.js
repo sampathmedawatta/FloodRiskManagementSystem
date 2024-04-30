@@ -9,6 +9,16 @@ const headers = {
   "Content-Type": "application/json",
   //Authorization: "Bearer your-access-token", // Add any custom headers as needed
 };
+const createUser= async (parms) => {
+  return await axiosInstance
+  .post("/", parms, {
+    headers,
+  })
+  .then((response) => {
+    return response.data
+  })
+}
+
 
 const getUserById = async (id) => {
   return await axiosInstance
@@ -39,7 +49,8 @@ const updateUser = async (id, updatedFields) => {
 const UserService = {
   getUserById,
   getAllUsers,
-  updateUser
+  updateUser,
+  createUser
 }
 
 
