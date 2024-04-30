@@ -18,9 +18,6 @@ export const getCurrentDateInfo = () => {
   const nextWeekStart = currentDate.clone().startOf('week').add(1, 'week').format('DD-MM-YYYY');
   const nextWeekEnd = currentDate.clone().endOf('week').add(1, 'week').format('DD-MM-YYYY');
 
-  // Current time
-  const currentTime = currentDate.format('hh:mm A');
-
   return { 
     currentDate, 
     formattedDate, 
@@ -31,6 +28,5 @@ export const getCurrentDateInfo = () => {
     nextWeekStart,
     nextWeekEnd,
     twoWeeksDate,
-    currentTime
   };
 };

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import ForecastService from "../../services/forecast.service";
 import ForecastCard from "./ForecastCard";
 import { useLocation } from "../../contexts/LocationContext";
-import WeatherObservationCard from "./WeatherObservationCard";
 
 function RegFloodForecast5Days() {
   const [forecastData, setForecastData] = useState([]);
