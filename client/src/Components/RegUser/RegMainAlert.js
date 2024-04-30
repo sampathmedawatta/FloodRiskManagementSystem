@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 function RegMainAlert({ message, alertType }) {
   const getAlertClassName = (type) => {
     switch (type) {
-      case "danger":
+      case "H":
         return "alert alert-danger";
-      case "warning":
+      case "M":
         return "alert alert-warning";
-      case "safe":
+      case "L":
         return "alert alert-success";
       default:
         return "alert";
