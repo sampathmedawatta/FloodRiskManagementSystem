@@ -27,7 +27,10 @@ const FloodForecastTable = ({ forecastTableValues }) => {
                       Date
                     </th>
                     <th scope="col" className>
-                      Flood Level (%)
+                      Rainfall
+                    </th>
+                    <th scope="col" className>
+                      Flood (%)
                     </th>
                     <th scope="col" className>
                       Risk Level
@@ -40,6 +43,11 @@ const FloodForecastTable = ({ forecastTableValues }) => {
                       <td className="text-center pl-4">
                         <span className="text-muted font-sm">
                           {forecastItem.date}
+                        </span>
+                      </td>
+                      <td className="text-center">
+                        <span className="text-muted font-sm">
+                          {forecastItem.rainfall}
                         </span>
                       </td>
                       <td className="text-center">
