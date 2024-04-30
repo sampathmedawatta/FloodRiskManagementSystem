@@ -182,9 +182,13 @@ const getLocations = async () => {
   return await response;
 };
 
+const getFloodLocations = async () => {
+  return response.locations.filter((location) => location.type === "Flood");
+};
+
 const LocationService = {
   getLocations,
-
+  getFloodLocations,
 };
 
 export default LocationService;

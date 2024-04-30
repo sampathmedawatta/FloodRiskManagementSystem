@@ -9,7 +9,7 @@ export const registeredUserNavItems = [
     id: 2,
     icon: "bi bi-tsunami fs-5",
     title: "Flood Forecast",
-    link: "#"
+    link: "/flood-forecast"
   },
   {
     id: 3,

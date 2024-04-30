@@ -15,6 +15,7 @@ import AdminInquires from "./Components/Admin/AdminInquire";
 import AdminManageAdmins from "./Components/Admin/AdminManageAdmins";
 import AdminManageUsers from "./Components/Admin/AdminManageUsers";
 import { getUserSession } from './Components/Shared/SessionUtils';
+import FloodForecastPage from './Components/RegUser/FloodForecastPage';
 
 const userSession = getUserSession();
 
@@ -42,6 +43,7 @@ function App() {
             {/* For Registered Users */}
             {isRegistered && <Route path="dashboard" element={<RegDashbord />} />}
             {isRegistered && <Route path="faq" element={<Faq />} />}
+            {isRegistered && <Route path="flood-forecast" element={<FloodForecastPage />} />}
 
             {/* For Unregistered Users */}
             {!userType && <Route path="home" element={<NonRegDashbord />} />}
