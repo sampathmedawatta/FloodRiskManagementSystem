@@ -17,16 +17,11 @@ function RegDashbord() {
       try {
         const alerts = await AlertService.getAllAlerts();
         if (alerts) {
-          // Sort alerts based on publish date in descending order
-          const sortedAlerts = alerts.sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate));
-
           // Filter alerts based on location
-          const filteredAlerts = sortedAlerts.filter(alert => alert.location === location);
-          
-          // Set latest alert
-          if (filteredAlerts.length > 0) {
-            setAlertData(filteredAlerts[0]);
-          }
+          const filteredAlerts = alerts.filter(
+            (alert) => alert.location === location
+          );
+          setAlertData(filteredAlerts);
         }
       } catch (error) {
         console.error("Error fetching location data:", error);
@@ -39,13 +34,14 @@ function RegDashbord() {
   return (
     <div className="box-content">
       <div className="row">
-      {alertData && (
-          <RegMainAlert
-            key={alertData.id}
-            message={alertData.description}
-            alertType={alertData.riskLevel}
-          />
-        )}
+        {alertData?.length > 0 &&
+          alertData?.map((alert) => (
+            <RegMainAlert
+              key={alert.id}
+              message={alert.description}
+              alertType={alert.riskLevel}
+            />
+          ))}
       </div>
       <div className="row">
         <div className="col-md-12">

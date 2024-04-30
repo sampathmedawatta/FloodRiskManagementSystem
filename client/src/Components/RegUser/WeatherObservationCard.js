@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { getCurrentDateInfo } from "../Shared/Utils";
 import ObservationService from "../../services/observation.service";
-import { useLocation } from "../../contexts/LocationContext";
 
 const WeatherObservationCard = () => {
   const { dayOfWeek, dayOfMonth } = getCurrentDateInfo();
   const [weatherData, setWeatherData] = useState(null);
-  const [lastUpdatedTime, setLastUpdatedTime] = useState("");
+  const [currentTime, setCurrentTime] = useState("");
   //TODO: we have to look for a proper API and use the actual location with context value
-  const { location } = useLocation();
+  const location = "Hong Kong Observatory";
 
   useEffect(() => {
     const getObservations = async () => {
@@ -16,7 +15,6 @@ const WeatherObservationCard = () => {
         const observations = await ObservationService.getObservations();
         
         if (observations) {
-          console.log(observations)
           const humidityData = observations.humidity.data.find(item => item.place === location);
           const temperatureData = observations.temperature.data.find(item => item.place === location);
 
@@ -24,12 +22,7 @@ const WeatherObservationCard = () => {
             humidity: humidityData ? humidityData.value : null,
             temperature: temperatureData ? temperatureData.value : null,
           };
-
-          // Set last updated time
-          const updateTime = new Date(observations.updateTime);
-          const formattedUpdateTime = updateTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-          setLastUpdatedTime(formattedUpdateTime);
-
+          
           setWeatherData(weatherInfo);
         }
       } catch (error) {
@@ -37,18 +30,26 @@ const WeatherObservationCard = () => {
       }
     };
     getObservations();
-  },[location]);
+  },[]);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const {currentTime} = getCurrentDateInfo(); // Get current time using utility function
+      setCurrentTime(currentTime);
+    }, 1000); // Update every second
+
+    return () => clearInterval(interval);
+  }, []);
   return (
     <div className="container bg-subtle observation-table-header">
       <div className="row p-2">
-        <div className="col-8">
-          <h6 className="text-white">Weather Observation-{location}</h6>
+        <div className="col-9">
+          <h6 className="text-white">Weather Observation</h6>
           <p>
             {dayOfWeek}, {dayOfMonth}
           </p>
         </div>
-        <div className="col-4 text-center">Updated at: {lastUpdatedTime}</div>
+        <div className="col-3 text-center">{currentTime}</div>
       </div>
       <div className="table-responsive observation-table-body">
         <table className="table text-white">
