@@ -26,24 +26,36 @@ const ForecastCard = ({forecast}) => {
             <table className="table">
               <tbody>
                 <tr>
-                  <td className="text-10 text-center strong color-brand-1">
+                  <td className="text-10 strong color-brand-1 col-6 text-end">
                     Rainfall:
                   </td>
-                  <td className="text-10 text-center strong color-brand-1">
+                  <td className="text-10 strong color-brand-1 col-6 text-start ">
                     50 mm
                   </td>
                 </tr>
                 <tr>
-                  <td className="text-10 text-center color-brand-1">
+                  <td className="text-10 color-brand-1 col-6 text-end">
                     Wind Speed:
                   </td>
-                  <td className="text-10 text-center color-brand-1">69 mph</td>
+                  <td className="text-10 color-brand-1 col-6 text-start">69 mph</td>
                 </tr>
                 <tr>
-                  <td className="text-10 text-center color-brand-1">
-                    Water Level:
+                  <td className="text-10 color-brand-1 col-6 text-end">
+                    Wind Direction:
                   </td>
-                  <td className="text-10 text-center color-brand-1">55 mm</td>
+                  <td className="text-10 color-brand-1 col-6 text-start">east</td>
+                </tr>
+                <tr>
+                  <td className="text-10 color-brand-1 col-6 text-end">
+                    Mean Temperature:
+                  </td>
+                  <td className="text-10 color-brand-1 col-6 text-start">30 °C</td>
+                </tr>
+                <tr>
+                  <td className="text-10 color-brand-1 col-6 text-end">
+                    Humidity:
+                  </td>
+                  <td className="text-10 color-brand-1 col-6 text-start">80%</td>
                 </tr>
               </tbody>
             </table>

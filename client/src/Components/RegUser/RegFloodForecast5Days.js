@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-import ForecastService  from "../../services/forecast.service";
+import ForecastService from "../../services/forecast.service";
 import ForecastCard from "./ForecastCard";
 import { useLocation } from "../../contexts/LocationContext";
 
 function RegFloodForecast5Days() {
   const [forecastData, setForecastData] = useState([]);
-  const {location} = useLocation()
+  const { location } = useLocation();
 
   useEffect(() => {
+    //better if we can include a loading indicator to improve the UX
     const getForecastData = async () => {
       try {
         const forecastResponse = await ForecastService.getForecast();
@@ -21,14 +22,17 @@ function RegFloodForecast5Days() {
               (item) => {
                 const forecastDate = new Date(item.date);
                 const today = new Date();
+                const fiveDaysLater = new Date(
+                  today.getTime() + 5 * 24 * 60 * 60 * 1000
+                ); // Calculate five days from today
                 // Check if forecast date is after today and within 5 days
-                return (
-                  forecastDate.getDate() > today.getDate() &&
-                  forecastDate - today < 5 * 24 * 60 * 60 * 1000
-                );
+                return forecastDate >= today && forecastDate <= fiveDaysLater;
               }
             );
             setForecastData(filteredForecast);
+          } else {
+            // If no forecast data found for the selected location, set forecastData to an empty array
+            setForecastData([]);
           }
         }
       } catch (error) {
@@ -50,8 +54,7 @@ function RegFloodForecast5Days() {
                     <div className="col-md-10">
                       <h6 className="text-start">
                         <i className="bi bi-tsunami fs-5" />
-                        &nbsp;&nbsp;Flood Forecast for {location} - Next 5
-                        Days
+                        &nbsp;&nbsp;Flood Forecast for {location} - Next 5 Days
                       </h6>
                     </div>
                     <div className="col-md-2">
@@ -64,9 +67,13 @@ function RegFloodForecast5Days() {
                 <div className="panel-body">
                   <div className="container">
                     <div className="row gx-2 justify-content-between">
-                      {forecastData.map((forecastItem) => (
-                        <ForecastCard forecast={forecastItem} />
-                      ))}
+                      {forecastData.length > 0 ? (
+                        forecastData.map((forecastItem, index) => (
+                          <ForecastCard key={index} forecast={forecastItem} />
+                        ))
+                      ) : (
+                        <p>No forecast data available.</p>
+                      )}
                     </div>
                     <p className="text-end font-xs color-text-paragraph-2">
                       <a
@@ -81,28 +88,9 @@ function RegFloodForecast5Days() {
               </div>
             </div>
           </div>
-          <div className="section-box">
-            <div className="container">
-              <div className="panel-white">
-                <div className="panel-head">
-                  <h5>Latest Jobs</h5>
-                  <a
-                    className="menudrop"
-                    id="dropdownMenu3"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                    data-bs-display="static"
-                  />
-                </div>
-                <div className="panel-body" />
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
   );
 }
 export default RegFloodForecast5Days;
-
