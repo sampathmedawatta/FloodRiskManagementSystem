@@ -2,11 +2,15 @@ from pydantic import BaseModel
 from datetime import date
 
 class WeatherHistory(BaseModel):
-    Location: str
-    Date: str
-    Humidity: int
-    Mean_Windspeed: float
-    Wind_Direction: int
-    Mean_Tempurature: float
-    Rainfall: float
+    location: str
+    year: int
+    month: int
+    date: int
+    humidity: int
+    mean_windspeed: float
+    wind_direction: int
+    mean_tempurature: float
+    rainfall: float
+    duration: int
+    color: str
     

@@ -11,7 +11,11 @@ url = f"mongodb+srv://{quote_plus(username)}:{quote_plus(password)}@{cluster_add
 client = MongoClient(url)
 
 # Access a database
-db = client['Flood_history_db']
+db = client['hong_kong_weather_db']
 
 # Access a history_data
-history_data = db['history_data']
+location_data_CLK = db['location_data_CLK']
+location_data_CC = db['location_data_CC']
+location_data_SK = db['location_data_SK']
+location_data_ST = db['location_data_ST']
+location_data_YMT = db['location_data_YMT']
