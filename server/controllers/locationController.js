@@ -51,13 +51,13 @@ exports.createLocation = async (request, response) => {
 };
 
 exports.updateLocation = async (request, response) => {
-  const location = await Location.findOne({ name: request.params.name });
+  const location = await Location.findOne({ _id: request.params.id });
 
   if (!location) {
     return response.status(404).json({ message: "Location not found" });
   }
 
-  const {lat, long, name, value, type, address, contact, refLocation } = request.body;
+  const {lat, long, value, type, address, contact, refLocation } = request.body;
 
   if (lat) {
     location.location =  [lat, long]
@@ -103,7 +103,7 @@ exports.updateLocation = async (request, response) => {
 exports.deleteLocation = async (request, response) => {
   try {
     const deleteResponse = await Location.findOneAndDelete({
-      name: request.params.name,
+      _id: request.params.id,
     });
 
     if (deleteResponse) {
