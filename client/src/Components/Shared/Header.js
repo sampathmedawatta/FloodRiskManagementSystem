@@ -5,6 +5,7 @@ import LocationService from "../../services/location.service";
 import { useLocation } from "../../contexts/LocationContext";
 
 function Header() {
+  //
     // Get user session from sessionUtils
     const userSession = getUserSession();
 
