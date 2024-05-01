@@ -4,7 +4,12 @@ import FloodForecastTable from "./FloodForecastTable";
 import LocationService from "../../services/location.service";
 import ForecastService from "../../services/forecast.service";
 import { useLocation } from "../../contexts/LocationContext";
-
+import FloodForecastLineGraph from "./FloodForecastLineGraph";
+import Chart from "chart.js/auto";
+import { CategoryScale } from "chart.js";
+import RainfallBarGraph from "./RailfallBarGraph";
+import AlertsContainer from "./AlertsContainer";
+Chart.register(CategoryScale);
 const FloodForecastPage = () => {
   const { location } = useLocation();
   const [locations, setLocations] = useState(null);
@@ -12,6 +17,7 @@ const FloodForecastPage = () => {
   const [forecastPeriod, setForecastPeriod] = useState(7);
   const [forecastData, setForecastData] = useState(null);
 
+  console.log(forecastData, "fd");
   useEffect(() => {
     const fetchLocations = async () => {
       try {
@@ -57,7 +63,11 @@ const FloodForecastPage = () => {
         };
         setForecastData(forecastWithDetails);
       } else {
-        setForecastData({forecastData: [], location: null, forecastPeriod: null})
+        setForecastData({
+          forecastData: [],
+          location: null,
+          forecastPeriod: null,
+        });
       }
     } catch (error) {
       console.error(error);
@@ -67,7 +77,7 @@ const FloodForecastPage = () => {
   return (
     <div className="box-content">
       <div className="row">
-        <div className="col-4">
+        <div className="col-md-4">
           <ForecastSelector
             location={selectedLocation}
             locations={locations}
@@ -77,8 +87,28 @@ const FloodForecastPage = () => {
             onGetForecast={getFloodForecastOnPeriod}
           />
         </div>
-        <div className="col-8">
-          <FloodForecastTable forecastTableValues={forecastData} forecastPeriod={forecastPeriod} location={selectedLocation}/>
+        <div className="col-md-8">
+          <FloodForecastTable
+            forecastTableValues={forecastData}
+            forecastPeriod={forecastPeriod}
+            location={selectedLocation}
+          />
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-md-6">
+          <FloodForecastLineGraph chartData={forecastData} />
+        </div>
+        <div className="col-md-6">
+          <RainfallBarGraph chartData={forecastData} />
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-md-6">
+          <AlertsContainer />
+        </div>
+        <div className="col-md-6">
+          
         </div>
       </div>
     </div>
