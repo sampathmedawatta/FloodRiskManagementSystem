@@ -1,16 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
 import LocationProvider from "./contexts/LocationContext";
+import AlertProvider from "./contexts/AlertContext";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <LocationProvider>
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-</LocationProvider>
+    <AlertProvider>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </AlertProvider>
+  </LocationProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
