@@ -15,7 +15,7 @@ export const registeredUserNavItems = [
     id: 3,
     icon: "bi bi-clock-history fs-5",
     title: "Flood History",
-    link: "#"
+    link: ""
   },
   {
     id: 4,
@@ -33,6 +33,6 @@ export const registeredUserNavItems = [
     id: 6,
     icon: "bi bi-chat-text-fill fs-5",
     title: "Ask Your Query",
-    link: "#"
+    link: "/ask-query"
   }
 ];
