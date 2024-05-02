@@ -5,7 +5,7 @@ pip install pymongo
 
 Run the API 
 cd <your folder>
-uvicorn main:app --reload
+uvicorn flood_predictior_api:app  --reload --port 8001
 
 Copy the url : from the line "Uvicorn running on http://........" and past on your browser
 
