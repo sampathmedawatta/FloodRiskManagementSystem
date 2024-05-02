@@ -35,7 +35,7 @@ async def flood_predd(input_parameters : model_input):
         # Convert predicted_rainfall to list
         predicted_rainfall_list = predicted_rainfall.tolist()
 
-        return {'predicted_rainfall': predicted_rainfall_list}
+        return {'flood_forecast': predicted_rainfall_list}
     
     except Exception as e:
         return {'error': str(e)}
