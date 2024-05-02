@@ -31,11 +31,11 @@ async def flood_predd(input_parameters : model_input):
         new_data = pd.DataFrame(input_dictionary)
 
         predicted_rainfall = loaded_model.predict(new_data)
-        # Assuming loaded_model.predict() returns a list of predicted values
+
         # Convert predicted_rainfall to list
         predicted_rainfall_list = predicted_rainfall.tolist()
 
-        return {'flood_forecast': predicted_rainfall_list}
+        return {"forecast": predicted_rainfall_list}
     
     except Exception as e:
         return {'error': str(e)}

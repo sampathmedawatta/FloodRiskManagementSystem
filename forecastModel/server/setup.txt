@@ -3,9 +3,13 @@ pip install uvicorn
 pip install requests
 pip install pymongo
 
-Run the API 
-cd <your folder>
+Run the ML Model with API 
+cd forecastModel/server/ml_model
 uvicorn flood_predictior_api:app  --reload --port 8001
+
+Run the forecast API 
+cd forecastModel/server
+uvicorn main:app  --reload --port 8000
 
 Copy the url : from the line "Uvicorn running on http://........" and past on your browser
 
