@@ -9,9 +9,9 @@ weatherHistory = APIRouter()
 # get weather history records
 
 @weatherHistory.get('/weather/history')
-async def find_all_weather_history(location: str, year: int):
+async def find_all_weather_history(location: str, year: int, month: int):
     try:
-        query = {"year": year}
+        query = {"year": year, "month": month}
         if(location == 'CLK'):
             return serializeList(location_data_CLK.find(query))
         elif(location == 'CC'):
