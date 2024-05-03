@@ -6235,3 +6235,49 @@ select {
   font-weight: 600;
   color: #05264e;
 }
+
+.query-button-replied {
+  border-color: #0f5132;
+  background-color: #d1e7dd;
+  color: #0f5132;
+}
+
+.query-button-replied:hover {
+  background-color: #0f5132;
+  color: #ffffff;
+}
+
+.query-button-pending {
+  border-color: #664d03;
+  color: #664d03;
+  background-color: #fff3cd;
+}
+
+.query-title {
+  font-size: 16px;
+  color: #05264e;
+  font-weight: 700;
+}
+
+.ask-query-button {
+  display: flex;
+  background-color: #05264e;
+  color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  transition: transform 0.3s ease-in-out;
+}
+
+.ask-query-button:hover {
+  background-color: #05264e;
+  color: #ffffff;
+  transform: scaleX(1.02);
+}
+
+.query-section-box{
+  margin-top: 20px;
+}

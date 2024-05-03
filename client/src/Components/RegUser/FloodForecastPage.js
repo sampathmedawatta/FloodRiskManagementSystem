@@ -9,7 +9,9 @@ import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 import RainfallBarGraph from "./RailfallBarGraph";
 import AlertsContainer from "./AlertsContainer";
+
 Chart.register(CategoryScale);
+
 const FloodForecastPage = () => {
   const { location } = useLocation();
   const [locations, setLocations] = useState(null);
@@ -17,7 +19,6 @@ const FloodForecastPage = () => {
   const [forecastPeriod, setForecastPeriod] = useState(7);
   const [forecastData, setForecastData] = useState(null);
 
-  console.log(forecastData, "fd");
   useEffect(() => {
     const fetchLocations = async () => {
       try {
