@@ -20,7 +20,6 @@ const AlertProvider = ({ children }) => {
     const fetchLocationData = async () => {
       try {
         const alerts = await AlertService.getAllAlerts();
-        console.log(alerts,'context')
         if (alerts && location) {
           // Sort alerts based on publish date in descending order
           const sortedAlerts = alerts.sort(

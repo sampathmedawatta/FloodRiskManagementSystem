@@ -11,6 +11,8 @@ const QueryTable = ({ queryData }) => {
     descriptionError: "",
   });
   const { currentDate } = getCurrentDateInfo();
+  //TODO : After the user registrations we have to load userid here
+  const userId = "662b8e69e452dd7cd0626de6";
 
   const handleAskQuery = async (e) => {
     e.preventDefault();
@@ -21,6 +23,7 @@ const QueryTable = ({ queryData }) => {
           messageDescription: queryDescription,
           messageDate: currentDate,
           inquiryStatus: "PENDING",
+          userid: userId
         };
         const response = await InquiriesService.createInquiry(bodyData);
         if (response) {
@@ -79,14 +82,20 @@ const QueryTable = ({ queryData }) => {
                 <table className="table no-wrap user-table mb-0">
                   <thead className="border-bottom thead-header">
                     <tr>
-                      <th className="col-8 pl-4 text-start">Question Asked</th>
-                      <th className="col-4 pl-4 text-start">Status</th>
+                    <th className="col-3 pl-4 text-start">Title</th>
+                      <th className="col-7 pl-4 text-start">Question Asked</th>
+                      <th className="col-2 pl-4 text-start">Status</th>
                     </tr>
                   </thead>
                   <tbody>
                     {Boolean(queries) &&
                       queries.map((queryItem) => (
                         <tr className="tr-border" key={queryItem.id}>
+                          <td className="pl-4">
+                            <span className="text-muted font-sm">
+                              {queryItem.messageTitle}
+                            </span>
+                          </td>
                           <td className="pl-4">
                             <span className="text-muted font-sm">
                               {queryItem.messageDescription}
