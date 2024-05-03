@@ -11,13 +11,12 @@ import RainfallBarGraph from "./RailfallBarGraph";
 import AlertsContainer from "./AlertsContainer";
 Chart.register(CategoryScale);
 const FloodForecastPage = () => {
-  const { location } = useLocation();
+  const { location, setLocation } = useLocation();
   const [locations, setLocations] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState(location);
   const [forecastPeriod, setForecastPeriod] = useState(7);
   const [forecastData, setForecastData] = useState(null);
 
-  console.log(forecastData, "fd");
   useEffect(() => {
     const fetchLocations = async () => {
       try {
@@ -42,6 +41,7 @@ const FloodForecastPage = () => {
   };
 
   const getFloodForecastOnPeriod = async () => {
+    setLocation(selectedLocation);
     try {
       const forecastData = ForecastService.getForecast().find(
         (forecast) => forecast.location === selectedLocation
