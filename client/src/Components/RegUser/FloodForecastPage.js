@@ -9,7 +9,9 @@ import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 import RainfallBarGraph from "./RailfallBarGraph";
 import AlertsContainer from "./AlertsContainer";
+
 Chart.register(CategoryScale);
+
 const FloodForecastPage = () => {
   const { location, setLocation } = useLocation();
   const [locations, setLocations] = useState(null);
