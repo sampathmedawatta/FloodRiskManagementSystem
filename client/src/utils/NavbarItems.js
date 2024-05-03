@@ -27,7 +27,7 @@ export const registeredUserNavItems = [
     id: 5,
     icon: "bi bi-question-circle-fill fs-5",
     title: "FAQ",
-    link: "#"
+    link: "/faq"
   },
   {
     id: 6,
