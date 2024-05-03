@@ -5,8 +5,19 @@ realTimeWeather = APIRouter()
 
 @realTimeWeather.get('/realtime')
 async def get_weather_record():
-    url = "https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=fnd&lang=en"
+
+# https://open-meteo.com/en/docs#current=&hourly=temperature_2m,relative_humidity_2m,rain,showers,weather_code,pressure_msl,wind_speed_10m,wind_direction_10m&forecast_days=14 
+
+    url = "https://api.open-meteo.com/v1/forecast"
     params = {
+        "latitude": 52.52,
+        "longitude": 13.41,
+        "hourly":  ["temperature_2m", "relative_humidity_2m", "rain", "showers", "weather_code", "pressure_msl", "wind_speed_10m", "wind_direction_10m"],
+	    "forecast_days": 14
+    }
+
+    url1 = "https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=fnd&lang=en"
+    params1 = {
         "dataType": "rhrread",
         "lang": "en"
     }
