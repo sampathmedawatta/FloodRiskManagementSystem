@@ -1,7 +1,7 @@
 import React from "react";
-import AdminFaqList from "./AdminFaqList";
+import AdminNewsList from "./AdminNewsList";
 
-function AdminFaqTable({ faqs, toggleEditModal, handleFAQAction }) {
+function AdminNewsTable({ news, toggleEditModal, handleNewsAction }) {
   return (
     <div className="table-responsive">
       <table className="table no-wrap user-table mb-0">
@@ -17,13 +17,34 @@ function AdminFaqTable({ faqs, toggleEditModal, handleFAQAction }) {
             <th
               scope="col"
               className="pl-4"
-              style={{ width: "30%", textAlign: "left" }}
+              style={{ width: "5%", textAlign: "left" }}
+            >
+              Location
+            </th>
+            <th
+              scope="col"
+              className="pl-4"
+              style={{ width: "15%", textAlign: "left" }}
             >
               Title
             </th>
-            <th scope="col" style={{ width: "50%", textAlign: "left" }}>
+            <th scope="col" style={{ width: "20%", textAlign: "left" }}>
               Description
             </th>
+            <th
+              scope="col"
+              className="pl-4"
+              style={{ width: "15%", textAlign: "left" }}
+            >
+              Title Zh
+            </th>
+            <th scope="col" style={{ width: "20%", textAlign: "left" }}>
+              Description Zh
+            </th>
+            <th scope="col" style={{ width: "10%", textAlign: "left" }}>
+            Published Date
+            </th>
+            
             <th scope="col" style={{ width: "10%", textAlign: "left" }}>
               Status
             </th>
@@ -32,14 +53,14 @@ function AdminFaqTable({ faqs, toggleEditModal, handleFAQAction }) {
             </th>
           </tr>
         </thead>
-        <AdminFaqList
-          faqs={faqs}
-          toggleEditModal={toggleEditModal}
-          handleFAQAction={handleFAQAction}
+        <AdminNewsList
+          news={news}
+         // toggleEditModal={toggleEditModal}
+          handleNewsAction={handleNewsAction}
         />
       </table>
     </div>
   );
 }
 
-export default AdminFaqTable;
+export default AdminNewsTable;

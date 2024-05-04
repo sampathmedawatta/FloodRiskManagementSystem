@@ -6137,6 +6137,16 @@ select {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.word-limit-title {
+  max-width: 1000px;
+  /* adjust the width according to your needs */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  /* Number of lines to show */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 .more-content {
   display: inline;
