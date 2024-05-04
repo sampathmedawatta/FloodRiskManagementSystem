@@ -200,9 +200,9 @@ function Navbar() {
             {" "}
             <a
               className={`dashboard ${isActiveLink("/") ? "active" : ""}`}
-              href="/"
+              href="/manage-news"
             >
-              <Link to="/" className="nav-link px-0 align-middle">
+              <Link to="/manage-news" className="nav-link px-0 align-middle">
                 <i class="bi bi-newspaper fs-5"></i>
                 <span class="name">
                   &nbsp;&nbsp;&nbsp;Manage News &nbsp;&nbsp;
