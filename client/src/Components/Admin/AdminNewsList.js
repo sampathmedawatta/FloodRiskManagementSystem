@@ -1,6 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
+import AdminNewsView from "./AdminNewsView";
 
 function AdminNewsList({ news, toggleEditModal, handleNewsAction }) {
+  const [selectedNews, setSelectedNews] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
+  const handleViewNews = (item) => {
+    setSelectedNews(item);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <tbody>
       {news.map((item, index) => (
@@ -85,13 +98,18 @@ function AdminNewsList({ news, toggleEditModal, handleNewsAction }) {
             <button
               type="button"
               className="btn btn-pops"
-            //onClick={() => handleViewNews(item)}
+              onClick={() => handleViewNews(item)}
             >
               <i className="bi bi-newspaper fs-6"></i>
             </button>
           </td>
         </tr>
       ))}
+      <AdminNewsView
+        show={showModal}
+        handleClose={handleCloseModal}
+        newsItem={selectedNews}
+      />
     </tbody>
   );
 }
