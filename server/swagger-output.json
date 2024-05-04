@@ -147,19 +147,25 @@
             "schema": {
               "type": "object",
               "properties": {
-                "title": {
+                "location": {
                   "example": "any"
                 },
-                "location": {
+                "title": {
                   "example": "any"
                 },
                 "description": {
                   "example": "any"
                 },
+                "title_zh": {
+                  "example": "any"
+                },
                 "imageURL": {
                   "example": "any"
                 },
-                "active": {
+                "description_zh": {
+                  "example": "any"
+                },
+                "createdBy": {
                   "example": "any"
                 }
               }
@@ -170,8 +176,11 @@
           "201": {
             "description": "Created"
           },
-          "422": {
-            "description": "Unprocessable Entity"
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -211,18 +220,6 @@
             "schema": {
               "type": "object",
               "properties": {
-                "title": {
-                  "example": "any"
-                },
-                "location": {
-                  "example": "any"
-                },
-                "description": {
-                  "example": "any"
-                },
-                "imageURL": {
-                  "example": "any"
-                },
                 "active": {
                   "example": "any"
                 }
@@ -236,6 +233,9 @@
           },
           "404": {
             "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },
@@ -253,8 +253,8 @@
           "200": {
             "description": "OK"
           },
-          "404": {
-            "description": "Not Found"
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }

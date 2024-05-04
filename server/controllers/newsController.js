@@ -1,112 +1,117 @@
-const crypto = require("crypto");
+const News = require("../modules/newsModel");
+const User = require("../modules/userModel");
+const fs = require("fs");
+const path = require("path");
+const multer = require("multer");
 
-const news = [
-  {
-    id: "0dfe3b7e-df47-4e3b-aa31-1017eb2a68e3",
-    title: "News1",
-    location: "Location1",
-    publishedDate: "22/05/2024",
-    description: "News description",
-    imageURL: "image URL",
-    active: true,
+//Multer configuration for file upload
+const storage = multer.diskStorage({
+  destination: (request, file, cb) => {
+    cb(null, path.join(__dirname, "/Users/chankx/Desktop/Uni/TInnovationP/git-flood/FloodRiskManagementSystem/server/news-images")); // Change the destination path as per your requirement
   },
-  {
-    id: "0dfe3b7e-df47-4e3b-aa31-1017eb2a68e4",
-    title: "News1",
-    location: "Location1",
-    publishedDate: "22/05/2024",
-    description: "News description",
-    imageURL: "image URL",
-    active: true,
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, `${uniqueSuffix}_${file.originalname}`);
   },
-  {
-    id: "0dfe3b7e-df47-4e3b-aa31-1017eb2a68e5",
-    title: "News1",
-    location: "Location1",
-    publishedDate: "22/05/2024",
-    description: "News description",
-    imageURL: "image URL",
-    active: true,
-  },
-];
+});
 
-exports.getAllNews = (request, response) => {
+const upload = multer({ storage });
+
+exports.getAllNews = async (request, response) => {
+  const news = await News.find();
   response.status(200).json(news);
 };
 
-exports.getNewsById = (request, response) => {
-  const news = news.find((news) => news.id == request.params.id);
+exports.getNewsById = async (request, response) => {
+  const news = await News.findOne({ _id: request.params.id });
 
   if (!news) {
-    return response.status(404).json({ message: "news not found" });
+    return response.status(404).json({ message: "news item not found" });
   }
 
   response.status(200).json(news);
 };
 
-exports.createNews = (request, response) => {
-  const { title, location, description, imageURL, active } = request.body;
+exports.createNews = async (request, response) => {
+  //console.log("Received file:", request.file);
+  try {
+    const {
+      location,
+      title,
+      description,
+      title_zh,
+      imageURL,
+      description_zh,
+      createdBy,
+    } = request.body;
 
-  if (!title) {
-    return response.status(422).json({ message: "title is required" });
+    // Check if file was uploaded
+    /* if (!request.file) {
+      return response.status(400).json({ success: false, error: "No file uploaded" });
+    }*/
+
+    // Check if the user exists
+    const user = await User.findById(createdBy);
+    if (!user) {
+      return response
+        .status(400)
+        .json({ success: false, error: "Invalid user ID" });
+    }
+
+    const publishedDate = new Date();
+
+    // Create a new news item
+    const newsItem = await News.create({
+      title,
+      location,
+      publishedDate,
+      title_zh,
+      description_zh,
+      description,
+      createdBy,
+      imageURL,
+      active: true,
+    });
+
+    response.status(201).json({ success: true, news: newsItem });
+  } catch (error) {
+    response.status(500).json({ success: false, error: error.message });
   }
-
-  const id = crypto.randomUUID();
-
-  news.push({
-    id,
-    title,
-    location,
-    description,
-    imageURL,
-    active,
-  });
-
-  response.status(201).json({ message: "news created successfully", id });
 };
+exports.deleteNewsById = async (request, response) => {
+  try {
+    const deleteResponse = await News.findOneAndDelete({
+      _id: request.params.id,
+    });
 
-exports.updateNews = (request, response) => {
-  const news = news.find((news) => news.id == request.params.id);
-
-  if (!news) {
-    return response.status(404).json({ message: "news not found" });
+    if (deleteResponse) {
+      return response
+        .status(200)
+        .json({ message: "News Item deleted successfully" });
+    }
+  } catch (error) {
+    response.status(500).send({ message: "Something went wrong!" });
   }
+};
+exports.updateNewsById = async (request, response) => {
+  try {
+    const { id } = request.params;
+    const { active } = request.body;
 
-  const { title, location, description, imageURL, active } = request.body;
+    // Check if the news item exists
+    const news = await News.findById(id);
+    if (!news) {
+      return response.status(404).json({ message: "News item not found" });
+    }
 
-  if (title) {
-    news.title = title;
-  }
-
-  if (location) {
-    news.location = location;
-  }
-
-  if (description) {
-    news.description = description;
-  }
-
-  if (imageURL) {
-    news.imageURL = imageURL;
-  }
-
-  if ("active" in request.body) {
+    // Update the active status
     news.active = active;
+    await news.save();
+
+    return response
+      .status(200)
+      .json({ message: "News item updated successfully" });
+  } catch (error) {
+    return response.status(500).json({ message: "Something went wrong!" });
   }
-
-  response.status(200).json({ message: "news updated successfully" });
-};
-
-exports.deleteNews = (request, response) => {
-  const newsIndex = news.findIndex(
-    (news) => news.id == request.params.id
-  );
-
-  if (newsIndex == -1) {
-    return response.status(404).json({ message: "news not found" });
-  }
-
-  news.splice(newsIndex, 1);
-
-  response.status(200).json({ message: "news deleted successfully." });
 };

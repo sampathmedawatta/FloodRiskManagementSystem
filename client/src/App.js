@@ -18,6 +18,8 @@ import { getUserSession } from './Components/Shared/SessionUtils';
 import FloodForecastPage from './Components/RegUser/FloodForecastPage';
 import AskQueryPage from './Components/RegUser/AskQueryPage';
 import NewsFeedPage from './Components/RegUser/NewsFeedPage';
+import AdminNews from "./Components/Admin/AdminNews";
+
 
 const userSession = getUserSession();
 
@@ -41,6 +43,7 @@ function App() {
             {isAdmin && <Route path="manage-inquires" element={<AdminInquires />} />}
             {isAdmin && <Route path="manage-admins" element={<AdminManageAdmins />} />}
             {isAdmin && <Route path="manage-users" element={<AdminManageUsers />} />}
+            {isAdmin && <Route path="manage-news" element={<AdminNews />} />}
 
             {/* For Registered Users */}
             {isRegistered && <Route path="dashboard" element={<RegDashbord />} />}
