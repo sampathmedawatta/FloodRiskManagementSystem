@@ -19,14 +19,11 @@ function AdminNewsManage() {
   }, []);
 
   const fetchData = async () => {
-   // const newsList = await NewsService.getAllNews();
-   // console.log("newsLis"+newsList)
     try {
       const response = await NewsService.getAllNews();
     
       if (response.length > 0) {
         setNews(response);
-        console.log("news "+news)
       } else {
         console.warn("No News found in the response.");
       }
@@ -49,7 +46,7 @@ function AdminNewsManage() {
       console.error("Error updating FAQ:", error);
     }
   };
- /* const createFAQ = async (title, description) => {
+  const createFAQ = async (title, description) => {
     try {
       await NewsService.createFaq({
         title,
@@ -62,11 +59,11 @@ function AdminNewsManage() {
       console.error("Error creating FAQ:", error);
     }
   };
-  const toggleCreateModal = () => {
+  const toggleNewsCreateModal = () => {
     setShowCreateModal(!showCreateModal);
   };
 
-  const toggleEditModal = (faq) => {
+  /*const toggleEditModal = (faq) => {
     setShowEditModal(!showEditModal);
     setFaqToEdit(faq);
   };*/
@@ -97,10 +94,10 @@ function AdminNewsManage() {
                     <button
                       type="button"
                       className="btn btn-login hover-up text-12 w-100"
-                     // onClick={toggleCreateModal}
+                     onClick={toggleNewsCreateModal}
                     >
-                      <i className="bi bi-question-circle-fill" /> &nbsp; Create
-                      New FAQ
+                      <i className="bi bi-newspaper" /> &nbsp; Add 
+                      News
                     </button>
                   </div>
                 </div>
@@ -117,13 +114,14 @@ function AdminNewsManage() {
         </div>
       </div>
       <AdminCreateNews
-       /* showModal={showCreateModal}
-        toggleModal={toggleCreateModal}
+       showModal={showCreateModal}
+        toggleModal={toggleNewsCreateModal}
         title={title}
         setTitle={setTitle}
         description={description}
         setDescription={setDescription}
-        createFAQ={createFAQ}*/
+        createFAQ={createFAQ}
+
       />
       <AdminNewsEdit
         /*showModal={showEditModal}

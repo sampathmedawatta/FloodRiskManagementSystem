@@ -147,19 +147,25 @@
             "schema": {
               "type": "object",
               "properties": {
-                "title": {
+                "location": {
                   "example": "any"
                 },
-                "location": {
+                "title": {
                   "example": "any"
                 },
                 "description": {
                   "example": "any"
                 },
+                "title_zh": {
+                  "example": "any"
+                },
+                "description_zh": {
+                  "example": "any"
+                },
                 "imageURL": {
                   "example": "any"
                 },
-                "active": {
+                "createdBy": {
                   "example": "any"
                 }
               }
@@ -170,76 +176,17 @@
           "201": {
             "description": "Created"
           },
-          "422": {
-            "description": "Unprocessable Entity"
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
     },
     "/news/{id}": {
       "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      },
-      "put": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "title": {
-                  "example": "any"
-                },
-                "location": {
-                  "example": "any"
-                },
-                "description": {
-                  "example": "any"
-                },
-                "imageURL": {
-                  "example": "any"
-                },
-                "active": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      },
-      "delete": {
         "description": "",
         "parameters": [
           {
