@@ -16,6 +16,8 @@ const NewsItemSmallCard = ({newsData}) => {
             src="https://images.unsplash.com/photo-1485617359743-4dc5d2e53c89?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             className="img-fluid rounded-start news-card-image"
             alt="news"
+            width="50px" // Set width to 50px
+            height="50px" // Set height to 50px
           />
         </div>
         <div className="col-md-8">

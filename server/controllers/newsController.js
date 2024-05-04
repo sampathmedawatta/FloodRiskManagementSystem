@@ -1,120 +1,117 @@
-const crypto = require("crypto");
+const News = require("../modules/newsModel");
+const User = require("../modules/userModel");
+const fs = require("fs");
+const path = require("path");
+const multer = require("multer");
 
-const news = [
-  {
-    id: "0dfe3b7e-df47-4e3b-aa31-1017eb2a68e3",
-    title: "Devastating Deluge Strikes Coastal Town: Residents Brace for Worst",
-    location: "Location1",
-    title_zh: "悲慘暴雨襲擊沿海小鎮：居民準備應對最壞情況", 
-    description_zh:"特出題有臭退米街分縮司打定詳井大色。込例燃各売書文張進原間流記対怖権転億写食。指井写江問知業朝建話空見朝。遊鮮消島成禁融花塩呼修置校人掲官久理治束。戒生矢人保日提九流沢億警料中界。場帯顧統重良例工掲力報鄒授突表意休存。窓新面当目員数終光洋岸営夢学設穿京。能報暮待初土関済動性務地部作。世異婚多法率補福生考済転。",
-    publishedDate: "22/05/2024",
-    description: "News description",
-    imageURL: "image URL",
-    active: true,
+//Multer configuration for file upload
+const storage = multer.diskStorage({
+  destination: (request, file, cb) => {
+    cb(null, path.join(__dirname, "/Users/chankx/Desktop/Uni/TInnovationP/git-flood/FloodRiskManagementSystem/server/news-images")); // Change the destination path as per your requirement
   },
-  {
-    id: "0dfe3b7e-df47-4e3b-aa31-1017eb2a68e4",
-    title: "Rivers Overflow: Communities Grapple with Historic Floodwaters",
-    location: "Location1",
-    publishedDate: "22/05/2024",
-    title_zh: "悲慘暴雨襲擊沿海小鎮：居民準備應對最壞情況", 
-    description_zh:"特出題有臭退米街分縮司打定詳井大色。込例燃各売書文張進原間流記対怖権転億写食。指井写江問知業朝建話空見朝。遊鮮消島成禁融花塩呼修置校人掲官久理治束。戒生矢人保日提九流沢億警料中界。場帯顧統重良例工掲力報鄒授突表意休存。窓新面当目員数終光洋岸営夢学設穿京。能報暮待初土関済動性務地部作。世異婚多法率補福生考済転。",
-    description: "erter yreyeryeyey",
-    imageURL: "image URL",
-    active: true,
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, `${uniqueSuffix}_${file.originalname}`);
   },
-  {
-    id: "0dfe3b7e-df47-4e3b-aa31-1017eb2a68e5",
-    title: "Torrential Rain Triggers Massive Flooding, Infrastructure Damage Mounts",
-    location: "Location1",
-    publishedDate: "22/05/2024",
-    title_zh: "暴雨肆虐：大規模洪水引發基礎設施損壞", 
-    description_zh:"特出題有臭退米街分縮司打定詳井大色。込例燃各売書文張進原間流記対怖権転億写食。指井写江問知業朝建話空見朝。遊鮮消島成禁融花塩呼修置校人掲官久理治束。戒生矢人保日提九流沢億警料中界。場帯顧統重良例工掲力報鄒授突表意休存。窓新面当目員数終光洋岸営夢学設穿京。能報暮待初土関済動性務地部作。世異婚多法率補福生考済転。",
-    description: "News description",
-    imageURL: "image URL",
-    active: true,
-  },
-];
+});
 
-exports.getAllNews = (request, response) => {
+const upload = multer({ storage });
+
+exports.getAllNews = async (request, response) => {
+  const news = await News.find();
   response.status(200).json(news);
 };
 
-exports.getNewsById = (request, response) => {
-  const news = news.find((news) => news.id == request.params.id);
+exports.getNewsById = async (request, response) => {
+  const news = await News.findOne({ _id: request.params.id });
 
   if (!news) {
-    return response.status(404).json({ message: "news not found" });
+    return response.status(404).json({ message: "news item not found" });
   }
 
   response.status(200).json(news);
 };
 
-exports.createNews = (request, response) => {
-  const { title, location, description, imageURL, active } = request.body;
+exports.createNews = async (request, response) => {
+  //console.log("Received file:", request.file);
+  try {
+    const {
+      location,
+      title,
+      description,
+      title_zh,
+      imageURL,
+      description_zh,
+      createdBy,
+    } = request.body;
 
-  if (!title) {
-    return response.status(422).json({ message: "title is required" });
+    // Check if file was uploaded
+    /* if (!request.file) {
+      return response.status(400).json({ success: false, error: "No file uploaded" });
+    }*/
+
+    // Check if the user exists
+    const user = await User.findById(createdBy);
+    if (!user) {
+      return response
+        .status(400)
+        .json({ success: false, error: "Invalid user ID" });
+    }
+
+    const publishedDate = new Date();
+
+    // Create a new news item
+    const newsItem = await News.create({
+      title,
+      location,
+      publishedDate,
+      title_zh,
+      description_zh,
+      description,
+      createdBy,
+      imageURL,
+      active: true,
+    });
+
+    response.status(201).json({ success: true, news: newsItem });
+  } catch (error) {
+    response.status(500).json({ success: false, error: error.message });
   }
-
-  const id = crypto.randomUUID();
-
-  news.push({
-    id,
-    location,
-    title,
-    description,
-    title_zh,
-    description_zh,
-    imageURL,
-    active,
-  });
-
-  response.status(201).json({ message: "news created successfully", id });
 };
+exports.deleteNewsById = async (request, response) => {
+  try {
+    const deleteResponse = await News.findOneAndDelete({
+      _id: request.params.id,
+    });
 
-exports.updateNews = (request, response) => {
-  const news = news.find((news) => news.id == request.params.id);
-
-  if (!news) {
-    return response.status(404).json({ message: "news not found" });
+    if (deleteResponse) {
+      return response
+        .status(200)
+        .json({ message: "News Item deleted successfully" });
+    }
+  } catch (error) {
+    response.status(500).send({ message: "Something went wrong!" });
   }
+};
+exports.updateNewsById = async (request, response) => {
+  try {
+    const { id } = request.params;
+    const { active } = request.body;
 
-  const { title, location, description, imageURL, active } = request.body;
+    // Check if the news item exists
+    const news = await News.findById(id);
+    if (!news) {
+      return response.status(404).json({ message: "News item not found" });
+    }
 
-  if (title) {
-    news.title = title;
-  }
-
-  if (location) {
-    news.location = location;
-  }
-
-  if (description) {
-    news.description = description;
-  }
-
-  if (imageURL) {
-    news.imageURL = imageURL;
-  }
-
-  if ("active" in request.body) {
+    // Update the active status
     news.active = active;
+    await news.save();
+
+    return response
+      .status(200)
+      .json({ message: "News item updated successfully" });
+  } catch (error) {
+    return response.status(500).json({ message: "Something went wrong!" });
   }
-
-  response.status(200).json({ message: "news updated successfully" });
-};
-
-exports.deleteNews = (request, response) => {
-  const newsIndex = news.findIndex(
-    (news) => news.id == request.params.id
-  );
-
-  if (newsIndex == -1) {
-    return response.status(404).json({ message: "news not found" });
-  }
-
-  news.splice(newsIndex, 1);
-
-  response.status(200).json({ message: "news deleted successfully." });
 };

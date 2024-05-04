@@ -17,45 +17,66 @@ function AdminNewsTable({ news, toggleEditModal, handleNewsAction }) {
             <th
               scope="col"
               className="pl-4"
-              style={{ width: "5%", textAlign: "left" }}
+              style={{ width: "8%", textAlign: "left" }} // Adjusted width for Image
             >
+              Image
+            </th>
+            <th scope="col" style={{ width: "7%", textAlign: "left" }}>
               Location
             </th>
             <th
               scope="col"
-              className="pl-4"
-              style={{ width: "15%", textAlign: "left" }}
+              style={{ width: "14%", textAlign: "left" }} // Adjusted width for Title
             >
               Title
             </th>
-            <th scope="col" style={{ width: "20%", textAlign: "left" }}>
+            <th
+              scope="col"
+              style={{ width: "18%", textAlign: "left" }} // Adjusted width for Description
+            >
               Description
             </th>
             <th
               scope="col"
-              className="pl-4"
-              style={{ width: "15%", textAlign: "left" }}
+              style={{ width: "14%", textAlign: "left" }} // Adjusted width for Title Zh
             >
               Title Zh
             </th>
-            <th scope="col" style={{ width: "20%", textAlign: "left" }}>
+            <th
+              scope="col"
+              style={{ width: "18%", textAlign: "left" }} // Adjusted width for Description Zh
+            >
               Description Zh
             </th>
-            <th scope="col" style={{ width: "10%", textAlign: "left" }}>
-            Published Date
+            <th
+              scope="col"
+              style={{ width: "8%", textAlign: "left" }} // Adjusted width for Published Date
+            >
+              Published Date
             </th>
-            
-            <th scope="col" style={{ width: "10%", textAlign: "left" }}>
+            <th
+              scope="col"
+              style={{ width: "5%", textAlign: "left" }} // Adjusted width for Status
+            >
               Status
             </th>
-            <th scope="col" style={{ width: "10%", textAlign: "left" }}>
+            <th
+              scope="col"
+              style={{ width: "3%", textAlign: "left" }} // Adjusted width for Manage
+            >
               Manage
+            </th>
+            <th
+              scope="col"
+              style={{ width: "3%", textAlign: "left" }} // Adjusted width for View
+            >
+              View
             </th>
           </tr>
         </thead>
         <AdminNewsList
           news={news}
-         // toggleEditModal={toggleEditModal}
+          // toggleEditModal={toggleEditModal}
           handleNewsAction={handleNewsAction}
         />
       </table>
