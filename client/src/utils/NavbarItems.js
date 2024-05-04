@@ -21,7 +21,7 @@ export const registeredUserNavItems = [
     id: 4,
     icon: "bi bi-newspaper fs-5",
     title: "News Feed",
-    link: "#"
+    link: "/news-feed"
   },
   {
     id: 5,
