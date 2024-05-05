@@ -28,6 +28,7 @@ function App() {
 
   const isAdmin = userType === 'Admin';
   const isRegistered = userType === 'Registered';
+  const isUnRegistered = userType === 'UnRegistered';
 
   return (
     <div className="App">
@@ -53,7 +54,7 @@ function App() {
             {isRegistered && <Route path="news-feed" element={<NewsFeedPage />} />}
 
             {/* For Unregistered Users */}
-            {!userType && <Route path="home" element={<NonRegDashbord />} />}
+            {isUnRegistered && <Route path="home" element={<NonRegDashbord />} />}
             <Route path="/" element={<Navigate to={isRegistered ? '/dashboard' : isAdmin ? '/admin-dashboard' : '/home'} />} />
           </Routes>
         </main>

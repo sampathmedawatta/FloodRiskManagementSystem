@@ -15,10 +15,10 @@ const response = {
     {
       latitude: 22.26132,
       longitude: 114.17999,
-      name: "Hong Kong Island",
+      name: "Chek Lap Kok",
       value: "Flood Location",
       type: "Flood",
-      address: "Hong Kong Island",
+      address: "Chek Lap Kok",
       contact: "-",
       refLocation: "Hong Kong Island",
     },
