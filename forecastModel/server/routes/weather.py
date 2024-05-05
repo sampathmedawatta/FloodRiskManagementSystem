@@ -15,58 +15,99 @@ async def find_weather():
         raise HTTPException(status_code=500, detail="Internal server error")
     
  
-@weather.get('/weather/forecast/{period}')
-async def find_weather(period: int):
-    try:
-        if period == 1:
-            return {"message": "7 Day Forecast"}
-        elif period == 2:
-            return {"message": "14 Day forecast"}
-        else:
-            return {"message": "Invalid period."}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail="Internal server error")
-
-
 class input_pra(BaseModel):
     period : int
     location :  str
 
+
+@weather.get('/weather/forecast/{forecast_days}')
+async def get_weather_record(forecast_days: int ):
+
+    #open metro url
+    url = "https://api.open-meteo.com/v1/forecast"
+    params = {
+        "latitude": 52.52,
+        "longitude": 13.41,
+        "hourly":  ["temperature_2m", "relative_humidity_2m", "rain", "wind_speed_10m", "wind_direction_10m"],
+	    "forecast_days": forecast_days
+    }
+
+    try:
+        response = requests.get(url, params=params)
+        response.raise_for_status()  
+        weather_data = response.json()
+
+        # Initialize dictionaries
+        total_rainfall_per_day = {}
+        total_humidity_per_day = {}
+        total_temperature_per_day = {}
+        total_wind_speed_per_day = {}
+        total_wind_direction_per_day = {}
+        total_duration_per_day = {}
+
+        # Iterate through the hourly data
+        for i in range(len(weather_data['hourly']['time'])):
+            # Extract the date from the timestamp
+            date = weather_data['hourly']['time'][i][:10]
+
+            # Get the weather for the current hour
+
+            rainfall = weather_data['hourly']['rain'][i]
+            humidity = weather_data['hourly']['relative_humidity_2m'][i]
+            temperature = weather_data['hourly']['temperature_2m'][i]
+            wind_speed = weather_data['hourly']['wind_speed_10m'][i]
+            wind_direction = weather_data['hourly']['wind_direction_10m'][i]
+
+            # Add the weather data to the total for the corresponding date
+            total_rainfall_per_day[date] = total_rainfall_per_day.get(date, 0) + rainfall
+            total_humidity_per_day[date] = total_humidity_per_day.get(date, 0) + humidity
+            total_temperature_per_day[date] = total_temperature_per_day.get(date, 0) + temperature
+            total_wind_speed_per_day[date] = total_wind_speed_per_day.get(date, 0) + wind_speed
+            total_wind_direction_per_day[date] = total_wind_direction_per_day.get(date, 0) + wind_direction
+
+            if rainfall > 0:
+               total_duration_per_day[date]  = total_duration_per_day.get(date, 0) + 1
+            else:
+                total_duration_per_day[date]  = total_duration_per_day.get(date, 0) + 0
+        # Convert total weather data to the specified format
+
+        total_hours_per_day = 24
+        weather_list = {'Rainfall': [float("{:.2f}".format(total_rainfall_per_day[date]/total_hours_per_day)) for date in total_rainfall_per_day],
+                        'Humidity': [int("{:.0f}".format(total_humidity_per_day[date]/total_hours_per_day)) for date in total_humidity_per_day],
+                        'Mean_Tempurature': [float("{:.2f}".format(total_temperature_per_day[date]/total_hours_per_day)) for date in total_temperature_per_day],
+                        'Mean_Windspeed': [float("{:.2f}".format(total_wind_speed_per_day[date]/total_hours_per_day)) for date in total_wind_speed_per_day],
+                        'Wind_Direction': [int("{:.0f}".format(total_wind_direction_per_day[date]/total_hours_per_day)) for date in total_wind_direction_per_day],
+                        'Duration': [int(total_duration_per_day[date]) for date in total_duration_per_day],
+                        }
+    
+        # Remove backslashes
+        res = json.dumps(weather_list)
+        json_string_without_backslashes = res.replace("\\", "")
+
+        return json.loads(json_string_without_backslashes) 
+    
+    except requests.exceptions.RequestException as e:
+        raise HTTPException(status_code=500, detail="Failed to fetch weather data")
+
+
 @weather.get('/flood/forecast')
-async def find_weather(input_parameters : input_pra):
+async def find_weather():
     try:
         url ='http://127.0.0.1:8001/flood_prediction'
         
-        # TODO: get data from realtime weather api
+        # geta weather data from realtime api
+        forecast_weather_data = await get_weather_record(7)
 
-        # 7 days
-        forecast_weather_data = {
-                    "Mean_Windspeed": [10, 23, 23, 224, 34, 224, 34],
-                    "Wind_Direction": [100, 124, 134, 253, 56, 111, 54],
-                    "Mean_Tempurature": [25, 34, 45, 56, 77, 54, 65],
-                    "Humidity": [60, 23, 56, 77, 88, 33, 65],
-                    "Duration": [160, 203, 556, 177, 10, 100, 230],
-                    "Rainfall": [124, 46, 70, 21, 0.5, 120, 132]
-                }
-        # 14 days
-        if (input_parameters.period == 14):
-            forecast_weather_data = {
-                    "Mean_Windspeed": [10, 23, 23, 224, 34, 10,11, 32, 23, 23, 224, 34, 224, 34],
-                    "Wind_Direction": [100, 124, 134, 253, 56,90, 87, 100, 124, 134, 253, 56, 111, 54],
-                    "Mean_Tempurature": [25, 34, 45, 56, 77, 25,87, 43, 34, 45, 56, 77, 54, 65],
-                    "Humidity": [60, 23, 56, 77, 88, 60, 76, 37, 23, 56, 77, 88, 33, 65],
-                    "Duration": [160, 203, 556, 177, 10, 300, 54, 160, 203, 556, 177, 10, 100, 230],
-                    "Rainfall": [124, 46, 70, 21, 0.5, 11, 32, 65, 46, 70, 21, 0.5, 120, 132]
-                }
-               
-        input_json = json.dumps(forecast_weather_data)
-
-        response = requests.post(url, data=input_json)
-        
+        # get response from ML model
+        response = requests.post(url, data=json.dumps(forecast_weather_data))
+       
+       # load json str to object
         json_object = json.loads(response.text)
 
         # Get the current date
         current_date = datetime.now()
+
+        #forecast_data =json.loads(forecast_weather_data)
 
         # Add date to each line with an increment
         incremented_dates = []
@@ -76,11 +117,11 @@ async def find_weather(input_parameters : input_pra):
 
             incremented_dates.append({
                     "date": incremented_date.strftime("%Y-%m-%d"), 
-                    "day":i+1,
                     "dayofweek":day_of_week,
                     "riskLevel":"Moderate",
                     "flood": value,
-                    "rainfall": forecast_weather_data["Rainfall"][i],
+                    "rainfall": forecast_weather_data['Rainfall'][i],
+                    "rainfall": forecast_weather_data['Rainfall'][i],
                     "duration": forecast_weather_data["Duration"][i],
                     "humidity": forecast_weather_data["Humidity"][i],
                     "meanTempurature": forecast_weather_data["Mean_Tempurature"][i],
