@@ -21,13 +21,13 @@ export const registeredUserNavItems = [
     id: 4,
     icon: "bi bi-newspaper fs-5",
     title: "News Feed",
-    link: "#"
+    link: "/news-feed"
   },
   {
     id: 5,
     icon: "bi bi-question-circle-fill fs-5",
     title: "FAQ",
-    link: "#"
+    link: "/faq"
   },
   {
     id: 6,

@@ -304,7 +304,7 @@ a {
 }
 
 .select-style .select2 .select2-selection__arrow {
-  background: url(../imgs/template/icons/arrow-down.svg) no-repeat right 10px center;
+  background: url(../imgs/arrow-down.svg) no-repeat right 10px center;
   top: 11px;
   width: 26px;
   opacity: 0.5;
@@ -1885,11 +1885,6 @@ option {
 /*contact form*/
 .mt-6 {
   margin-top: 6px !important;
-}
-
-.modal-lg,
-.modal-xl {
-  max-width: 600px;
 }
 
 .modal-content .btn-close {
@@ -5391,7 +5386,7 @@ option {
   height: 85px;
   border: 1px solid #E0E6F6;
   border-radius: 16px;
-  background: #ffffff url(../imgs/page/post-job/plus.svg) no-repeat center;
+  background: #ffffff url(../imgs/plus.svg) no-repeat center;
   margin-right: 15px;
   position: relative;
   display: inline-block;
@@ -5437,7 +5432,7 @@ input[type=date]:before {
 }
 
 select {
-  background: url(../imgs/page/post-job/arrow-down.svg) no-repeat right 15px center;
+  background: url(../imgs/arrow-down.svg) no-repeat right 15px center;
 }
 
 .item-timeline {
@@ -6137,6 +6132,16 @@ select {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.word-limit-title {
+  max-width: 1000px;
+  /* adjust the width according to your needs */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  /* Number of lines to show */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 .more-content {
   display: inline;
@@ -6280,4 +6285,9 @@ select {
 
 .query-section-box{
   margin-top: 20px;
+}
+.small-image {
+  width: 80px !important;
+  height: 80px !important;
+  vertical-align: middle;
 }

@@ -76,7 +76,7 @@ function AdminFaqManage() {
                 <div className="col-md-7">
                   <h6 className="text-start">
                     <i className="bi bi-question-circle-fill fs-5 " />
-                    &nbsp;&nbsp;Frequently Asked Questions (FAQ)
+                    &nbsp;&nbsp;Manage Frequently Asked Questions (FAQ)
                   </h6>
                 </div>
                 <div className="col-md-5">

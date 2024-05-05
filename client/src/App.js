@@ -17,6 +17,9 @@ import AdminManageUsers from "./Components/Admin/AdminManageUsers";
 import { getUserSession } from './Components/Shared/SessionUtils';
 import FloodForecastPage from './Components/RegUser/FloodForecastPage';
 import AskQueryPage from './Components/RegUser/AskQueryPage';
+import NewsFeedPage from './Components/RegUser/NewsFeedPage';
+import AdminNews from "./Components/Admin/AdminNews";
+
 
 const userSession = getUserSession();
 
@@ -40,12 +43,14 @@ function App() {
             {isAdmin && <Route path="manage-inquires" element={<AdminInquires />} />}
             {isAdmin && <Route path="manage-admins" element={<AdminManageAdmins />} />}
             {isAdmin && <Route path="manage-users" element={<AdminManageUsers />} />}
+            {isAdmin && <Route path="manage-news" element={<AdminNews />} />}
 
             {/* For Registered Users */}
             {isRegistered && <Route path="dashboard" element={<RegDashbord />} />}
             {isRegistered && <Route path="faq" element={<Faq />} />}
             {isRegistered && <Route path="flood-forecast" element={<FloodForecastPage />} />}
             {isRegistered && <Route path="ask-query" element={<AskQueryPage />} />}
+            {isRegistered && <Route path="news-feed" element={<NewsFeedPage />} />}
 
             {/* For Unregistered Users */}
             {!userType && <Route path="home" element={<NonRegDashbord />} />}
