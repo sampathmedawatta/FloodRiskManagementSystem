@@ -4,6 +4,7 @@ import requests
 import json
 from pydantic import BaseModel
 from datetime import datetime, timedelta
+from ml_model.api.flood_predictior_api import flood_predd
 
 weather = APIRouter() 
 
@@ -72,12 +73,12 @@ async def get_weather_record(forecast_days: int ):
         # Convert total weather data to the specified format
 
         total_hours_per_day = 24
-        weather_list = {'Rainfall': [float("{:.2f}".format(total_rainfall_per_day[date]/total_hours_per_day)) for date in total_rainfall_per_day],
-                        'Humidity': [int("{:.0f}".format(total_humidity_per_day[date]/total_hours_per_day)) for date in total_humidity_per_day],
-                        'Mean_Tempurature': [float("{:.2f}".format(total_temperature_per_day[date]/total_hours_per_day)) for date in total_temperature_per_day],
-                        'Mean_Windspeed': [float("{:.2f}".format(total_wind_speed_per_day[date]/total_hours_per_day)) for date in total_wind_speed_per_day],
-                        'Wind_Direction': [int("{:.0f}".format(total_wind_direction_per_day[date]/total_hours_per_day)) for date in total_wind_direction_per_day],
-                        'Duration': [int(total_duration_per_day[date]) for date in total_duration_per_day],
+        weather_list = {'rainfall': [float("{:.2f}".format(total_rainfall_per_day[date]/total_hours_per_day)) for date in total_rainfall_per_day],
+                        'humidity': [int("{:.0f}".format(total_humidity_per_day[date]/total_hours_per_day)) for date in total_humidity_per_day],
+                        'mean_tempurature': [float("{:.2f}".format(total_temperature_per_day[date]/total_hours_per_day)) for date in total_temperature_per_day],
+                        'mean_windspeed': [float("{:.2f}".format(total_wind_speed_per_day[date]/total_hours_per_day)) for date in total_wind_speed_per_day],
+                        'wind_direction': [int("{:.0f}".format(total_wind_direction_per_day[date]/total_hours_per_day)) for date in total_wind_direction_per_day],
+                        'duration': [int(total_duration_per_day[date]) for date in total_duration_per_day],
                         }
     
         # Remove backslashes
@@ -91,19 +92,19 @@ async def get_weather_record(forecast_days: int ):
 
 
 @weather.get('/flood/forecast')
-async def find_weather():
+async def find_weather(location: str):
     try:
-        url ='http://127.0.0.1:8001/flood_prediction'
+        url ='http://127.0.0.1:8001/flood_prediction?location&=' + location
         
         # geta weather data from realtime api
         forecast_weather_data = await get_weather_record(7)
-
+       
         # get response from ML model
         response = requests.post(url, data=json.dumps(forecast_weather_data))
-       
+
        # load json str to object
         json_object = json.loads(response.text)
-
+        
         # Get the current date
         current_date = datetime.now()
 
@@ -120,20 +121,42 @@ async def find_weather():
                     "dayofweek":day_of_week,
                     "riskLevel":"Moderate",
                     "flood": value,
-                    "rainfall": forecast_weather_data['Rainfall'][i],
-                    "rainfall": forecast_weather_data['Rainfall'][i],
-                    "duration": forecast_weather_data["Duration"][i],
-                    "humidity": forecast_weather_data["Humidity"][i],
-                    "meanTempurature": forecast_weather_data["Mean_Tempurature"][i],
-                    "meanWindspeed": forecast_weather_data["Mean_Windspeed"][i],
-                    "windDirection": forecast_weather_data["Wind_Direction"][i],
+                    "rainfall": forecast_weather_data['rainfall'][i],
+                    "rainfall": forecast_weather_data['rainfall'][i],
+                    "duration": forecast_weather_data["duration"][i],
+                    "humidity": forecast_weather_data["humidity"][i],
+                    "meanTempurature": forecast_weather_data["mean_tempurature"][i],
+                    "meanWindspeed": forecast_weather_data["mean_windspeed"][i],
+                    "windDirection": forecast_weather_data["wind_direction"][i],
                     })
 
         # Construct the JSON object with incremented dates
-        json_object_with_dates = {"forecast": incremented_dates}
+        json_object_with_dates = {'forecast': incremented_dates}
 
         return json_object_with_dates
     
     except Exception as e:
         raise HTTPException(status_code=500, detail="Internal server error" , )
  
+@weather.get('/flood/forecast/all')
+async def find_forecast():
+    try:
+        response_CLK = await find_weather('CLK')
+        response_CC = await find_weather('CC')
+        response_SK = await find_weather('SK')
+        response_ST = await find_weather('ST')
+        response_YMT = await find_weather('CLK')
+
+        # Combine responses into a dictionary
+        combined_response = {
+            'CLK': response_CLK,
+            'CC': response_CC,
+            'SK': response_SK,
+            'ST': response_ST,
+            'YMT': response_YMT
+        }
+
+        return combined_response
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="Internal server error" , )

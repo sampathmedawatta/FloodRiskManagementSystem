@@ -10,19 +10,34 @@ app = FastAPI()
 
 class model_input(BaseModel):
     
-    Mean_Windspeed :  List[float]
-    Wind_Direction :  List[int]
-    Mean_Tempurature :  List[float]
-    Humidity : List[int]
-    Duration : List[int]
-    Rainfall :  List[float]
+    mean_windspeed :  List[float]
+    wind_direction :  List[int]
+    mean_tempurature :  List[float]
+    humidity : List[int]
+    duration : List[int]
+    rainfall :  List[float]
 
-# loading the saved model
-loaded_model_CLK = pickle.load(open('flood_forecast_model_CLK.sav', 'rb'))
-loaded_model_CC = pickle.load(open('flood_forecast_model_CLK.sav', 'rb'))
-loaded_model_SK = pickle.load(open('flood_forecast_model_CLK.sav', 'rb'))
-loaded_model_ST = pickle.load(open('flood_forecast_model_CLK.sav', 'rb'))
-loaded_model_YMT = pickle.load(open('flood_forecast_model_CLK.sav', 'rb'))
+# loading the saved models for each location
+try:
+    with open('data/models/flood_forecast_model_CLK.sav', 'rb') as model_file_CLK:
+        loaded_model_CLK = pickle.load(model_file_CLK)
+
+    with open('data/models/flood_forecast_model_CC.sav', 'rb') as model_file_CC:
+        loaded_model_CC = pickle.load(model_file_CC)
+
+    with open('data/models/flood_forecast_model_SK.sav', 'rb') as model_file_SK:
+        loaded_model_SK = pickle.load(model_file_SK)
+    
+    with open('data/models/flood_forecast_model_ST.sav', 'rb') as model_file_ST:
+        loaded_model_ST = pickle.load(model_file_ST)
+    
+    with open('data/models/flood_forecast_model_YMT.sav', 'rb') as model_file_YMT:
+        loaded_model_YMT = pickle.load(model_file_YMT)
+
+except FileNotFoundError:
+    print("Model file not found. Please check the file path.")
+except Exception as e:
+    print("An error occurred while loading the model:", e)
 
 @app.post('/flood_prediction')
 async def flood_predd(input_parameters : model_input, location : str):

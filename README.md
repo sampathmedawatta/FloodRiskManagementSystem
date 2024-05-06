@@ -14,7 +14,7 @@ This project is proposed to aim at developing a smart digital system that would 
 
 ### ML Model - Python/ Jupyter notebook
 - Open terminal
-- Move to ML project folder -> cd forecastModel/server/ml_model
+- Move to ML project folder -> cd forecastModel/server/ml_model/api
 - install dependancies (check setup.txt)
 - run command -> uvicorn flood_predictior_api:app  --reload --port 8001
 - copy the url and replace under .env "ML_model_URL"

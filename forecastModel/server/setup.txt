@@ -4,7 +4,7 @@ pip install requests
 pip install pymongo
 
 Run the ML Model with API 
-cd forecastModel/server/ml_model
+cd forecastModel/server/ml_model/api
 uvicorn flood_predictior_api:app  --reload --port 8001
 
 Run the forecast API 
