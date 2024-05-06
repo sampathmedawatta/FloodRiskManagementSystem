@@ -1,125 +1,118 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import LocationService from "../../services/location.service";
 
-const EmergencyContactCard = () => {
+const EmergencyContactCardHolder = () => {
+  const [emergencyContacts, setEmergencyContacts] = useState({});
+
+  useEffect(() => {
+    const loadEmergencyContacts = async () => {
+      try {
+        const locationsResponse = await LocationService.getLocations();
+        const groupedContacts = groupContactsByType(
+          locationsResponse.locations
+        );
+        setEmergencyContacts(groupedContacts);
+      } catch (error) {
+        console.error("Error loading emergency contacts:", error);
+      }
+    };
+
+    loadEmergencyContacts();
+  }, []);
+
+  const groupContactsByType = (locations) => {
+    const groupedContacts = {};
+    locations.forEach((location) => {
+      if (location.type !== "Flood") {
+        if (!groupedContacts[location.type]) {
+          groupedContacts[location.type] = [];
+        }
+        groupedContacts[location.type].push(location);
+      }
+    });
+    return groupedContacts;
+  };
+
   return (
     <div className="section-box">
       <div className="container">
         <div className="panel-white">
           <div className="panel-head">
             <div className="row">
-              <div className="col-md-10">
-                <h6 className="text-start">
-                  <i className="bi bi-tsunami fs-5" />
-                  &nbsp;&nbsp;Emergency Contact
+              <div className="col-md-12">
+                <h6 className="text-left">
+                  <i className="bi bi-hospital fs-5" />
+                  &nbsp;&nbsp;Emergency Contact Details
                 </h6>
               </div>
             </div>
           </div>
           <div className="panel-body">
-            <div className="container">
-              <div class="accordion" id="accordionExample">
-                <div class="accordion-item">
-                  <h2 class="accordion-header">
+            <div className="accordion" id="contactAccordion">
+              {Object.keys(emergencyContacts).map((type, index) => (
+                <div className="accordion-item" key={index}>
+                  <h2 className="accordion-header">
                     <button
-                      class="accordion-button"
+                      className={`accordion-button ${
+                        index === 0 ? "" : "collapsed"
+                      }`}
                       type="button"
                       data-bs-toggle="collapse"
-                      data-bs-target="#collapseOne"
-                      aria-expanded="true"
-                      aria-controls="collapseOne"
+                      data-bs-target={`#collapse${index}`}
+                      aria-expanded={index === 0}
+                      aria-controls={`collapse${index}`}
                     >
-                      Accordion Item #1
+                      {type}
                     </button>
                   </h2>
                   <div
-                    id="collapseOne"
-                    class="accordion-collapse collapse show"
-                    data-bs-parent="#accordionExample"
+                    id={`collapse${index}`}
+                    className={`accordion-collapse collapse ${
+                      index === 0 ? "show" : ""
+                    }`}
+                    data-bs-parent="#contactAccordion"
                   >
-                    <div class="accordion-body">
-                      <table>
-                        <tbody>
-                          <tr>
-                            <th>
-                              mello
+                    <div className="accordion-body">
+                      <table className="table no-wrap user-table mb-0">
+                        <thead className="border-bottom thead-header">
+                          <tr className="tr-border">
+                            <th scope="col" className="col-4">
+                              Name
                             </th>
-                            <th>
-                              hello
+                            <th scope="col" className="col-4">
+                              Address
+                            </th>
+                            <th scope="col" className="col-4">
+                              Contact
                             </th>
                           </tr>
+                        </thead>
+                        <tbody>
+                          {emergencyContacts[type].map((contact, idx) => (
+                            <tr key={idx} className="tr-border ">
+                              <td className="pl-4 col-4">
+                                <span className="text-muted text-12 ">
+                                  {contact.name}
+                                </span>
+                              </td>
+                              <td className="pl-4 col-4">
+                                <span className="text-muted text-12">
+                                  {contact.address}
+                                </span>
+                              </td>
+                              <td className="pl-4 col-4 text-center">
+                                <span className="text-muted text-12">
+                                  {contact.contact}
+                                </span>
+                              </td>
+                            </tr>
+                          ))}
                         </tbody>
                       </table>
                     </div>
                   </div>
                 </div>
-                <div class="accordion-item">
-                  <h2 class="accordion-header">
-                    <button
-                      class="accordion-button collapsed"
-                      type="button"
-                      data-bs-toggle="collapse"
-                      data-bs-target="#collapseTwo"
-                      aria-expanded="false"
-                      aria-controls="collapseTwo"
-                    >
-                      Accordion Item #2
-                    </button>
-                  </h2>
-                  <div
-                    id="collapseTwo"
-                    class="accordion-collapse collapse"
-                    data-bs-parent="#accordionExample"
-                  >
-                    <div class="accordion-body">
-                      <strong>This is the second item's accordion body.</strong>{" "}
-                      It is hidden by default, until the collapse plugin adds
-                      the appropriate classes that we use to style each element.
-                      These classes control the overall appearance, as well as
-                      the showing and hiding via CSS transitions. You can modify
-                      any of this with custom CSS or overriding our default
-                      variables. It's also worth noting that just about any HTML
-                      can go within the <code>.accordion-body</code>, though the
-                      transition does limit overflow.
-                    </div>
-                  </div>
-                </div>
-                <div class="accordion-item">
-                  <h2 class="accordion-header">
-                    <button
-                      class="accordion-button collapsed"
-                      type="button"
-                      data-bs-toggle="collapse"
-                      data-bs-target="#collapseThree"
-                      aria-expanded="false"
-                      aria-controls="collapseThree"
-                    >
-                      Accordion Item #3
-                    </button>
-                  </h2>
-                  <div
-                    id="collapseThree"
-                    class="accordion-collapse collapse"
-                    data-bs-parent="#accordionExample"
-                  >
-                    <div class="accordion-body">
-                      <strong>This is the third item's accordion body.</strong>{" "}
-                      It is hidden by default, until the collapse plugin adds
-                      the appropriate classes that we use to style each element.
-                      These classes control the overall appearance, as well as
-                      the showing and hiding via CSS transitions. You can modify
-                      any of this with custom CSS or overriding our default
-                      variables. It's also worth noting that just about any HTML
-                      can go within the <code>.accordion-body</code>, though the
-                      transition does limit overflow.
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <p className="text-end font-xs color-text-paragraph-2">
-                <a href="your_link_here" className="color-text-paragraph-2">
-                  See More
-                </a>
-              </p>
+              ))}
             </div>
           </div>
         </div>
@@ -128,4 +121,4 @@ const EmergencyContactCard = () => {
   );
 };
 
-export default EmergencyContactCard;
+export default EmergencyContactCardHolder;
