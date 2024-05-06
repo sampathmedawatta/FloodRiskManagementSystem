@@ -52,10 +52,10 @@ function Navbar() {
           <li>
             {" "}
             <a
-              className={`dashboard ${isActiveLink("/") ? "active" : ""}`}
-              href="/"
+              className={`dashboard ${isActiveLink("/news-feed") ? "active" : ""}`}
+              href="/news-feed"
             >
-              <Link to="/" className="nav-link px-0 align-middle">
+              <Link to="/news-feed" className="nav-link px-0 align-middle">
                 <i class="bi bi-newspaper fs-5"></i>
                 <span class="name">&nbsp;&nbsp; News Feed &nbsp;&nbsp;</span>
               </Link>
@@ -64,10 +64,10 @@ function Navbar() {
           <li>
             {" "}
             <a
-              className={`dashboard ${isActiveLink("/") ? "active" : ""}`}
-              href="/"
+              className={`dashboard ${isActiveLink("/faq") ? "active" : ""}`}
+              href="/faq"
             >
-              <Link to="/" className="nav-link px-0 align-middle">
+              <Link to="/faq" className="nav-link px-0 align-middle">
                 <i class="bi bi-question-circle-fill fs-5"></i>
                 <span class="name">&nbsp;&nbsp;FAQ &nbsp;&nbsp;</span>
               </Link>

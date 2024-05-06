@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import UserService from "../services/user.service";
+import { getUserSession } from "../Components/Shared/SessionUtils";
 
 const LocationContext = createContext({
   location: null,
@@ -11,7 +12,8 @@ export const useLocation = () => useContext(LocationContext);
 const LocationProvider = ({ children }) => {
   const [location, setLocation] = useState("Kwun Tong");
   //we can remove this id after implementing user auth part
-  const userId = "662e2b867daa986ce1b85bdd";
+  const userSession = getUserSession();
+  const userId = userSession.loggedUser;
 
   useEffect(() => {
     const fetchLocationData = async () => {

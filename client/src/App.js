@@ -55,6 +55,8 @@ function App() {
 
             {/* For Unregistered Users */}
             {isUnRegistered && <Route path="home" element={<NonRegDashbord />} />}
+            {isUnRegistered && <Route path="news-feed" element={<NewsFeedPage />} />}
+            {isUnRegistered && <Route path="faq" element={<Faq />} />}
             <Route path="/" element={<Navigate to={isRegistered ? '/dashboard' : isAdmin ? '/admin-dashboard' : '/home'} />} />
           </Routes>
         </main>
