@@ -42,6 +42,7 @@ const updateInquiry = async (id, updatedFields) => {
   try {
     const response = await axiosInstance.put(`/${id}`, updatedFields, headers );
     return response.data;
+   
   } catch (error) {
     console.error(`Error updating inquiry with ID ${id}:`, error);
     throw error;

@@ -288,6 +288,9 @@
                 },
                 "inquiryStatus": {
                   "example": "any"
+                },
+                "userId": {
+                  "example": "any"
                 }
               }
             }
@@ -297,8 +300,14 @@
           "201": {
             "description": "Created"
           },
+          "400": {
+            "description": "Bad Request"
+          },
           "422": {
             "description": "Unprocessable Entity"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -338,15 +347,6 @@
             "schema": {
               "type": "object",
               "properties": {
-                "messageTitle": {
-                  "example": "any"
-                },
-                "messageDescription": {
-                  "example": "any"
-                },
-                "messageDate": {
-                  "example": "any"
-                },
                 "inquiryStatus": {
                   "example": "any"
                 },
@@ -392,8 +392,8 @@
           "200": {
             "description": "OK"
           },
-          "404": {
-            "description": "Not Found"
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }

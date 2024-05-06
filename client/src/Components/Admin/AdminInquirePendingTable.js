@@ -11,14 +11,14 @@ function AdminInquirePendingTable({ pendingInquiries, toggleSendMsg }) {
             <th scope="col" className="pl-4" style={{ width: "1%", textAlign: "left" }}>
               #
             </th>
+            <th scope="col" className="pl-4" style={{ width: "20%", textAlign: "left" }}>
+              Customer Name
+            </th>
             <th scope="col" className="pl-4" style={{ width: "25%", textAlign: "left" }}>
-              Title
+            Inquiry Title
             </th>
             <th scope="col" style={{ width: "45%", textAlign: "left" }}>
               Message
-            </th>
-            <th scope="col" className="pl-4" style={{ width: "20%", textAlign: "left" }}>
-              Customer Name
             </th>
             <th scope="col" style={{ width: "10%", textAlign: "left" }}>
               Reply

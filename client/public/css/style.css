@@ -6242,9 +6242,9 @@ select {
 }
 
 .query-button-replied {
-  border-color: #0f5132;
   background-color: #d1e7dd;
   color: #0f5132;
+  padding: 10px !important
 }
 
 .query-button-replied:hover {
@@ -6253,10 +6253,15 @@ select {
 }
 
 .query-button-pending {
-  border-color: #664d03;
   color: #664d03;
   background-color: #fff3cd;
+  padding: 10px !important
 }
+.query-button-pending {
+ 
+  cursor: none !important;
+}
+
 
 .query-title {
   font-size: 16px;
