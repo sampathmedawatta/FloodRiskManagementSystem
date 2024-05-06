@@ -2,12 +2,10 @@ import React, { useEffect, useState } from "react";
 import NewsItemSmallCard from "./NewsItemSmallCard";
 import NewsService from "../../services/news.service";
 import { Link } from "react-router-dom";
-// import { useLocation } from "../../contexts/LocationContext";
+import { useLocation } from "../../contexts/LocationContext";
 
 const NewsFeedCard = () => {
-  //TODO: after modifying get news api response we can use location context value
-  // const { location } = useLocation();
-  const location = "Location1";
+  const { location } = useLocation();
   const [news, setNews] = useState([]);
 
   useEffect(() => {
@@ -19,10 +17,7 @@ const NewsFeedCard = () => {
           const filteredNews = newsList.filter(
             (newsItem) => newsItem.location === location
           );
-          // Sort news by date in descending order (latest first)
-          filteredNews.sort(
-            (a, b) => new Date(b.publishedDate) - new Date(a.publishedDate)
-          );
+          
           //setting latest three news items into news state
           setNews(filteredNews.slice(0, 3));
         }

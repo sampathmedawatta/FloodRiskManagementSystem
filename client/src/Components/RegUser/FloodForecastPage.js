@@ -36,6 +36,7 @@ const FloodForecastPage = () => {
 
   const handleLocationSelect = (location) => {
     setSelectedLocation(location);
+    setLocation(location)
   };
 
   const handleDurationSelect = (duration) => {
