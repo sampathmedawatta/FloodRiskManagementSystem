@@ -623,6 +623,7 @@ iframe {
   position: relative;
   bottom: 0px;
   display: inline-block !important;
+  min-height: 760px;
 }
 
 .box-content {
