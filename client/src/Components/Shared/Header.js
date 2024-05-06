@@ -146,7 +146,6 @@ function Header() {
           <div className="row">
             <div className="col-md-4">
               <div className="header-date">
-                <h6>April 2024</h6>
                 <h6>{formattedDate}</h6>
                 <p className="text-start font-xs color-text-paragraph-2">
                   {dayOfWeek} {dayOfMonth}

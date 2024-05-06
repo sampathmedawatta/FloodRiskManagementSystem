@@ -16,7 +16,7 @@ const NewsDisplayCard = ({ newsData }) => {
         <img
           src={`/news-images/${newsData.imageURL}`}
           class="card-img-top"
-          alt="..."
+          alt="news"
         />
         <div class="card-body flex">
           <div className="d-flex flex-column justify-content-between flex-wrap">

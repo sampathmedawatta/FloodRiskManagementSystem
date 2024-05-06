@@ -36,9 +36,13 @@ const FloodForecastPage = () => {
 
   const handleLocationSelect = (location) => {
     setSelectedLocation(location);
-    setLocation(location)
+    setLocation(location);
   };
 
+  useEffect(() => {
+    handleLocationSelect(location);
+  }, [location]);
+  
   const handleDurationSelect = (duration) => {
     setForecastPeriod(duration);
   };
@@ -110,9 +114,7 @@ const FloodForecastPage = () => {
         <div className="col-md-6">
           <AlertsContainer />
         </div>
-        <div className="col-md-6">
-          
-        </div>
+        <div className="col-md-6"></div>
       </div>
     </div>
   );
