@@ -12,12 +12,12 @@ const NewsFeedCard = () => {
     const fetchNews = async () => {
       try {
         const newsList = await NewsService.getAllNews();
+        console.log(newsList)
         if (newsList) {
           // Filter news based on location
           const filteredNews = newsList.filter(
             (newsItem) => newsItem.location === location
           );
-          
           //setting latest three news items into news state
           setNews(filteredNews.slice(0, 3));
         }
@@ -27,7 +27,7 @@ const NewsFeedCard = () => {
     };
 
     fetchNews();
-  }, []);
+  }, [location]);
 
   return (
     <div className="section-box">
@@ -43,7 +43,7 @@ const NewsFeedCard = () => {
               </div>
               <div className="col-md-2">
                 {/*TODO: link this to news feed page */}
-                <Link to="#">
+                <Link to="/news-feed">
                 <p className="text-end font-xs color-text-paragraph-2">
                   See more
                 </p>
@@ -54,7 +54,7 @@ const NewsFeedCard = () => {
           <div className="panel-body">
             <div className="container">
               <div className="row gx-2 justify-content-between">
-                {news.map((newsItem) => (
+                {news?.map((newsItem) => (
                   <NewsItemSmallCard newsData={newsItem} />
                 ))}
               </div>

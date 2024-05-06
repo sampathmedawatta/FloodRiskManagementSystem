@@ -15,7 +15,7 @@ class model_input(BaseModel):
     Rainfall :  List[float]
 
 # loading the saved model
-loaded_model = pickle.load(open('flood_forecast_model.sav', 'rb'))
+loaded_model = pickle.load(open('flood_forecast_model_CLK.sav', 'rb'))
 
 def flood_predd(input_parameters : model_input):
     

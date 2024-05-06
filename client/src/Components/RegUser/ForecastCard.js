@@ -20,7 +20,7 @@ const ForecastCard = ({forecast}) => {
             </div>
           </div>
           <div className="ptb-10">
-            <p className="font-box-flood text-center">61%</p>
+            <p className="font-box-flood text-center">{forecast.flood}%</p>
           </div>
           <div className="table-responsive">
             <table className="table">
@@ -30,7 +30,7 @@ const ForecastCard = ({forecast}) => {
                     Rainfall:
                   </td>
                   <td className="text-10 strong color-brand-1 col-6 text-start ">
-                    50 mm
+                    {forecast.rainfall}
                   </td>
                 </tr>
                 <tr>
