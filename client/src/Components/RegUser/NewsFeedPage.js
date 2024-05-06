@@ -46,7 +46,7 @@ const NewsFeedPage = () => {
             </div>
           </div>
           <div className="panel-body d-flex flex-wrap gap-3 justify-content-evenly justify-content-lg-around justify-content-xl-start">
-            {newsList.length === 0 && (<p>No News to display</p>)}
+            {newsList?.length === 0 && (<p>No News to display</p>)}
             {newsList?.map((newsItem) => (
               <NewsDisplayCard key={newsItem.id} newsData={newsItem} />
             ))}
