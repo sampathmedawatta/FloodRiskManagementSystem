@@ -6,6 +6,7 @@ import AlertService from "../../services/alert.service";
 import WeatherObservationCard from "./WeatherObservationCard";
 import NewsFeedCard from "./NewsFeedCard";
 import EmergencyContact from "./EmergencyContact";
+import EmergencyContactCardHolder from "../NonRegUser/EmergencyContactCard";
 
 function RegDashbord() {
   const [alertData, setAlertData] = useState(null);
@@ -18,11 +19,15 @@ function RegDashbord() {
         const alerts = await AlertService.getAllAlerts();
         if (alerts) {
           // Sort alerts based on publish date in descending order
-          const sortedAlerts = alerts.sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate));
+          const sortedAlerts = alerts.sort(
+            (a, b) => new Date(b.publishDate) - new Date(a.publishDate)
+          );
 
           // Filter alerts based on location
-          const filteredAlerts = sortedAlerts.filter(alert => alert.location === location);
-          
+          const filteredAlerts = sortedAlerts.filter(
+            (alert) => alert.location === location
+          );
+
           // Set latest alert
           if (filteredAlerts.length > 0) {
             setAlertData(filteredAlerts[0]);
@@ -39,7 +44,7 @@ function RegDashbord() {
   return (
     <div className="box-content">
       <div className="row">
-      {alertData && (
+        {alertData && (
           <RegMainAlert
             key={alertData.id}
             message={alertData.description}
@@ -55,17 +60,17 @@ function RegDashbord() {
       <div className="row mt-1">
         <div className="col-md-6">
           <Map></Map>
-          <EmergencyContact/>
         </div>
         <div className="col-md-6">
-          <div className="row">
-            <div>
-              <WeatherObservationCard />
-            </div>
-            <div className="mt-3">
-              <NewsFeedCard />
-            </div>
-          </div>
+          <WeatherObservationCard />
+        </div>
+      </div>
+      <div className="row mt-2">
+        <div className="col-md-6">
+          <EmergencyContactCardHolder />;
+        </div>
+        <div className="col-md-6">
+          <NewsFeedCard />
         </div>
       </div>
     </div>
