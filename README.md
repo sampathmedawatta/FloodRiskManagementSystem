@@ -26,18 +26,20 @@ This project is proposed to aim at developing a smart digital system that would 
 - run command -> uvicorn main:app  --reload --port 8000
 - copy the url and run it on borwser/postman
 
-### Client - React app
-- Open another terminal
-- Move to server folder: cd server
-- Install packages: npm install
-- Run the server : npm run dev
-
 ### Server Node.js api
 - Open another  terminal 
 - Move to client folder: cd client
 - Install packages: npm install
 - run -> node swagger.js
 - Run the client: npm start
+  
+### Client - React app
+- Open another terminal
+- Move to server folder: cd server
+- Install packages: npm install
+- Run the server : npm run dev
+
+
 
 
 
