@@ -5,8 +5,7 @@ import { useLocation } from "../../contexts/LocationContext";
 
 const NewsFeedPage = () => {
   //TODO: Enable this after the backend change of news items for different locations. currently having data only for "location1"
-  // const { location } = useLocation();
-  const location = "Location1"
+  const { location } = useLocation();
   const [newsList, setNewsList] = useState(null);
 
   useEffect(() => {
@@ -18,11 +17,6 @@ const NewsFeedPage = () => {
           const filteredNews = newsList.filter(
             (newsItem) => newsItem.location === location
           );
-          // Sort news by date in descending order (latest first)
-          filteredNews.sort(
-            (a, b) => new Date(b.publishedDate) - new Date(a.publishedDate)
-          );
-
           setNewsList(filteredNews);
         }
       } catch (error) {
@@ -48,9 +42,8 @@ const NewsFeedPage = () => {
           </div>
           <div className="panel-body d-flex flex-wrap gap-3 justify-content-evenly justify-content-lg-around justify-content-xl-start">
             {newsList?.map((newsItem) => (
-              <NewsDisplayCard key={newsItem.id} newsData = {newsItem}/>
+              <NewsDisplayCard key={newsItem.id} newsData={newsItem} />
             ))}
-            
           </div>
         </div>
       </div>
