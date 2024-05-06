@@ -43,7 +43,10 @@ function AdminInquireReplyTable({ replyInquiries }) {
             </th>
           </tr>
         </thead>
-        <AdminInquireReplyList replyInquiries={replyInquiries} />
+        <AdminInquireReplyList
+          replyInquiries={replyInquiries}
+
+        />
       </table>
     </div>
   );

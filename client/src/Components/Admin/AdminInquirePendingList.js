@@ -1,35 +1,39 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import UserService from "../../services/user.service";
 
-function AdminInquirePendingList({ pendingInquiries,toggleSendMsg }) {
+function AdminInquirePendingList({ pendingInquiries, toggleSendMsg }) {
   const [userNames, setUserNames] = useState({});
 
   useEffect(() => {
-    // Fetch user details for each pending inquiry
     const fetchUserDetails = async () => {
-      const userDetailsPromises = pendingInquiries.map((inquiry) =>
-        axios.get(`http://localhost:3001/user/${inquiry.userid}`)
-      );
-
       try {
-        const userDetailsResponses = await Promise.all(userDetailsPromises);
-        const userNamesMap = userDetailsResponses.reduce((acc, response) => {
-          acc[
-            response.data._id
-          ] = `${response.data.fName} ${response.data.lName}`;
-          return acc;
-        }, {});
+        const userNamesMap = {};
+        for (const inquiry of pendingInquiries) {
+          const user = await UserService.getUserById(inquiry.userId);
+          userNamesMap[inquiry.userId] = `${user.fName} ${user.lName}`;
+        }
         setUserNames(userNamesMap);
       } catch (error) {
         console.error("Error fetching user details:", error);
       }
     };
 
-    fetchUserDetails();
+    if (pendingInquiries && pendingInquiries.length > 0) {
+      fetchUserDetails();
+    }
   }, [pendingInquiries]);
 
   if (!pendingInquiries || pendingInquiries.length === 0) {
-    return <tbody>No pending inquiries to display</tbody>;
+    return (
+      <tbody>
+        <tr>
+          <td colSpan="5" className="text-center">
+            No pending inquiries to display
+          </td>
+        </tr>
+      </tbody>
+    );
   }
 
   return (
@@ -39,6 +43,11 @@ function AdminInquirePendingList({ pendingInquiries,toggleSendMsg }) {
           <td className="text-left">
             <p className="text-muted text-justify font-sm word-limit">
               {index + 1}
+            </p>
+          </td>
+          <td className="text-left">
+            <p className="text-muted text-justify font-sm word-limit">
+              {userNames[inquiry.userId] || "Name"}
             </p>
           </td>
           <td className="text-left pl-4">
@@ -52,19 +61,13 @@ function AdminInquirePendingList({ pendingInquiries,toggleSendMsg }) {
             </p>
           </td>
           <td className="text-left">
-            <p className="text-muted text-justify font-sm word-limit">
-              {userNames[inquiry.userid] || "Name"}
-            </p>
-          </td>
-          <td className="text-left">
-      
-             <button
-                type="button"
-                className="btn btn-pops "
-                onClick={() => toggleSendMsg(inquiry)}
-              >
-                <i className="bi  bi-reply-all-fill fs-6"></i>
-              </button>
+            <button
+              type="button"
+              className="btn btn-pops"
+              onClick={() => toggleSendMsg(inquiry)}
+            >
+              <i className="bi bi-reply-all-fill fs-6"></i>
+            </button>
           </td>
         </tr>
       ))}

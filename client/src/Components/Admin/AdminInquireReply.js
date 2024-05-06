@@ -32,38 +32,6 @@ const [replyInquiries, setReplyInquiries] = useState([]);
     }
   };
 
-  /*const fetchData = async () => {
-    try {
-      const response = await axios.get(`${API_BASE_URL}/inquiries/`);
-      const sortedInquiries = response.data.sort((a, b) => {
-        return new Date(b.messageDate) - new Date(a.messageDate);
-      });
-
-      // Filter inquiries "REPLY"
-      const replyInquiries = sortedInquiries.filter(
-        (inquiry) => inquiry.inquiryStatus === "REPLY"
-      );
-      setReplyInquiries(replyInquiries);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-  const fetchData = async () => {
-    try {
-      const response = await InquiriesService.getAllInquiries;
-      if (response.length > 0) {
-        const replyInquiries = response.filter(
-          (inquiry) => inquiry.inquiryStatus === "REPLY"
-        );
-        setReplyInquiries(replyInquiries);
-      } else {
-        console.warn("No Inquiries found in the response.");
-      }
-    } catch (error) {
-      console.error("Error fetching Inquiries:", error);
-    }
-  };
-*/
   return (
     <div className="col-md-12">
       <div className="box-content">

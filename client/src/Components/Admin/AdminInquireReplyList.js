@@ -1,34 +1,37 @@
 import React, { useState, useEffect } from "react";
-import { API_BASE_URL } from "../Shared/apiConfig";
-import axios from "axios";
+import UserService from "../../services/user.service"; 
 
-function AdminInquireReplyList({ replyInquiries }) {
+function AdminInquireReplyList({ replyInquiries, updateReplyInquiries }) {
   const [userNames, setUserNames] = useState({});
-
   useEffect(() => {
-    // Fetch user details for each pending inquiry
     const fetchUserDetails = async () => {
-      const userDetailsPromises = replyInquiries.map((inquiry) =>
-      axios.get(`http://localhost:3001/user/${inquiry.userid}`)
-      );
-
       try {
-        const userDetailsResponses = await Promise.all(userDetailsPromises);
-        const userNamesMap = userDetailsResponses.reduce((acc, response) => {
-          acc[response.data._id] = `${response.data.fName} ${response.data.lName}`;
-          return acc;
-        }, {});
+        const userNamesMap = {};
+        for (const inquiry of replyInquiries) {
+          const user = await UserService.getUserById(inquiry.userId);
+          userNamesMap[inquiry.userId] = `${user.fName} ${user.lName}`;
+        }
         setUserNames(userNamesMap);
       } catch (error) {
         console.error("Error fetching user details:", error);
       }
     };
 
-    fetchUserDetails();
+    if (replyInquiries && replyInquiries.length > 0) {
+      fetchUserDetails();
+    }
   }, [replyInquiries]);
 
   if (!replyInquiries || replyInquiries.length === 0) {
-    return <tbody>No pending inquiries to display</tbody>;
+    return (
+      <tbody>
+        <tr>
+          <td colSpan="5" className="text-center">
+            No pending inquiries to display
+          </td>
+        </tr>
+      </tbody>
+    );
   }
 
   return (
@@ -43,7 +46,7 @@ function AdminInquireReplyList({ replyInquiries }) {
           </td>
                     <td className="text-left">
             <p className="text-muted text-justify font-sm word-limit">
-              {userNames[inquiry.userid] || "Name"}
+              {userNames[inquiry.userId] || "Name"}
             </p>
           </td>
           <td className="text-left pl-4">
