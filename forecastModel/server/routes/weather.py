@@ -92,12 +92,12 @@ async def get_weather_record(forecast_days: int ):
 
 
 @weather.get('/flood/forecast')
-async def find_weather(location: str):
+async def find_weather(location: str, days: int):
     try:
         url ='http://127.0.0.1:8001/flood_prediction?location&=' + location
         
         # geta weather data from realtime api
-        forecast_weather_data = await get_weather_record(7)
+        forecast_weather_data = await get_weather_record(days)
        
         # get response from ML model
         response = requests.post(url, data=json.dumps(forecast_weather_data))
@@ -139,24 +139,24 @@ async def find_weather(location: str):
         raise HTTPException(status_code=500, detail="Internal server error" , )
  
 @weather.get('/flood/forecast/all')
-async def find_forecast():
+async def find_forecast( days: int):
     try:
-        response_CLK = await find_weather('CLK')
-        response_CC = await find_weather('CC')
-        response_SK = await find_weather('SK')
-        response_ST = await find_weather('ST')
-        response_YMT = await find_weather('CLK')
 
-        # Combine responses into a dictionary
-        combined_response = {
-            'CLK': response_CLK,
-            'CC': response_CC,
-            'SK': response_SK,
-            'ST': response_ST,
-            'YMT': response_YMT
-        }
+        locations = ['CLK', 'CC', 'SK', 'ST', 'YMT']
+        data = await fetch_weather_data(locations, days)
 
-        return combined_response
+        return data
 
     except Exception as e:
         raise HTTPException(status_code=500, detail="Internal server error" , )
+    
+
+async def fetch_weather_data(locations, days):
+    data = []
+    for location in locations:
+        response = await find_weather(location, days)
+        data.append({
+            "location": location,
+            "data": [response]
+        })
+    return data

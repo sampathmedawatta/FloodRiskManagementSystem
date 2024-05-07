@@ -36,6 +36,7 @@ exports.createUser = async (request, response) => {
     address,
     state,
     type,
+    lang,
     postCode,
   } = request.body;
 
@@ -55,6 +56,11 @@ exports.createUser = async (request, response) => {
     return response.status(422).json({ message: "Invalid user type" });
   }
 
+  const allowedlang = ["English", "Chinese"];
+  if (!lang|| !allowedlang.includes(lang)) {
+    return response.status(422).json({ message: "Invalid Lang " });
+  }
+
   const hashPassword = await bcrypt.hash(password, 10);
 
   const currentDate = new Date();
@@ -71,6 +77,7 @@ exports.createUser = async (request, response) => {
     registeredDate: currentDate, // Set the registration date
     postCode,
     type,
+    lang,
     hasLoggedIn: false,
     active: true,
   });
@@ -86,7 +93,7 @@ exports.updateUser = async (request, response) => {
   const user = await User.findOne({ _id: request.params.id });
 
   if (!user) {
-    return response.status(404).json({ message: "user not found" });
+    return response.status(404).json({ message: "User not found" });
   }
 
   const {
@@ -98,9 +105,18 @@ exports.updateUser = async (request, response) => {
     state,
     postCode,
     type,
+    lang,
     hasLoggedIn,
     active,
   } = request.body;
+
+  if (lang) {
+    const allowedLang = ["English", "Chinese"];
+    if (!allowedLang.includes(lang)) {
+      return response.status(422).json({ message: "Invalid language" });
+    }
+    user.lang = lang;
+  }
 
   if (fName) {
     user.fName = fName;
@@ -133,6 +149,7 @@ exports.updateUser = async (request, response) => {
   if (type) {
     user.type = type;
   }
+
   if ("active" in request.body) {
     user.active = active;
   }
@@ -141,25 +158,13 @@ exports.updateUser = async (request, response) => {
     user.hasLoggedIn = hasLoggedIn;
   }
 
-  const updateResponse = await User.findByIdAndUpdate(
-    {
-      _id: request.params.id,
-    },
-    {
-      fName: user.fName,
-      fName: user.fName,
-      lName: user.lName,
-      contactNo: user.contactNo,
-      preferedLocation: user.preferedLocation,
-      address: user.address,
-      state: user.state,
-      postCode: user.postCode,
-      hasLoggedIn: user.hasLoggedIn,
-      active: user.active,
-    }
-  );
-
-  response.status(200).json({ message: "user updated successfully - " });
+  // Save the updated user
+  try {
+    await user.save();
+    response.status(200).json({ message: "User updated successfully" });
+  } catch (error) {
+    response.status(500).json({ message: "Failed to update user" });
+  }
 };
 
 exports.deleteUser = async (request, response) => {
