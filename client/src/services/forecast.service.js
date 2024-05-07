@@ -534,6 +534,45 @@ const getForecast = () => {
   return response.data;
 };
 
+
+const getForecastByLocation = async (location, days) => {
+
+  const sessionData = sessionStorage.getItem(
+    "forecastData" + location + days + "days"
+  );
+  const sessionDate = sessionStorage.getItem(
+    "forecastDataDate" + location + days + "days"
+  );
+  const currentDate = new Date().toISOString().slice(0, 10);
+
+  if (sessionData && sessionDate === currentDate) 
+  {
+    return JSON.parse(sessionData);
+  } 
+  else 
+  {
+  return await axiosInstance
+    .get("/flood/forecast?location=" + location + "&days=" + days, {
+      headers,
+    })
+    .then((response) => {
+      if (response != undefined && response != null) {
+        // Save data in session storage
+        sessionStorage.setItem(
+          "forecastData" + location + days + "days",
+          JSON.stringify(response.data)
+        );
+        sessionStorage.setItem(
+          "forecastDataDate" + location + days + "days",
+          currentDate
+        );
+
+        return response.data;
+      } 
+    });
+  }
+};
+
 const getForecastByDate = async (days) => {
   
   const sessionData = sessionStorage.getItem("forecastData" + days + "days");
@@ -571,6 +610,7 @@ const getForecastByDate = async (days) => {
 const ForecastService = {
   getForecast,
   getForecastByDate,
+  getForecastByLocation,
 };
 
 export default ForecastService;

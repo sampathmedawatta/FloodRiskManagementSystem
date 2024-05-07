@@ -16,7 +16,7 @@ const WeatherObservationCard = () => {
         const observations = await ObservationService.getObservations();
         
         if (observations) {
-          console.log(observations)
+         
           const humidityData = observations.humidity.data.find(item => item.place === location);
           const temperatureData = observations.temperature.data.find(item => item.place === location);
 
