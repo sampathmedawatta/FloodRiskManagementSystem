@@ -55,7 +55,7 @@ const ForecastCard = ({ weather }) => {
                     Rainfall:
                   </td>
                   <td className="text-10 strong color-brand-1 col-6 text-start ">
-                    {weather.rainfall}
+                    {weather.rainfall} mm
                   </td>
                 </tr>
                 <tr>
@@ -63,7 +63,7 @@ const ForecastCard = ({ weather }) => {
                     Wind Speed:
                   </td>
                   <td className="text-10 color-brand-1 col-6 text-start">
-                    69 mph
+                    {weather.meanWindspeed} mph
                   </td>
                 </tr>
                 <tr>
@@ -71,7 +71,7 @@ const ForecastCard = ({ weather }) => {
                     Wind Direction:
                   </td>
                   <td className="text-10 color-brand-1 col-6 text-start">
-                    east
+                    {weather.windDirection}
                   </td>
                 </tr>
                 <tr>
@@ -79,7 +79,7 @@ const ForecastCard = ({ weather }) => {
                     Mean Temperature:
                   </td>
                   <td className="text-10 color-brand-1 col-6 text-start">
-                    30 °C
+                    {weather.meanTempurature} °C
                   </td>
                 </tr>
                 <tr>
@@ -87,7 +87,7 @@ const ForecastCard = ({ weather }) => {
                     Humidity:
                   </td>
                   <td className="text-10 color-brand-1 col-6 text-start">
-                    80%
+                    {weather.humidity}%
                   </td>
                 </tr>
               </tbody>

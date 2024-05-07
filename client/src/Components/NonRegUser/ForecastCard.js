@@ -36,7 +36,7 @@ const ForecastCard = ({ weather }) => {
               </div>
               <div className="col-auto">
                 <i
-                  className={`bi ${ geticonClass(
+                  className={`bi ${geticonClass(
                     weather.flood
                   )} fs-5 color-brand-1`}
                 />
@@ -63,7 +63,7 @@ const ForecastCard = ({ weather }) => {
                       Wind Speed:
                     </td>
                     <td className="text-10 color-brand-1 col-6 text-start">
-                      {weather.meanWindspeed}
+                      {weather.meanWindspeed} mph
                     </td>
                   </tr>
                   <tr>
@@ -79,7 +79,7 @@ const ForecastCard = ({ weather }) => {
                       Mean Temperature:
                     </td>
                     <td className="text-10 color-brand-1 col-6 text-start">
-                      {weather.meanTempurature}
+                      {weather.meanTempurature} °C
                     </td>
                   </tr>
                   <tr>
@@ -87,7 +87,7 @@ const ForecastCard = ({ weather }) => {
                       Humidity:
                     </td>
                     <td className="text-10 color-brand-1 col-6 text-start">
-                      {weather.humidity}
+                      {weather.humidity}%
                     </td>
                   </tr>
                 </tbody>
