@@ -20,6 +20,7 @@ import AskQueryPage from './Components/RegUser/AskQueryPage';
 import NewsFeedPage from './Components/RegUser/NewsFeedPage';
 import AdminNews from "./Components/Admin/AdminNews";
 import AdminProfile from "./Components/Admin/AdminProfile"
+import UserRegistration from './Components/NonRegUser/UserRegistration';
 
 
 const userSession = getUserSession();
@@ -59,6 +60,7 @@ function App() {
             {isUnRegistered && <Route path="home" element={<NonRegDashbord />} />}
             {isUnRegistered && <Route path="news-feed" element={<NewsFeedPage />} />}
             {isUnRegistered && <Route path="faq" element={<Faq />} />}
+            {isUnRegistered && <Route path="registration" element={<UserRegistration />} />}
             <Route path="/" element={<Navigate to={isRegistered ? '/dashboard' : isAdmin ? '/admin-dashboard' : '/home'} />} />
           </Routes>
         </main>
