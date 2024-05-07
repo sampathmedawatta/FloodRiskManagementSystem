@@ -4,11 +4,11 @@ const ForecastCard = ({ weather }) => {
   console.log(weather); 
 
   const getRiskLevel = (rainfall) => {
-    if (rainfall >= 20) {
+    if (rainfall >= 50) {
       return "high";
-    } else if (rainfall >= 15) {
+    } else if (rainfall >= 45) {
       return "moderate";
-    } else if (rainfall >= 10) {
+    } else if (rainfall >= 20) {
       return "low";
     } else {
       return "low";

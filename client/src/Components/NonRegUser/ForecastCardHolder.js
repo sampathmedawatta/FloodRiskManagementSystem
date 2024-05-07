@@ -61,7 +61,7 @@ const ForecastCardHolder = () => {
                           </div>
                         ))
                       ) : (
-                        <p>No forecast data available.</p>
+                        <p>Loading.........</p>
                       )}
                     </div>
                   </div>
