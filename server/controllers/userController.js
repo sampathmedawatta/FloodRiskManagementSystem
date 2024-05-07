@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const User = require("../modules/userModel");
+const { ObjectId } = require("mongodb");
 
 exports.getAllUsers = async (request, response) => {
   const users = await User.find();
@@ -8,13 +9,20 @@ exports.getAllUsers = async (request, response) => {
 };
 
 exports.getUserById = async (request, response) => {
-  const user = await User.findOne({ _id: request.params.id });
+  try {
+    const userId = new ObjectId(request.params.id); //nodesjs have issue with  mongoose. NEED PASS AS NEW OBJECT
+    const user = await User.findOne({ _id: userId });
 
-  if (!user) {
-    return response.status(404).json({ message: "user not found" });
+    if (!user) {
+      return response.status(404).json({ message: "User not found" });
+    }
+
+    // If user found, send it in the response
+    response.status(200).json(user);
+  } catch (error) {
+    console.error("Error retrieving user:", error);
+    response.status(500).json({ message: "Internal server error" });
   }
-
-  response.status(200).json(user);
 };
 
 exports.createUser = async (request, response) => {
@@ -63,9 +71,8 @@ exports.createUser = async (request, response) => {
     registeredDate: currentDate, // Set the registration date
     postCode,
     type,
-    hasLoggedIn:false,
+    hasLoggedIn: false,
     active: true,
-    
   });
 
   if (newUser) {
@@ -130,7 +137,7 @@ exports.updateUser = async (request, response) => {
     user.active = active;
   }
 
-  if (typeof hasLoggedIn === 'boolean') {
+  if (typeof hasLoggedIn === "boolean") {
     user.hasLoggedIn = hasLoggedIn;
   }
 
@@ -168,5 +175,53 @@ exports.deleteUser = async (request, response) => {
     }
   } catch (error) {
     response.status(500).send({ message: "Something went wrong!" });
+  }
+};
+const bcrypt = require("bcrypt");
+
+// Login Authentication
+exports.authenticateUser = async (email, password) => {
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return { success: false, message: "User not found" };
+    }
+    
+    const isMatch = await bcrypt.compare(password, user.hashPassword);
+    if (!isMatch) {
+      return { success: false, message: "Invalid password" };
+    }
+    
+    return { success: true, user };
+  } catch (error) {
+    console.error("Error authenticating user:", error);
+    return { success: false, message: "Internal server error" };
+  }
+};
+
+// Password Change
+exports.changePassword = async (userId, currentPassword, newPassword) => {
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return { success: false, message: "User not found" };
+    }
+    
+    const isMatch = await bcrypt.compare(currentPassword, user.hashPassword);
+    if (!isMatch) {
+      return { success: false, message: "Current password is incorrect" };
+    }
+    
+    // Hash the new password
+    const newHashedPassword = await bcrypt.hash(newPassword, 10);
+    
+    // Update the hashed password in the database
+    user.hashPassword = newHashedPassword;
+    await user.save();
+    
+    return { success: true, message: "Password changed successfully" };
+  } catch (error) {
+    console.error("Error changing password:", error);
+    return { success: false, message: "Internal server error" };
   }
 };
