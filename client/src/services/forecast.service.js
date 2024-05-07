@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:3000/api",
+  baseURL: "http://127.0.0.1:8000", // ML model api URL
   withCredentials: false, // Allow cookies to be sent with requests (if applicable)
 });
 
@@ -530,38 +530,28 @@ export const response = {
   ],
 };
 
-const get = async () => {
+const getForecast = () => {
+  return response.data;
+};
+
+
+const getForecastByDate = async (days) => {
+
   return await axiosInstance
-    .get("/", {
+    .get("/flood/forecast/all?days=" + days, {
       headers,
     })
     .then((response) => {
       if (response != undefined && response != null) {
-        console.log("response : " + response);
         return response.data;
       }
     });
 };
 
-const getForecast = () => {
-  return response.data;
-};
-
-const post = (parms) => {
-  return axiosInstance
-    .post("/save", parms, {
-      headers,
-    })
-    .then((response) => {
-      console.log("response : " + response);
-      return response.data;
-    });
-};
 
 const ForecastService = {
-  get,
   getForecast,
-  post,
+  getForecastByDate,
 };
 
 export default ForecastService;

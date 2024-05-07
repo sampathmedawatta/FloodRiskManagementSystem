@@ -8,9 +8,8 @@ const ForecastCardHolder = () => {
   useEffect(() => {
     const fetchForecastData = async () => {
       try {
-        const allLocationsForecast = await ForecastService.getForecast();
+        const allLocationsForecast = await ForecastService.getForecastByDate(5);
         setForecastData(allLocationsForecast);
-        console.log(allLocationsForecast);
       } catch (error) {
         console.error("Error fetching forecast data:", error);
       }
@@ -18,32 +17,6 @@ const ForecastCardHolder = () => {
 
     fetchForecastData();
   }, []);
-
-  const filterForecastForNextFiveDays = (forecast) => {
-    const currentDate = new Date();
-    const nextFiveDays = new Date(
-      currentDate.getTime() + 5 * 24 * 60 * 60 * 1000
-    ); // Calculate five days from today
-
-    const filteredForecast = [];
-
-    for (const item of forecast) {
-      const forecastDate = new Date(item.date);
-      if (forecastDate >= currentDate && forecastDate <= nextFiveDays) {
-        const existingDateIndex = filteredForecast.findIndex(
-          (filteredItem) =>
-            new Date(filteredItem.date).toDateString() ===
-            forecastDate.toDateString()
-        );
-        if (existingDateIndex === -1) {
-          filteredForecast.push(item);
-          if (filteredForecast.length === 5) break; // Stop when 5 items are added
-        }
-      }
-    }
-
-    return filteredForecast;
-  };
 
   return (
     <div>
@@ -72,20 +45,23 @@ const ForecastCardHolder = () => {
                               {locationForecast.location}
                             </h5>
                             <div className="d-flex flex-wrap gap-3 justify-content-evenly">
-                              {filterForecastForNextFiveDays(
-                                locationForecast.forecast
-                              ).map((forecastItem, forecastIndex) => (
-                                <ForecastCard
-                                  key={forecastIndex}
-                                  forecast={forecastItem}
-                                />
-                              ))}
+                              {locationForecast.data.map(
+                                (forecastItem, forecastIndex) =>
+                                  forecastItem.forecast.map(
+                                    (weather, index) => (
+                                      <ForecastCard
+                                        key={index}
+                                        weather={weather}
+                                      />
+                                    )
+                                  )
+                              )}
                             </div>
                             <hr className="mt-3" />
                           </div>
                         ))
                       ) : (
-                        <p>No forecast data available.</p>
+                        <p>Loading.........</p>
                       )}
                     </div>
                   </div>
