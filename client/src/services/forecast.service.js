@@ -535,23 +535,82 @@ const getForecast = () => {
 };
 
 
-const getForecastByDate = async (days) => {
+const getForecastByLocation = async (location, days) => {
 
+  const sessionData = sessionStorage.getItem(
+    "forecastData" + location + days + "days"
+  );
+  const sessionDate = sessionStorage.getItem(
+    "forecastDataDate" + location + days + "days"
+  );
+  const currentDate = new Date().toISOString().slice(0, 10);
+
+  if (sessionData && sessionDate === currentDate) 
+  {
+    return JSON.parse(sessionData);
+  } 
+  else 
+  {
   return await axiosInstance
-    .get("/flood/forecast/all?days=" + days, {
+    .get("/flood/forecast?location=" + location + "&days=" + days, {
       headers,
     })
     .then((response) => {
       if (response != undefined && response != null) {
+        // Save data in session storage
+        sessionStorage.setItem(
+          "forecastData" + location + days + "days",
+          JSON.stringify(response.data)
+        );
+        sessionStorage.setItem(
+          "forecastDataDate" + location + days + "days",
+          currentDate
+        );
+
         return response.data;
-      }
+      } 
     });
+  }
 };
 
+const getForecastByDate = async (days) => {
+  
+  const sessionData = sessionStorage.getItem("forecastData" + days + "days");
+  const sessionDate = sessionStorage.getItem(
+    "forecastDataDate" + days + "days"
+  );
+  const currentDate = new Date().toISOString().slice(0, 10);
+
+  if (sessionData && sessionDate === currentDate) 
+  {
+    return JSON.parse(sessionData);
+  } 
+  else 
+  {
+    return await axiosInstance
+      .get("/flood/forecast/all?days=" + days, {
+        headers,
+      })
+      .then((response) => {
+        if (response != undefined && response != null) {
+          
+          // Save data in session storage
+          sessionStorage.setItem(
+            "forecastData" + days + "days",
+            JSON.stringify(response.data)
+          );
+          sessionStorage.setItem("forecastDataDate"+ days + "days", currentDate);
+
+          return response.data;
+        }
+      });
+  }
+};
 
 const ForecastService = {
   getForecast,
   getForecastByDate,
+  getForecastByLocation,
 };
 
 export default ForecastService;

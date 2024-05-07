@@ -12,7 +12,7 @@ const NewsFeedCard = () => {
     const fetchNews = async () => {
       try {
         const newsList = await NewsService.getAllNews();
-        console.log(newsList)
+       
         if (newsList) {
           // Filter news based on location
           const filteredNews = newsList.filter(
