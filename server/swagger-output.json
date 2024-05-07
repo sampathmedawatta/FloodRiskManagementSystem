@@ -591,6 +591,9 @@
                 "type": {
                   "example": "any"
                 },
+                "lang": {
+                  "example": "any"
+                },
                 "postCode": {
                   "example": "any"
                 }
@@ -673,6 +676,9 @@
                 "type": {
                   "example": "any"
                 },
+                "lang": {
+                  "example": "any"
+                },
                 "hasLoggedIn": {
                   "example": "any"
                 },
@@ -689,6 +695,12 @@
           },
           "404": {
             "description": "Not Found"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },

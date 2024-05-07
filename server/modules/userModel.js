@@ -47,6 +47,10 @@ const userSchema = mongoose.Schema(
       type: String,
       require: true,
     },
+    lang: {
+      type: String,
+      require: true,
+    },
     active: {
       type: Boolean,
       require: true,
