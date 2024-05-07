@@ -29,18 +29,18 @@ const ForecastSelector = ({
                   <p className="forecast-dropdown-title">Select Location</p>
                   <div class="btn-group w-100 mt-2">
                     <button
-                      class="btn btn-lg dropdown-toggle forecast-dropdown"
+                      class="btn btn-lg dropdown-toggle forecast-dropdown text-14"
                       type="button"
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                     >
                       {location}
                     </button>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu w-100 text-center">
                       {locations?.map((location) => (
                         <li key={location.name}>
                           <button
-                            class="dropdown-item"
+                            className="dropdown-item p-1 text-15"
                             onClick={() => onLocationSelect(location.name)}
                           >
                             {location.name}
@@ -63,7 +63,7 @@ const ForecastSelector = ({
                     >
                       {forecastPeriod} Days
                     </button>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu w-100">
                       <li>
                         <button
                           class="dropdown-item"

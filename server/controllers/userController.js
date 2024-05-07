@@ -177,7 +177,6 @@ exports.deleteUser = async (request, response) => {
     response.status(500).send({ message: "Something went wrong!" });
   }
 };
-const bcrypt = require("bcrypt");
 
 // Login Authentication
 exports.authenticateUser = async (email, password) => {

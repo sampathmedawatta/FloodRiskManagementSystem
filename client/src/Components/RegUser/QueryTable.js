@@ -12,7 +12,7 @@ const QueryTable = ({ queryData }) => {
     descriptionError: "",
   });
   const { currentDate } = getCurrentDateInfo();
-  //TODO : After the user registrations we have to load userid here
+  
   const userSession = getUserSession();
   const userId = userSession.loggedUser;
 
