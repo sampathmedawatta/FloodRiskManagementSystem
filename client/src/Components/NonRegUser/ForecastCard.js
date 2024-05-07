@@ -1,28 +1,27 @@
 import React from 'react'
 
 const ForecastCard = ({ weather }) => {
-  console.log(weather); 
 
-  const getRiskLevel = (rainfall) => {
-    if (rainfall >= 50) {
+  const getRiskLevel = (flood) => {
+    if (flood >= 50) {
       return "high";
-    } else if (rainfall >= 45) {
+    } else if (flood >= 40) {
       return "moderate";
-    } else if (rainfall >= 20) {
+    } else if (flood >= 20) {
       return "low";
     } else {
       return "low";
     }
   };
-  const geticonClass = (rainfall) => {
-    if (rainfall >= 20) {
-     return "bi-cloud-lightning-rain-fill";
-    } else if (rainfall >= 15) {
-       return "bi-cloud-rain-fill"; 
-    } else if (rainfall >= 10) {
-       return "bi-cloud-sun-fill"; 
+  const geticonClass = (flood) => {
+    if (flood >= 50) {
+      return "bi-cloud-lightning-rain-fill";
+    } else if (flood >= 40) {
+      return "bi-cloud-rain-fill";
+    } else if (flood >= 20) {
+      return "bi-cloud-sun-fill";
     } else {
-      return "";
+      return "bi-cloud-sun-fill";
     }
   };
 
@@ -37,7 +36,7 @@ const ForecastCard = ({ weather }) => {
               </div>
               <div className="col-auto">
                 <i
-                  className={`bi ${ geticonClass(
+                  className={`bi ${geticonClass(
                     weather.flood
                   )} fs-5 color-brand-1`}
                 />
@@ -64,7 +63,7 @@ const ForecastCard = ({ weather }) => {
                       Wind Speed:
                     </td>
                     <td className="text-10 color-brand-1 col-6 text-start">
-                      {weather.meanWindspeed}
+                      {weather.meanWindspeed} mph
                     </td>
                   </tr>
                   <tr>
@@ -80,7 +79,7 @@ const ForecastCard = ({ weather }) => {
                       Mean Temperature:
                     </td>
                     <td className="text-10 color-brand-1 col-6 text-start">
-                      {weather.meanTempurature}
+                      {weather.meanTempurature} °C
                     </td>
                   </tr>
                   <tr>
@@ -88,7 +87,7 @@ const ForecastCard = ({ weather }) => {
                       Humidity:
                     </td>
                     <td className="text-10 color-brand-1 col-6 text-start">
-                      {weather.humidity}
+                      {weather.humidity}%
                     </td>
                   </tr>
                 </tbody>
