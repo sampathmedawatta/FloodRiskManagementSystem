@@ -16,6 +16,7 @@ function UserRegistration() {
     repassword: "",
   });
   const [errors, setErrors] = useState({});
+  const [successMessage, setSuccessMessage] = useState("");
 
   useEffect(() => {
     const loadLocation = async () => {
@@ -117,6 +118,11 @@ function UserRegistration() {
         await UserService.createUser(updatedFormData);
         console.log("Form submitted successfully:", formData);
 
+        setSuccessMessage("Registration Successful!   Please login to your account.");
+        setTimeout(() => {
+          setSuccessMessage("");
+        }, 50000);
+
         setFormData({
           firstname: "",
           lastname: "",
@@ -156,6 +162,12 @@ function UserRegistration() {
                               <h2 className="mt-10 mb-5 text-brand-1">
                                 Registration
                               </h2>
+                              {successMessage && (
+                                <div className="alert alert-success" role="alert">
+                                  {successMessage}
+                                </div>
+                              )}
+
                               <p className="font-sm text-muted mb-30">
                                 Access to all features. No credit card required.
                               </p>
