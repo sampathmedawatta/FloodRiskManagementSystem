@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getCurrentDateInfo } from "./Utils";
 import { getUserSession } from "./SessionUtils";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import LocationService from "../../services/location.service";
 import { useLocation } from "../../contexts/LocationContext";
 
@@ -13,7 +13,7 @@ function Header() {
 
   const { location, setLocation } = useLocation();
   const [locations, setLocations] = useState(null);
-  
+
   useEffect(() => {
     const fetchLocations = async () => {
       try {
@@ -152,18 +152,13 @@ function Header() {
               </div>
             </div>
             <div className="col-md-6">
-              <div className="header-location">
-                <div className="dropdown">
-                  <i className="bi bi-geo-alt-fill" /> &nbsp;&nbsp;
-                  <strong className="color-brand-1">All</strong> &nbsp;
-                </div>
-              </div>
+              <div className="header-location"></div>
             </div>
             <div className="col-md-2">
               <div className="member-login">
-                <a className="btn btn-login hover-up" href="#">
+                <Link to="/login" className="btn btn-login hover-up">
                   <i className="bi bi-box-arrow-in-right fs-5" /> Login
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -211,8 +206,9 @@ function Header() {
                 <img alt src="imgs/profile.png" />
                 <div className="info-member">
                   {" "}
-
-                  <strong className="color-brand-1">{userSession.loggedFname} &nbsp;{userSession.loggedlname}</strong>
+                  <strong className="color-brand-1">
+                    {userSession.loggedFname} &nbsp;{userSession.loggedlname}
+                  </strong>
                   <div className="dropdown">
                     <a
                       className="font-xs color-text-paragraph-2 icon-down"
@@ -228,21 +224,17 @@ function Header() {
                       className="dropdown-menu dropdown-menu-light dropdown-menu-end"
                       aria-labelledby="dropdownProfile"
                     >
-
-<li>
-            {" "}
-            <a
-              className={`dropdown-item`} href="/manage-admins"
-            >
-              <Link to="/admin-profile" className="nav-link px-0 align-middle">
-              Profile
-         
-              </Link>
-            </a>
-            
-          </li>
-
-
+                      <li>
+                        {" "}
+                        <a className={`dropdown-item`} href="/manage-admins">
+                          <Link
+                            to="/admin-profile"
+                            className="nav-link px-0 align-middle"
+                          >
+                            Profile
+                          </Link>
+                        </a>
+                      </li>
 
                       <li>
                         <a className="dropdown-item" href="login.html">
