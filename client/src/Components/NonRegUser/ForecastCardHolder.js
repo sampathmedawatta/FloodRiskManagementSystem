@@ -8,7 +8,7 @@ const ForecastCardHolder = () => {
   useEffect(() => {
     const fetchForecastData = async () => {
       try {
-        const allLocationsForecast = await ForecastService.getForecast(5);
+        const allLocationsForecast = await ForecastService.getForecastByDate(5);
         setForecastData(allLocationsForecast);
       } catch (error) {
         console.error("Error fetching forecast data:", error);
