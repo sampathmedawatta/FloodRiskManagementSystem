@@ -13,49 +13,49 @@ const ForecastCard = ({forecast}) => {
         <div className="card-info">
           <div className="card-title row">
             <div className="col">
-              <h6 className="text-start non-reg-forecast-card-date">{formattedDate}</h6>
+              <h6 className="text-start">{formattedDate}</h6>
             </div>
-            <div className="col-auto text-14">
-              <i className={`bi ${iconClass} color-brand-1 non-reg-forecast-card-icon`}  />
+            <div className="col-auto">
+              <i className={`bi ${iconClass} fs-5 color-brand-1`}  />
             </div>
           </div>
-          <div className="pt-1 pb-2">
-            <p className="flood-percentage text-center">{forecast.flood}%</p>
+          <div className="ptb-10">
+            <p className="font-box-flood  text-center">{forecast.flood}%</p>
           </div>
           <div className="table-responsive">
             <table className="table">
               <tbody>
                 <tr>
-                  <td className="text-10 strong color-brand-1 col-6 text-end pt-0 pb-1 ">
+                  <td className="text-10 strong color-brand-1 col-6 text-end">
                     Rainfall:
                   </td>
-                  <td className="text-10 strong color-brand-1 col-6 text-start  pt-0 pb-1">
-                  {forecast.rainfall}
+                  <td className="text-10 strong color-brand-1 col-6 text-start">
+                  {forecast.rainfall} mm
                   </td>
                 </tr>
                 <tr>
-                  <td className="text-10 color-brand-1 col-6 text-end  pt-0 pb-1">
+                  <td className="text-10 color-brand-1 col-6 text-end">
                     Wind Speed:
                   </td>
-                  <td className="text-10 color-brand-1 col-6 text-start  pt-0 pb-1">69 mph</td>
+                  <td className="text-10 color-brand-1 col-6 text-start">69 mph</td>
                 </tr>
                 <tr>
-                  <td className="text-10 color-brand-1 col-6 text-end  pt-0 pb-1">
+                  <td className="text-10 color-brand-1 col-6 text-end">
                     Wind Direction:
                   </td>
-                  <td className="text-10 color-brand-1 col-6 text-start  pt-0 pb-1">east</td>
+                  <td className="text-10 color-brand-1 col-6 text-start">east</td>
                 </tr>
                 <tr>
-                  <td className="text-10 color-brand-1 col-6 text-end  pt-0 pb-1">
+                  <td className="text-10 color-brand-1 col-6 text-end">
                     Mean Temperature:
                   </td>
-                  <td className="text-10 color-brand-1 col-6 text-start  pt-0 pb-1">30 °C</td>
+                  <td className="text-10 color-brand-1 col-6 text-start">30 °C</td>
                 </tr>
                 <tr>
-                  <td className="text-10 color-brand-1 col-6 text-end  pt-0 pb-1">
+                  <td className="text-10 color-brand-1 col-6 text-end">
                     Humidity:
                   </td>
-                  <td className="text-10 color-brand-1 col-6 text-start  pt-0 pb-1">80%</td>
+                  <td className="text-10 color-brand-1 col-6 text-start">80%</td>
                 </tr>
               </tbody>
             </table>

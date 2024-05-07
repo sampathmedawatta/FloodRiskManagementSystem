@@ -6298,23 +6298,15 @@ select {
   vertical-align: middle;
 }
 
-.flood-percentage {
-  font-weight: 700;
-  font-size: 20px;
-}
-
 .non-reg-forecast-card{
   width:25%;
-  max-width: 180px;
-  min-width: 150px;
+  max-width: 200px;
+  min-width: 220px;
   padding-bottom: 2px;
 }
-.non-reg-forecast-card-date{
-  font-size: 14px;
-}
 
-.non-reg-forecast-card-icon{
-  font-size: 18px;
-  margin-right: 10px;
-  margin-top: 10px;
+.text-15 {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
 }

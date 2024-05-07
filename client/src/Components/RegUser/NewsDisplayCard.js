@@ -7,7 +7,8 @@ const NewsDisplayCard = ({ newsData }) => {
   return (
     <>
       <div
-        class="card"
+        className="card hover-up"
+        type="button"
         style={{ width: "18rem", height: "25rem" }}
         data-bs-toggle="modal"
         data-bs-target={`#${newsData._id}`}

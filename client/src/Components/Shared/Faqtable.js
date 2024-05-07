@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import FaqService from "../../services/faq.service";
 import { Link } from "react-router-dom";
+import { getUserSession } from "./SessionUtils";
 
 function Faqtable() {
-
+  const { userType } = getUserSession();
   const [faqs, setFaqs] = useState(null);
-  
+
   useEffect(() => {
     const fetchFaqs = async () => {
       try {
@@ -78,19 +79,21 @@ function Faqtable() {
                 </div>
               </div>
               <br></br>
-              <div className="row align-items-center ms-2 mb-4">
-                <div className="col-md-4 text-12">
-                  No answer to your questions! Please send a message to us.
+              {userType !== "UnRegistered" && (
+                <div className="row align-items-center ms-2 mb-4">
+                  <div className="col-md-4 text-12">
+                    No answer to your questions! Please send a message to us.
+                  </div>
+                  <div className="col-md-2 text-12">
+                    <Link to={"/ask-query"}>
+                      <button className="btn btn-login hover-up text-12 w-100">
+                        <i class="bi bi-chat-text-fill fs-5" /> &nbsp;Ask Your
+                        Query{" "}
+                      </button>
+                    </Link>
+                  </div>
                 </div>
-                <div className="col-md-2 text-12">
-                  <Link to={"/ask-query"}>
-                    <button className="btn btn-login hover-up text-12 w-100">
-                      <i class="bi bi-chat-text-fill fs-5" /> &nbsp;Ask Your
-                      Query{" "}
-                    </button>
-                  </Link>
-                </div>
-              </div>
+              )}
             </div>
           </div>
         </div>
