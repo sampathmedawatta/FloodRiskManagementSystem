@@ -1,90 +1,433 @@
 import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
+import LocationService from "../../services/location.service";
+import UserService from "../../services/user.service";
+
 function UserRegistration() {
+  const [locations, setLocations] = useState([]);
+  const [formData, setFormData] = useState({
+    firstname: "",
+    lastname: "",
+    preferredlocation: "",
+    lang: "",
+    email: "",
+    contactno: "",
+    password: "",
+    repassword: "",
+  });
+  const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    const loadLocation = async () => {
+      try {
+        const locationsData = await LocationService.getFloodLocations();
+        setLocations(locationsData);
+      } catch (error) {
+        console.error("Error loading locations", error);
+      }
+    };
+    loadLocation();
+  }, []);
+
+  const verifyEmail = async () => {
+    try {
+      const users = await UserService.getAllUsers();
+      const existingEmails = users.map((user) => user.email);
+      if (existingEmails.includes(formData.email)) {
+        // Email already exists
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          email: "Email is already in use",
+        }));
+      } else {
+        // Email is available
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          email: "", // Clear any existing error for email
+        }));
+      }
+    } catch (error) {
+      console.error("Error checking email availability", error);
+    }
+  };
+
+  const validateForm = () => {
+    let isValid = true;
+    const errors = {};
+
+    // Validation logic
+    if (!formData.firstname.trim()) {
+      errors.firstname = "First Name is required";
+      isValid = false;
+    }
+    if (!formData.lastname.trim()) {
+      errors.lastname = "Last Name is required";
+      isValid = false;
+    }
+    if (!formData.preferredlocation) {
+      errors.preferredlocation = "Preferred Location is required";
+      isValid = false;
+    }
+    if (!formData.lang) {
+      errors.lang = "Preferred Language is required";
+      isValid = false;
+    }
+    if (!formData.email.trim()) {
+      errors.email = "Email is required";
+      isValid = false;
+    } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
+      errors.email = "Invalid email format";
+      isValid = false;
+    } else {
+      verifyEmail();
+    }
+    if (!formData.contactno.trim()) {
+      errors.contactno = "Contact No is required";
+      isValid = false;
+    } else if (!/^\d+$/.test(formData.contactno)) {
+      errors.contactno = "Contact No should contain only numbers";
+      isValid = false;
+    }
+    if (!formData.password.trim()) {
+      errors.password = "Password is required";
+      isValid = false;
+    } else if (!/(?=.*\d)(?=.*[a-zA-Z]).{8,}/.test(formData.password)) {
+      errors.password =
+        "Password must contain at least one letter and one number, and must be at least 8 characters long";
+      isValid = false;
+    }
+    if (formData.password !== formData.repassword) {
+      errors.repassword = "Passwords do not match";
+      isValid = false;
+    }
+    if (!formData.repassword.trim()) {
+      errors.repassword = "Re-Password is required";
+      isValid = false;
+    }
+
+    setErrors(errors);
+    return isValid;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      try {
+        const updatedFormData = { ...formData, type: "REGISTEREDUSER" };
+        await UserService.createUser(updatedFormData);
+        console.log("Form submitted successfully:", formData);
+
+        setFormData({
+          firstname: "",
+          lastname: "",
+          preferredlocation: "",
+          lang: "",
+          email: "",
+          contactno: "",
+          password: "",
+          repassword: "",
+        });
+      } catch (error) {
+        console.error("Error submitting form:", error);
+        // Handle error submission if necessary
+      }
+    }
+  };
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
   return (
-<div className="box-content">
-  <div className="row">
-    <div className="col-lg-12">
-      <div className="row"> 
-        <div className="col-lg-12"> 
-          <div className="section-box">
-            <div className="container"> 
-              <div className="panel-white mb-30">
-                <div className="box-padding">               
-                  <div className="login-register"> 
-                    <div className="row login-register-cover">
-                      <div className=" col-md-8  mx-auto">
-                        <div className="form-login-cover">
-                          <div className="text-center">
-                            <h2 className="mt-10 mb-5 text-brand-1">Registration</h2>
-                            <p className="font-sm text-muted mb-30">Access to all features. No credit card required.</p>
-                            <button className="btn social-login hover-up mb-20"><img src="imgs/icon-google.svg" alt /><strong>Sign up with Google</strong></button>
-                            <div className="divider-text-center"><span>Or continue with</span></div>
+    <div className="box-content">
+      <br />
+      <div className="row">
+        <div className="col-lg-12">
+          <div className="row">
+            <div className="col-lg-12">
+              <div className="section-box">
+                <div className="container">
+                  <div className="panel-white mb-30">
+                    <div className="login-register">
+                      <div className="row login-register-cover">
+                        <div className="col-md-8 mx-auto">
+                          <div className="form-login-cover">
+                            <div className="text-center">
+                              <h2 className="mt-10 mb-5 text-brand-1">
+                                Registration
+                              </h2>
+                              <p className="font-sm text-muted mb-30">
+                                Access to all features. No credit card required.
+                              </p>
+                              <button className="btn social-login hover-up mb-20">
+                                <img src="imgs/icon-google.svg" alt />
+                                <strong>Sign up with Google</strong>
+                              </button>
+                              <div className="divider-text-center">
+                                <span>Or continue with</span>
+                              </div>
+                            </div>
+                            <form
+                              className="login-register text-start mt-20 needs-validation"
+                              noValidate
+                              onSubmit={handleSubmit}
+                            >
+                              <div className="row">
+                                <div className="col-md-6">
+                                  <div className="form-group">
+                                    <label
+                                      className="form-label"
+                                      htmlFor="input-1"
+                                    >
+                                      First Name *
+                                    </label>
+                                    <input
+                                      className={`form-control ${
+                                        errors.firstname ? "is-invalid" : ""
+                                      }`}
+                                      id="input-1"
+                                      type="text"
+                                      required
+                                      name="firstname"
+                                      value={formData.firstname}
+                                      onChange={handleChange}
+                                      placeholder="Steven"
+                                    />
+                                    {errors.firstname && (
+                                      <div className="invalid-feedback">
+                                        {errors.firstname}
+                                      </div>
+                                    )}
+                                  </div>
+                                </div>
+                                <div className="col-md-6">
+                                  <div className="form-group">
+                                    <label
+                                      className="form-label"
+                                      htmlFor="input-2"
+                                    >
+                                      Last Name *
+                                    </label>
+                                    <input
+                                      className={`form-control ${
+                                        errors.lastname ? "is-invalid" : ""
+                                      }`}
+                                      id="input-2"
+                                      type="text"
+                                      required
+                                      name="lastname"
+                                      value={formData.lastname}
+                                      onChange={handleChange}
+                                      placeholder="Job"
+                                    />
+                                    {errors.lastname && (
+                                      <div className="invalid-feedback">
+                                        {errors.lastname}
+                                      </div>
+                                    )}
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="row">
+                                <div className="col-md-6">
+                                  <div className="form-group">
+                                    <label
+                                      className="form-label"
+                                      htmlFor="input-3"
+                                    >
+                                      Preferred Location *
+                                    </label>
+                                    <select
+                                      className={`form-control ${
+                                        errors.preferredlocation
+                                          ? "is-invalid"
+                                          : ""
+                                      }`}
+                                      id="input-3"
+                                      required
+                                      name="preferredlocation"
+                                      value={formData.preferredlocation}
+                                      onChange={handleChange}
+                                    >
+                                      <option value="">
+                                        Select Preferred Location
+                                      </option>
+                                      {Array.isArray(locations) &&
+                                        locations.map((location) => (
+                                          <option
+                                            key={location.code}
+                                            value={location.name}
+                                          >
+                                            {location.name}
+                                          </option>
+                                        ))}
+                                    </select>
+                                    {errors.preferredlocation && (
+                                      <div className="invalid-feedback">
+                                        {errors.preferredlocation}
+                                      </div>
+                                    )}
+                                  </div>
+                                </div>
+                                <div className="col-md-6">
+                                  <div className="form-group">
+                                    <label
+                                      className="form-label"
+                                      htmlFor="input-4"
+                                    >
+                                      Preferred Language *
+                                    </label>
+                                    <select
+                                      className={`form-control ${
+                                        errors.lang ? "is-invalid" : ""
+                                      }`}
+                                      id="input-4"
+                                      required
+                                      name="lang"
+                                      value={formData.lang}
+                                      onChange={handleChange}
+                                    >
+                                      <option value="">
+                                        Select Preferred Language
+                                      </option>
+                                      <option value="English">English</option>
+                                      <option value="Chinese">Chinese</option>
+                                    </select>
+                                    {errors.lang && (
+                                      <div className="invalid-feedback">
+                                        {errors.lang}
+                                      </div>
+                                    )}
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="row">
+                                <div className="col-md-6">
+                                  <div className="form-group">
+                                    <label
+                                      className="form-label"
+                                      htmlFor="input-5"
+                                    >
+                                      Email *
+                                    </label>
+                                    <input
+                                      className={`form-control ${
+                                        errors.email ? "is-invalid" : ""
+                                      }`}
+                                      id="input-5"
+                                      type="email"
+                                      required
+                                      name="email"
+                                      value={formData.email}
+                                      onChange={handleChange}
+                                      placeholder="Jhon@gmail.com"
+                                    />
+                                    {errors.email && (
+                                      <div className="invalid-feedback">
+                                        {errors.email}
+                                      </div>
+                                    )}
+                                  </div>
+                                </div>
+                                <div className="col-md-6">
+                                  <div className="form-group">
+                                    <label
+                                      className="form-label"
+                                      htmlFor="input-6"
+                                    >
+                                      Contact No *
+                                    </label>
+                                    <input
+                                      className={`form-control ${
+                                        errors.contactno ? "is-invalid" : ""
+                                      }`}
+                                      id="input-6"
+                                      type="text"
+                                      required
+                                      name="contactno"
+                                      value={formData.contactno}
+                                      onChange={handleChange}
+                                      placeholder="1234567890"
+                                    />
+                                    {errors.contactno && (
+                                      <div className="invalid-feedback">
+                                        {errors.contactno}
+                                      </div>
+                                    )}
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="row">
+                                <div className="col-md-6">
+                                  <div className="form-group">
+                                    <label
+                                      className="form-label"
+                                      htmlFor="input-7"
+                                    >
+                                      Password *
+                                    </label>
+                                    <input
+                                      className={`form-control ${
+                                        errors.password ? "is-invalid" : ""
+                                      }`}
+                                      id="input-7"
+                                      type="password"
+                                      required
+                                      name="password"
+                                      value={formData.password}
+                                      onChange={handleChange}
+                                      placeholder="************"
+                                    />
+                                    {errors.password && (
+                                      <div className="invalid-feedback">
+                                        {errors.password}
+                                      </div>
+                                    )}
+                                  </div>
+                                </div>
+                                <div className="col-md-6">
+                                  <div className="form-group">
+                                    <label
+                                      className="form-label"
+                                      htmlFor="input-8"
+                                    >
+                                      Re-Password *
+                                    </label>
+                                    <input
+                                      className={`form-control ${
+                                        errors.repassword ? "is-invalid" : ""
+                                      }`}
+                                      id="input-8"
+                                      type="password"
+                                      required
+                                      name="repassword"
+                                      value={formData.repassword}
+                                      onChange={handleChange}
+                                      placeholder="************"
+                                    />
+                                    {errors.repassword && (
+                                      <div className="invalid-feedback">
+                                        {errors.repassword}
+                                      </div>
+                                    )}
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="form-group">
+                                <button
+                                  className="btn btn-login hover-up w-100"
+                                  type="submit"
+                                  name="login"
+                                >
+                                  Register
+                                </button>
+                              </div>
+                              <div className="text-muted text-center">
+                                Already have an account?{" "}
+                                <Link to="/login">Login</Link>
+                              </div>
+                            </form>
                           </div>
-                          <form className="login-register text-start mt-20" action="#">
-                            <div className="row">
-                              <div className="col-md-6">
-                                <div className="form-group">
-                                  <label className="form-label" htmlFor="input-1">First Name *</label>
-                                  <input className="form-control" id="input-1" type="text" required name="firstname" placeholder="Steven" />
-                                </div>
-                              </div>
-                              <div className="col-md-6">
-                                <div className="form-group">
-                                  <label className="form-label" htmlFor="input-2">Last Name *</label>
-                                  <input className="form-control" id="input-2" type="text" required name="lastname" placeholder="Job" />
-                                </div>
-                              </div>
-                            </div>
-                            <div className="row">
-                              <div className="col-md-6">
-                                <div className="form-group">
-                                  <label className="form-label" htmlFor="input-3">Preferred Location *</label>
-                                  <select className="form-control" id="input-3" required name="preferredlocation">
-                                    <option value>Select Preferred Location</option>
-                                    <option value="Kwun Tong">Kwun Tong</option>
-                                    <option value="Sham Shui Po">Sham Shui Po</option>
-                                  </select>
-                                </div>
-                              </div>
-                              <div className="col-md-6">
-                                <div className="form-group">
-                                </div>
-                              </div>
-                            </div>
-                            <div className="row">
-                              <div className="col-md-6">
-                                <div className="form-group">
-                                  <label className="form-label" htmlFor="input-4">Email*</label>
-                                  <input className="form-control" id="input-4" type="text" required name="contactno" placeholder="test@gmail.com" />
-                                </div>
-                              </div>
-                              <div className="col-md-6">
-                                <div className="form-group">
-                                  <label className="form-label" htmlFor="input-4">Contact No *</label>
-                                  <input className="form-control" id="input-4" type="text" required name="contactno" placeholder={1234567890} />
-                                </div>
-                              </div>
-                            </div>
-                            <div className="row">
-                              <div className="col-md-6">
-                                <div className="form-group">
-                                  <label className="form-label" htmlFor="input-5">Password *</label>
-                                  <input className="form-control" id="input-5" type="password" required name="password" placeholder="************" />
-                                </div>
-                              </div>
-                              <div className="col-md-6">
-                                <div className="form-group">
-                                  <label className="form-label" htmlFor="input-6">Re-Password *</label>
-                                  <input className="form-control" id="input-6" type="password" required name="re-password" placeholder="************" />
-                                </div>
-                              </div>
-                            </div>
-                            <div className="form-group">
-                              <button className="btn btn-login hover-up w-100" type="submit" name="login">Register</button>
-                            </div>
-                            <div className="text-muted text-center">Already have an account? <a href="login.html">Sign in</a>
-                            </div>
-                          </form>
                         </div>
                       </div>
                     </div>
@@ -94,10 +437,9 @@ function UserRegistration() {
             </div>
           </div>
         </div>
-      </div></div></div></div>
-
-    
-
+      </div>
+    </div>
   );
 }
+
 export default UserRegistration;

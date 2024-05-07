@@ -9,7 +9,6 @@ const headers = {
   "Content-Type": "application/json",
   //Authorization: "Bearer your-access-token", // Add any custom headers as needed
 };
-
 const response = {
   locations: [
     {
@@ -21,6 +20,7 @@ const response = {
       address: "Chek Lap Kok",
       contact: "-",
       refLocation: "Hong Kong Island",
+      code: "CLK",
     },
     {
       latitude: 22.26132,
@@ -31,6 +31,7 @@ const response = {
       address: "Cheung Chau",
       contact: "-",
       refLocation: "Cheung Chau",
+      code: "CC",
     },
     {
       latitude: 22.26132,
@@ -41,6 +42,7 @@ const response = {
       address: "Yau Ma Tei",
       contact: "-",
       refLocation: "Yau Ma Tei",
+      code: "YMI",
     },
     {
       latitude: 22.26132,
@@ -51,6 +53,7 @@ const response = {
       address: "Shek Kong",
       contact: "-",
       refLocation: "Shek Kong",
+      code: "SK",
     },
     {
       latitude: 22.26132,
@@ -61,6 +64,7 @@ const response = {
       address: "Sha Tin",
       contact: "-",
       refLocation: "Sha Tin",
+      code: "ST",
     },
     {
       latitude: 22.28464,
@@ -71,6 +75,7 @@ const response = {
       address: "Wong Nai Chung Rd, Happy Valley, Hong Kong",
       contact: "+852 6469 8700",
       refLocation: "Hong Kong Island",
+      code: "ST",
     },
     {
       latitude: 22.31896,
@@ -81,6 +86,7 @@ const response = {
       address: "3 Yau Cheung Rd, Yau Ma Tei, Hong Kong",
       contact: "+852 3661 1652",
       refLocation: "Hong Kong Island",
+      code: "ST",
     },
     {
       latitude: 22.27635,
@@ -91,6 +97,7 @@ const response = {
       address: "60 Sing Woo Rd, Happy Valley, Hong Kong",
       contact: "+852 3661 1610",
       refLocation: "Sha Tin",
+      code: "ST",
     },
     {
       latitude: 22.2878,
@@ -101,6 +108,7 @@ const response = {
       address: "1 Arsenal St, Admiralty, Hong Kong",
       contact: "+852 3661 1612",
       refLocation: "Sha Tin",
+      code: "ST",
     },
     {
       latitude: 22.29098,
@@ -111,6 +119,7 @@ const response = {
       address: "Hong Kong, Central, Hollywood Rd, 10",
       contact: "+852 3661 1602",
       refLocation: "Shek Kong",
+      code: "ST",
     },
     {
       latitude: 22.29797,
@@ -121,6 +130,7 @@ const response = {
       address: "343 Java Rd, Tsat Tsz Mui, Hong Kong",
       contact: "+852 3661 1608",
       refLocation: "Shek Kong",
+      code: "ST",
     },
     {
       latitude: 22.30958,
@@ -131,6 +141,7 @@ const response = {
       address: "8 Catering Road West Chek Lap Kok, Lantau Island, Hong Kong",
       contact: "+852 3661 1688",
       refLocation: "Yau Ma Tei",
+      code: "ST",
     },
     {
       latitude: 22.34752,
@@ -141,6 +152,7 @@ const response = {
       address: "1 Mok Cheong Street, 1 Mok Cheong St, Hong Kong",
       contact: "+852 3651 8888",
       refLocation: "Sha Tin",
+      code: "ST",
     },
     {
       latitude: 22.26495,
@@ -151,6 +163,7 @@ const response = {
       address: "40 Stubbs Rd, Happy Valley, Hong Kong",
       contact: "+852 3651 8888",
       refLocation: "Sha Tin",
+      code: "ST",
     },
     {
       latitude: 22.26217,
@@ -161,6 +174,7 @@ const response = {
       address: "41 Mount Kellett Rd, The Peak, Hong Kong",
       contact: "+852 2849 0111",
       refLocation: "Sha Tin",
+      code: "ST",
     },
     {
       latitude: 22.27589,
@@ -171,6 +185,7 @@ const response = {
       address: "9 Sandy Bay Rd, Pok Fu Lam, Hong Kong",
       contact: "+852 2855 6111",
       refLocation: "Sha Tin",
+      code: "ST",
     },
     {
       latitude: 22.28626,
@@ -181,6 +196,7 @@ const response = {
       address: "8 Chung Yan Rd, Hong Kong",
       contact: "+852 3467 7000",
       refLocation: "Sha Tin",
+      code: "ST",
     },
     ,
     {
@@ -192,6 +208,7 @@ const response = {
       address: "Main block, Pok Fu Lam Rd, Hong Kong",
       contact: "+852 2255 3838",
       refLocation: "Sha Tin",
+      code: "ST",
     },
   ],
 };

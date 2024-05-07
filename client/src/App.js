@@ -21,6 +21,7 @@ import NewsFeedPage from './Components/RegUser/NewsFeedPage';
 import AdminNews from "./Components/Admin/AdminNews";
 import AdminProfile from "./Components/Admin/AdminProfile"
 import UserRegistration from './Components/NonRegUser/UserRegistration';
+import UserLogin from './Components/NonRegUser/UserLogin';
 
 
 const userSession = getUserSession();
@@ -61,6 +62,8 @@ function App() {
             {isUnRegistered && <Route path="news-feed" element={<NewsFeedPage />} />}
             {isUnRegistered && <Route path="faq" element={<Faq />} />}
             {isUnRegistered && <Route path="registration" element={<UserRegistration />} />}
+            {isUnRegistered && <Route path="login" element={<UserLogin />} />}
+    
             <Route path="/" element={<Navigate to={isRegistered ? '/dashboard' : isAdmin ? '/admin-dashboard' : '/home'} />} />
           </Routes>
         </main>
