@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getCurrentDateInfo } from "./Utils";
 import { getUserSession } from "./SessionUtils";
+import { Link} from "react-router-dom";
 import LocationService from "../../services/location.service";
 import { useLocation } from "../../contexts/LocationContext";
 
@@ -12,7 +13,7 @@ function Header() {
   
     const { location, setLocation } = useLocation();
     const [locations, setLocations] = useState(null);
-  
+    
     useEffect(() => {
       const fetchLocations = async () => {
         try {
@@ -221,7 +222,8 @@ function Header() {
                 <img alt src="imgs/profile.png" />
                 <div className="info-member">
                   {" "}
-                  <strong className="color-brand-1">Jeff Bezos</strong>
+
+                  <strong className="color-brand-1">{userSession.loggedFname} &nbsp;{userSession.loggedlname}</strong>
                   <div className="dropdown">
                     <a
                       className="font-xs color-text-paragraph-2 icon-down"
@@ -237,11 +239,22 @@ function Header() {
                       className="dropdown-menu dropdown-menu-light dropdown-menu-end"
                       aria-labelledby="dropdownProfile"
                     >
-                      <li>
-                        <a className="dropdown-item" href="login.html">
-                          Profile
-                        </a>
-                      </li>
+
+<li>
+            {" "}
+            <a
+              className={`dropdown-item`} href="/manage-admins"
+            >
+              <Link to="/admin-profile" className="nav-link px-0 align-middle">
+              Profile
+         
+              </Link>
+            </a>
+            
+          </li>
+
+
+
                       <li>
                         <a className="dropdown-item" href="login.html">
                           Logout
