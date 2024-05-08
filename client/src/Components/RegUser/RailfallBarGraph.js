@@ -27,7 +27,7 @@ const RainfallBarGraph = ({chartData}) => {
                     datasets: [
                       {
                         label: "flood level",
-                        data: chartData.forecastData?.map((item) => item.flood),
+                        data: chartData.forecastData?.map((item) => item.rainfall),
                         backgroundColor: "#064ff0",
                         borderColor: "#064ff0",
                       },
