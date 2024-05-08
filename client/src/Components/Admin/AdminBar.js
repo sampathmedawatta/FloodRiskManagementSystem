@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { getCurrentDateInfo } from "../Shared/Utils";
+import AdminBarRegUsersCard from "./AdminBarRegUsersCard";
+import AdminBarPendingInquiriesCard from "./AdminBarPendingInquiriesCard"
+import AdminBarNewsArticlesCard from "./AdminBarNewsArticlesCard";
 
 function AdminBar() {
   const { today, twoWeeksDate } =
@@ -13,50 +16,9 @@ function AdminBar() {
             <div className="panel-body">
               <div className="container">
                 <div className="row gx-2 justify-content-between">
-                  <div className="col-2">
-                    <a href="#">
-                      <div className="card-style-1 hover-up hover-color ">
-                        <div className="card-info">
-                          <div className="card-title row">
-                            <div className="col">
-                              <h6 className="text-start">Registered Users</h6>
-                            </div>
-                            <div className="col-auto">
-                              <i className="bi bi-people-fill fs-3 color-brand-1" />
-                            </div>
-                          </div>
-                          <div className="ptb-10">
-                            <p className="font-box-flood text-center color-brand-1">132</p>
-                          </div>
-                          <br></br>
-                          <p className="text-10 text-center strong color-brand-1"><strong>4 </strong> new users this week
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                  <div className="col-2">
-                    <a href="#">
-                      <div className="card-style-1 hover-up hover-color">
-                        <div className="card-info">
-                          <div className="card-title row">
-                            <div className="col">
-                              <h6 className="text-start">Pending Inquiries</h6>
-                            </div>
-                            <div className="col-auto">
-                              <i className="bi bi-envelope fs-3 color-brand-1" />
-                            </div>
-                          </div>
-                          <div className="ptb-10">
-                            <p className="font-box-flood text-center color-brand-1">52</p>
-                          </div>
-                          <br></br>
-                          <p className="text-10 text-center strong color-brand-1"><strong>10 </strong> pending inquiries
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
+                <AdminBarRegUsersCard></AdminBarRegUsersCard>
+                <AdminBarPendingInquiriesCard></AdminBarPendingInquiriesCard>
+                  
                   <div className="col-2">
                     <a href="#">
                       <div className="card-style-1 hover-up hover-color ">
@@ -79,28 +41,7 @@ function AdminBar() {
                       </div>
                     </a>
                   </div>
-                  <div className="col-2">
-                    <a href="#">
-                      <div className="card-style-1 hover-up hover-color ">
-                        <div className="card-info">
-                          <div className="card-title row">
-                            <div className="col">
-                              <h6 className="text-start">News Articles</h6>
-                            </div>
-                            <div className="col-auto">
-                              <i className="bi bi-newspaper fs-3 color-brand-1" />
-                            </div>
-                          </div>
-                          <div className="ptb-10">
-                            <p className="font-box-flood text-center color-brand-1">132</p>
-                          </div>
-                          <br></br>
-                          <p className="text-10 text-center strong color-brand-1"><strong>4 </strong> news articles this week.
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
+<AdminBarNewsArticlesCard></AdminBarNewsArticlesCard>
                   <div className="col-2">
                     <a href="#">
                       <div className="card-style-1 hover-up hover-color ">
