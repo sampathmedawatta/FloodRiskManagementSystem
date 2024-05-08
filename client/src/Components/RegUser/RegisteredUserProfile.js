@@ -22,7 +22,7 @@ const RegisteredUserProfile = () => {
     //fetching locations for the location dropdown
     const fetchLocations = async () => {
       try {
-        const floodLocations = await LocationService.getFloodLocations();
+        const floodLocations = await LocationService.getFloodLocations('Flood');
         if (floodLocations) {
           setLocations(floodLocations);
         }
@@ -45,6 +45,7 @@ const RegisteredUserProfile = () => {
         setPostalCode(userDetails.postCode);
         setPreferredLocation(userDetails.preferedLocation);
         setLanguagePreference(userDetails.lang);
+
       } catch (error) {
         console.error("Error while fetching User data", error);
       }

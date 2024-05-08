@@ -1,16 +1,25 @@
 import React, { useState, useEffect } from "react";
 import LocationService from "../../services/location.service";
+import { useLocation } from "../../contexts/LocationContext";
 
 const EmergencyContactCardHolder = () => {
   const [emergencyContacts, setEmergencyContacts] = useState({});
+  const { location } = useLocation();
 
   useEffect(() => {
     const loadEmergencyContacts = async () => {
       try {
         const locationsResponse = await LocationService.getLocations();
-        const groupedContacts = groupContactsByType(
-          locationsResponse.locations
+        const emergencyLocations = locationsResponse.filter(
+          (location) => location.type != "Flood"
         );
+
+        const locationList = emergencyLocations.filter(
+          (loc) => loc.refLocation == location
+        );
+     
+        const groupedContacts = groupContactsByType(locationList);
+
         setEmergencyContacts(groupedContacts);
       } catch (error) {
         console.error("Error loading emergency contacts:", error);
@@ -18,17 +27,16 @@ const EmergencyContactCardHolder = () => {
     };
 
     loadEmergencyContacts();
-  }, []);
+  }, [location]);
+
 
   const groupContactsByType = (locations) => {
     const groupedContacts = {};
     locations.forEach((location) => {
-      if (location.type !== "Flood") {
         if (!groupedContacts[location.type]) {
           groupedContacts[location.type] = [];
         }
-        groupedContacts[location.type].push(location);
-      }
+        groupedContacts[location.type].push(location);    
     });
     return groupedContacts;
   };

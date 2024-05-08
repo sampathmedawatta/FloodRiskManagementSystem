@@ -1000,6 +1000,9 @@
                 },
                 "refLocation": {
                   "example": "any"
+                },
+                "code": {
+                  "example": "any"
                 }
               }
             }
@@ -1072,6 +1075,9 @@
                   "example": "any"
                 },
                 "refLocation": {
+                  "example": "any"
+                },
+                "code": {
                   "example": "any"
                 }
               }

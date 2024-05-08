@@ -21,7 +21,7 @@ function UserRegistration() {
   useEffect(() => {
     const loadLocation = async () => {
       try {
-        const locationsData = await LocationService.getFloodLocations();
+        const locationsData = await LocationService.getFloodLocations('Flood');
         setLocations(locationsData);
       } catch (error) {
         console.error("Error loading locations", error);

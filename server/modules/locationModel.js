@@ -37,6 +37,10 @@ const locationSchema = mongoose.Schema(
       type: String,
       require: true,
     },
+    code: {
+      type: String,
+      require: true,
+    },
   },
   {
     timestamp: true,

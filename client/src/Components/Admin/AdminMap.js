@@ -71,7 +71,7 @@ const MapComponent = ({ locations }) => {
     locations.forEach((location) => {
       const marker = new Feature({
         geometry: new Point(
-          fromLonLat([location.longitude, location.latitude])
+          fromLonLat([location.location[1], location.location[0]])
         ),
         location: location, // Attach location data to the feature
       });
@@ -138,7 +138,7 @@ const AdminMap = () => {
       try {
         const response = await LocationService.getLocations();
         if (response) {
-          setLocations(response.locations);
+          setLocations(response);
         }
       } catch (error) {
         console.error("Error fetching locations:", error);

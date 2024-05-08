@@ -17,16 +17,8 @@ exports.getLocationByName = async (request, response) => {
 };
 
 exports.createLocation = async (request, response) => {
-  const {
-    lat,
-    long,
-    name,
-    value,
-    type,
-    address,
-    contact,
-    refLocation,
-  } = request.body;
+  const { lat, long, name, value, type, address, contact, refLocation, code } =
+    request.body;
 
   const locationAvailable = await Location.findOne({ name });
   if (locationAvailable) {
@@ -34,13 +26,14 @@ exports.createLocation = async (request, response) => {
   }
 
   const newLocation = await Location.create({
-    location:  [lat, long],
+    location: [lat, long],
     name,
     value,
     type,
     address,
     contact,
     refLocation,
+    code,
   });
 
   if (newLocation) {
@@ -57,7 +50,8 @@ exports.updateLocation = async (request, response) => {
     return response.status(404).json({ message: "Location not found" });
   }
 
-  const {lat, long, value, type, address, contact, refLocation } = request.body;
+  const { lat, long, value, type, address, contact, refLocation, code } =
+    request.body;
 
   if (lat) {
     location.location =  [lat, long]
@@ -83,6 +77,10 @@ exports.updateLocation = async (request, response) => {
     location.refLocation = refLocation;
   }
 
+   if (code) {
+     location.code = code;
+   }
+
   const updateResponse = await Location.findByIdAndUpdate(
     {
       name: location.name,
@@ -94,6 +92,7 @@ exports.updateLocation = async (request, response) => {
       address: location.address,
       contact: location.contact,
       refLocation: location.refLocation,
+      code: location.code,
     }
   );
 

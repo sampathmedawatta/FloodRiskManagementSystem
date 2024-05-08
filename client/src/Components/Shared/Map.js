@@ -14,6 +14,7 @@ import { Vector as VectorSource } from "ol/source";
 import Overlay from "ol/Overlay";
 import { Style, Icon, Circle, Fill } from "ol/style";
 import LocationService from "../../services/location.service";
+import { useLocation } from "../../contexts/LocationContext";
 
 const MapComponent = ({ locations }) => {
   useEffect(() => {
@@ -71,7 +72,7 @@ const MapComponent = ({ locations }) => {
     locations.forEach((location) => {
       const marker = new Feature({
         geometry: new Point(
-          fromLonLat([location.longitude, location.latitude])
+          fromLonLat([location.location[1], location.location[0]])
         ),
         location: location, // Attach location data to the feature
       });
@@ -131,6 +132,7 @@ const MapComponent = ({ locations }) => {
 };
 
 const MarkerPopupMap = () => {
+    const { location } = useLocation();
     const [locations, setLocations] = useState(null);
     
     useEffect(() => {
@@ -138,7 +140,15 @@ const MarkerPopupMap = () => {
         try {
           const response = await LocationService.getLocations();
           if (response) {
-            setLocations(response.locations);
+
+            const locationList = response.filter(
+              (loc) => loc.refLocation == location
+            );
+
+            if (locationList.length > 0) 
+               setLocations(locationList);
+            else
+            setLocations(response);
           }
         } catch (error) {
           console.error("Error fetching locations:", error);
@@ -146,7 +156,7 @@ const MarkerPopupMap = () => {
       };
 
       fetchLocations();
-    }, []);
+    }, [location]);
 
   return (
     <div>{locations !== null && <MapComponent locations={locations} />}</div>
