@@ -6,12 +6,12 @@ import UserService from "../../services/user.service";
 function UserRegistration() {
   const [locations, setLocations] = useState([]);
   const [formData, setFormData] = useState({
-    firstname: "",
-    lastname: "",
-    preferredlocation: "",
+    fName: "",
+    lName: "",
+    preferedLocation: "",
     lang: "",
     email: "",
-    contactno: "",
+    contactNo: "",
     password: "",
     repassword: "",
   });
@@ -57,16 +57,16 @@ function UserRegistration() {
     const errors = {};
 
     // Validation logic
-    if (!formData.firstname.trim()) {
-      errors.firstname = "First Name is required";
+    if (!formData.fName.trim()) {
+      errors.fName = "First Name is required";
       isValid = false;
     }
-    if (!formData.lastname.trim()) {
-      errors.lastname = "Last Name is required";
+    if (!formData.lName.trim()) {
+      errors.lName = "Last Name is required";
       isValid = false;
     }
-    if (!formData.preferredlocation) {
-      errors.preferredlocation = "Preferred Location is required";
+    if (!formData.preferedLocation) {
+      errors.preferedLocation = "Preferred Location is required";
       isValid = false;
     }
     if (!formData.lang) {
@@ -82,11 +82,11 @@ function UserRegistration() {
     } else {
       verifyEmail();
     }
-    if (!formData.contactno.trim()) {
-      errors.contactno = "Contact No is required";
+    if (!formData.contactNo.trim()) {
+      errors.contactNo = "Contact No is required";
       isValid = false;
-    } else if (!/^\d+$/.test(formData.contactno)) {
-      errors.contactno = "Contact No should contain only numbers";
+    } else if (!/^\d+$/.test(formData.contactNo)) {
+      errors.contactNo = "Contact No should contain only numbers";
       isValid = false;
     }
     if (!formData.password.trim()) {
@@ -122,14 +122,13 @@ function UserRegistration() {
         setTimeout(() => {
           setSuccessMessage("");
         }, 50000);
-
         setFormData({
-          firstname: "",
-          lastname: "",
-          preferredlocation: "",
+          fName: "",
+          lName: "",
+          preferedLocation: "",
           lang: "",
           email: "",
-          contactno: "",
+          contactNo: "",
           password: "",
           repassword: "",
         });
@@ -195,19 +194,19 @@ function UserRegistration() {
                                     </label>
                                     <input
                                       className={`form-control ${
-                                        errors.firstname ? "is-invalid" : ""
+                                        errors.fName ? "is-invalid" : ""
                                       }`}
                                       id="input-1"
                                       type="text"
                                       required
-                                      name="firstname"
-                                      value={formData.firstname}
+                                      name="fName"
+                                      value={formData.fName}
                                       onChange={handleChange}
                                       placeholder="Steven"
                                     />
-                                    {errors.firstname && (
+                                    {errors.fName && (
                                       <div className="invalid-feedback">
-                                        {errors.firstname}
+                                        {errors.fName}
                                       </div>
                                     )}
                                   </div>
@@ -222,19 +221,19 @@ function UserRegistration() {
                                     </label>
                                     <input
                                       className={`form-control ${
-                                        errors.lastname ? "is-invalid" : ""
+                                        errors.lName ? "is-invalid" : ""
                                       }`}
                                       id="input-2"
                                       type="text"
                                       required
-                                      name="lastname"
-                                      value={formData.lastname}
+                                      name="lName"
+                                      value={formData.lName}
                                       onChange={handleChange}
                                       placeholder="Job"
                                     />
-                                    {errors.lastname && (
+                                    {errors.lName && (
                                       <div className="invalid-feedback">
-                                        {errors.lastname}
+                                        {errors.lName}
                                       </div>
                                     )}
                                   </div>
@@ -249,16 +248,17 @@ function UserRegistration() {
                                     >
                                       Preferred Location *
                                     </label>
+                                  
                                     <select
-                                      className={`form-control ${
-                                        errors.preferredlocation
+                                      className={`form-control  ${
+                                        errors.preferedLocation
                                           ? "is-invalid"
                                           : ""
                                       }`}
                                       id="input-3"
                                       required
-                                      name="preferredlocation"
-                                      value={formData.preferredlocation}
+                                      name="preferedLocation"
+                                      value={formData.preferedLocation}
                                       onChange={handleChange}
                                     >
                                       <option value="">
@@ -274,9 +274,9 @@ function UserRegistration() {
                                           </option>
                                         ))}
                                     </select>
-                                    {errors.preferredlocation && (
+                                    {errors.preferedLocation && (
                                       <div className="invalid-feedback">
-                                        {errors.preferredlocation}
+                                        {errors.preferedLocation}
                                       </div>
                                     )}
                                   </div>
@@ -351,19 +351,19 @@ function UserRegistration() {
                                     </label>
                                     <input
                                       className={`form-control ${
-                                        errors.contactno ? "is-invalid" : ""
+                                        errors.contactNo ? "is-invalid" : ""
                                       }`}
                                       id="input-6"
                                       type="text"
                                       required
-                                      name="contactno"
-                                      value={formData.contactno}
+                                      name="contactNo"
+                                      value={formData.contactNo}
                                       onChange={handleChange}
                                       placeholder="1234567890"
                                     />
-                                    {errors.contactno && (
+                                    {errors.contactNo && (
                                       <div className="invalid-feedback">
-                                        {errors.contactno}
+                                        {errors.contactNo}
                                       </div>
                                     )}
                                   </div>

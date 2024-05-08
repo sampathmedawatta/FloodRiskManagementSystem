@@ -11,11 +11,8 @@ const RegisteredUserProfile = () => {
   const [contactNo, setContactNo] = useState("");
   const [contactNoError, setContactNoError] = useState("");
   const [address, setAddress] = useState("");
-  const [addressError, setAddressError] = useState("");
   const [state, setState] = useState("");
-  const [stateError, setStateError] = useState("");
   const [postalCode, setPostalCode] = useState("");
-  const [postalCodeError, setPostalCodeError] = useState("");
   const [preferredLocation, setPreferredLocation] = useState("");
   const [lang, setLanguagePreference] = useState("");
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
@@ -67,7 +64,7 @@ const RegisteredUserProfile = () => {
 
   const handleUpdate = async () => {
     validateContactNo();
-    if (!contactNoError && !addressError && !stateError && !postalCodeError) {
+    if (!contactNoError) {
       try {
         await UserService.updateUser(userId, {
           contactNo,
