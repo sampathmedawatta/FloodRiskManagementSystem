@@ -2,6 +2,7 @@ pip install fastapi
 pip install uvicorn
 pip install requests
 pip install pymongo
+pip install pandas
 
 Run the ML Model with API 
 cd forecastModel/server/ml_model/api

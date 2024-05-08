@@ -120,7 +120,7 @@ function Navbar() {
               className={`dashboard ${isActiveLink("/") ? "active" : ""}`}
               href="/"
             >
-              <Link to="/" className="nav-link px-0 align-middle">
+              <Link to="/view-flood-history" className="nav-link px-0 align-middle">
                 <i class="bi bi-clock-history fs-5"></i>
                 <span class="name">
                   &nbsp;&nbsp;&nbsp;Flood History &nbsp;&nbsp;

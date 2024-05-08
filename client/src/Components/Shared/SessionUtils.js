@@ -7,11 +7,11 @@ const getUserSession = () => {
     loggedFname:"John",
     loggedlname:"Nelson"
    
-   /* userType: "Registered", // Change different user types: "Admin", "UnRegistered", "Registered"
+    /*userType: "Registered", // Change different user types: "Admin", "UnRegistered", "Registered"
     loggedUser: "663af0be33163a8112a73baf" ,// Admin 662f4bf66c836c8dba8f6665  Registered 662e397f8d45a1beaffac1a5 ,662c4e93312931e3091ce72
     loggedFname:"Kav",
-    loggedlname:"Smith"
-   //userType: "UnRegistered"*/
+    loggedlname:"Smith"*/
+   //userType: "UnRegistered"
     };
   };
   
