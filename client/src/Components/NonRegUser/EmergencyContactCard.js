@@ -5,6 +5,7 @@ import { useLocation } from "../../contexts/LocationContext";
 const EmergencyContactCardHolder = () => {
   const [emergencyContacts, setEmergencyContacts] = useState({});
   const { location } = useLocation();
+  const [locationList, setlocationList] = useState(null);
 
   useEffect(() => {
     const loadEmergencyContacts = async () => {
@@ -14,10 +15,13 @@ const EmergencyContactCardHolder = () => {
           (location) => location.type != "Flood"
         );
 
-        const locationList = emergencyLocations.filter(
+        const refLocations = emergencyLocations.filter(
           (loc) => loc.refLocation == location
         );
-     
+
+        if (refLocations.length > 0) setlocationList(refLocations);
+        else setlocationList(emergencyLocations);
+
         const groupedContacts = groupContactsByType(locationList);
 
         setEmergencyContacts(groupedContacts);
@@ -27,7 +31,7 @@ const EmergencyContactCardHolder = () => {
     };
 
     loadEmergencyContacts();
-  }, [location]);
+  }, [location, locationList]);
 
 
   const groupContactsByType = (locations) => {
