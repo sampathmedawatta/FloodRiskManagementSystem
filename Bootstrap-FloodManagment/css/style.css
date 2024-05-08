@@ -1663,7 +1663,7 @@ svg .icon {
   width: 21px;
   height: 22px;
   border-radius: 5px;
-  background: #05264eurl(../imgs/template/icons/tick.svg) no-repeat center;
+  background: #05264e url(../imgs/template/icons/tick.svg) no-repeat center;
 }
 
 /*COMPONENTS -> FORM*/

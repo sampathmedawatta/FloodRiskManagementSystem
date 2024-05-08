@@ -11,7 +11,10 @@ function RegFloodForecast5Days() {
   useEffect(() => {
     const fetchForecastData = async () => {
       try {
-        const locationForecast = await ForecastService.getForecastByLocation("CLK", 5);
+        const locationForecast = await ForecastService.getForecastByLocation(
+          location,
+          5
+        );
         setForecastData(locationForecast.forecast);
       } catch (error) {
         console.error("Error fetching forecast data:", error);

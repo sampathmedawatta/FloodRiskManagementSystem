@@ -13,6 +13,7 @@ const ForecastCard = ({ weather }) => {
       return "low";
     }
   };
+  
   const geticonClass = (flood) => {
     if (flood >= 50) {
       return "bi-cloud-lightning-rain-fill";
