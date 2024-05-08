@@ -31,7 +31,7 @@ function AdminBarNewsArticlesCard() {
 
   return (
     <div className="col-2">
-      <a href="#">
+      <a href="manage-news">
         <div className="card-style-1 hover-up hover-color ">
           <div className="card-info">
             <div className="card-title row">
