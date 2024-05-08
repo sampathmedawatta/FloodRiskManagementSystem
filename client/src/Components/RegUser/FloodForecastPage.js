@@ -50,32 +50,22 @@ const FloodForecastPage = () => {
   const getFloodForecastOnPeriod = async () => {
     setLocation(selectedLocation);
     try {
-      const forecastData = ForecastService.getForecast().find(
-        (forecast) => forecast.location === selectedLocation
+
+      const locationForecast = await ForecastService.getForecastByLocation(
+        selectedLocation,
+        forecastPeriod
       );
 
-      if (forecastData) {
-        const filteredForecast = forecastData.forecast.filter((item) => {
-          const forecastDate = new Date(item.date);
-          const today = new Date();
-          const laterDuration = new Date(
-            today.getTime() + forecastPeriod * 24 * 60 * 60 * 1000
-          );
-          return forecastDate >= today && forecastDate <= laterDuration;
-        });
-        const forecastWithDetails = {
-          forecastData: filteredForecast,
-          location: selectedLocation,
-          forecastPeriod: forecastPeriod,
-        };
-        setForecastData(forecastWithDetails);
-      } else {
-        setForecastData({
-          forecastData: [],
-          location: null,
-          forecastPeriod: null,
-        });
-      }
+      console.log(locationForecast);
+
+      const forecastWithDetails = {
+        forecastData: locationForecast.forecast,
+        location: selectedLocation,
+        forecastPeriod: forecastPeriod,
+      };
+
+      setForecastData(forecastWithDetails);
+
     } catch (error) {
       console.error(error);
     }

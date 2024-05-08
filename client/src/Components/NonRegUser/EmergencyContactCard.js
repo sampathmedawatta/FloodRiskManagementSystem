@@ -31,16 +31,15 @@ const EmergencyContactCardHolder = () => {
     };
 
     loadEmergencyContacts();
-  }, [location, locationList]);
-
+  }, [location]); //locationList // Fix this loading issue
 
   const groupContactsByType = (locations) => {
     const groupedContacts = {};
     locations.forEach((location) => {
-        if (!groupedContacts[location.type]) {
-          groupedContacts[location.type] = [];
-        }
-        groupedContacts[location.type].push(location);    
+      if (!groupedContacts[location.type]) {
+        groupedContacts[location.type] = [];
+      }
+      groupedContacts[location.type].push(location);
     });
     return groupedContacts;
   };

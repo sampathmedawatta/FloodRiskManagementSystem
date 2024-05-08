@@ -27,6 +27,18 @@ const FloodForecastTable = ({ forecastTableValues }) => {
                       Date
                     </th>
                     <th scope="col" className>
+                      Wind Speed
+                    </th>
+                    <th scope="col" className>
+                      Wind Direction
+                    </th>
+                    <th scope="col" className>
+                      Humidity
+                    </th>
+                    <th scope="col" className>
+                      Tempurature
+                    </th>
+                    <th scope="col" className>
                       Rainfall
                     </th>
                     <th scope="col" className>
@@ -47,12 +59,32 @@ const FloodForecastTable = ({ forecastTableValues }) => {
                       </td>
                       <td className="text-center">
                         <span className="text-muted font-sm">
+                          {forecastItem.meanWindspeed}
+                        </span>
+                      </td>
+                      <td className="text-center">
+                        <span className="text-muted font-sm">
+                          {forecastItem.windDirection}
+                        </span>
+                      </td>
+                      <td className="text-center">
+                        <span className="text-muted font-sm">
+                          {forecastItem.humidity}
+                        </span>
+                      </td>
+                      <td className="text-center">
+                        <span className="text-muted font-sm">
+                          {forecastItem.meanTempurature}
+                        </span>
+                      </td>
+                      <td className="text-center">
+                        <span className="text-muted font-sm">
                           {forecastItem.rainfall}
                         </span>
                       </td>
                       <td className="text-center">
                         <span className="text-muted font-sm">
-                          {forecastItem.flood}
+                          {parseInt(forecastItem.flood)}
                         </span>
                       </td>
                       <td className="text-center">
