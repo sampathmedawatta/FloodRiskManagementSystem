@@ -27,7 +27,7 @@ const FloodForecastTable = ({ forecastTableValues }) => {
                       Date
                     </th>
                     <th scope="col" className>
-                      Wind Speed
+                      Wind Speed (KmH)
                     </th>
                     <th scope="col" className>
                       Wind Direction
@@ -36,10 +36,10 @@ const FloodForecastTable = ({ forecastTableValues }) => {
                       Humidity
                     </th>
                     <th scope="col" className>
-                      Tempurature
+                      Tempurature (C)
                     </th>
                     <th scope="col" className>
-                      Rainfall
+                      Rainfall (mm)
                     </th>
                     <th scope="col" className>
                       Flood (%)

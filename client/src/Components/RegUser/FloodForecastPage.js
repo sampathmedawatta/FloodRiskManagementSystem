@@ -56,8 +56,6 @@ const FloodForecastPage = () => {
         forecastPeriod
       );
 
-      console.log(locationForecast);
-
       const forecastWithDetails = {
         forecastData: locationForecast.forecast,
         location: selectedLocation,
