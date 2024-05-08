@@ -23,6 +23,7 @@ import AdminProfile from "./Components/Admin/AdminProfile"
 import UserRegistration from './Components/NonRegUser/UserRegistration';
 import UserLogin from './Components/NonRegUser/UserLogin';
 import RegisteredUserProfile from './Components/RegUser/RegisteredUserProfile';
+import AdminFloodHistory from './Components/Admin/AdminFloodHistory';
 
 
 const userSession = getUserSession();
@@ -50,6 +51,8 @@ function App() {
             {isAdmin && <Route path="manage-users" element={<AdminManageUsers />} />}
             {isAdmin && <Route path="manage-news" element={<AdminNews />} />}
             {isAdmin && <Route path="admin-profile" element={<AdminProfile />} />}
+            {isAdmin && <Route path="view-flood-history" element={<AdminFloodHistory />} />}
+            
 
             {/* For Registered Users */}
             {isRegistered && <Route path="dashboard" element={<RegDashbord />} />}
