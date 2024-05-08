@@ -537,11 +537,24 @@ const getForecast = () => {
 
 const getForecastByLocation = async (location, days) => {
 
+  let loc = 'CLK'
+  if (location == "Chek Lap Kok") {
+    loc = "CLK";
+  } else if (location == "Cheung Chau") {
+    loc = "CC";
+  } else if (location == "Yau Ma Tei") {
+    loc = "YMI";
+  } else if (location == "Shek Kong") {
+    loc = "SK";
+  } else if (location == "Sha Tin") {
+    loc = "ST";
+  }
+  
   const sessionData = sessionStorage.getItem(
-    "forecastData" + location + days + "days"
+    "forecastData" + loc + days + "days"
   );
   const sessionDate = sessionStorage.getItem(
-    "forecastDataDate" + location + days + "days"
+    "forecastDataDate" + loc + days + "days"
   );
   const currentDate = new Date().toISOString().slice(0, 10);
 
@@ -552,23 +565,23 @@ const getForecastByLocation = async (location, days) => {
   else 
   {
   return await axiosInstance
-    .get("/flood/forecast?location=" + location + "&days=" + days, {
+    .get("/flood/forecast?location=" + loc + "&days=" + days, {
       headers,
     })
     .then((response) => {
       if (response != undefined && response != null) {
         // Save data in session storage
         sessionStorage.setItem(
-          "forecastData" + location + days + "days",
+          "forecastData" + loc + days + "days",
           JSON.stringify(response.data)
         );
         sessionStorage.setItem(
-          "forecastDataDate" + location + days + "days",
+          "forecastDataDate" + loc + days + "days",
           currentDate
         );
 
         return response.data;
-      } 
+      }
     });
   }
 };
