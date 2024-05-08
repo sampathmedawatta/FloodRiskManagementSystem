@@ -27,20 +27,20 @@ const ForecastSelector = ({
               <div className="row">
                 <div className="col">
                   <p className="forecast-dropdown-title">Select Location</p>
-                  <div class="btn-group w-100 mt-2">
+                  <div class="dropdown mt-2">
                     <button
-                      class="btn btn-lg dropdown-toggle forecast-dropdown text-14"
+                      class="btn dropdown-toggle forecast-dropdown w-100 "
                       type="button"
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                     >
                       {location}
                     </button>
-                    <ul class="dropdown-menu w-100 text-center">
+                    <ul class="dropdown-menu w-100 dropdown-menu-light">
                       {locations?.map((location) => (
                         <li key={location.name}>
                           <button
-                            className="dropdown-item p-1 text-15"
+                            className="dropdown-item ps-3 py-1"
                             onClick={() => onLocationSelect(location.name)}
                           >
                             {location.name}
@@ -54,19 +54,19 @@ const ForecastSelector = ({
               <div className="row mt-3">
                 <div className="col">
                   <p className="forecast-dropdown-title">Forecast Period</p>
-                  <div class="btn-group w-100 mt-2">
+                  <div class="dropdown">
                     <button
-                      class="btn btn-lg dropdown-toggle forecast-dropdown"
+                      class="btn btn-lg dropdown-toggle forecast-dropdown w-100 mt-2"
                       type="button"
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                     >
                       {forecastPeriod} Days
                     </button>
-                    <ul class="dropdown-menu w-100">
+                    <ul class="dropdown-menu w-100 dropdown-menu-light">
                       <li>
                         <button
-                          class="dropdown-item"
+                          class="dropdown-item ps-3 py-1"
                           onClick={() => onPeriodSelect(7)}
                         >
                           7 Days
@@ -74,7 +74,7 @@ const ForecastSelector = ({
                       </li>
                       <li>
                         <button
-                          class="dropdown-item"
+                          class="dropdown-item ps-3 py-1"
                           onClick={() => onPeriodSelect(14)}
                         >
                           14 Days

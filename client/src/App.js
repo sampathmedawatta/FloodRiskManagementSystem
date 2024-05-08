@@ -22,6 +22,7 @@ import AdminNews from "./Components/Admin/AdminNews";
 import AdminProfile from "./Components/Admin/AdminProfile"
 import UserRegistration from './Components/NonRegUser/UserRegistration';
 import UserLogin from './Components/NonRegUser/UserLogin';
+import RegisteredUserProfile from './Components/RegUser/RegisteredUserProfile';
 
 
 const userSession = getUserSession();
@@ -56,6 +57,7 @@ function App() {
             {isRegistered && <Route path="flood-forecast" element={<FloodForecastPage />} />}
             {isRegistered && <Route path="ask-query" element={<AskQueryPage />} />}
             {isRegistered && <Route path="news-feed" element={<NewsFeedPage />} />}
+            {isRegistered && <Route path="user-profile" element={<RegisteredUserProfile />} />}
 
             {/* For Unregistered Users */}
             {isUnRegistered && <Route path="home" element={<NonRegDashbord />} />}

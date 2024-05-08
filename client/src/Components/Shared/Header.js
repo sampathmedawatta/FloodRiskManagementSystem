@@ -93,7 +93,7 @@ function Header() {
                 <img alt src="imgs/profile.png" />
                 <div className="info-member">
                   {" "}
-                  <strong className="color-brand-1">Steven Jobs</strong>
+                  <strong className="color-brand-1">{userSession.loggedFname} &nbsp;{userSession.loggedlname}</strong>
                   <div className="dropdown">
                     <a
                       className="font-xs color-text-paragraph-2 icon-down"
@@ -110,9 +110,14 @@ function Header() {
                       aria-labelledby="dropdownProfile"
                     >
                       <li>
-                        <a className="dropdown-item" href="login.html">
+                        <div className="dropdown-item">
+                        <Link
+                            to="/user-profile"
+                            className="nav-link px-0 align-middle"
+                          >
                           Profile
-                        </a>
+                          </Link>
+                        </div>
                       </li>
                       <li>
                         <a className="dropdown-item" href="login.html">

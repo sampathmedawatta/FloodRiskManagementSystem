@@ -6310,3 +6310,14 @@ select {
   line-height: 20px;
   font-weight: 400;
 }
+
+.profile-dropdown{
+  border-width: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #A0ABB8;
+}
+.profile-dropdown:focus {
+  outline: none !important;
+}

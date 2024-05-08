@@ -69,12 +69,6 @@ const FloodForecastTable = ({ forecastTableValues }) => {
                 </tbody>
               </table>
             </div>
-            {/* {forecastTableValues}dddd */}
-            <p class="text-end">
-              <a href="#" class="font-xs color-text-paragraph-2">
-                See More
-              </a>
-            </p>
           </div>
         </div>
       </div>
