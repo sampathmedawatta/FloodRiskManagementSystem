@@ -17,8 +17,8 @@ const RegisteredUserProfile = () => {
   const [postalCode, setPostalCode] = useState("");
   const [postalCodeError, setPostalCodeError] = useState("");
   const [preferredLocation, setPreferredLocation] = useState("");
-  const [languagePreference, setLanguagePreference] = useState("");
-  const [showSuccessAlert, setShowSuccessAlert] = useState(false); 
+  const [lang, setLanguagePreference] = useState("");
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [locations, setLocations] = useState(null);
 
   useEffect(() => {
@@ -47,11 +47,7 @@ const RegisteredUserProfile = () => {
         setState(userDetails.state);
         setPostalCode(userDetails.postCode);
         setPreferredLocation(userDetails.preferedLocation);
-        setLanguagePreference(
-          userDetails.languagePreference
-            ? userDetails.languagePreference
-            : "English"
-        );
+        setLanguagePreference(userDetails.lang);
       } catch (error) {
         console.error("Error while fetching User data", error);
       }
@@ -69,37 +65,8 @@ const RegisteredUserProfile = () => {
     }
   };
 
-  const validateAddress = () => {
-    if (!address) {
-      setAddressError("Address is required.");
-    } else {
-      setAddressError("");
-    }
-  };
-
-  const validateState = () => {
-    if (!state) {
-      setStateError("State is required.");
-    } else {
-      setStateError("");
-    }
-  };
-
-  const validatePostalCode = () => {
-    if (!postalCode) {
-      setPostalCodeError("Postal code is required.");
-    } else if (!/^[0-9-]{0,10}$/.test(postalCode)) {
-      setPostalCodeError("Invalid postal code.");
-    } else {
-      setPostalCodeError("");
-    }
-  };
-
   const handleUpdate = async () => {
     validateContactNo();
-    validateAddress();
-    validateState();
-    validatePostalCode();
     if (!contactNoError && !addressError && !stateError && !postalCodeError) {
       try {
         await UserService.updateUser(userId, {
@@ -107,6 +74,7 @@ const RegisteredUserProfile = () => {
           address,
           state,
           postCode: postalCode,
+          lang: lang,
           preferedLocation: preferredLocation,
         });
         const updatedUserDetails = await UserService.getUserById(userId);
@@ -253,7 +221,7 @@ const RegisteredUserProfile = () => {
                                 aria-expanded="false"
                                 data-bs-display="static"
                               >
-                                {languagePreference}
+                                {lang}
                               </button>
                               <ul class="dropdown-menu w-100 dropdown-menu-light">
                                 <li>
@@ -284,19 +252,11 @@ const RegisteredUserProfile = () => {
                               Address
                             </label>
                             <input
-                              className={`form-control ${
-                                addressError ? "is-invalid" : ""
-                              }`}
+                              className="form-control"
                               type="text"
                               value={address}
                               onChange={(e) => setAddress(e.target.value)}
-                              onBlur={validateAddress}
                             />
-                            {addressError && (
-                              <div className="invalid-feedback">
-                                {addressError}
-                              </div>
-                            )}
                           </div>
                         </div>
                         <div className="col-lg-6 col-md-12">
@@ -305,19 +265,11 @@ const RegisteredUserProfile = () => {
                               State
                             </label>
                             <input
-                              className={`form-control ${
-                                stateError ? "is-invalid" : ""
-                              }`}
+                              className="form-control"
                               type="text"
                               value={state}
                               onChange={(e) => setState(e.target.value)}
-                              onBlur={validateState}
                             />
-                            {stateError && (
-                              <div className="invalid-feedback">
-                                {stateError}
-                              </div>
-                            )}
                           </div>
                         </div>
                         <div className="col-lg-6 col-md-12">
@@ -326,19 +278,11 @@ const RegisteredUserProfile = () => {
                               Postal Code
                             </label>
                             <input
-                              className={`form-control ${
-                                postalCodeError ? "is-invalid" : ""
-                              }`}
+                              className="form-control"
                               type="text"
                               value={postalCode}
                               onChange={(e) => setPostalCode(e.target.value)}
-                              onBlur={validatePostalCode}
                             />
-                            {postalCodeError && (
-                              <div className="invalid-feedback">
-                                {postalCodeError}
-                              </div>
-                            )}
                           </div>
                         </div>
 
