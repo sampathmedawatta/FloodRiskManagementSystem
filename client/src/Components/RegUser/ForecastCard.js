@@ -1,8 +1,6 @@
 import React from "react";
 
 const ForecastCard = ({ weather }) => {
-  console.log(weather);
-
     const getRiskLevel = (flood) => {
       if (flood >= 50) {
         return "high";

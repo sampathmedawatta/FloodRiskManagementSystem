@@ -22,7 +22,7 @@ const FloodForecastPage = () => {
   useEffect(() => {
     const fetchLocations = async () => {
       try {
-        const floodLocations = await LocationService.getFloodLocations();
+        const floodLocations = await LocationService.getFloodLocations("Flood");
         if (floodLocations) {
           setLocations(floodLocations);
         }

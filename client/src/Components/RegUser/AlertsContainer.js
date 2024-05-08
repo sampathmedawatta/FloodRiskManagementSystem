@@ -5,7 +5,6 @@ import AlertCard from "./AlertCard";
 
 const AlertsContainer = () => {
   const { alertList } = useAlerts();
-  console.log(alertList, "alerts");
   return (
     <div className="section-box">
       <div className="container">

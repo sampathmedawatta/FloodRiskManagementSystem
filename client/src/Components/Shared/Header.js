@@ -17,12 +17,9 @@ function Header() {
   useEffect(() => {
     const fetchLocations = async () => {
       try {
-        const response = await LocationService.getLocations();
+        const response = await LocationService.getFloodLocations("Flood");
         if (response) {
-          const floodLocations = response.locations.filter(
-            (location) => location.type === "Flood"
-          );
-          setLocations(floodLocations);
+          setLocations(response);
         }
       } catch (error) {
         console.error("Error fetching locations:", error);

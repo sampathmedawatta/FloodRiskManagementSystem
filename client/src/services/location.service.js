@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:3000/api",
+  baseURL: "http://localhost:3001",
   withCredentials: false, // Allow cookies to be sent with requests (if applicable)
 });
 
@@ -9,220 +9,62 @@ const headers = {
   "Content-Type": "application/json",
   //Authorization: "Bearer your-access-token", // Add any custom headers as needed
 };
-const response = {
-  locations: [
-    {
-      latitude: 22.26132,
-      longitude: 114.17999,
-      name: "Chek Lap Kok",
-      value: "Flood Location",
-      type: "Flood",
-      address: "Chek Lap Kok",
-      contact: "-",
-      refLocation: "Hong Kong Island",
-      code: "CLK",
-    },
-    {
-      latitude: 22.26132,
-      longitude: 114.17999,
-      name: "Cheung Chau",
-      value: "Flood Location",
-      type: "Flood",
-      address: "Cheung Chau",
-      contact: "-",
-      refLocation: "Cheung Chau",
-      code: "CC",
-    },
-    {
-      latitude: 22.26132,
-      longitude: 114.17999,
-      name: "Yau Ma Tei",
-      value: "Flood Location",
-      type: "Flood",
-      address: "Yau Ma Tei",
-      contact: "-",
-      refLocation: "Yau Ma Tei",
-      code: "YMI",
-    },
-    {
-      latitude: 22.26132,
-      longitude: 114.17999,
-      name: "Shek Kong",
-      value: "Flood Location",
-      type: "Flood",
-      address: "Shek Kong",
-      contact: "-",
-      refLocation: "Shek Kong",
-      code: "SK",
-    },
-    {
-      latitude: 22.26132,
-      longitude: 114.17999,
-      name: "Sha Tin",
-      value: "Shek Kong",
-      type: "Flood",
-      address: "Sha Tin",
-      contact: "-",
-      refLocation: "Sha Tin",
-      code: "ST",
-    },
-    {
-      latitude: 22.28464,
-      longitude: 114.18141,
-      name: "Happy Valley Underground Floodwater Pump Station",
-      value: "Floodwater Pump Station",
-      type: "Pump Station",
-      address: "Wong Nai Chung Rd, Happy Valley, Hong Kong",
-      contact: "+852 6469 8700",
-      refLocation: "Hong Kong Island",
-      code: "ST",
-    },
-    {
-      latitude: 22.31896,
-      longitude: 114.16946,
-      name: "Yau Ma Tei Division Police Station",
-      value: "Evacuation point",
-      type: "Police",
-      address: "3 Yau Cheung Rd, Yau Ma Tei, Hong Kong",
-      contact: "+852 3661 1652",
-      refLocation: "Hong Kong Island",
-      code: "ST",
-    },
-    {
-      latitude: 22.27635,
-      longitude: 114.18595,
-      name: "Happy Valley Division Police Station",
-      value: "Evacuation point",
-      type: "Police",
-      address: "60 Sing Woo Rd, Happy Valley, Hong Kong",
-      contact: "+852 3661 1610",
-      refLocation: "Sha Tin",
-      code: "ST",
-    },
-    {
-      latitude: 22.2878,
-      longitude: 114.16671,
-      name: "Wan Chai Division Police Station",
-      value: "Evacuation point",
-      type: "Police",
-      address: "1 Arsenal St, Admiralty, Hong Kong",
-      contact: "+852 3661 1612",
-      refLocation: "Sha Tin",
-      code: "ST",
-    },
-    {
-      latitude: 22.29098,
-      longitude: 114.1509,
-      name: "Tai Kwun Police Services Centre",
-      value: "Evacuation point",
-      type: "Police",
-      address: "Hong Kong, Central, Hollywood Rd, 10",
-      contact: "+852 3661 1602",
-      refLocation: "Shek Kong",
-      code: "ST",
-    },
-    {
-      latitude: 22.29797,
-      longitude: 114.20726,
-      name: "North Point Police Station",
-      value: "Evacuation point",
-      type: "Police",
-      address: "343 Java Rd, Tsat Tsz Mui, Hong Kong",
-      contact: "+852 3661 1608",
-      refLocation: "Shek Kong",
-      code: "ST",
-    },
-    {
-      latitude: 22.30958,
-      longitude: 113.93284,
-      name: "Airport Police Station",
-      value: "Evacuation point",
-      type: "Police",
-      address: "8 Catering Road West Chek Lap Kok, Lantau Island, Hong Kong",
-      contact: "+852 3661 1688",
-      refLocation: "Yau Ma Tei",
-      code: "ST",
-    },
-    {
-      latitude: 22.34752,
-      longitude: 114.18049,
-      name: "Hong Kong Baptist  Hospital",
-      value: "Evacuation point",
-      type: "Hospital",
-      address: "1 Mok Cheong Street, 1 Mok Cheong St, Hong Kong",
-      contact: "+852 3651 8888",
-      refLocation: "Sha Tin",
-      code: "ST",
-    },
-    {
-      latitude: 22.26495,
-      longitude: 114.19515,
-      name: "Hong Kong Adventist Hospital",
-      value: "Evacuation point",
-      type: "Hospital",
-      address: "40 Stubbs Rd, Happy Valley, Hong Kong",
-      contact: "+852 3651 8888",
-      refLocation: "Sha Tin",
-      code: "ST",
-    },
-    {
-      latitude: 22.26217,
-      longitude: 114.16605,
-      name: "Matilda International Hospital",
-      value: "Evacuation point",
-      type: "Hospital",
-      address: "41 Mount Kellett Rd, The Peak, Hong Kong",
-      contact: "+852 2849 0111",
-      refLocation: "Sha Tin",
-      code: "ST",
-    },
-    {
-      latitude: 22.27589,
-      longitude: 114.19172,
-      name: "Tung Wah Group of Hospitals Fung Yiu King Hospital",
-      value: "Evacuation point",
-      type: "Hospital",
-      address: "9 Sandy Bay Rd, Pok Fu Lam, Hong Kong",
-      contact: "+852 2855 6111",
-      refLocation: "Sha Tin",
-      code: "ST",
-    },
-    {
-      latitude: 22.28626,
-      longitude: 113.93902,
-      name: "North Lantau Hospital",
-      value: "Evacuation point",
-      type: "Hospital",
-      address: "8 Chung Yan Rd, Hong Kong",
-      contact: "+852 3467 7000",
-      refLocation: "Sha Tin",
-      code: "ST",
-    },
-    ,
-    {
-      latitude: 22.2723,
-      longitude: 114.13103,
-      name: "Queen Mary Hospital",
-      value: "Evacuation point",
-      type: "Hospital",
-      address: "Main block, Pok Fu Lam Rd, Hong Kong",
-      contact: "+852 2255 3838",
-      refLocation: "Sha Tin",
-      code: "ST",
-    },
-  ],
+
+
+const getLocationList = async () => {
+  const sessionData = sessionStorage.getItem(
+    "LocationList"
+  );
+  const sessionDate = sessionStorage.getItem(
+    "LocationListDate"
+  );
+  const currentDate = new Date().toISOString().slice(0, 10);
+
+  if (sessionData && sessionDate === currentDate) {
+    return JSON.parse(sessionData);
+  } else {
+    return await axiosInstance
+      .get("/location/", {
+        headers,
+      })
+      .then((response) => {
+        if (response != undefined && response != null) {
+          // Save data in session storage
+          sessionStorage.setItem("LocationList", JSON.stringify(response.data));
+          sessionStorage.setItem("LocationListDate", currentDate);
+          return response.data;
+        }
+      });
+  }
 };
+
 
 const getLocations = async () => {
-  return await response;
+
+  return await getLocationList();
 };
 
-const getFloodLocations = async () => {
-  return response.locations.filter((location) => location.type === "Flood");
+const getLocationByCode = async (code) => {
+  const locations = await getLocationList();
+  const location = locations.filter((location) => location.code === code);
+  return location;
+
+};
+
+const getFloodLocations = async (type) => {
+
+  // Filter the locations array to only include objects with a type
+  const locations = await getLocationList();
+  const floodLocations = locations.filter(
+    (location) => location.type === type 
+  );
+
+  return floodLocations;
 };
 
 const LocationService = {
   getLocations,
+  getLocationByCode,
   getFloodLocations,
 };
 
