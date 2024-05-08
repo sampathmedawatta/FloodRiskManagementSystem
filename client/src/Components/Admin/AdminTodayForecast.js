@@ -1,11 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { getCurrentDateInfo } from "../Shared/Utils";
 import ForecastService from "../../services/forecast.service";
-
+import LocationService from "../../services/location.service";
 
 const Forecast = ({ location, data }) => {
   const forecastData = data[0].forecast[0];
-  console.log(forecastData);
+
+
+  const getlocation = (code) => {
+    if (code == "CLK") {
+      return "Chek Lap Kok";
+    } else if (code == "CC") {
+      return "Cheung Chau";
+    } else if (code == "SK") {
+      return "Shek Kong";
+    } else if (code == "ST") {
+      return "Sha Tin";
+    } else if (code == "YMT") {
+      return "Yau Ma Tei";
+    }
+  };
+
   const getRiskLevel = (riskLevel) => {
     if (riskLevel =='High') {
       return "risklevel-high";
@@ -21,7 +36,7 @@ const Forecast = ({ location, data }) => {
   return (
     <tr className="tr-border">
       <td className="text-center pl-4">
-        <span className="text-muted font-sm">{location}</span>
+        <span className="text-muted font-sm">{getlocation(location)}</span>
       </td>
       <td className="text-center">
         <span className="text-muted font-sm">{forecastData.rainfall}</span>
