@@ -145,7 +145,10 @@ const MarkerPopupMap = () => {
               (loc) => loc.refLocation == location
             );
 
-            setLocations(locationList);
+            if (locationList.length > 0) 
+               setLocations(locationList);
+            else
+            setLocations(response);
           }
         } catch (error) {
           console.error("Error fetching locations:", error);
