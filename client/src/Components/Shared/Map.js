@@ -14,6 +14,7 @@ import { Vector as VectorSource } from "ol/source";
 import Overlay from "ol/Overlay";
 import { Style, Icon, Circle, Fill } from "ol/style";
 import LocationService from "../../services/location.service";
+import { useLocation } from "../../contexts/LocationContext";
 
 const MapComponent = ({ locations }) => {
   useEffect(() => {
@@ -131,6 +132,7 @@ const MapComponent = ({ locations }) => {
 };
 
 const MarkerPopupMap = () => {
+    const { location } = useLocation();
     const [locations, setLocations] = useState(null);
     
     useEffect(() => {
@@ -138,10 +140,12 @@ const MarkerPopupMap = () => {
         try {
           const response = await LocationService.getLocations();
           if (response) {
-            // const location = locations.filter(
-            //   (location) => location.refLocation === "Cheung Chau"
-            // );
-            setLocations(response);
+
+            const locationList = response.filter(
+              (loc) => loc.refLocation == location
+            );
+
+            setLocations(locationList);
           }
         } catch (error) {
           console.error("Error fetching locations:", error);
@@ -149,7 +153,7 @@ const MarkerPopupMap = () => {
       };
 
       fetchLocations();
-    }, []);
+    }, [location]);
 
   return (
     <div>{locations !== null && <MapComponent locations={locations} />}</div>
