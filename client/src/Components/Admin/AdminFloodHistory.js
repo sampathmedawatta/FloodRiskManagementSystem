@@ -91,8 +91,6 @@ function AdminFloodHistory() {
           year,
           month
         );
-        const data = await WeatherHistoryService.getWeatherHistory(locationCode, year, month);
-        console.log(data);
         setHistoryData(data);
       } catch (error) {
         console.error("Error fetching weather history data:", error);
@@ -262,52 +260,30 @@ function AdminFloodHistory() {
                             </tr>
                           </thead>
                           <tbody>
-                            {loading ? (
-                              <tr>
-                                <td colSpan="7">
-                                  {" "}
-                                  Loading...
-                                  <img
-                                    src="imgs/spinning-loading.gif"
-                                    alt="Loading..."
-                                  />
-                                </td>
-                              </tr>
-                            ) : historyData ? (
-                              <tr className="tr-border">
-                                <td className="text-left">1</td>
-                                <td className="text-left">
-                                  {historyData.location}
-                                </td>
-                                <td className="text-left"></td>
-                                <td className="text-left">
-                                  {historyData.rainfall}
-                                </td>
-                                <td className="text-left">
-                                  {historyData.duration}
-                                </td>
-                                <td className="text-left">
-                                  {historyData.mean_temperature}
-                                </td>
-                                <td className="text-left">
-                                  {historyData.humidity}
-                                </td>
-                              </tr>
-                            ) : (
-                              historyData.map((item, index) => (
-                                <tr key={item._id} className="tr-border">
-                                  <td className="text-left">{index + 1}</td>
-                                  <td className="text-left">{item.location}</td>
-                                  <td className="text-left">0</td>
-                                  <td className="text-left">{item.rainfall}</td>
-                                  <td className="text-left">{item.duration}</td>
-                                  <td className="text-left">
-                                    {item.mean_tempurature}
-                                  </td>
-                                  <td className="text-left">{item.humidity}</td>
-                                </tr>
-                              ))
-                            )}
+                          {loading ? (
+  <tr>
+    <td colSpan="7">
+      Loading...
+      <img src="imgs/spinning-loading.gif" alt="Loading..." />
+    </td>
+  </tr>
+) : historyData !== null && historyData.length > 0 ? (
+  historyData.map((item, index) => (
+    <tr key={index} className="tr-border">
+      <td className="text-left">{index + 1}</td>
+      <td className="text-left">{item.location}</td>
+      <td className="text-left">0</td>
+      <td className="text-left">{item.rainfall}</td>
+      <td className="text-left">{item.duration}</td>
+      <td className="text-left">{item.mean_tempurature}</td>
+      <td className="text-left">{item.humidity}</td>
+    </tr>
+  ))
+) : (
+  <tr>
+    <td colSpan="7">No data available</td>
+  </tr>
+)}
                           </tbody>
                         </table>
                       </div>
