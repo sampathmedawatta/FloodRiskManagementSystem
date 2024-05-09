@@ -65,7 +65,13 @@ const ForecastComponent = ({ forecastData }) => {
                 <i class="bi bi bi-geo-alt-fill" />
               </th>
               {dates.map((date) => (
-                <th key={date}>{date}</th>
+                <th key={date}>
+                  {new Date(date).toLocaleDateString(undefined, {
+                    weekday: "short",
+                  })}
+                  <br />
+                  {date}
+                </th>
               ))}
             </tr>
           </thead>
