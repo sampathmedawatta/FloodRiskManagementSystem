@@ -86,7 +86,11 @@ function AdminFloodHistory() {
 
       try {
         setLoading(true);
-        const data = await WeatherHistoryService.getWeatherHistory(locationCode, year, month);
+        const data = await WeatherHistoryService.getWeatherHistory(
+          locationCode,
+          year,
+          month
+        );
         setHistoryData(data);
       } catch (error) {
         console.error("Error fetching weather history data:", error);
@@ -187,9 +191,7 @@ function AdminFloodHistory() {
                               required
                               name="month"
                               value={selectedMonth}
-                              onChange={(e) =>
-                                setSelectedMonth(e.target.value)
-                              }
+                              onChange={(e) => setSelectedMonth(e.target.value)}
                             >
                               <option value="">Select Month</option>
                               {months.map((month, index) => (
@@ -260,17 +262,34 @@ function AdminFloodHistory() {
                           <tbody>
                             {loading ? (
                               <tr>
-                                <td colSpan="7">Loading...</td>
+                                <td colSpan="7">
+                                  {" "}
+                                  Loading...
+                                  <img
+                                    src="imgs/spinning-loading.gif"
+                                    alt="Loading..."
+                                  />
+                                </td>
                               </tr>
                             ) : historyData ? (
                               <tr className="tr-border">
                                 <td className="text-left">1</td>
-                                <td className="text-left">{historyData.location}</td>
+                                <td className="text-left">
+                                  {historyData.location}
+                                </td>
                                 <td className="text-left"></td>
-                                <td className="text-left">{historyData.rainfall}</td>
-                                <td className="text-left">{historyData.duration}</td>
-                                <td className="text-left">{historyData.mean_temperature}</td>
-                                <td className="text-left">{historyData.humidity}</td>
+                                <td className="text-left">
+                                  {historyData.rainfall}
+                                </td>
+                                <td className="text-left">
+                                  {historyData.duration}
+                                </td>
+                                <td className="text-left">
+                                  {historyData.mean_temperature}
+                                </td>
+                                <td className="text-left">
+                                  {historyData.humidity}
+                                </td>
                               </tr>
                             ) : (
                               <tr>
