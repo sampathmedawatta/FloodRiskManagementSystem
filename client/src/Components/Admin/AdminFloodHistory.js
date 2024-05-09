@@ -87,6 +87,7 @@ function AdminFloodHistory() {
       try {
         setLoading(true);
         const data = await WeatherHistoryService.getWeatherHistory(locationCode, year, month);
+        console.log(data);
         setHistoryData(data);
       } catch (error) {
         console.error("Error fetching weather history data:", error);
@@ -187,9 +188,7 @@ function AdminFloodHistory() {
                               required
                               name="month"
                               value={selectedMonth}
-                              onChange={(e) =>
-                                setSelectedMonth(e.target.value)
-                              }
+                              onChange={(e) => setSelectedMonth(e.target.value)}
                             >
                               <option value="">Select Month</option>
                               {months.map((month, index) => (
@@ -262,20 +261,20 @@ function AdminFloodHistory() {
                               <tr>
                                 <td colSpan="7">Loading...</td>
                               </tr>
-                            ) : historyData ? (
-                              <tr className="tr-border">
-                                <td className="text-left">1</td>
-                                <td className="text-left">{historyData.location}</td>
-                                <td className="text-left"></td>
-                                <td className="text-left">{historyData.rainfall}</td>
-                                <td className="text-left">{historyData.duration}</td>
-                                <td className="text-left">{historyData.mean_temperature}</td>
-                                <td className="text-left">{historyData.humidity}</td>
-                              </tr>
                             ) : (
-                              <tr>
-                                <td colSpan="7">No data available</td>
-                              </tr>
+                              historyData.map((item, index) => (
+                                <tr key={item._id} className="tr-border">
+                                  <td className="text-left">{index + 1}</td>
+                                  <td className="text-left">{item.location}</td>
+                                  <td className="text-left">0</td>
+                                  <td className="text-left">{item.rainfall}</td>
+                                  <td className="text-left">{item.duration}</td>
+                                  <td className="text-left">
+                                    {item.mean_tempurature}
+                                  </td>
+                                  <td className="text-left">{item.humidity}</td>
+                                </tr>
+                              ))
                             )}
                           </tbody>
                         </table>
