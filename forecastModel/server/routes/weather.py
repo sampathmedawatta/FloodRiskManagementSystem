@@ -119,7 +119,7 @@ async def find_weather(location: str, days: int):
             incremented_dates.append({
                     "date": incremented_date.strftime("%Y-%m-%d"), 
                     "dayofweek":day_of_week,
-                    "riskLevel":"Moderate",
+                    "riskLevel":riskLevel(value),
                     "flood": value,
                     "rainfall": forecast_weather_data['rainfall'][i],
                     "rainfall": forecast_weather_data['rainfall'][i],
@@ -160,3 +160,13 @@ async def fetch_weather_data(locations, days):
             "data": [response]
         })
     return data
+
+def riskLevel(flood):
+    if (flood >= 50) :
+      return "High"
+    elif (flood >= 40) :
+      return "Moderate"
+    elif (flood >= 20) :
+      return "low"
+    else :
+      return "low"
