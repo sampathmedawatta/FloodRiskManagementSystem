@@ -77,7 +77,6 @@ function AdminTodayForecast() {
   useEffect(() => {
     const fetchFloodForecast = async () => {
       const locationForecast = await ForecastService.getForecastByDate(1);
-      console.log(locationForecast);
        setForecastData(locationForecast);
 
       
