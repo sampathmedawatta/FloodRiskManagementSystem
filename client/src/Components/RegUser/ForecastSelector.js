@@ -9,7 +9,8 @@ const ForecastSelector = ({
   onGetForecast,
 }) => {
   return (
-    <div>
+    <div className="row gx-2 justify-content-between mt-2">
+    <div className="col-12">
       <div className="section-box">
         <div className="container">
           <div className="panel-white">
@@ -17,7 +18,7 @@ const ForecastSelector = ({
               <div className="row">
                 <div className="col">
                   <h6 className="text-start">
-                    <i className="bi bi-phone-vibrate" />
+                    <i className="bi bi-tsunami" />
                     &nbsp;&nbsp;Forecast Selector
                   </h6>
                 </div>
@@ -25,7 +26,7 @@ const ForecastSelector = ({
             </div>
             <div className="panel-body">
               <div className="row">
-                <div className="col">
+                <div className="col-3">
                   <p className="forecast-dropdown-title">Select Location</p>
                   <div class="dropdown mt-2">
                     <button
@@ -50,9 +51,9 @@ const ForecastSelector = ({
                     </ul>
                   </div>
                 </div>
-              </div>
-              <div className="row mt-3">
-                <div className="col">
+         
+  
+                <div className="col-3">
                   <p className="forecast-dropdown-title">Forecast Period</p>
                   <div class="dropdown">
                     <button
@@ -83,22 +84,25 @@ const ForecastSelector = ({
                     </ul>
                   </div>
                 </div>
-              </div>
-              <div className="row mt-4 mb-2">
-                <div className="col">
+                     
+                <div className="col-md-2 align-self-end">
                   <button
                     type="button"
-                    class="btn forecast-button btn-lg w-100"
+                    class="btn forecast-button btn-lg"
                     onClick={onGetForecast}
                   >
-                    Get Forecast
+                    <i className="bi bi-tsunami" />
+                    &nbsp;&nbsp; Get Forecast
                   </button>
                 </div>
               </div>
+
+              
             </div>
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };

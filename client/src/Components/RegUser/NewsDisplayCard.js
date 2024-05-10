@@ -1,7 +1,6 @@
 import React from "react";
 
 const NewsDisplayCard = ({ newsData, lang }) => {
-
   console.log(lang);
 
   const formatDate = (datetimeString) => {
@@ -63,11 +62,11 @@ const NewsDisplayCard = ({ newsData, lang }) => {
         aria-labelledby={`#${newsData._id}Label`}
         aria-hidden="true"
       >
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
           <div class="modal-content">
             <div class="modal-header">
               <h1 class="modal-title fs-5" id={`#${newsData._id}Label`}>
-                {newsData.title}
+                {lang == "Chinese" ? newsData.title_zh : newsData.title}
               </h1>
               <button
                 type="button"
@@ -86,7 +85,9 @@ const NewsDisplayCard = ({ newsData, lang }) => {
                 />
               </div>
               <div className="row justify-content-center p-3">
-                {newsData.description}
+                {lang == "Chinese"
+                  ? newsData.description_zh
+                  : newsData.description}
               </div>
             </div>
           </div>
