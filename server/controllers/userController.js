@@ -6,7 +6,6 @@ const {
   verifyPassword,
 } = require("../communication/emailService");
 const UserVerification = require("../modules/userVerificationModel");
-const UserOTPVerification = require("../modules/UserOTPVerificationModel");
 
 const { ObjectId } = require("mongodb");
 
