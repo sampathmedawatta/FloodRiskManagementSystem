@@ -117,7 +117,7 @@ function Header() {
                         </div>
                       </li>
                       <li>
-                        <a className="dropdown-item" href="login.html">
+                        <a className="dropdown-item" href="/">
                           Logout
                         </a>
                       </li>
@@ -138,7 +138,7 @@ function Header() {
       <div className="main-header">
         <div className="header-left">
           <div className="header-logo">
-            <a className="d-flex" href="login.html">
+            <a className="d-flex" href="/">
               <img alt="FloodManager" src="imgs/logo.svg" />
             </a>
           </div>
@@ -239,7 +239,7 @@ function Header() {
                       </li>
 
                       <li>
-                        <a className="dropdown-item" href="login.html">
+                        <a className="dropdown-item" href="/">
                           Logout
                         </a>
                       </li>

@@ -45,19 +45,21 @@ const EmergencyContactCardHolder = () => {
   };
 
   return (
-    <div className="section-box">
-      <div className="container">
-        <div className="panel-white">
-          <div className="panel-head">
-            <div className="row">
-              <div className="col-md-12">
-                <h6 className="text-left">
+    <div className="row gx-2 justify-content-between mt-2">
+    <div className="col-12">
+      <div className="section-box">
+        <div className="container">
+          <div className="panel-white">
+            <div className="panel-head">
+              <div className="row">
+                <div className="col-md-10">
+                  <h6 className="text-start">
                   <i className="bi bi-hospital fs-5" />
                   &nbsp;&nbsp;Emergency Contact Details
-                </h6>
+                  </h6>
+                </div>
               </div>
             </div>
-          </div>
           <div className="panel-body">
             <div className="accordion" id="contactAccordion">
               {Object.keys(emergencyContacts).map((type, index) => (
@@ -125,6 +127,8 @@ const EmergencyContactCardHolder = () => {
                 </div>
               ))}
             </div>
+          </div>
+          </div>
           </div>
         </div>
       </div>

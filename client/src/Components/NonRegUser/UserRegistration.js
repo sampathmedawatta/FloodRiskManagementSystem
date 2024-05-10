@@ -118,7 +118,7 @@ function UserRegistration() {
 
         console.log(updatedFormData);
 
-       // await UserService.createUser(updatedFormData);
+       await UserService.createUser(updatedFormData);
         console.log("Form submitted successfully:", formData);
 
         setSuccessMessage("Registration Successful!   Please login to your account.");

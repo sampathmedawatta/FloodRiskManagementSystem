@@ -7,19 +7,27 @@ import EmergencyContactCard from "./EmergencyContactCard";
 function NonRegDashbord() {
   return (
     <div className="box-content">
-      <div className="row">
-        <div className="col-md-12">
+    <div className="row">
+    <div className="col-md-6">
           <ForecastCardHolder />
         </div>
+
+
+    <div className="col-md-6">
+      <div>
+      
+      <EmergencyContactCard />
+  
       </div>
-      <div className="row">
-        <div className="col-md-6">
-          <Map></Map>
-        </div>
-        <div className="col-md-6">
-          <EmergencyContactCard />
-        </div>
+      <div>
+        <br></br>
+      <Map></Map>
       </div>
+         
+      </div>
+
+
+    </div>
     </div>
   );
 }
