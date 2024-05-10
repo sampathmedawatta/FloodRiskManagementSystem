@@ -4,21 +4,39 @@ const getUserSession = () => {
     const user = sessionStorage.getItem("user");
     const userToken = sessionStorage.getItem("userToken");
 
-    return {
+    if (userToken != null && user != null) {
+      console.log(userToken);
+      console.log(user);
 
+      if (user.type == "ADMIN") {
+        return {
+          userType: "Admin",
+          loggedUser: user._id,
+        };
+      } else if (user.type == "REGISTEREDUSER") {
+        return {
+          userType: "Registered",
+          loggedUser: user._id,
+        };
+      } else {
+        sessionStorage.removeItem("user");
+        sessionStorage.removeItem("userToken");
 
+        return {
+          userType: "UnRegistered",
+          loggedUser: null,
+        };
+      }
       
-      //  userType: "Admin", // Change different user types: "Admin", "UnRegistered", "Registered"
-      // loggedUser: "663914ed74f8c699e856b3ab" ,// Admin 662f4bf66c836c8dba8f6665  ,662e2b867daa986ce1b85bdd
-      //   loggedFname:"John",
-      //   loggedlname:"Nelson"
+    } else {
+      sessionStorage.removeItem("user");
+      sessionStorage.removeItem("userToken");
 
-      userType: "UnRegistered", // Change different user types: "Admin", "UnRegistered", "Registered"
-      loggedUser: "663af0be33163a8112a73baf", // Admin 662f4bf66c836c8dba8f6665  Registered 662e397f8d45a1beaffac1a5 ,662c4e93312931e3091ce72
-      loggedFname: "Kav",
-      loggedlname: "Smith",
-      //userType: "UnRegistered"
-    };
+      return {
+        userType: "UnRegistered",
+        loggedUser: null,
+      };
+    }
   };
   
   export { getUserSession };
