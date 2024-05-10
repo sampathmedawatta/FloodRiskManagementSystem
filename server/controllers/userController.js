@@ -4,7 +4,7 @@ const { ObjectId } = require("mongodb");
 
 exports.getAllUsers = async (request, response) => {
   const users = await User.find();
-
+  console.log(users);
   response.status(200).json(users);
 };
 

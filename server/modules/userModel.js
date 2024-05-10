@@ -15,7 +15,7 @@ const userSchema = mongoose.Schema(
       require: true,
       unique: true,
     },
-    password: {
+    hashPassword: {
       type: String,
       require: true,
     },
@@ -58,7 +58,7 @@ const userSchema = mongoose.Schema(
     hasLoggedIn: {
       type: Boolean,
       require: false,
-    }
+    },
   },
   {
     timestamp: true,
