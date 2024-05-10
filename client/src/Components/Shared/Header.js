@@ -45,7 +45,7 @@ function Header() {
         </div>
         <div className="header-right">
           <div className="row">
-            <div className="col-md-4">
+            <div className="col-md-7">
               <div className="header-date">
                 <h6>{formattedDate}</h6>
                 <p className="text-start font-xs color-text-paragraph-2">
@@ -53,7 +53,7 @@ function Header() {
                 </p>
               </div>
             </div>
-            <div className="col-md-5">
+            <div className="col-md-4">
               <div className="header-location">
                 <div className="dropdown">
                   <i className="bi bi-geo-alt-fill" /> &nbsp;&nbsp;
@@ -85,12 +85,13 @@ function Header() {
                 </div>
               </div>
             </div>
-            <div className="col-md-3">
-              <div className="member-login">
+            <div className="col-md-1 d-flex justify-content-end align-items-center">
+              <div className="member-login text-right">
                 <img alt src="imgs/profile.png" />
                 <div className="info-member">
-                  {" "}
-                  <strong className="color-brand-1">{userSession.loggedFname} &nbsp;{userSession.loggedlname}</strong>
+                  <strong className="color-brand-1">
+                    {userSession.loggedFname} {userSession.loggedlname}
+                  </strong>
                   <div className="dropdown">
                     <a
                       className="font-xs color-text-paragraph-2 icon-down"
@@ -108,11 +109,11 @@ function Header() {
                     >
                       <li>
                         <div className="dropdown-item">
-                        <Link
+                          <Link
                             to="/user-profile"
                             className="nav-link px-0 align-middle"
                           >
-                          Profile
+                            Profile
                           </Link>
                         </div>
                       </li>
@@ -182,7 +183,7 @@ function Header() {
         </div>
         <div className="header-right">
           <div className="row">
-            <div className="col-md-4">
+            <div className="col-md-7">
               <div className="header-date">
                 <h6>{formattedDate}</h6>
                 <p className="text-start font-xs color-text-paragraph-2">
@@ -190,7 +191,7 @@ function Header() {
                 </p>
               </div>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-4">
               <div className="header-location">
                 <div className="dropdown">
                   <i className="bi bi-speedometer2" /> &nbsp;&nbsp;
@@ -203,7 +204,7 @@ function Header() {
                 </div>
               </div>
             </div>
-            <div className="col-md-2">
+            <div className="col-md-1 d-flex justify-content-end align-items-center">
               <div className="member-login">
                 <img alt src="imgs/profile.png" />
                 <div className="info-member">

@@ -72,7 +72,7 @@ const FloodForecastPage = () => {
   return (
     <div className="box-content">
       <div className="row">
-        <div className="col-md-4">
+        <div className="col-md-12">
           <ForecastSelector
             location={selectedLocation}
             locations={locations}
@@ -82,14 +82,21 @@ const FloodForecastPage = () => {
             onGetForecast={getFloodForecastOnPeriod}
           />
         </div>
-        <div className="col-md-8">
+        </div>
+        <div className="row">
+        <div className="col-md-7">
           <FloodForecastTable
             forecastTableValues={forecastData}
             forecastPeriod={forecastPeriod}
             location={selectedLocation}
           />
         </div>
-      </div>
+        <div className="col-md-5">
+          <AlertsContainer />
+        </div>
+        </div>
+
+      
       <div className="row">
         <div className="col-md-6">
           <FloodForecastLineGraph chartData={forecastData} />
@@ -98,14 +105,10 @@ const FloodForecastPage = () => {
           <RainfallBarGraph chartData={forecastData} />
         </div>
       </div>
-      <div className="row">
-        <div className="col-md-6">
-          <AlertsContainer />
-        </div>
-        <div className="col-md-6"></div>
       </div>
-    </div>
-  );
+  
+
+  );    
 };
 
 export default FloodForecastPage;
