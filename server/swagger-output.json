@@ -259,6 +259,16 @@
         }
       }
     },
+    "/news/upload/": {
+      "post": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/inquiries/": {
       "get": {
         "description": "",
@@ -870,7 +880,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "uName": {
+                "email": {
                   "example": "any"
                 },
                 "password": {
@@ -883,9 +893,6 @@
         "responses": {
           "201": {
             "description": "Created"
-          },
-          "422": {
-            "description": "Unprocessable Entity"
           },
           "500": {
             "description": "Internal Server Error"

@@ -1,21 +1,10 @@
 const News = require("../modules/newsModel");
 const User = require("../modules/userModel");
-const fs = require("fs");
-const path = require("path");
-const multer = require("multer");
 
-//Multer configuration for file upload
-const storage = multer.diskStorage({
-  destination: (request, file, cb) => {
-    cb(null, path.join(__dirname, "/Users/chankx/Desktop/Uni/TInnovationP/git-flood/FloodRiskManagementSystem/server/news-images")); // Change the destination path as per your requirement
-  },
-  filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, `${uniqueSuffix}_${file.originalname}`);
-  },
-});
-
-const upload = multer({ storage });
+exports.uploadFile = async (request, response) => {
+ 
+  response.status(200).json(request.file, request.body);
+};
 
 exports.getAllNews = async (request, response) => {
   const news = await News.find();
@@ -33,7 +22,9 @@ exports.getNewsById = async (request, response) => {
 };
 
 exports.createNews = async (request, response) => {
-  //console.log("Received file:", request.file);
+  
+  console.log("Received file:", request.file);
+
   try {
     const {
       location,
@@ -78,6 +69,8 @@ exports.createNews = async (request, response) => {
     response.status(500).json({ success: false, error: error.message });
   }
 };
+
+
 exports.deleteNewsById = async (request, response) => {
   try {
     const deleteResponse = await News.findOneAndDelete({
