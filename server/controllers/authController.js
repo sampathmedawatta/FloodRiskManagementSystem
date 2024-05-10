@@ -3,6 +3,9 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const User = require("../modules/userModel");
 
+const { otpEmail } = require("../communication/emailService");
+const UserOTPVerification = require("../modules/UserOTPVerificationModel");
+
 // Password change
 exports.changePassword = async (req, res) => {
   try {
@@ -62,6 +65,28 @@ exports.login = async (request, response) => {
         expiresIn: "1hr",
       }
     );
+
+    try{
+      // Generate the otp code and save it
+      const currentDate = new Date();
+      
+      const otp = Math.floor(1000 + Math.random() * 9000);
+
+      const newOTP = await UserOTPVerification.create({
+        userId: user._id,
+        otp: otp,
+        createAt: currentDate,
+        expierAt: currentDate,
+      });
+
+       if (newOTP) {
+         otpEmail("sam.medawatta@gmail.com", otp);
+       } else {
+         console.log("otp not saved! " + error);
+       }
+    } catch(error){
+      console.log("otp send failed! " + error);
+    }
 
     response.status(201).json({
       message: "User login successfully",
