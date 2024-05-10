@@ -35,13 +35,15 @@ function RegFloodForecast5Days() {
                   <div className="col-md-10">
                     <h6 className="text-start">
                       <i className="bi bi-tsunami fs-5" />
-                      &nbsp;&nbsp;Flood Forecast for - {location} Next 5 Days
+                      &nbsp;&nbsp;Flood Forecast for {location} Next 5 Days
                     </h6>
                   </div>
                   <div className="col-md-2">
-                    <p className="text-end font-xs color-text-paragraph-2">
-                      <Link to={"/flood-forecast"}>See More</Link>
-                    </p>
+                    <Link to="/flood-forecast">
+                      <p className="text-end font-xs color-text-paragraph-2">
+                        See more
+                      </p>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -53,7 +55,9 @@ function RegFloodForecast5Days() {
                         <ForecastCard key={index} weather={weather} />
                       ))
                     ) : (
-                      <p>Loading.........</p>
+                      <p>
+                      <img src="imgs/spinning-loading.gif" alt="Loading..." />
+                    </p>
                     )}
                   </div>
                 </div>

@@ -8,16 +8,18 @@ function NonRegDashbord() {
   return (
     <div className="box-content">
       <div className="row">
-        <div className="col-md-12">
+        <div className="col-md-6">
           <ForecastCardHolder />
         </div>
-      </div>
-      <div className="row">
+
         <div className="col-md-6">
-          <Map></Map>
-        </div>
-        <div className="col-md-6">
-          <EmergencyContactCard />
+          <div>
+            <EmergencyContactCard />
+          </div>
+          <div>
+            <br></br>
+            <Map></Map>
+          </div>
         </div>
       </div>
     </div>

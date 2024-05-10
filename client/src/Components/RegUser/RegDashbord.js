@@ -58,10 +58,10 @@ function RegDashbord() {
         </div>
       </div>
       <div className="row mt-1">
-        <div className="col-md-6">
+        <div className="col-md-8">
           <Map></Map>
         </div>
-        <div className="col-md-6">
+        <div className="col-md-4">
           <WeatherObservationCard />
         </div>
       </div>

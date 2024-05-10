@@ -30,8 +30,10 @@ const NewsFeedCard = () => {
   }, [location]);
 
   return (
-    <div className="section-box">
-      <div className="container">
+    <div className="row gx-2 justify-content-between mt-2">
+    <div className="col-12">
+      <div className="section-box">
+        <div className="container">
         <div className="panel-white">
           <div className="panel-head">
             <div className="row">
@@ -63,6 +65,7 @@ const NewsFeedCard = () => {
         </div>
       </div>
     </div>
+    </div></div>
   );
 };
 
