@@ -3,10 +3,13 @@ import NewsItemSmallCard from "./NewsItemSmallCard";
 import NewsService from "../../services/news.service";
 import { Link } from "react-router-dom";
 import { useLocation } from "../../contexts/LocationContext";
+import { getUserSession } from "../Shared/SessionUtils";
 
 const NewsFeedCard = () => {
   const { location } = useLocation();
   const [news, setNews] = useState([]);
+
+   const userSession = getUserSession();
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -57,7 +60,7 @@ const NewsFeedCard = () => {
             <div className="container">
               <div className="row gx-2 justify-content-between">
                 {news?.map((newsItem) => (
-                  <NewsItemSmallCard newsData={newsItem} />
+                  <NewsItemSmallCard newsData={newsItem} lang={userSession.user.lang}/>
                 ))}
               </div>
             </div>

@@ -5,23 +5,29 @@ import { useLocation } from "../../contexts/LocationContext";
 import { getUserSession } from "../Shared/SessionUtils";
 
 const NewsFeedPage = () => {
-  const { userType } = getUserSession();
+
+  const userSession = getUserSession();
+
   const { location } = useLocation();
   const [newsList, setNewsList] = useState(null);
+  const [lang, setlang] = useState(null);
 
   useEffect(() => {
     const fetchNews = async () => {
       try {
         const newsList = await NewsService.getAllNews();
-        if (newsList && (userType !== "UnRegistered")) {
+        
+        if (newsList && userSession.userType !== "UnRegistered") {
           // Filter news based on location
           const filteredNews = newsList.filter(
             (newsItem) => newsItem.location === location
           );
+
+          setlang(userSession.user.lang);
           setNewsList(filteredNews);
         }
-        if(userType === "UnRegistered"){
-          setNewsList(newsList)
+        if (userSession.userType === "UnRegistered") {
+          setNewsList(newsList);
         }
       } catch (error) {
         console.error("Error fetching news data:", error);
@@ -46,9 +52,13 @@ const NewsFeedPage = () => {
             </div>
           </div>
           <div className="panel-body d-flex flex-wrap gap-3 justify-content-evenly justify-content-lg-around justify-content-xl-start">
-            {newsList?.length === 0 && (<p>No News to display</p>)}
+            {newsList?.length === 0 && <p>No News to display</p>}
             {newsList?.map((newsItem) => (
-              <NewsDisplayCard key={newsItem.id} newsData={newsItem} />
+              <NewsDisplayCard
+                key={newsItem.id}
+                newsData={newsItem}
+                lang={lang}
+              />
             ))}
           </div>
         </div>

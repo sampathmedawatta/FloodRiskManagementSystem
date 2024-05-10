@@ -1,9 +1,10 @@
 import React from "react";
 
-const NewsItemSmallCard = ({ newsData }) => {
+const NewsItemSmallCard = ({ newsData, lang }) => {
   // Truncate title if it exceeds a character limit of 15
+
   const truncatedTitle =
-    newsData.title.length > 60
+  newsData.title.length > 60
       ? newsData.title.substring(0, 50) + "..."
       : newsData.title;
 
@@ -12,6 +13,17 @@ const NewsItemSmallCard = ({ newsData }) => {
     newsData.description.length > 150
       ? newsData.description.substring(0, 120) + "..."
       : newsData.description;
+   
+  const truncatedTitle_zh =
+    newsData.title_zh.length > 60
+      ? newsData.title_zh.substring(0, 50) + "..."
+      : newsData.title_zh;
+
+  // Truncate body if it exceeds a character limit of 100
+  const truncatedBody_zh =
+    newsData.description_zh.length > 150
+      ? newsData.description_zh.substring(0, 120) + "..."
+      : newsData.description_zh;
 
   const formatDate = (datetimeString) => {
     return datetimeString.substring(0, 10);
@@ -33,7 +45,7 @@ const NewsItemSmallCard = ({ newsData }) => {
               <div className="d-flex flex-column ">
                 <div>
                   <p className="text-start news-item-title-text">
-                    {truncatedTitle}
+                    {lang == "Chinese" ? truncatedTitle_zh : truncatedTitle}
                   </p>
                 </div>
                 <div>
@@ -43,7 +55,9 @@ const NewsItemSmallCard = ({ newsData }) => {
                 </div>
               </div>
               <div className="row min-h-100">
-                <p className="news-item-body-text">{truncatedBody}</p>
+                <p className="news-item-body-text">
+                  {lang == "Chinese" ? truncatedBody_zh : truncatedBody}
+                </p>
                 <p
                   className="card-text"
                   role="button"
@@ -70,7 +84,7 @@ const NewsItemSmallCard = ({ newsData }) => {
           <div class="modal-content">
             <div class="modal-header">
               <h1 class="modal-title fs-5" id={`#${newsData._id}Label`}>
-                {newsData.title}
+                {lang == "Chinese" ? newsData.title_zh : newsData.title}
               </h1>
               <button
                 type="button"
@@ -89,7 +103,9 @@ const NewsItemSmallCard = ({ newsData }) => {
                 />
               </div>
               <div className="row justify-content-center p-3">
-                {newsData.description}
+                {lang == "Chinese"
+                  ? newsData.description_zh
+                  : newsData.description}
               </div>
             </div>
           </div>
