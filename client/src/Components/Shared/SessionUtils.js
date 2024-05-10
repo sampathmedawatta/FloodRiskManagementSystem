@@ -11,12 +11,14 @@ const getUserSession = () => {
         return {
           userType: "Admin",
           loggedUser: userSession._id,
+          user: userSession,
         };
       } else if (userSession.type === "REGISTEREDUSER") {
 
         return {
           userType: "Registered",
           loggedUser: userSession._id,
+          user: userSession,
         };
       } else {
 
@@ -26,6 +28,7 @@ const getUserSession = () => {
         return {
           userType: "UnRegistered",
           loggedUser: null,
+          user: null,
         };
       }
       
