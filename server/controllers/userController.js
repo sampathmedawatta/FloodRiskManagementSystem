@@ -229,3 +229,14 @@ exports.changePassword = async (userId, currentPassword, newPassword) => {
     return { success: false, message: "Internal server error" };
   }
 };
+
+const sendOTPVerificationEmail = async () =>
+  {
+    try{
+
+      const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
+
+    }catch(err){
+
+    }
+  }
