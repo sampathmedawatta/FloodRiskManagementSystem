@@ -31,7 +31,7 @@ const EmergencyContactCardHolder = () => {
     };
 
     loadEmergencyContacts();
-  }, [location]); //locationList // Fix this loading issue
+  }, [location, locationList]); 
 
   const groupContactsByType = (locations) => {
     const groupedContacts = {};
