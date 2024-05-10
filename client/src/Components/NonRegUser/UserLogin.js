@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 import AuthService from "../../services/auth.service";
 
 function UserLogin() {
@@ -9,6 +9,7 @@ function UserLogin() {
     password: "",
   });
 
+  const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
 
@@ -34,6 +35,15 @@ function UserLogin() {
     return isValid;
   };
 
+  const getDashboardRoute = (userRole) => {
+    switch (userRole) {
+      case "ADMIN":
+        navigate("/admin-dashboard");
+      case "REGISTEREDUSER":
+         navigate("/dashboard");
+     
+    }
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
@@ -51,6 +61,9 @@ function UserLogin() {
 
               sessionStorage.setItem("user", JSON.stringify(response.user));
               sessionStorage.setItem("userToken", response.token);
+
+              // navigate("/");
+              getDashboardRoute(response.user.type);
 
               setSuccessMessage("Login Successful!");
             }

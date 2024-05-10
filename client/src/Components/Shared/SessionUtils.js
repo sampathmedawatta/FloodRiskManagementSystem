@@ -1,24 +1,25 @@
 const getUserSession = () => {
-    //  logic to retrieve the user session here
-  
+   
     const user = sessionStorage.getItem("user");
     const userToken = sessionStorage.getItem("userToken");
 
     if (userToken != null && user != null) {
-      console.log(userToken);
-      console.log(user);
+      
+      const userSession = JSON.parse(user);
+      if (userSession.type === "ADMIN") {
 
-      if (user.type == "ADMIN") {
         return {
           userType: "Admin",
-          loggedUser: user._id,
+          loggedUser: userSession._id,
         };
-      } else if (user.type == "REGISTEREDUSER") {
+      } else if (userSession.type === "REGISTEREDUSER") {
+
         return {
           userType: "Registered",
-          loggedUser: user._id,
+          loggedUser: userSession._id,
         };
       } else {
+
         sessionStorage.removeItem("user");
         sessionStorage.removeItem("userToken");
 
