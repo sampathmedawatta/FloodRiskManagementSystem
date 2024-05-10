@@ -17,7 +17,7 @@ app.use("/inquiries", require("./routes/inquiryRoute"));
 app.use("/alerts", require("./routes/alertsRoute"));
 app.use("/user", require("./routes/userRoute"));
 app.use("/admin", require("./routes/adminRoute"));
-app.use("/login", require("./routes/authRoute"));
+app.use("/auth", require("./routes/authRoute"));
 app.use("/location", require("./routes/locationRoute"));
 
 const swaggerDocument = require("./swagger-output.json");
