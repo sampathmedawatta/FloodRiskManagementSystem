@@ -173,13 +173,13 @@ function UserRegistration() {
                               <p className="font-sm text-muted mb-30">
                                 Access to all features. No credit card required.
                               </p>
-                              <button className="btn social-login hover-up mb-20">
+                              {/* <button className="btn social-login hover-up mb-20">
                                 <img src="imgs/icon-google.svg" alt />
                                 <strong>Sign up with Google</strong>
                               </button>
                               <div className="divider-text-center">
                                 <span>Or continue with</span>
-                              </div>
+                              </div> */}
                             </div>
                             <form
                               className="login-register text-start mt-20 needs-validation"
