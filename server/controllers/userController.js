@@ -1,5 +1,8 @@
 const bcrypt = require("bcrypt");
 const User = require("../modules/userModel");
+const UserVerification = require("../modules/userVerificationModel");
+const UserOTPVerification = require("../modules/UserOTPVerificationModel");
+
 const { ObjectId } = require("mongodb");
 
 exports.getAllUsers = async (request, response) => {
