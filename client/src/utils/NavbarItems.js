@@ -12,12 +12,6 @@ export const registeredUserNavItems = [
     link: "/flood-forecast"
   },
   {
-    id: 3,
-    icon: "bi bi-clock-history fs-5",
-    title: "Flood History",
-    link: ""
-  },
-  {
     id: 4,
     icon: "bi bi-newspaper fs-5",
     title: "News Feed",
