@@ -38,9 +38,9 @@ function UserLogin() {
   const getDashboardRoute = (userRole) => {
     switch (userRole) {
       case "ADMIN":
-        navigate("/admin-dashboard");
+        window.location.href = "http://localhost:3000/admin-dashboard";
       case "REGISTEREDUSER":
-         navigate("/dashboard");
+         window.location.href = "http://localhost:3000/dashboard";
      
     }
   };
