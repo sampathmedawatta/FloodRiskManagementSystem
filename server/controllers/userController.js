@@ -64,7 +64,7 @@ exports.createUser = async (request, response) => {
   }
 
   const allowedlang = ["English", "Chinese"];
-  if (!lang|| !allowedlang.includes(lang)) {
+  if (!lang || !allowedlang.includes(lang)) {
     return response.status(422).json({ message: "Invalid Lang " });
   }
 
@@ -90,10 +90,17 @@ exports.createUser = async (request, response) => {
   });
 
   if (newUser) {
+    try {
+      if (type === "ADMIN") {
+        await verifyPassword(newUser.email, password);
+      }
 
-    if (type === "ADMIN") {
-      await verifyPassword( newUser.email, password);
+      verifyEmail(newUser.id, newUser.email);
+
+    } catch (error) {
+      console.log("error in sending verify email or verify password! " + error);
     }
+
     response.status(201).json({ _id: newUser.id, email: newUser.email });
   } else {
     return response.status(422).json({ message: "User creation failed" });
@@ -201,12 +208,12 @@ exports.authenticateUser = async (email, password) => {
     if (!user) {
       return { success: false, message: "User not found" };
     }
-    
+
     const isMatch = await bcrypt.compare(password, user.hashPassword);
     if (!isMatch) {
       return { success: false, message: "Invalid password" };
     }
-    
+
     return { success: true, user };
   } catch (error) {
     console.error("Error authenticating user:", error);
@@ -221,19 +228,19 @@ exports.changePassword = async (userId, currentPassword, newPassword) => {
     if (!user) {
       return { success: false, message: "User not found" };
     }
-    
+
     const isMatch = await bcrypt.compare(currentPassword, user.hashPassword);
     if (!isMatch) {
       return { success: false, message: "Current password is incorrect" };
     }
-    
+
     // Hash the new password
     const newHashedPassword = await bcrypt.hash(newPassword, 10);
-    
+
     // Update the hashed password in the database
     user.hashPassword = newHashedPassword;
     await user.save();
-    
+
     return { success: true, message: "Password changed successfully" };
   } catch (error) {
     console.error("Error changing password:", error);
@@ -241,13 +248,8 @@ exports.changePassword = async (userId, currentPassword, newPassword) => {
   }
 };
 
-const sendOTPVerificationEmail = async () =>
-  {
-    try{
-
-      const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
-
-    }catch(err){
-
-    }
-  }
+const sendOTPVerificationEmail = async () => {
+  try {
+    const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
+  } catch (err) {}
+};

@@ -3,6 +3,8 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const User = require("../modules/userModel");
 
+const { otpEmail } = require("../communication/emailService");
+
 // Password change
 exports.changePassword = async (req, res) => {
   try {
@@ -62,6 +64,14 @@ exports.login = async (request, response) => {
         expiresIn: "1hr",
       }
     );
+
+    try{
+      // Generate the otp code and save it
+      
+      otpEmail('sam.medawatta@gmail.com', 1111);
+    } catch(error){
+      console.log("otp send failed! " + error);
+    }
 
     response.status(201).json({
       message: "User login successfully",

@@ -70,9 +70,8 @@ const verifyEmail = async (id, email) => {
   }
 };
 
-const otpEmail = async (id, email) => {
+const otpEmail = async (email, otp) => {
   try {
-    const uniqueNumber = uuidv4() + id;
 
     const mailOptions = {
       from: {
@@ -81,7 +80,7 @@ const otpEmail = async (id, email) => {
       },
       to: [email],
       subject: "OTP verification Email - Flood Risk Management Dashboard",
-      html: `<p>Your one-time password is ${uniqueNumber}</p>`,
+      html: `<p>Your one-time password is <b> ${otp} </b></p>`,
     };
 
     await transporter.sendMail(mailOptions);
