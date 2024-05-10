@@ -9,27 +9,24 @@ exports.getAllOTPs = async (request, response) => {
 
 exports.verifyOTP = async (request, response) => {
   try {
+    const { otpCode } = request.body;
+
     const otpUser = await UserOTPVerification.findOne({
       userId: request.params.id,
+      otp: otpCode,
     });
 
     if (!otpUser) {
       return response
-        .status(404)
+        .status(200)
         .json({ message: "User not found", verified: false });
     }
-
-    const { otpCode } = request.body;
-
-    if (otpUser.otp === otpCode) {
+    else{
       return response
         .status(200)
         .json({ message: "User otp verified!", verified: true });
     }
 
-    return response
-      .status(200)
-      .json({ message: "User otp verified!", verified: false });
   } catch (error) {
     response
       .status(500)
