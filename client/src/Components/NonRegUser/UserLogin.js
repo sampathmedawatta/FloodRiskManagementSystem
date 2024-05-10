@@ -35,15 +35,14 @@ function UserLogin() {
     return isValid;
   };
 
-  const getDashboardRoute = (userRole) => {
-    switch (userRole) {
-      case "ADMIN":
-        window.location.href = "http://localhost:3000/admin-dashboard";
-      case "REGISTEREDUSER":
-         window.location.href = "http://localhost:3000/dashboard";
-     
+   const getDashboardRoute = (userRole) => {
+    if (userRole == "ADMIN") {
+      window.location.href = "http://localhost:3000/admin-dashboard";
+    } else if (userRole == "REGISTEREDUSER") {
+      window.location.href = "http://localhost:3000/dashboard";
     }
   };
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
