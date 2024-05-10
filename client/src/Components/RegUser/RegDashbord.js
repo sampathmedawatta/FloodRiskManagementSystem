@@ -5,8 +5,7 @@ import Map from "../Shared/Map";
 import AlertService from "../../services/alert.service";
 import WeatherObservationCard from "./WeatherObservationCard";
 import NewsFeedCard from "./NewsFeedCard";
-import EmergencyContact from "./EmergencyContact";
-import EmergencyContactCardHolder from "../NonRegUser/EmergencyContactCard";
+import EmergencyContactCardHolder from "./EmergencyContactCard";
 
 function RegDashbord() {
   const [alertData, setAlertData] = useState(null);

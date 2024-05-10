@@ -1,11 +1,14 @@
 import React from "react";
 
-const NewsDisplayCard = ({ newsData }) => {
+const NewsDisplayCard = ({ newsData, lang }) => {
+
+  console.log(lang);
+
   const formatDate = (datetimeString) => {
     return datetimeString.substring(0, 10);
   };
   return (
-    <>
+    <div>
       <div
         className="card hover-up"
         type="button"
@@ -31,7 +34,7 @@ const NewsDisplayCard = ({ newsData }) => {
                 }}
                 title={newsData.title}
               >
-                {newsData.title}
+                {lang == "Chinese" ? newsData.title_zh : newsData.title}
               </h5>
             </div>
             <div>
@@ -43,7 +46,11 @@ const NewsDisplayCard = ({ newsData }) => {
             className="overflow-hidden text-wrap"
             style={{ marginBottom: "5px", maxHeight: "7.5rem" }}
           >
-            <p class="card-text ">{newsData.description}</p>
+            <p class="card-text ">
+              {lang == "Chinese"
+                ? newsData.description_zh
+                : newsData.description}
+            </p>
           </div>
         </div>
       </div>
@@ -85,7 +92,7 @@ const NewsDisplayCard = ({ newsData }) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
