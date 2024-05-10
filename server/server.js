@@ -19,6 +19,7 @@ app.use("/user", require("./routes/userRoute"));
 app.use("/admin", require("./routes/adminRoute"));
 app.use("/auth", require("./routes/authRoute"));
 app.use("/location", require("./routes/locationRoute"));
+app.use("/verify", require("./routes/verificationRoute"));
 
 const swaggerDocument = require("./swagger-output.json");
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
