@@ -115,7 +115,10 @@ function UserRegistration() {
     if (validateForm()) {
       try {
         const updatedFormData = { ...formData, type: "REGISTEREDUSER" };
-        await UserService.createUser(updatedFormData);
+
+        console.log(updatedFormData);
+
+       // await UserService.createUser(updatedFormData);
         console.log("Form submitted successfully:", formData);
 
         setSuccessMessage("Registration Successful!   Please login to your account.");

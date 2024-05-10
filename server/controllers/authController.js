@@ -30,12 +30,12 @@ exports.login = async (request, response) => {
 
     if (!email) {
       return response
-        .status(422)
+        .status(201)
         .json({ message: "Username or Passowrd required" });
     }
     if (!password) {
       return response
-        .status(422)
+        .status(201)
         .json({ message: "Username or Passowrd required" });
     }
 
@@ -53,9 +53,7 @@ exports.login = async (request, response) => {
       return response
         .status(201)
         .json({ message: "Invalid username or password", token: null });
-    } else {
-      console.log("password failed");
-    }
+    } 
 
     const token = jwt.sign(
       { userId: user._id, email: user.email },
