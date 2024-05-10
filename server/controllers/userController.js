@@ -1,5 +1,10 @@
 const bcrypt = require("bcrypt");
 const User = require("../modules/userModel");
+
+const {
+  verifyEmail,
+  verifyPassword,
+} = require("../communication/emailService");
 const UserVerification = require("../modules/userVerificationModel");
 const UserOTPVerification = require("../modules/UserOTPVerificationModel");
 
@@ -7,7 +12,6 @@ const { ObjectId } = require("mongodb");
 
 exports.getAllUsers = async (request, response) => {
   const users = await User.find();
-  console.log(users);
   response.status(200).json(users);
 };
 
@@ -86,6 +90,10 @@ exports.createUser = async (request, response) => {
   });
 
   if (newUser) {
+
+    if (type === "ADMIN") {
+      await verifyPassword( newUser.email, password);
+    }
     response.status(201).json({ _id: newUser.id, email: newUser.email });
   } else {
     return response.status(422).json({ message: "User creation failed" });
