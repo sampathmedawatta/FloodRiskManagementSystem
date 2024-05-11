@@ -1,10 +1,6 @@
 import React from "react";
 
-
-
-
-
-const AdminFloodForecast = ({ forecastTableValues }) => {
+const AdminFloodForecastTable = ({ forecastTableValues }) => {
   const toSentenceCase = (str) => {
     if (!str) return '';
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
@@ -19,9 +15,8 @@ const AdminFloodForecast = ({ forecastTableValues }) => {
               <div className="col-md-12">
                 <h6 className="text-left">
                   <i className="bi bi-tsunami fs-5" />
-                  &nbsp;&nbsp;Flooding Forecast for Next{" "}
-                  {forecastTableValues?.forecastPeriod} Days -{" "}
-                  {forecastTableValues?.location}
+                  &nbsp;&nbsp; {forecastTableValues?.location} Weather Forecast for next{" "}
+                  {forecastTableValues?.forecastPeriod} Days {" "}
                 </h6>
               </div>
             </div>
@@ -87,7 +82,7 @@ const AdminFloodForecast = ({ forecastTableValues }) => {
                       </td>
                       <td className="text-center">
                         <span className="text-muted font-sm">
-                          {toSentenceCase(forecastItem.rainfall)}
+                          {forecastItem.rainfall}
                         </span>
                       </td>
                       <td className="text-center">
@@ -127,4 +122,4 @@ const getRiskLevel = (riskLevel) => {
   }
 };
 
-export default AdminFloodForecast;
+export default AdminFloodForecastTable;

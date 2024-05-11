@@ -15,9 +15,9 @@ const FloodForecastTable = ({ forecastTableValues }) => {
               <div className="col-md-12">
                 <h6 className="text-left">
                   <i className="bi bi-tsunami fs-5" />
-                  &nbsp;&nbsp;Flooding Forecast for Next{" "}
-                  {forecastTableValues?.forecastPeriod} Days -{" "}
-                  {forecastTableValues?.location}
+                  &nbsp;&nbsp; {forecastTableValues?.location} Weathers Forecast for  next{" "}
+                  {forecastTableValues?.forecastPeriod} Days {" "}
+                  
                 </h6>
               </div>
             </div>

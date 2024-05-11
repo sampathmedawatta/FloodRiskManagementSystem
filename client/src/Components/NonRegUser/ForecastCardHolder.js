@@ -4,6 +4,7 @@ import ForecastCard from "./ForecastCard";
 import { Link } from "react-router-dom";
 
 const ForecastComponent = ({ forecastData }) => {
+  
   const getlocation = (code) => {
     if (code === "CLK") {
       return "Chek Lap Kok";

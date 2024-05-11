@@ -11,7 +11,7 @@ export const useLocation = () => useContext(LocationContext);
 
 const LocationProvider = ({ children }) => {
 
-  const [location, setLocation] = useState("Kwun Tong");
+  const [location, setLocation] = useState("");
  ;
   const userSession = getUserSession();
   const userId = userSession.loggedUser;

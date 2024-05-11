@@ -23,7 +23,7 @@ import UserRegistration from './Components/NonRegUser/UserRegistration';
 import UserLogin from './Components/NonRegUser/UserLogin';
 import RegisteredUserProfile from './Components/RegUser/RegisteredUserProfile';
 import AdminFloodHistory from './Components/Admin/AdminFloodHistory';
-import AdminFloodForecast from './Components/Admin/AdminFloodForecast';
+import AdminFloodForecastPage from './Components/Admin/AdminFloodForecastPage';
 
 
 const userSession = getUserSession();
@@ -52,7 +52,7 @@ function App() {
             {isAdmin && <Route path="manage-news" element={<AdminNews />} />}
             {isAdmin && <Route path="admin-profile" element={<AdminProfile />} />}
             {isAdmin && <Route path="view-flood-history" element={<AdminFloodHistory />} />}
-            {isAdmin && <Route path="view-forecast" element={<AdminFloodForecast />} />}
+            {isAdmin && <Route path="view-forecast" element={<AdminFloodForecastPage />} />}
 
 
             {/* For Registered Users */}

@@ -19,7 +19,7 @@ const ForecastSelector = ({
                 <div className="col">
                   <h6 className="text-start">
                     <i className="bi bi-tsunami" />
-                    &nbsp;&nbsp;Forecast Selector
+                    &nbsp;&nbsp;Flood Forecast
                   </h6>
                 </div>
               </div>
