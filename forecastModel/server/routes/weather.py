@@ -97,8 +97,14 @@ async def find_weather(location: str, days: int):
         url ='http://127.0.0.1:8001/flood_prediction?location&=' + location
         
         # geta weather data from realtime api
-        forecast_weather_data = await get_weather_record(days)
-       
+        # comented this as there is no rain during this period
+        # forecast_weather_data = await get_weather_record(days)
+
+        # use sample weather data
+        print('sample data')
+        forecast_weather_data = await sampleWeatherData(location, days)
+
+        print(forecast_weather_data)
         # get response from ML model
         response = requests.post(url, data=json.dumps(forecast_weather_data))
 
@@ -121,7 +127,6 @@ async def find_weather(location: str, days: int):
                     "dayofweek":day_of_week,
                     "riskLevel":riskLevel(value),
                     "flood": value,
-                    "rainfall": forecast_weather_data['rainfall'][i],
                     "rainfall": forecast_weather_data['rainfall'][i],
                     "duration": forecast_weather_data["duration"][i],
                     "humidity": forecast_weather_data["humidity"][i],
@@ -148,7 +153,7 @@ async def find_forecast( days: int):
         return data
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail="Internal server error" , )
+        raise HTTPException(status_code=500, detail="Internal server error " + e, )
     
 
 async def fetch_weather_data(locations, days):
@@ -164,9 +169,71 @@ async def fetch_weather_data(locations, days):
 def riskLevel(flood):
     if (flood >= 50) :
       return "High"
-    elif (flood >= 40) :
+    elif (flood >= 30) :
       return "Moderate"
     elif (flood >= 20) :
       return "low"
     else :
       return "low"
+
+
+async def sampleWeatherData(location, days):
+   
+    input_data_CLK = {
+    'mean_windspeed' : [10, 23, 23, 224, 34, 10, 23, 23, 224, 34, 224, 34, 224, 34] 
+    ,'wind_direction' : [10, 124, 134, 321, 56, 0, 124, 41, 134, 43, 156, 56, 123, 56]
+    ,'mean_tempurature': [25, 16, 22, 21, 24, 20, 18, 17, 17, 19, 21, 24, 27, 21, 20, 17]
+    ,'humidity' : [60, 23, 56, 77, 88, 60, 23, 56, 77, 88, 77, 88,23, 56]
+    ,'duration' : [716, 203, 556, 177, 40, 106, 203, 436, 377, 10, 177, 310,116, 303]
+    ,'rainfall' : [107.5, 46, 90, 21, 10, 24, 46, 82, 80, 0.5, 21, 90, 46, 70]
+    }
+
+    input_data_CC = {
+    'mean_windspeed' : [21, 12, 9, 33, 25, 18, 21, 23, 57, 33, 65, 34, 73, 21] 
+    ,'wind_direction' : [56, 3, 124, 134, 253, 56, 10, 124, 134, 123, 23, 56, 153, 65]
+    ,'mean_tempurature': [14, 17, 17, 19, 21, 24, 27, 21, 20, 17, 25, 16, 22, 21, 24, 20]
+    ,'humidity' : [23, 56, 77, 88, 77, 88,23, 56, 60, 23, 56, 77, 88, 60]
+    ,'duration' : [416, 203, 556, 477, 110, 116, 167, 10, 177, 156, 177, 10, 106, 154]
+    ,'rainfall' : [74, 46, 110, 121, 36, 14, 46, 7, 50, 33, 21, 2.5, 46, 30]
+    }
+
+    input_data_SK = {
+    'mean_windspeed' : [25, 34, 45, 56, 77, 25, 34, 45, 56, 77, 25, 34, 45, 45, 56, 77] 
+    ,'wind_direction' : [10, 124, 134, 253, 56, 0, 124, 134, 253, 56, 253, 56, 253, 56]
+    ,'mean_tempurature': [19, 21, 24, 27, 21, 20, 17, 25, 16, 14, 17, 17, 22, 21, 24, 20]
+    ,'humidity' : [88, 60, 23, 56, 77, 88, 77, 88,23, 56, 60, 23, 56, 77]
+    ,'duration' : [116, 214, 432, 211, 10, 211, 60, 132, 177, 210, 432, 367,616, 303]
+    ,'rainfall' : [32, 46, 69, 22, 0.5, 34, 16, 60, 90, 47, 121, 90, 97, 56]
+    }
+
+    input_data_ST = {
+    'mean_windspeed' : [10, 23, 23, 224, 34, 10, 23, 23, 224, 34, 224, 34, 224, 34] 
+    ,'wind_direction' : [10, 124, 134, 253, 56, 0, 124, 134, 253, 56, 253, 56, 253, 56]
+    ,'mean_tempurature': [25, 16, 14, 17, 17, 22, 21, 24, 20, 19, 21, 24, 27, 21, 20, 17]
+    ,'humidity' : [77, 88, 60, 23, 56, 77, 88, 77, 88,23, 56, 60, 23, 56 ]
+    ,'duration' : [56, 216, 39, 177, 10, 158, 136, 203, 483, 59, 110, 11, 123, 123]
+    ,'rainfall' : [8, 39, 5.5, 21, 0.5, 36, 41, 67, 90, 9, 42, 0.5, 46, 24]
+    }
+
+    input_data_YMT = {
+    'mean_windspeed' : [10, 23, 23, 224, 34, 10, 23, 23, 224, 34, 224, 34, 224, 34] 
+    ,'wind_direction' : [10, 124, 134, 253, 56, 0, 124, 134, 253, 56, 253, 56, 253, 56]
+    ,'mean_tempurature': [21, 24, 20, 19, 21, 25, 16, 14, 17, 17, 22,  24, 27, 21, 20, 17]
+    ,'humidity' : [23, 56, 77, 88, 77, 88,23, 60, 23, 56, 77, 88, 60, 56]
+    ,'duration' : [116, 203, 463, 150, 10, 126, 189, 334, 477, 10, 177, 10,119, 55]
+    ,'rainfall' : [14, 46, 70, 21, 0.5, 24, 46, 49, 83, 0.5, 21, 0.5, 53, 20]
+    }
+
+    if(location =='CLK'):
+         return {key: value[:days] for key, value in input_data_CLK.items()}
+    elif(location =='CC'):
+        return {key: value[:days] for key, value in input_data_CC.items()}
+    elif(location =='SK'):
+        return {key: value[:days] for key, value in input_data_SK.items()}
+    elif(location =='ST'):
+        return {key: value[:days] for key, value in input_data_ST.items()}
+    elif(location =='YMT'):
+        return {key: value[:days] for key, value in input_data_YMT.items()}
+    
+    # input_data_YMT_first_3 = {key: value[:3] for key, value in input_data_YMT.items()}
+    # print(input_data_YMT_first_3)
