@@ -3,8 +3,42 @@ from models.weatherHistory import WeatherHistory
 from schemas.weatherHistory import serializeDict, serializeList
 from bson import ObjectId
 from config.db import location_data_CLK, location_data_CC, location_data_SK, location_data_ST, location_data_YMT
+from datetime import datetime
 
 weatherHistory = APIRouter() 
+
+
+@weatherHistory.get('/weather/history/update')
+async def find_all_weather_history(location: str):
+    try:
+        
+        # Assuming our date is in YYYY-MM-DD format
+        date_string = "2024-05-11"
+
+        # Convert the string to a datetime object
+        date_object = datetime.strptime(date_string, "%Y-%m-%d")
+
+        # Extract year and month from the datetime object
+        query = {"year": date_object.year, "month": date_object.month}
+
+
+        # TODO get records for current month aand check missing data
+        # get missing data from realtime api and update table 
+        
+        if(location == 'CLK'):
+            return serializeList(location_data_CLK.find(query))
+        elif(location == 'CC'):
+            return serializeList(location_data_CC.find(query))
+        elif(location == 'SK'):
+            return serializeList(location_data_SK.find(query))
+        elif(location == 'ST'):
+            return serializeList(location_data_ST.find(query))
+        elif(location == 'YMT'):
+            return serializeList(location_data_YMT.find(query))
+        else:
+            return []
+    except:
+        print("") 
 
 # get weather history records
 
