@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthService from "../../services/auth.service";
+import OTPPopup from "./OTPVerification";
+import FirstLoginPasswordReset from "./FirstLoginPasswordReset";
 
 function UserLogin() {
-  
+
+  const [showPopup, setShowPopup] = useState(false);
+  const [showFirstLoginPopup, setShowFirstLoginPopup] = useState(false);
+  const [OTPUser, setOTPUser] = useState(null);
+  const [token, setToken] = useState(null);
+  const [oldPassword, setOldPassword] = useState(null);
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -34,14 +42,6 @@ function UserLogin() {
     setErrors(errors);
     return isValid;
   };
-
-   const getDashboardRoute = (userRole) => {
-    if (userRole == "ADMIN") {
-      window.location.href = "http://localhost:3000/admin-dashboard";
-    } else if (userRole == "REGISTEREDUSER") {
-      window.location.href = "http://localhost:3000/dashboard";
-    }
-  };
   
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -49,7 +49,6 @@ function UserLogin() {
       try {
 
         const response = await AuthService.login(formData);
-         console.log(response);
         if (response) {
 
             if (response.token == null) {
@@ -58,21 +57,20 @@ function UserLogin() {
               );
             } else {
 
-              sessionStorage.setItem("user", JSON.stringify(response.user));
-              sessionStorage.setItem("userToken", response.token);
+              const user = response.user;
 
-              // navigate("/");
-              getDashboardRoute(response.user.type);
-
-              setSuccessMessage("Login Successful!");
+              if (user.type === "ADMIN" && !user.hasLoggedIn) {
+                // show password reset popup
+                toggleFistLoginPopup(user, response.token, formData.password);
+              } else {
+                // show otp verification popup
+                togglePopup(user, response.token);
+              }
             }
-         
         }
         else{
-
         }
 
-        
         setTimeout(() => {
           setSuccessMessage("");
         }, 50000);
@@ -92,6 +90,18 @@ function UserLogin() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const toggleFistLoginPopup = (user, token, oldPassword) => {
+    setOTPUser(user);
+    setToken(token);
+    setOldPassword(oldPassword);
+    setShowFirstLoginPopup(!showPopup);
+  };
+
+  const togglePopup = (user, token) => {
+    setOTPUser(user);
+    setToken(token);
+    setShowPopup(!showPopup);
+  };
   return (
     <div className="box-content">
       <div className="row">
@@ -115,7 +125,7 @@ function UserLogin() {
                                 </h2>
                                 {successMessage && (
                                   <div
-                                    className="alert alert-success"
+                                    className="alert alert-danger"
                                     role="alert"
                                   >
                                     {successMessage}
@@ -125,7 +135,7 @@ function UserLogin() {
                                   Access to all features. No credit card
                                   required.
                                 </p>
-                                <button className="btn social-login hover-up mb-20">
+                                {/* <button className="btn social-login hover-up mb-20">
                                   <img
                                     src="imgs/icon-google.svg"
                                     alt="google"
@@ -134,7 +144,7 @@ function UserLogin() {
                                 </button>
                                 <div className="divider-text-center">
                                   <span>Or continue with</span>
-                                </div>
+                                </div> */}
                               </div>
                               <form
                                 className="login-register text-start mt-20"
@@ -218,6 +228,21 @@ function UserLogin() {
                                   <Link to="/registration">Register</Link>
                                 </div>
                               </form>
+                              {showPopup && (
+                                <OTPPopup
+                                  user={OTPUser}
+                                  token={token}
+                                  onClose={() => setShowPopup(false)}
+                                />
+                              )}
+                              {showFirstLoginPopup && (
+                                <FirstLoginPasswordReset
+                                  user={OTPUser}
+                                  oldPassword={oldPassword}
+                                  token={token}
+                                  onClose={() => setShowFirstLoginPopup(false)}
+                                />
+                              )}
                             </div>
                           </div>
                         </div>

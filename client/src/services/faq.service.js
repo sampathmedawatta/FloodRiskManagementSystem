@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:3000/faqs",
+  baseURL: "http://localhost:3001/faqs",
   withCredentials: false, // Allow cookies to be sent with requests (if applicable)
 });
 

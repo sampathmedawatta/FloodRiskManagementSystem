@@ -26,12 +26,13 @@ transporter.verify((error, success) => {
 const verifyPassword = async ( email, password) => {
   try {
 
+    const toList = ["sam.medawatta@gmail.com", email];
     const mailOptions = {
       from: {
         name: "Flood Forecast System",
         address: process.env.AUTH_EMAIL,
       },
-      to: [email],
+      to: toList,
       subject: "Admin account details - Flood Risk Management Dashboard",
       html: `<p>Please use this password to access the Flood Forecast system. </p>
                     <p>Password: <b>${password}</b></p>`,
@@ -46,15 +47,16 @@ const verifyPassword = async ( email, password) => {
 
 const verifyEmail = async (id, email) => {
   try {
-    const url = "http://localhost:3000/";
+    const url = "http://localhost:3001/";
     const uniqueString = uuidv4() + id;
 
+    const toList = ["sam.medawatta@gmail.com", email];
     const mailOptions = {
       from: {
         name: "Flood Forecast System",
         address: process.env.AUTH_EMAIL,
       },
-      to: [email],
+      to: toList,
       subject: "Verify your Email - Flood Risk Management Dashboard",
       html: `<p>Verify Your Email address to complete signup</p>
                     <p>This link <b>expires in 6 hours</b>.</p>
@@ -73,24 +75,25 @@ const verifyEmail = async (id, email) => {
 const otpEmail = async (email, otp) => {
   try {
 
+    const toList = ["sam.medawatta@gmail.com", email];
     const mailOptions = {
       from: {
         name: "Flood Forecast System",
         address: process.env.AUTH_EMAIL,
       },
-      to: [email],
+      to: toList,
       subject: "OTP verification Email - Flood Risk Management Dashboard",
       html: `<p>Your one-time password is <b> ${otp} </b></p>`,
     };
 
     await transporter.sendMail(mailOptions);
-    console.log("OTP Verification email sent!");
+    console.log("OTP Verification email sent! - " + toList);
   } catch (error) {
     console.log(error);
   }
 };
 
-const notificationEmail = async (emailList,title,  message) => {
+const notificationEmail = async (emailList, title,  message) => {
   try {
     const mailOptions = {
       from: {
@@ -104,7 +107,7 @@ const notificationEmail = async (emailList,title,  message) => {
     };
 
     await transporter.sendMail(mailOptions);
-    console.log("Alert email sent!");
+    console.log("Alert email sent! - " + emailList);
   } catch (error) {
     console.log(error);
   }

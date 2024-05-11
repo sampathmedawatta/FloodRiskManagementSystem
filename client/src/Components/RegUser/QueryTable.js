@@ -63,7 +63,7 @@ const QueryTable = ({ queryData }) => {
               <div className="row align-items-center">
                 <div className="col-md-10">
                   <h6 className="text-left ">
-                    <i className="bi bi-person-raised-hand " />
+                    <i className="bi bi bi-envelope  " />
                     Your Queries
                   </h6>
                 </div>

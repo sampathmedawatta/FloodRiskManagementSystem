@@ -1,7 +1,7 @@
 import React from "react";
 // import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
-const FloodForecastLineGraph = ({chartData}) => {
+const AdminFloodForecastLineGraph = ({chartData}) => {
 
   return (
     <div>
@@ -53,4 +53,4 @@ const FloodForecastLineGraph = ({chartData}) => {
   );
 };
 
-export default FloodForecastLineGraph;
+export default AdminFloodForecastLineGraph;

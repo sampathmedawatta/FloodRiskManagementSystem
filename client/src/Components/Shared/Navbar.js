@@ -106,7 +106,7 @@ function Navbar() {
               className={`dashboard ${isActiveLink("/") ? "active" : ""}`}
               href="/"
             >
-              <Link to="/" className="nav-link px-0 align-middle">
+              <Link to="/view-forecast" className="nav-link px-0 align-middle">
                 <i class="bi bi-tsunami fs-5"></i>
                 <span class="name">
                   &nbsp;&nbsp;&nbsp;Flood Forecast &nbsp;&nbsp;
@@ -138,20 +138,6 @@ function Navbar() {
                 <i class="bi bi-exclamation-triangle-fill fs-5"></i>
                 <span class="name">
                   &nbsp;&nbsp;&nbsp;Manage Alerts&nbsp;&nbsp;
-                </span>
-              </Link>
-            </a>
-          </li>
-          <li>
-            {" "}
-            <a
-              className={`dashboard ${isActiveLink("/") ? "active" : ""}`}
-              href="/"
-            >
-              <Link to="/" className="nav-link px-0 align-middle">
-                <i class="bi bi-cloud-upload-fill fs-5"></i>
-                <span class="name">
-                  &nbsp;&nbsp;&nbsp;Predication Data&nbsp;&nbsp;
                 </span>
               </Link>
             </a>

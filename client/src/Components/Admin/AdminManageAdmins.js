@@ -55,12 +55,13 @@ function AdminManageAdmins() {
         password,
         email,
         type,
+        lang:'English',
         active: true,
       });
       fetchData();
       setShowAddAdmineModal(false);
     } catch (error) {
-      console.error("Error creating FAQ:", error);
+      console.error("Error creating user:", error);
     }
   };
 

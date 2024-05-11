@@ -32,6 +32,15 @@ function Header() {
     setLocation(locationName); // Set the location using setLocation from the context
   };
 
+ const handleLogout = () => {
+  console.log('logout')
+   sessionStorage.removeItem("user");
+   sessionStorage.removeItem("userToken");
+
+   window.location.href = "http://localhost:3000/";
+ };
+  
+
   // component for Registered User
   const RegisteredHeader = () => (
     <div className="container">
@@ -118,9 +127,12 @@ function Header() {
                         </div>
                       </li>
                       <li>
-                        <a className="dropdown-item" href="/">
+                        <button
+                          className="dropdown-item"
+                          onClick={() => handleLogout()}
+                        >
                           Logout
-                        </a>
+                        </button>
                       </li>
                     </ul>
                   </div>
@@ -240,9 +252,12 @@ function Header() {
                       </li>
 
                       <li>
-                        <a className="dropdown-item" href="/">
+                        <button
+                          className="dropdown-item"
+                          onClick={() => handleLogout()}
+                        >
                           Logout
-                        </a>
+                        </button>
                       </li>
                     </ul>
                   </div>
