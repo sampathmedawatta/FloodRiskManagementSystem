@@ -80,7 +80,7 @@ exports.login = async (request, response) => {
       });
 
        if (newOTP) {
-         otpEmail("sam.medawatta@gmail.com", otp);
+        await otpEmail(user.email, otp);
        } else {
          console.log("otp not saved! " + error);
        }

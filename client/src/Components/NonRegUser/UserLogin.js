@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthService from "../../services/auth.service";
+import OTPPopup from "./OTPVerification";
 
 function UserLogin() {
-  
+
+  const [showPopup, setShowPopup] = useState(false);
+  const [OTPUser, setOTPUser] = useState(null);
+  const [token, setToken] = useState(null);
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -34,14 +39,6 @@ function UserLogin() {
     setErrors(errors);
     return isValid;
   };
-
-   const getDashboardRoute = (userRole) => {
-    if (userRole == "ADMIN") {
-      window.location.href = "http://localhost:3000/admin-dashboard";
-    } else if (userRole == "REGISTEREDUSER") {
-      window.location.href = "http://localhost:3000/dashboard";
-    }
-  };
   
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -49,7 +46,6 @@ function UserLogin() {
       try {
 
         const response = await AuthService.login(formData);
-         console.log(response);
         if (response) {
 
             if (response.token == null) {
@@ -57,22 +53,13 @@ function UserLogin() {
                 "Login failed! Please check your login details and try again."
               );
             } else {
-
-              sessionStorage.setItem("user", JSON.stringify(response.user));
-              sessionStorage.setItem("userToken", response.token);
-
-              // navigate("/");
-              getDashboardRoute(response.user.type);
-
-              setSuccessMessage("Login Successful!");
+              // show otp verification popup
+              togglePopup(JSON.stringify(response.user), response.token);
             }
-         
         }
         else{
-
         }
 
-        
         setTimeout(() => {
           setSuccessMessage("");
         }, 50000);
@@ -92,6 +79,11 @@ function UserLogin() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const togglePopup = (user, token) => {
+    setOTPUser(user);
+    setToken(token);
+    setShowPopup(!showPopup);
+  };
   return (
     <div className="box-content">
       <div className="row">
@@ -115,7 +107,7 @@ function UserLogin() {
                                 </h2>
                                 {successMessage && (
                                   <div
-                                    className="alert alert-success"
+                                    className="alert alert-danger"
                                     role="alert"
                                   >
                                     {successMessage}
@@ -125,7 +117,7 @@ function UserLogin() {
                                   Access to all features. No credit card
                                   required.
                                 </p>
-                                <button className="btn social-login hover-up mb-20">
+                                {/* <button className="btn social-login hover-up mb-20">
                                   <img
                                     src="imgs/icon-google.svg"
                                     alt="google"
@@ -134,7 +126,7 @@ function UserLogin() {
                                 </button>
                                 <div className="divider-text-center">
                                   <span>Or continue with</span>
-                                </div>
+                                </div> */}
                               </div>
                               <form
                                 className="login-register text-start mt-20"
@@ -218,6 +210,13 @@ function UserLogin() {
                                   <Link to="/registration">Register</Link>
                                 </div>
                               </form>
+                              {showPopup && (
+                                <OTPPopup
+                                  user={OTPUser}
+                                  token={token}
+                                  onClose={() => setShowPopup(false)}
+                                />
+                              )}
                             </div>
                           </div>
                         </div>
