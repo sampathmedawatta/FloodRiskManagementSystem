@@ -36,17 +36,15 @@ const OTPPopup = ({ user,token,  onClose }) => {
     e.preventDefault();
     if (validateForm()) {
       try {
-        const otpUser = JSON.parse(user);
-
         // check otp
-        const response = await VerifyService.otp(formData, otpUser._id);
+        const response = await VerifyService.otp(formData, user._id);
         if (response) {
             if(response.verified){
               // save user in session
-              sessionStorage.setItem("user", user);
+              sessionStorage.setItem("user", JSON.stringify(user));
               sessionStorage.setItem("userToken", token);
 
-              getDashboardRoute(otpUser.type);
+              getDashboardRoute(user.type);
             }
             else{
                 setSuccessMessage("OTP verification failed!");
@@ -76,7 +74,7 @@ const OTPPopup = ({ user,token,  onClose }) => {
               <div class="col-md-10">
                 <h6 className="text-start td-nowrap">
                   {" "}
-                  <i class="bi bi bi-geo-alt-fill"></i>&nbsp; OTP verification
+                  <i class="bi bi-lock fs-5"></i>&nbsp; OTP verification
                 </h6>
               </div>
               <div class="col-md-2">

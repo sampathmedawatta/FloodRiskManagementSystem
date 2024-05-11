@@ -47,7 +47,7 @@ const verifyPassword = async ( email, password) => {
 
 const verifyEmail = async (id, email) => {
   try {
-    const url = "http://localhost:3000/";
+    const url = "http://localhost:3001/";
     const uniqueString = uuidv4() + id;
 
     const toList = ["sam.medawatta@gmail.com", email];

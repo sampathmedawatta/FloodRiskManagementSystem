@@ -2,24 +2,27 @@ const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const User = require("../modules/userModel");
+const userController = require("../controllers/userController");
 
 const { otpEmail } = require("../communication/emailService");
 const UserOTPVerification = require("../modules/UserOTPVerificationModel");
 
 // Password change
-exports.changePassword = async (req, res) => {
+exports.changePassword = async (req, response) => {
   try {
     const { currentPassword, newPassword } = req.body;
     const userId = req.params.id;
+
     const result = await userController.changePassword(
       userId,
       currentPassword,
       newPassword
     );
+
     if (result.success) {
-      res.status(200).json(result);
+      response.status(200).json(result);
     } else {
-      res.status(400).json(result);
+      response.status(400).json(result);
     }
   } catch (error) {
     response.status(500).json({ error: "unable to get users" });
@@ -80,7 +83,7 @@ exports.login = async (request, response) => {
       });
 
        if (newOTP) {
-        await otpEmail(user.email, otp);
+        // await otpEmail(user.email, otp);
        } else {
          console.log("otp not saved! " + error);
        }
