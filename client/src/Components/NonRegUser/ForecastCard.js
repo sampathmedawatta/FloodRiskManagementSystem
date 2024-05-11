@@ -5,7 +5,7 @@ const ForecastCard = ({ weather }) => {
   const getRiskLevel = (flood) => {
     if (flood >= 50) {
       return "high";
-    } else if (flood >= 40) {
+    } else if (flood >= 30) {
       return "moderate";
     } else if (flood >= 20) {
       return "low";
@@ -17,7 +17,7 @@ const ForecastCard = ({ weather }) => {
   const geticonClass = (flood) => {
     if (flood >= 50) {
       return "bi-cloud-lightning-rain-fill";
-    } else if (flood >= 40) {
+    } else if (flood >= 30) {
       return "bi-cloud-rain-fill";
     } else if (flood >= 20) {
       return "bi-cloud-sun-fill";
