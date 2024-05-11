@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 
 import PublicHeader from './Components/Shared/Header';
 import PublicNavbar from './Components/Shared/Navbar';
-import PublicLogin from './Components/Shared/Login';
 import PublicFooter from './Components/Shared/Footer';
 import RegDashbord from './Components/RegUser/RegDashbord';
 import NonRegDashbord from "./Components/NonRegUser/NonRegDashbord";
@@ -24,6 +23,7 @@ import UserRegistration from './Components/NonRegUser/UserRegistration';
 import UserLogin from './Components/NonRegUser/UserLogin';
 import RegisteredUserProfile from './Components/RegUser/RegisteredUserProfile';
 import AdminFloodHistory from './Components/Admin/AdminFloodHistory';
+import AdminFloodForecast from './Components/Admin/AdminFloodForecast';
 
 
 const userSession = getUserSession();
@@ -52,7 +52,8 @@ function App() {
             {isAdmin && <Route path="manage-news" element={<AdminNews />} />}
             {isAdmin && <Route path="admin-profile" element={<AdminProfile />} />}
             {isAdmin && <Route path="view-flood-history" element={<AdminFloodHistory />} />}
-            
+            {isAdmin && <Route path="view-forecast" element={<AdminFloodForecast />} />}
+
 
             {/* For Registered Users */}
             {isRegistered && <Route path="dashboard" element={<RegDashbord />} />}

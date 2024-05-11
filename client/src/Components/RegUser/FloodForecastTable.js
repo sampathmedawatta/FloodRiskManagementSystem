@@ -1,6 +1,10 @@
 import React from "react";
 
 const FloodForecastTable = ({ forecastTableValues }) => {
+  const toSentenceCase = (str) => {
+    if (!str) return '';
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  };
 
   return (
     <div className="section-box">
@@ -79,7 +83,7 @@ const FloodForecastTable = ({ forecastTableValues }) => {
                       </td>
                       <td className="text-center">
                         <span className="text-muted font-sm">
-                          {forecastItem.rainfall}
+                          {toSentenceCase(forecastItem.rainfall)}
                         </span>
                       </td>
                       <td className="text-center">
@@ -89,11 +93,11 @@ const FloodForecastTable = ({ forecastTableValues }) => {
                       </td>
                       <td className="text-center">
                         <span
-                          className={`text-muted font-sm ${getRiskLevelClassName(
+                          className={`text-muted font-sm ${getRiskLevel(
                             forecastItem.riskLevel
                           )}`}
                         >
-                          {forecastItem.riskLevel}
+                           {toSentenceCase(forecastItem.riskLevel)}
                         </span>
                       </td>
                     </tr>
@@ -107,17 +111,15 @@ const FloodForecastTable = ({ forecastTableValues }) => {
     </div>
   );
 };
-
-const getRiskLevelClassName = (riskLevel) => {
-  switch (riskLevel) {
-    case "Low":
-      return "risklevel-norisk";
-    case "Moderate":
-      return "risklevel-moderate";
-    case "High":
-      return "risklevel-high";
-    default:
-      return "";
+const getRiskLevel = (riskLevel) => {
+  if (riskLevel =='High') {
+    return "risklevel-high";
+  } else if (riskLevel == 'Moderate') {
+    return "risklevel-moderate";
+  } else if (riskLevel =='Low') {
+    return "risklevel-norisk";
+  } else {
+    return "risklevel-norisk";
   }
 };
 
