@@ -260,30 +260,36 @@ function AdminFloodHistory() {
                             </tr>
                           </thead>
                           <tbody>
-                          {loading ? (
-  <tr>
-    <td colSpan="7">
-      Loading...
-      <img src="imgs/spinning-loading.gif" alt="Loading..." />
-    </td>
-  </tr>
-) : historyData !== null && historyData.length > 0 ? (
-  historyData.map((item, index) => (
-    <tr key={index} className="tr-border">
-      <td className="text-left">{index + 1}</td>
-      <td className="text-left">{item.location}</td>
-      <td className="text-left">0</td>
-      <td className="text-left">{item.rainfall}</td>
-      <td className="text-left">{item.duration}</td>
-      <td className="text-left">{item.mean_tempurature}</td>
-      <td className="text-left">{item.humidity}</td>
-    </tr>
-  ))
-) : (
-  <tr>
-    <td colSpan="7">No data available</td>
-  </tr>
-)}
+                            {loading ? (
+                              <tr>
+                                <td colSpan="7">
+                                  Loading...
+                                  <img
+                                    src="imgs/spinning-loading.gif"
+                                    alt="Loading..."
+                                  />
+                                </td>
+                              </tr>
+                            ) : historyData !== null &&
+                              historyData.length > 0 ? (
+                              historyData.map((item, index) => (
+                                <tr key={index} className="tr-border">
+                                  <td className="text-left">{index + 1}</td>
+                                  <td className="text-left">{item.location}</td>
+                                  <td className="text-left">0</td>
+                                  <td className="text-left">{item.rainfall}</td>
+                                  <td className="text-left">{item.duration}</td>
+                                  <td className="text-left">
+                                    {item.mean_tempurature}
+                                  </td>
+                                  <td className="text-left">{item.humidity}</td>
+                                </tr>
+                              ))
+                            ) : (
+                              <tr>
+                                <td colSpan="7">No data available</td>
+                              </tr>
+                            )}
                           </tbody>
                         </table>
                       </div>

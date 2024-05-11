@@ -24,6 +24,7 @@ import UserLogin from './Components/NonRegUser/UserLogin';
 import RegisteredUserProfile from './Components/RegUser/RegisteredUserProfile';
 import AdminFloodHistory from './Components/Admin/AdminFloodHistory';
 import AdminFloodForecastPage from './Components/Admin/AdminFloodForecastPage';
+import AdminAlerts from './Components/Admin/AdminAlerts';
 
 
 const userSession = getUserSession();
@@ -53,6 +54,8 @@ function App() {
             {isAdmin && <Route path="admin-profile" element={<AdminProfile />} />}
             {isAdmin && <Route path="view-flood-history" element={<AdminFloodHistory />} />}
             {isAdmin && <Route path="view-forecast" element={<AdminFloodForecastPage />} />}
+            {isAdmin && <Route path="manage-alerts" element={<AdminAlerts />} />}
+            
 
 
             {/* For Registered Users */}
