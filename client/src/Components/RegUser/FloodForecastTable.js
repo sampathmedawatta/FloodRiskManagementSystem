@@ -83,7 +83,7 @@ const FloodForecastTable = ({ forecastTableValues }) => {
                       </td>
                       <td className="text-center">
                         <span className="text-muted font-sm">
-                          {toSentenceCase(forecastItem.rainfall)}
+                          {forecastItem.rainfall}
                         </span>
                       </td>
                       <td className="text-center">

@@ -19,7 +19,7 @@ function AdminNewsManage() {
           data: location.data.map((item) => ({
             forecast: item.forecast.filter(
               (forecastItem) =>
-                forecastItem.riskLevel === "moderate" ||
+                forecastItem.riskLevel === "low" ||
                 forecastItem.riskLevel === "high"
             ),
           })),
@@ -177,7 +177,7 @@ function AdminNewsManage() {
                                         </span>
                                       </td>
                                       <td className="text-left">
-                                        {/* You need to define how you want to display the alert and status */}
+                                      <button class="btn btn-login hover-up text-12 w-100"><i class="bi bi-exclamation-triangle-fill"></i> &nbsp; Create Alert</button>
                                       </td>
                                       <td className="text-center">
                                         {/* Add manage functionality */}
