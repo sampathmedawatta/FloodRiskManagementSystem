@@ -123,7 +123,6 @@ exports.updateUser = async (request, response) => {
     postCode,
     type,
     lang,
-    hasLoggedIn,
     active,
   } = request.body;
 
@@ -169,10 +168,6 @@ exports.updateUser = async (request, response) => {
 
   if ("active" in request.body) {
     user.active = active;
-  }
-
-  if (typeof hasLoggedIn === "boolean") {
-    user.hasLoggedIn = hasLoggedIn;
   }
 
   // Save the updated user
@@ -223,7 +218,9 @@ exports.authenticateUser = async (email, password) => {
 // Password Change
 exports.changePassword = async (userId, currentPassword, newPassword) => {
   try {
+
     const user = await User.findById(userId);
+
     if (!user) {
       return { success: false, message: "User not found" };
     }
@@ -238,17 +235,12 @@ exports.changePassword = async (userId, currentPassword, newPassword) => {
 
     // Update the hashed password in the database
     user.hashPassword = newHashedPassword;
+    user.hasLoggedIn = true;
     await user.save();
 
     return { success: true, message: "Password changed successfully" };
   } catch (error) {
-    console.error("Error changing password:", error);
     return { success: false, message: "Internal server error" };
   }
 };
 
-const sendOTPVerificationEmail = async () => {
-  try {
-    const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
-  } catch (err) {}
-};

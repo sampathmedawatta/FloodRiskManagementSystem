@@ -11,7 +11,7 @@ const headers = {
 };
 
 const login = async (parms) => {
-    console.log(parms);
+    
   return await axiosInstance
     .post("/", parms, {
       headers,
@@ -22,8 +22,23 @@ const login = async (parms) => {
     
 };
 
+const resetPassword = async (parms, _id) => {
+  console.log(parms);
+  console.log(_id);
+  return await axiosInstance
+    .post("/password/reset/" + _id, parms, {
+      headers,
+    })
+    .then((response) => {
+      console.log(response);
+      return response.data;
+    });
+};
+
+
 const AuthService = {
-  login
+  login,
+  resetPassword,
 };
 
 

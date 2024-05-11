@@ -2,12 +2,15 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthService from "../../services/auth.service";
 import OTPPopup from "./OTPVerification";
+import FirstLoginPasswordReset from "./FirstLoginPasswordReset";
 
 function UserLogin() {
 
   const [showPopup, setShowPopup] = useState(false);
+  const [showFirstLoginPopup, setShowFirstLoginPopup] = useState(false);
   const [OTPUser, setOTPUser] = useState(null);
   const [token, setToken] = useState(null);
+  const [oldPassword, setOldPassword] = useState(null);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -53,8 +56,16 @@ function UserLogin() {
                 "Login failed! Please check your login details and try again."
               );
             } else {
-              // show otp verification popup
-              togglePopup(JSON.stringify(response.user), response.token);
+
+              const user = response.user;
+
+              if (user.type === "ADMIN" && !user.hasLoggedIn) {
+                // show password reset popup
+                toggleFistLoginPopup(user, response.token, formData.password);
+              } else {
+                // show otp verification popup
+                togglePopup(user, response.token);
+              }
             }
         }
         else{
@@ -77,6 +88,13 @@ function UserLogin() {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const toggleFistLoginPopup = (user, token, oldPassword) => {
+    setOTPUser(user);
+    setToken(token);
+    setOldPassword(oldPassword);
+    setShowFirstLoginPopup(!showPopup);
   };
 
   const togglePopup = (user, token) => {
@@ -215,6 +233,14 @@ function UserLogin() {
                                   user={OTPUser}
                                   token={token}
                                   onClose={() => setShowPopup(false)}
+                                />
+                              )}
+                              {showFirstLoginPopup && (
+                                <FirstLoginPasswordReset
+                                  user={OTPUser}
+                                  oldPassword={oldPassword}
+                                  token={token}
+                                  onClose={() => setShowFirstLoginPopup(false)}
                                 />
                               )}
                             </div>
