@@ -134,7 +134,7 @@ function Navbar() {
               className={`dashboard ${isActiveLink("/") ? "active" : ""}`}
               href="/"
             >
-              <Link to="/" className="nav-link px-0 align-middle">
+              <Link to="/manage-alerts" className="nav-link px-0 align-middle">
                 <i class="bi bi-exclamation-triangle-fill fs-5"></i>
                 <span class="name">
                   &nbsp;&nbsp;&nbsp;Manage Alerts&nbsp;&nbsp;
