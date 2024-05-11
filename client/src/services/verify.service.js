@@ -11,16 +11,15 @@ const headers = {
 };
 
 const otp = async (parms, _id) => {
-  console.log(parms);
   return await axiosInstance
     .post("/otp/" + _id, parms, {
       headers,
     })
     .then((response) => {
-      console.log(response);
       return response.data;
     });
 };
+
 
 const VerifyService = {
   otp,
