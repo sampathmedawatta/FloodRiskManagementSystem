@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import LocationService from "../../services/location.service";
 import NewsService from "../../services/news.service";
-
+import { getUserSession } from "../Shared/SessionUtils";
 function AdminCreateNews({ showModal, toggleModal }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -16,6 +16,8 @@ function AdminCreateNews({ showModal, toggleModal }) {
   const [locationError, setLocationError] = useState(false);
   const [fileError, setFileError] = useState(false);
   const [locations, setLocations] = useState([]);
+  const userSession = getUserSession();
+  const userId = userSession.loggedUser;
 
   useEffect(() => {
     fetchLocations();
@@ -42,17 +44,15 @@ function AdminCreateNews({ showModal, toggleModal }) {
 
   const fetchLocations = async () => {
     try {
-      const response = await LocationService.getLocations();
-      if (response) {
-        const floodLocations = response.locations.filter(
-          (location) => location.type === "Flood"
-        );
+      const floodLocations = await LocationService.getFloodLocations("Flood");
+      if (floodLocations) {
         setLocations(floodLocations);
       }
     } catch (error) {
-      console.error("Error fetching locations:", error);
+      console.error("Error while fetching flood location data", error);
     }
   };
+  
 
   const handleCreateNews = async () => {
     const titleValid = title.trim();
@@ -70,7 +70,7 @@ function AdminCreateNews({ showModal, toggleModal }) {
     setFileError(!fileValid);
 
     if (titleValid && descriptionValid && titleZhValid && descriptionZhValid && locationValid && fileValid) {
-      const createdBy="662f4bf66c836c8dba8f6665";
+       const createdBy=userId;
    
       try {
         console.log("File:", file);

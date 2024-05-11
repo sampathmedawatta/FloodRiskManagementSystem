@@ -113,7 +113,6 @@ const OTPPopup = ({ user,token,  onClose }) => {
                   name="otpCode"
                   value={formData.otpCode}
                   onChange={handleChange}
-                  placeholder="1111"
                 />
                 {errors.otpCode && (
                   <div className="invalid-feedback">{errors.otpCode}</div>

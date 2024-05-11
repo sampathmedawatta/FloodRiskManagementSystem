@@ -32,6 +32,10 @@ const Forecast = ({ location, data }) => {
       return "risklevel-norisk";
     }
   };
+  const toSentenceCase = (str) => {
+    if (!str) return '';
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  };
 
   return (
     <tr className="tr-border">
@@ -63,7 +67,7 @@ const Forecast = ({ location, data }) => {
             forecastData.riskLevel
           )}`}
         >
-          {forecastData.riskLevel}
+          {toSentenceCase(forecastData.riskLevel)}
         </span>
       </td>
     </tr>
@@ -95,11 +99,11 @@ function AdminTodayForecast() {
                   <div className="col-md-9">
                     <h6 className="text-left">
                       <i className="bi bi-tsunami fs-5" />
-                      &nbsp;&nbsp;Today's Flooding Forecast
+                      &nbsp;&nbsp;Today's Weather Forecast
                     </h6>
                   </div>
                   <div className="col-md-3">
-                    <p className="text-right font-xs color-text-paragraph-2">
+                    <p className="text-end font-xs color-text-paragraph-2">
                       {today}
                     </p>
                   </div>
@@ -145,7 +149,7 @@ function AdminTodayForecast() {
                   </table>
                 </div>
                 <p class="text-end">
-                  <a href="#" class="font-xs color-text-paragraph-2">
+                  <a href="view-forecast" class="font-xs color-text-paragraph-2">
                     See More
                   </a>
                 </p>
