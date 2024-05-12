@@ -65,6 +65,10 @@ const getFloodLocations = async (type) => {
 const createLocation = async (formData) => {
   try {
     const response = await axiosInstance.post("/", formData, {});
+
+     sessionStorage.removeItem("LocationList");
+     sessionStorage.removeItem("LocationListDate");
+     
     return response.data;
   } catch (error) {
     console.error("Error creating location ", error);
