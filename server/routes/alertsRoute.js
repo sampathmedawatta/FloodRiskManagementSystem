@@ -1,7 +1,10 @@
 const router = require("express").Router();
-
 const alertsController = require("../controllers/alertsController");
 
+// Specific route for getting alerts by days
+router.get("/days", alertsController.getAlertsByDays);
+
+// Generic routes for CRUD operations
 router.get("/", alertsController.getAllAlerts);
 router.get("/:id", alertsController.getAlertById);
 router.post("/", alertsController.createAlert);

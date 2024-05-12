@@ -801,6 +801,11 @@ h6,
   transition: 0.2s;
 }
 
+.btn.btn-alert {
+  color: #ffffff;
+  background-color: #05264e;
+  padding: 8px;
+}
 .btn.btn-notify {
   background: url(../imgs/notify.svg) no-repeat center;
   display: inline-block;

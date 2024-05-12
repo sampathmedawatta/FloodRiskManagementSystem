@@ -1,35 +1,52 @@
 import React, { useState, useEffect } from "react";
 import ForecastService from "../../services/forecast.service";
+import AlertService from "../../services/alert.service";
 import Pagination from "./Pagination";
+import AdminCreateAlert from "./AdminAlertCreate";
 
 function AdminNewsManage() {
   const [floodWarningAlerts, setFloodWarningAlerts] = useState([]);
   const [loading, setLoading] = useState(false);
   let inex = 0;
+  const [showCreateAlertModal, setShowCreateAlertModal] = useState(false); // State to control modal visibility
+  const [alertData, setAlertData] = useState({});
 
   useEffect(() => {
     const fetchFloodWarnings = async () => {
       setLoading(true);
       try {
         const floodWarnings = await ForecastService.getForecastByDate(14);
+        const alertsCreated = await AlertService.getAlertsByDays(7);
+        console.log("alertsCreated "+alertsCreated);
+        const groupedByDate = {};
 
-        // Filter flood warnings based on risk level being "moderate" or "high"
-        const filteredWarnings = floodWarnings.map((location) => ({
-          location: location.location,
-          data: location.data.map((item) => ({
-            forecast: item.forecast.filter(
-              (forecastItem) =>
-                forecastItem.riskLevel === "low" ||
-                forecastItem.riskLevel === "high"
-            ),
-          })),
-        }));
+        // Group the forecast items by date and filter by risk level
+        floodWarnings.forEach((location) => {
+          location.data.forEach((item) => {
+            item.forecast.forEach((forecastItem) => {
+              const date = forecastItem.date;
+              if (!groupedByDate[date]) {
+                groupedByDate[date] = [];
+              }
+              // Filter by risk level (Moderate or high)
+              if (
+                forecastItem.riskLevel === "Moderate" ||
+                forecastItem.riskLevel === "High"
+              ) {
+                groupedByDate[date].push({
+                  location: location.location,
+                  forecastItem: forecastItem,
+                });
+              }
+            });
+          });
+        });
 
-        setFloodWarningAlerts(filteredWarnings);
-        setLoading(false); // Set loading to false after data is fetched
+        setFloodWarningAlerts(groupedByDate);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching forecast data:", error);
-        setLoading(false); // Set loading to false in case of an error
+        setLoading(false);
       }
     };
 
@@ -65,7 +82,13 @@ function AdminNewsManage() {
     if (!str) return "";
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
   };
-
+  const toggleCreateAlertModal = (riskLevel, flood, date, location) => {
+    setShowCreateAlertModal(!showCreateAlertModal);
+    console.log("setAlertData", riskLevel, flood, date, location);
+    setAlertData({ riskLevel, flood, date, location });
+  };
+  
+  
   return (
     <div className="box-content">
       <br />
@@ -89,6 +112,10 @@ function AdminNewsManage() {
                 </div>
                 <div>
                   <div className="panel-body">
+                    <p>
+                      Forecasted flood risk prediction for the next two weeks.{" "}
+                    </p>
+                    <br></br>
                     <div className="row">
                       <div className="table-responsive">
                         <table className="table no-wrap user-table mb-0">
@@ -100,6 +127,9 @@ function AdminNewsManage() {
                                 style={{ width: "2%", textAlign: "left" }}
                               >
                                 #
+                              </th>
+                              <th scope="col" style={{ textAlign: "left" }}>
+                                Date
                               </th>
                               <th
                                 scope="col"
@@ -113,19 +143,43 @@ function AdminNewsManage() {
                                 className="pl-4"
                                 style={{ textAlign: "left" }}
                               >
-                                Flood prediction %
+                                Flood Prediction %
                               </th>
                               <th scope="col" style={{ textAlign: "left" }}>
                                 Risk Level
                               </th>
-                              <th scope="col" style={{ textAlign: "left" }}>
+                              <th
+                                scope="col"
+                                style={{ width: "10%", textAlign: "left" }}
+                              >
                                 Alert
+                              </th>
+                              <th scope="col" style={{ textAlign: "left" }}>
+                                Title
+                              </th>
+                              <th scope="col" style={{ textAlign: "left" }}>
+                                Description
+                              </th>
+                              <th scope="col" style={{ textAlign: "left" }}>
+                                Title Zh
+                              </th>
+                              <th scope="col" style={{ textAlign: "left" }}>
+                                Description Zh
+                              </th>
+                              <th scope="col" style={{ textAlign: "left" }}>
+                                Published Date
+                              </th>
+                              <th scope="col" style={{ textAlign: "left" }}>
+                                Status
                               </th>
                               <th scope="col" style={{ textAlign: "left" }}>
                                 Status
                               </th>
                               <th scope="col" style={{ textAlign: "left" }}>
                                 Manage
+                              </th>
+                              <th scope="col" style={{ textAlign: "left" }}>
+                                View
                               </th>
                             </tr>
                           </thead>
@@ -140,57 +194,69 @@ function AdminNewsManage() {
                                   />
                                 </td>
                               </tr>
-                            ) : 
-                 
-
-                            floodWarningAlerts.length > 0 ? (
-                              floodWarningAlerts.map((locationData, locationIndex) =>
-                                locationData.data[0].forecast.map((forecastItem, forecastIndex) => {
-                                  inex++; // Increment the index counter
-                            
-                                  return (
-                                    <tr
-                                      className="tr-border"
-                                      key={`${locationIndex}-${forecastIndex}`}
-                                    >
-                                      <td className="text-left pl-4">
-                                        <span className="text-muted font-sm">{inex}</span>
-                                      </td>
-                                      <td className="text-left">
-                                        <span className="text-muted font-sm">
-                                          {getlocation(locationData.location)}
-                                        </span>
-                                      </td>
-                            
-                                      <td className="text-left">
-                                        <span className="text-muted font-sm">
-                                          {forecastItem.flood.toFixed(2)}
-                                        </span>
-                                      </td>
-                                      <td className="text-left">
-                                        <span
-                                          className={`text-muted font-sm ${getRiskLevel(
-                                            forecastItem.riskLevel
-                                          )}`}
-                                        >
-                                          {toSentenceCase(forecastItem.riskLevel)}
-                                        </span>
-                                      </td>
-                                      <td className="text-left">
-                                      <button class="btn btn-login hover-up text-12 w-100"><i class="bi bi-exclamation-triangle-fill"></i> &nbsp; Create Alert</button>
-                                      </td>
-                                      <td className="text-center">
-                                        {/* Add manage functionality */}
-                                      </td>
-                                    </tr>
-                                  );
-                                })
-                              )
                             ) : (
-                              // If floodWarningAlerts is empty or null, display "No data available"
-                              <tr>
-                                <td colSpan="7">No data available</td>
-                              </tr>
+                              Object.keys(floodWarningAlerts).map(
+                                (date, index) =>
+                                  floodWarningAlerts[date].map(
+                                    ({ location, forecastItem }) => {
+                                      inex++;
+                                      return (
+                                        <tr
+                                          className="tr-border"
+                                          key={`${date}-${location}-${forecastItem.date}`}
+                                        >
+                                          <td className="text-left pl-4">
+                                            <span className="text-muted font-sm">
+                                              {inex}
+                                            </span>
+                                          </td>
+                                          <td className="text-left">
+                                            <span className="text-muted font-sm">
+                                              {forecastItem.date}
+                                            </span>
+                                          </td>
+                                          <td className="text-left">
+                                            <span className="text-muted font-sm">
+                                              {getlocation(location)}
+                                            </span>
+                                          </td>
+                                          <td className="text-left">
+                                            <span className="text-muted font-sm">
+                                              {forecastItem.flood.toFixed(2)}
+                                            </span>
+                                          </td>
+                                          <td className="text-left">
+                                            <span
+                                              className={`text-muted font-sm ${getRiskLevel(
+                                                forecastItem.riskLevel
+                                              )}`}
+                                            >
+                                              {toSentenceCase(
+                                                forecastItem.riskLevel
+                                              )}
+                                            </span>
+                                          </td>
+                                          <td className="text-left">
+                                          <button
+  className="btn btn-alert text-12"
+  onClick={() =>
+    toggleCreateAlertModal(
+      forecastItem.riskLevel,
+      forecastItem.flood,
+      forecastItem.date,
+      location
+    )
+  }
+>
+  <i className="bi bi-exclamation-triangle-fill"></i> &nbsp; Create Alert
+</button>
+                                          </td>
+                                          <td className="text-center"></td>
+                                        </tr>
+                                      );
+                                    }
+                                  )
+                              )
                             )}
                           </tbody>
                         </table>
@@ -198,7 +264,11 @@ function AdminNewsManage() {
                     </div>
                   </div>
                   <br />
-                  {/* Display forecast data here */}
+                  <AdminCreateAlert
+                    showModal={showCreateAlertModal}
+                    toggleModal={toggleCreateAlertModal} 
+                    alertData={alertData}
+                  />
                   <Pagination />
                 </div>
               </div>
