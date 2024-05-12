@@ -87,6 +87,7 @@ exports.createAlert = async (request, response) => {
       });
     }
     const publishedDate = new Date();
+
     // Create a new alert
     const alert = await Alerts.create({
       alertDate,
@@ -102,8 +103,19 @@ exports.createAlert = async (request, response) => {
       urgent,
       active: active || true, 
     });
-    // enable this to send notifications
-    // sendNotification(title, description, authorities, registeredUser);
+
+    // send notifications
+    try{
+        await sendNotification(
+          title,
+          description,
+          riskLevel,
+          authorities || true
+        );
+    }catch(error){
+      console.log('Notification email not sent.')
+    }
+
     response.status(201).json({ success: true, alert });
   } catch (error) {
     response.status(500).json({ success: false, error: error.message });
@@ -165,27 +177,28 @@ exports.deleteAlert = async (request, response) => {
   }
 };
 
-const sendNotification = async (
-  title,
-  description,
-  authorities,
-  registeredUser
-) => {
+const sendNotification = async (title, description, riskLevel, authorities) => {
   try {
-    let emailList = ["chatbotappportal@gmail.com"];
     // get user email list
+    const registeredUsers = await User.find();
 
-    if (registeredUser) {
-      emailList.push("sam.medawatta@gmail.com");
+    if (registeredUsers) {
+      // Extract email addresses from the fetched users and store them in an array
+      const emailList = registeredUsers?.map((user) => user.email);
+      await notificationEmail(emailList, title, riskLevel, description);
     }
 
-    // get authorities email list
+    // send notification to authorities
     if (authorities) {
-      emailList.push("104168436@student.swin.edu.au");
+      // get authorities email list
+      await notificationEmail(
+        "104168436@student.swin.edu.au",
+        title,
+        riskLevel,
+        description
+      );
     }
-
-    await notificationEmail(emailList, title, description);
   } catch (error) {
-    console.log("sendNotification failed");
+    console.log("sendNotification failed " + error);
   }
 };
