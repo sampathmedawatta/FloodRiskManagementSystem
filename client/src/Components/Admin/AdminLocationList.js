@@ -6,7 +6,6 @@ function AdminLocationList({
   handleLocationAction,
 }) {
 
-    console.log(locations);
   return (
     <tbody>
       {locations.map((location, index) => (

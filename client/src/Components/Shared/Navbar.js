@@ -234,7 +234,7 @@ function Navbar() {
                 to="/manage-locations"
                 className="nav-link px-0 align-middle"
               >
-                <i class="bi bi-question-circle-fill fs-5"></i>
+                <i class="bi bi-geo-alt-fill fs-5"></i>
                 <span class="name">
                   &nbsp;&nbsp;&nbsp;Manage Locations &nbsp;&nbsp;
                 </span>

@@ -45,13 +45,15 @@ function AdminLocationManage() {
       console.error("Error updating Location:", error);
     }
   };
+
   const createLocation = async (title, description) => {
     try {
-      await LocationService.createLocation({
-        title,
-        description,
-        active: true,
-      });
+      console.log(title, description);
+      // await LocationService.createLocation({
+      //   title,
+      //   description,
+      //   active: true,
+      // });
       fetchData();
       setShowCreateModal(false);
     } catch (error) {
@@ -76,7 +78,7 @@ function AdminLocationManage() {
               <div className="row">
                 <div className="col-md-7">
                   <h6 className="text-start">
-                    <i className="bi bi-question-circle-fill fs-5 " />
+                    <i className="bi bi-geo-alt-fill fs-5 " />
                     &nbsp;&nbsp;Manage Locations
                   </h6>
                 </div>
@@ -112,7 +114,7 @@ function AdminLocationManage() {
           </div>
         </div>
       </div>
-      {/* <AdminLocationCreate
+      <AdminLocationCreate
         showModal={showCreateModal}
         toggleModal={toggleCreateModal}
         title={title}
@@ -120,7 +122,7 @@ function AdminLocationManage() {
         description={description}
         setDescription={setDescription}
         createLocation={createLocation}
-      /> */}
+      />
       {/* <AdminLocationEdit
         showModal={showEditModal}
         toggleModal={toggleEditModal}
