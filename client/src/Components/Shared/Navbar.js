@@ -120,7 +120,10 @@ function Navbar() {
               className={`dashboard ${isActiveLink("/") ? "active" : ""}`}
               href="/"
             >
-              <Link to="/view-flood-history" className="nav-link px-0 align-middle">
+              <Link
+                to="/view-flood-history"
+                className="nav-link px-0 align-middle"
+              >
                 <i class="bi bi-clock-history fs-5"></i>
                 <span class="name">
                   &nbsp;&nbsp;&nbsp;Flood History &nbsp;&nbsp;
@@ -145,10 +148,15 @@ function Navbar() {
           <li>
             {" "}
             <a
-              className={`dashboard ${isActiveLink("/manage-inquires") ? "active" : ""}`}
+              className={`dashboard ${
+                isActiveLink("/manage-inquires") ? "active" : ""
+              }`}
               href="/manage-inquires"
             >
-              <Link to="/manage-inquires" className="nav-link px-0 align-middle">
+              <Link
+                to="/manage-inquires"
+                className="nav-link px-0 align-middle"
+              >
                 <i class="bi bi-envelope fs-5"></i>
                 <span class="name">
                   &nbsp;&nbsp;&nbsp;Manage Inquiries&nbsp;&nbsp;
@@ -159,7 +167,9 @@ function Navbar() {
           <li>
             {" "}
             <a
-              className={`dashboard ${isActiveLink("/manage-admins") ? "active" : ""}`}
+              className={`dashboard ${
+                isActiveLink("/manage-admins") ? "active" : ""
+              }`}
               href="/manage-admins"
             >
               <Link to="/manage-admins" className="nav-link px-0 align-middle">
@@ -167,12 +177,13 @@ function Navbar() {
                 <span class="name">&nbsp;&nbsp;&nbsp;Manage Admins</span>
               </Link>
             </a>
-            
           </li>
           <li>
             {" "}
             <a
-              className={`dashboard ${isActiveLink("/manage-users") ? "active" : ""}`}
+              className={`dashboard ${
+                isActiveLink("/manage-users") ? "active" : ""
+              }`}
               href="/manage-users"
             >
               <Link to="/manage-users" className="nav-link px-0 align-middle">
@@ -180,7 +191,6 @@ function Navbar() {
                 <span class="name">&nbsp;&nbsp;&nbsp;Manage Users</span>
               </Link>
             </a>
-            
           </li>
           <li>
             {" "}
@@ -208,6 +218,25 @@ function Navbar() {
                 <i class="bi bi-question-circle-fill fs-5"></i>
                 <span class="name">
                   &nbsp;&nbsp;&nbsp;Manage FAQ &nbsp;&nbsp;
+                </span>
+              </Link>
+            </a>
+          </li>
+          <li>
+            {" "}
+            <a
+              className={`dashboard ${
+                isActiveLink("/manage-locations") ? "active" : ""
+              }`}
+              href="/manage-locations"
+            >
+              <Link
+                to="/manage-locations"
+                className="nav-link px-0 align-middle"
+              >
+                <i class="bi bi-question-circle-fill fs-5"></i>
+                <span class="name">
+                  &nbsp;&nbsp;&nbsp;Manage Locations &nbsp;&nbsp;
                 </span>
               </Link>
             </a>

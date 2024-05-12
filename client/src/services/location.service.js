@@ -62,10 +62,21 @@ const getFloodLocations = async (type) => {
   return floodLocations;
 };
 
+const createLocation = async (formData) => {
+  try {
+    const response = await axiosInstance.post("/", formData, {});
+    return response.data;
+  } catch (error) {
+    console.error("Error creating location ", error);
+    throw error;
+  }
+};
+
 const LocationService = {
   getLocations,
   getLocationByCode,
   getFloodLocations,
+  createLocation,
 };
 
 export default LocationService;
