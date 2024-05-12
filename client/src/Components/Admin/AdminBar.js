@@ -3,6 +3,7 @@ import { getCurrentDateInfo } from "../Shared/Utils";
 import AdminBarRegUsersCard from "./AdminBarRegUsersCard";
 import AdminBarPendingInquiriesCard from "./AdminBarPendingInquiriesCard"
 import AdminBarNewsArticlesCard from "./AdminBarNewsArticlesCard";
+import AdminBarAlertCard from "./AdminBarAlertCard";
 
 function AdminBar() {
   const { today, twoWeeksDate } =
@@ -41,29 +42,9 @@ function AdminBar() {
                       </div>
                     </a>
                   </div>
+                  <AdminBarAlertCard></AdminBarAlertCard>
 <AdminBarNewsArticlesCard></AdminBarNewsArticlesCard>
-                  <div className="col-2">
-                    <a href="#">
-                      <div className="card-style-1 hover-up hover-color ">
-                        <div className="card-info">
-                          <div className="card-title row">
-                            <div className="col">
-                              <h6 className="text-start">Predication Data</h6>
-                            </div>
-                            <div className="col-auto">
-                              <i className="bi bi-cloud-upload-fill fs-3 color-brand-1" />
-                            </div>
-                          </div>
-                          <div className="ptb-10">
-                            <p className="font-box-flood text-center color-brand-1">132</p>
-                          </div>
-                          <br></br>
-                          <p className="text-10 text-center strong color-brand-1">Missing <strong>4</strong> days weather data.
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
+
                 </div>
               </div>
             </div>

@@ -55,6 +55,11 @@ const ForecastComponent = ({ forecastData }) => {
      }
    };
 
+    const toSentenceCase = (str) => {
+      if (!str) return '';
+      return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+    };
+
   return (
     <div className="panel-body">
       <div className="table-responsive">
@@ -89,12 +94,12 @@ const ForecastComponent = ({ forecastData }) => {
                     <td
                       key={`${date}-${location}`}
                       className={`${forecast.riskLevel.toLowerCase()} ${
-                        forecast.riskLevel === "Low"
+                        forecast.riskLevel === "low"
                           ? ""
                           : "pointer-cursor hover-up"
                       }`}
                       onClick={() => {
-                        if (forecast.riskLevel !== "Low") {
+                        if (forecast.riskLevel !== "low") {
                           togglePopup(
                             getlocation(location),
                             forecast,
@@ -104,7 +109,7 @@ const ForecastComponent = ({ forecastData }) => {
                       }}
                     >
                       {forecast ? (
-                        <div>{forecast.riskLevel}</div>
+                        <div>{toSentenceCase(forecast.riskLevel)}</div>
                       ) : (
                         <div>No data</div>
                       )}
