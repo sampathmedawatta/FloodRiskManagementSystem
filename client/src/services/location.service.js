@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:3001",
+  baseURL: "http://localhost:3001/location",
   withCredentials: false, // Allow cookies to be sent with requests (if applicable)
 });
 
@@ -24,7 +24,7 @@ const getLocationList = async () => {
     return JSON.parse(sessionData);
   } else {
     return await axiosInstance
-      .get("/location/", {
+      .get("/", {
         headers,
       })
       .then((response) => {

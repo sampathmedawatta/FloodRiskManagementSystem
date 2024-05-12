@@ -10,8 +10,6 @@ function AdminLocationManage() {
   const [locations, setLocations] = useState([]);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
   const [locationToEdit, setLocationToEdit] = useState(null);
 
   useEffect(() => {
@@ -46,14 +44,37 @@ function AdminLocationManage() {
     }
   };
 
-  const createLocation = async (title, description) => {
+  const createLocation = async (
+    name,
+    description,
+    type,
+    refLocation,
+    latitude,
+    longitude,
+    address,
+    contact
+  ) => {
     try {
-      console.log(title, description);
-      // await LocationService.createLocation({
-      //   title,
-      //   description,
-      //   active: true,
-      // });
+      console.log(
+        name,
+        description,
+        type,
+        refLocation,
+        latitude,
+        longitude,
+        address,
+        contact
+      );
+      await LocationService.createLocation({
+        name,
+        value: description,
+        type,
+        refLocation,
+        lat: latitude,
+        long: longitude,
+        address,
+        contact,
+      });
       fetchData();
       setShowCreateModal(false);
     } catch (error) {
@@ -117,10 +138,6 @@ function AdminLocationManage() {
       <AdminLocationCreate
         showModal={showCreateModal}
         toggleModal={toggleCreateModal}
-        title={title}
-        setTitle={setTitle}
-        description={description}
-        setDescription={setDescription}
         createLocation={createLocation}
       />
       {/* <AdminLocationEdit
