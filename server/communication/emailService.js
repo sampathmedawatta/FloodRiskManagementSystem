@@ -93,7 +93,7 @@ const otpEmail = async (email, otp) => {
   }
 };
 
-const notificationEmail = async (emailList, title,  message) => {
+const notificationEmail = async (emailList, title, riskLevel, message) => {
   try {
     const mailOptions = {
       from: {
@@ -101,12 +101,15 @@ const notificationEmail = async (emailList, title,  message) => {
         address: process.env.AUTH_EMAIL,
       },
       to: [emailList],
-      subject: "Notification - Flood Risk Management Dashboard",
-      html: `<p>title: ${title}</p>
-                    <p>Message: ${message}</p>`,
+      subject: " Alert (" + riskLevel + ") - Flood Risk Management Dashboard",
+      html: `<p>Title: ${title}</p>
+            <p>Risk Level: ${riskLevel}</p>
+            <p>Message: ${message}</p>`,
     };
 
-    await transporter.sendMail(mailOptions);
+    // Enable this before DEMO
+    // await transporter.sendMail(mailOptions);
+
     console.log("Alert email sent! - " + emailList);
   } catch (error) {
     console.log(error);
