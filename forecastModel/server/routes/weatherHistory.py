@@ -13,24 +13,24 @@ weatherHistory = APIRouter()
 @weatherHistory.get('/weather/history/update')
 async def find_all_weather_history(location: str):
     try:
-        Geo = {"latitude": 52.52,
-        "longitude": 13.41}
+        Geo = {"latitude": 22.26132,
+        "longitude": 114.17999}
 
         if(location == 'CLK'):
-            Geo = {"latitude": 52.52,
-        "longitude": 13.41}
+            Geo = {"latitude": 22.26132,
+        "longitude": 114.17999}
         elif(location == 'CC'):
-             Geo = {"latitude": 52.52,
-        "longitude": 13.41}
+             Geo = {"latitude": 22.2016,
+        "longitude": 114.0265}
         elif(location == 'SK'):
-             Geo = {"latitude": 52.52,
-        "longitude": 13.41}
+             Geo = {"latitude": 22.4249,
+        "longitude": 114.0754}
         elif(location == 'ST'):
-             Geo = {"latitude": 52.52,
-        "longitude": 13.41}
+             Geo = {"latitude": 22.3771,
+        "longitude": 114.1974}
         elif(location == 'YMT'):
-             Geo = {"latitude": 52.52,
-        "longitude": 13.41}
+             Geo = {"latitude": 22.3069,
+        "longitude": 114.1714}
 
         today = date.today()
         three_days_ago = today - timedelta(days=3)
