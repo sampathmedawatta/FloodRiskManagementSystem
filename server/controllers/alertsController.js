@@ -31,12 +31,6 @@ exports.getAlertsByDays = async (request, response) => {
     const currentDate = new Date();
     const endDate = new Date(currentDate);
     endDate.setDate(endDate.getDate() + numDays); 
-
-    console.log('Days:', days);
-    console.log('NumDays:', numDays);
-    console.log('CurrentDate:', currentDate);
-    console.log('EndDate:', endDate);
-
     currentDate.setHours(0, 0, 0, 0);
     endDate.setHours(23, 59, 59, 999);
 
