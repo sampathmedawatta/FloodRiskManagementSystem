@@ -6326,3 +6326,6 @@ select {
 .profile-dropdown:focus {
   outline: none !important;
 }
+.ql-container.ql-snow {
+ min-height: 200px !important;
+}

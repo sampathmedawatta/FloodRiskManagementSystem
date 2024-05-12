@@ -6,18 +6,22 @@ import AdminCreateAlert from "./AdminAlertCreate";
 
 function AdminNewsManage() {
   const [floodWarningAlerts, setFloodWarningAlerts] = useState([]);
+  const [alertsCreated, setAlertsCreated] = useState([]);
   const [loading, setLoading] = useState(false);
   let inex = 0;
   const [showCreateAlertModal, setShowCreateAlertModal] = useState(false); // State to control modal visibility
   const [alertData, setAlertData] = useState({});
 
   useEffect(() => {
-    const fetchFloodWarnings = async () => {
+    const fetchData = async () => {
       setLoading(true);
       try {
         const floodWarnings = await ForecastService.getForecastByDate(14);
-        const alertsCreated = await AlertService.getAlertsByDays(7);
-        console.log("alertsCreated "+alertsCreated);
+        const alerts = await AlertService.getAlertsByDays(14);
+        console.log("Alerts received:", alerts);
+
+        setAlertsCreated(alerts.alerts);
+        console.log("Alerts stored:", alertsCreated);
         const groupedByDate = {};
 
         // Group the forecast items by date and filter by risk level
@@ -45,34 +49,34 @@ function AdminNewsManage() {
         setFloodWarningAlerts(groupedByDate);
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching forecast data:", error);
+        console.error("Error fetching data:", error);
         setLoading(false);
       }
     };
 
-    fetchFloodWarnings();
+    fetchData();
   }, []);
 
   const getlocation = (code) => {
-    if (code == "CLK") {
+    if (code === "CLK") {
       return "Chek Lap Kok";
-    } else if (code == "CC") {
+    } else if (code === "CC") {
       return "Cheung Chau";
-    } else if (code == "SK") {
+    } else if (code === "SK") {
       return "Shek Kong";
-    } else if (code == "ST") {
+    } else if (code === "ST") {
       return "Sha Tin";
-    } else if (code == "YMT") {
+    } else if (code === "YMT") {
       return "Yau Ma Tei";
     }
   };
 
   const getRiskLevel = (riskLevel) => {
-    if (riskLevel == "High") {
+    if (riskLevel === "High") {
       return "risklevel-high";
-    } else if (riskLevel == "Moderate") {
+    } else if (riskLevel === "Moderate") {
       return "risklevel-moderate";
-    } else if (riskLevel == "Low") {
+    } else if (riskLevel === "Low") {
       return "risklevel-norisk";
     } else {
       return "risklevel-norisk";
@@ -82,13 +86,12 @@ function AdminNewsManage() {
     if (!str) return "";
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
   };
+
   const toggleCreateAlertModal = (riskLevel, flood, date, location) => {
     setShowCreateAlertModal(!showCreateAlertModal);
-    console.log("setAlertData", riskLevel, flood, date, location);
     setAlertData({ riskLevel, flood, date, location });
   };
-  
-  
+
   return (
     <div className="box-content">
       <br />
@@ -115,7 +118,7 @@ function AdminNewsManage() {
                     <p>
                       Forecasted flood risk prediction for the next two weeks.{" "}
                     </p>
-                    <br></br>
+                    <br />
                     <div className="row">
                       <div className="table-responsive">
                         <table className="table no-wrap user-table mb-0">
@@ -173,9 +176,6 @@ function AdminNewsManage() {
                                 Status
                               </th>
                               <th scope="col" style={{ textAlign: "left" }}>
-                                Status
-                              </th>
-                              <th scope="col" style={{ textAlign: "left" }}>
                                 Manage
                               </th>
                               <th scope="col" style={{ textAlign: "left" }}>
@@ -186,7 +186,7 @@ function AdminNewsManage() {
                           <tbody>
                             {loading ? (
                               <tr>
-                                <td colSpan="7">
+                                <td colSpan="14">
                                   Loading...
                                   <img
                                     src="imgs/spinning-loading.gif"
@@ -200,60 +200,123 @@ function AdminNewsManage() {
                                   floodWarningAlerts[date].map(
                                     ({ location, forecastItem }) => {
                                       inex++;
-                                      return (
-                                        <tr
-                                          className="tr-border"
-                                          key={`${date}-${location}-${forecastItem.date}`}
-                                        >
-                                          <td className="text-left pl-4">
-                                            <span className="text-muted font-sm">
-                                              {inex}
-                                            </span>
-                                          </td>
-                                          <td className="text-left">
-                                            <span className="text-muted font-sm">
-                                              {forecastItem.date}
-                                            </span>
-                                          </td>
-                                          <td className="text-left">
-                                            <span className="text-muted font-sm">
-                                              {getlocation(location)}
-                                            </span>
-                                          </td>
-                                          <td className="text-left">
-                                            <span className="text-muted font-sm">
-                                              {forecastItem.flood.toFixed(2)}
-                                            </span>
-                                          </td>
-                                          <td className="text-left">
-                                            <span
-                                              className={`text-muted font-sm ${getRiskLevel(
-                                                forecastItem.riskLevel
-                                              )}`}
-                                            >
-                                              {toSentenceCase(
-                                                forecastItem.riskLevel
+
+                                      if (Array.isArray(alertsCreated)) {
+                                        const matchingAlert =
+                                          alertsCreated.find((alert) => {
+                                            const forecastDate = new Date(
+                                              forecastItem.date
+                                            );
+
+                                            if (isNaN(forecastDate.getTime())) {
+                                              console.error(
+                                                "Invalid date:",
+                                                forecastItem.date
+                                              );
+                                              return false;
+                                            }
+
+                                            const forecastISODate = forecastDate
+                                              .toISOString()
+                                              .slice(0, 10);
+                                            return (
+                                              alert.alertDate.startsWith(
+                                                forecastISODate
+                                              ) && alert.location === location
+                                            );
+                                          });
+                                        const isDisabled =
+                                          matchingAlert !== undefined;
+                                        return (
+                                          <tr
+                                            className="tr-border"
+                                            key={`${date}-${location}-${forecastItem.date}`}
+                                          >
+                                            <td className="text-left pl-4">
+                                              <span className="text-muted font-sm">
+                                                {inex}
+                                              </span>
+                                            </td>
+                                            <td className="text-left">
+                                              <span className="text-muted font-sm">
+                                                {forecastItem.date}
+                                              </span>
+                                            </td>
+                                            <td className="text-left">
+                                              <span className="text-muted font-sm">
+                                                {getlocation(location)}
+                                              </span>
+                                            </td>
+                                            <td className="text-left">
+                                              <span className="text-muted font-sm">
+                                                {forecastItem.flood.toFixed(2)}
+                                              </span>
+                                            </td>
+                                            <td className="text-left">
+                                              <span
+                                                className={`text-muted font-sm ${getRiskLevel(
+                                                  forecastItem.riskLevel
+                                                )}`}
+                                              >
+                                                {toSentenceCase(
+                                                  forecastItem.riskLevel
+                                                )}
+                                              </span>
+                                            </td>
+                                            <td className="text-left">
+                                              {!isDisabled && (
+                                                <button
+                                                  className="btn btn-alert text-12"
+                                                  onClick={() =>
+                                                    toggleCreateAlertModal(
+                                                      forecastItem.riskLevel,
+                                                      forecastItem.flood,
+                                                      forecastItem.date,
+                                                      location
+                                                    )
+                                                  }
+                                                >
+                                                  <i className="bi bi-exclamation-triangle-fill"></i>{" "}
+                                                  &nbsp; Create Alert
+                                                </button>
                                               )}
-                                            </span>
-                                          </td>
-                                          <td className="text-left">
-                                          <button
-  className="btn btn-alert text-12"
-  onClick={() =>
-    toggleCreateAlertModal(
-      forecastItem.riskLevel,
-      forecastItem.flood,
-      forecastItem.date,
-      location
-    )
-  }
->
-  <i className="bi bi-exclamation-triangle-fill"></i> &nbsp; Create Alert
-</button>
-                                          </td>
-                                          <td className="text-center"></td>
-                                        </tr>
-                                      );
+                                            </td>
+                                            <td className="text-center">
+                                              {matchingAlert
+                                                ? matchingAlert.title
+                                                : ""}
+                                            </td>
+
+                                            {matchingAlert && (
+                                              <td className="text-center">
+                                                <div
+                                                  dangerouslySetInnerHTML={{
+                                                    __html:
+                                                      matchingAlert.description,
+                                                  }}
+                                                />
+                                              </td>
+                                            )}
+                                            <td className="text-center">
+                                              {matchingAlert
+                                                ? matchingAlert.title_zh
+                                                : ""}
+                                            </td>
+                                            {matchingAlert && (
+                                              <td className="text-center">
+                                                <div
+                                                  dangerouslySetInnerHTML={{
+                                                    __html:
+                                                      matchingAlert.description_zh,
+                                                  }}
+                                                />
+                                              </td>
+                                            )}
+                                          </tr>
+                                        );
+                                      } else {
+                                        return null;
+                                      }
                                     }
                                   )
                               )
@@ -266,7 +329,7 @@ function AdminNewsManage() {
                   <br />
                   <AdminCreateAlert
                     showModal={showCreateAlertModal}
-                    toggleModal={toggleCreateAlertModal} 
+                    toggleModal={toggleCreateAlertModal}
                     alertData={alertData}
                   />
                   <Pagination />

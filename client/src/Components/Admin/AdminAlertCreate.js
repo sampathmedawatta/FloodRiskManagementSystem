@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import Quill from "react-quill";
+import "react-quill/dist/quill.snow.css"; // Import Quill styles
 import AlertsService from "../../services/alert.service";
-import { getUserSession } from "../Shared/SessionUtils";
+
 
 function AdminCreateAlert({ showModal, toggleModal, alertData }) {
   const [title, setTitle] = useState("");
@@ -117,17 +119,14 @@ function AdminCreateAlert({ showModal, toggleModal, alertData }) {
                     <label className="font-sm mb-10" required>
                       Description *
                     </label>
-                    <textarea
-                      placeholder="Description"
+                    <Quill
                       className={`form-control ${
                         descriptionError ? "is-invalid" : ""
                       }`}
                       value={description}
-                      onChange={(e) => {
-                        setDescription(e.target.value);
-                        setDescriptionError(false);
-                      }}
-                    ></textarea>
+                      onChange={setDescription}
+                      style={{ minHeight: '200px' }}
+                    />
                     {descriptionError && (
                       <div className="invalid-feedback">
                         Description is required
@@ -177,17 +176,14 @@ function AdminCreateAlert({ showModal, toggleModal, alertData }) {
                     <label className="font-sm mb-10" required>
                       Description (Chinese) *
                     </label>
-                    <textarea
-                      placeholder="Description (Chinese)"
+                    <Quill
                       className={`form-control ${
                         descriptionZhError ? "is-invalid" : ""
                       }`}
                       value={descriptionZh}
-                      onChange={(e) => {
-                        setDescriptionZh(e.target.value);
-                        setDescriptionZhError(false);
-                      }}
-                    ></textarea>
+                      onChange={setDescriptionZh}
+                      style={{ minHeight: '200px' }}
+                    />
                     {descriptionZhError && (
                       <div className="invalid-feedback">
                         Description (Chinese) is required
