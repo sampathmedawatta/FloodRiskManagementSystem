@@ -1,47 +1,15 @@
 const crypto = require("crypto");
 const { notificationEmail } = require("../communication/emailService");
-const alerts = [
-  {
-    id: "0dfe3b7e-df47-4e3b-aa31-1017eb2a68e3",
-    title: "alert1",
-    description: "alert description",
-    location: "location",
-    riskLevel: "H",
-    registeredUser: true,
-    authorities: true,
-    publishDate: "01/05/2024",
-    active: true,
-  },
-  {
-    id: "0dfe3b7e-df47-4e3b-aa31-1017eb2a68e4",
-    title: "alert1",
-    description: "alert description",
-    location: "location",
-    riskLevel: "H",
-    registeredUser: true,
-    authorities: true,
-    publishDate: "01/05/2024",
-    active: true,
-  },
-  {
-    id: "0dfe3b7e-df47-4e3b-aa31-1017eb2a68e5",
-    title: "alert1",
-    description: "alert description",
-    location: "location",
-    riskLevel: "H",
-    registeredUser: true,
-    authorities: true,
-    publishDate: "01/05/2024",
-    active: true,
-  },
-];
+const Alerts = require("../modules/alertsModel");
+const User = require("../modules/userModel");
 
-exports.getAllAlerts = (request, response) => {
+exports.getAllAlerts = async (request, response) => {
+  const alerts = await Alerts.find();
   response.status(200).json(alerts);
 };
 
-exports.getAlertById = (request, response) => {
-  const alert = alerts.find((alert) => alert.id == request.params.id);
+exports.getAlertById = async (request, response) => {
+  const alert = await Alerts.findOne({ _id: request.params.id });
 
   if (!alert) {
     return response.status(404).json({ message: "alert not found" });
@@ -50,105 +18,157 @@ exports.getAlertById = (request, response) => {
   response.status(200).json(alert);
 };
 
+exports.getAlertsByDays = async (request, response) => {
+  try {
+    const { days } = request.query; 
+
+    // Check if days is provided and is a valid number
+    if (!days || isNaN(parseInt(days))) {
+      return response.status(400).json({ success: false, error: "Invalid days parameter" });
+    }
+
+    const numDays = parseInt(days);
+    const currentDate = new Date();
+    const endDate = new Date(currentDate);
+    endDate.setDate(endDate.getDate() + numDays); 
+
+    console.log('Days:', days);
+    console.log('NumDays:', numDays);
+    console.log('CurrentDate:', currentDate);
+    console.log('EndDate:', endDate);
+
+    currentDate.setHours(0, 0, 0, 0);
+    endDate.setHours(23, 59, 59, 999);
+
+    const alerts = await Alerts.find({
+      alertDate: { $gte: currentDate, $lte: endDate },
+    });
+    if (alerts.length === 0) {
+      return response.status(404).json({ success: false, error: "No alerts found in the specified date range" });
+    }
+
+    return response.json({ success: true, alerts });
+  } catch (error) {
+    return response.status(500).json({ success: false, error: error.message });
+  }
+};
+
+
+
 exports.createAlert = async (request, response) => {
-  const {
-    title,
-    description,
-    location,
-    riskLevel,
-    registeredUser,
-    authorities,
-    publishDate,
-    active,
-  } = request.body;
+  try {
+    const {
+      alertDate,
+      riskLevel,
+      floodPrediction,
+      title,
+      description,
+      location,
+      title_zh,
+      description_zh,
+      authorities,
+      urgent,
+      active,
+    } = request.body;
 
-  if (!title) {
-    return response.status(422).json({ message: "title is required" });
+    // Check if all required fields are present
+    const requiredFields = [
+      "alertDate",
+      "riskLevel",
+      "floodPrediction",
+      "title",
+      "description",
+      "location",
+      "title_zh",
+      "description_zh",
+      "urgent",
+    ];
+    const missingFields = requiredFields.filter(
+      (field) => !request.body.hasOwnProperty(field)
+    );
+
+    if (missingFields.length > 0) {
+      return response.status(422).json({
+        message: `Missing required fields: ${missingFields.join(", ")}`,
+      });
+    }
+    const publishedDate = new Date();
+    // Create a new alert
+    const alert = await Alerts.create({
+      alertDate,
+      riskLevel,
+      floodPrediction,
+      title,
+      description,
+      location,
+      publishedDate,
+      title_zh,
+      description_zh,
+      authorities: authorities || true,
+      urgent,
+      active: active || true, 
+    });
+    // enable this to send notifications
+    // sendNotification(title, description, authorities, registeredUser);
+    response.status(201).json({ success: true, alert });
+  } catch (error) {
+    response.status(500).json({ success: false, error: error.message });
   }
+};
+exports.updateAlert = async (request, response) => {
+  try {
+    const alertId = request.params.id;
+    const { title, description, title_zh, description_zh, urgent, active } =
+      request.body;
 
-  const id = crypto.randomUUID();
+    let alert = await Alerts.findById(alertId);
 
-  alerts.push({
-    id,
-    title,
-    description,
-    location,
-    riskLevel,
-    registeredUser,
-    authorities,
-    publishDate,
-    active,
-  });
+    if (!alert) {
+      return response.status(404).json({ message: "Alert not found." });
+    }
 
-  // enable this to send notifications
-  // sendNotification(title, description, authorities, registeredUser);
+    if (title) {
+      alert.title = title;
+    }
+    if (description) {
+      alert.description = description;
+    }
+    if (title_zh) {
+      alert.title_zh = title_zh;
+    }
+    if (description_zh) {
+      alert.description_zh = description_zh;
+    }
+    if (urgent !== undefined) {
+      alert.urgent = urgent;
+    }
+    if (active !== undefined) {
+      alert.active = active;
+    }
 
-  response.status(201).json({ message: "alert created successfully", id });
+    // Save the updated alert
+    alert = await alert.save();
+
+    response.json({ success: true, alert });
+  } catch (error) {
+    response.status(500).json({ success: false, error: error.message });
+  }
 };
 
-exports.updateAlert = (request, response) => {
-  const alert = alerts.find((alert) => alert.id == request.params.id);
+exports.deleteAlert = async (request, response) => {
+  try {
+    const deleteResponse = await Alerts.findOneAndDelete({
+      _id: request.params.id,
+    });
 
-  if (!alert) {
-    return response.status(404).json({ message: "alert not found" });
+    if (deleteResponse) {
+      return response
+        .status(200)
+        .json({ message: "alert deleted successfully" });
+    }
+  } catch (error) {
+    response.status(500).send({ message: "Something went wrong!" });
   }
-
-  const {
-    title,
-    description,
-    location,
-    riskLevel,
-    registeredUser,
-    authorities,
-    publishDate,
-    active,
-  } = request.body;
-
-  if (title) {
-    alert.title = title;
-  }
-
-  if (description) {
-    alert.description = description;
-  }
-
-  if (location) {
-    alert.location = location;
-  }
-
-  if (riskLevel) {
-    alert.riskLevel = riskLevel;
-  }
-
-  if (registeredUser) {
-    alert.registeredUser = registeredUser;
-  }
-
-  if (authorities) {
-    alert.authorities = authorities;
-  }
-
-  if (publishDate) {
-    alert.publishDate = publishDate;
-  }
-
-  if ("active" in request.body) {
-    alert.active = active;
-  }
-
-  response.status(200).json({ message: "alert updated successfully" });
-};
-
-exports.deleteAlert = (request, response) => {
-  const alertIndex = alerts.findIndex((alert) => alert.id == request.params.id);
-
-  if (alertIndex == -1) {
-    return response.status(404).json({ message: "alert not found" });
-  }
-
-  alerts.splice(alertIndex, 1);
-
-  response.status(200).json({ message: "alert deleted successfully." });
 };
 
 const sendNotification = async (

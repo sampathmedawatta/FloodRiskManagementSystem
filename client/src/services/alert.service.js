@@ -21,10 +21,34 @@ const getAllAlerts = async () => {
     return response.data;
   });
 };
+const getAlertsByDays = async (days) => {
+  console.log("Fetching alerts for", days, "days");
+
+  try {
+      const response = await axiosInstance.get(`/days?days=${days}`, headers);
+      console.log("Response from server:", response.data);
+      return response.data;
+  } catch (error) {
+      console.error("Error fetching alerts:", error);
+      throw error; // Propagate the error up the call stack
+  }
+};
+
+const createAlert = async (formData) => {
+  try {
+    const response = await axiosInstance.post("/", formData, {});
+    return response.data;
+  } catch (error) {
+    console.error("Error creating alert ", error);
+    throw error;
+  }
+};
 
 const AlertService = {
   getAlertById,
   getAllAlerts,
+  createAlert,
+  getAlertsByDays,
 };
 
 export default AlertService;

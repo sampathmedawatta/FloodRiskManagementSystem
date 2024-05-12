@@ -398,6 +398,32 @@
         }
       }
     },
+    "/alerts/days": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "days",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/alerts/": {
       "get": {
         "description": "",
@@ -416,6 +442,18 @@
             "schema": {
               "type": "object",
               "properties": {
+                "fieldfield": {
+                  "example": "any"
+                },
+                "alertDate": {
+                  "example": "any"
+                },
+                "riskLevel": {
+                  "example": "any"
+                },
+                "floodPrediction": {
+                  "example": "any"
+                },
                 "title": {
                   "example": "any"
                 },
@@ -425,16 +463,16 @@
                 "location": {
                   "example": "any"
                 },
-                "riskLevel": {
+                "title_zh": {
                   "example": "any"
                 },
-                "registeredUser": {
+                "description_zh": {
                   "example": "any"
                 },
                 "authorities": {
                   "example": "any"
                 },
-                "publishDate": {
+                "urgent": {
                   "example": "any"
                 },
                 "active": {
@@ -450,6 +488,9 @@
           },
           "422": {
             "description": "Unprocessable Entity"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -495,19 +536,13 @@
                 "description": {
                   "example": "any"
                 },
-                "location": {
+                "title_zh": {
                   "example": "any"
                 },
-                "riskLevel": {
+                "description_zh": {
                   "example": "any"
                 },
-                "registeredUser": {
-                  "example": "any"
-                },
-                "authorities": {
-                  "example": "any"
-                },
-                "publishDate": {
+                "urgent": {
                   "example": "any"
                 },
                 "active": {
@@ -523,6 +558,9 @@
           },
           "404": {
             "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },
@@ -540,8 +578,8 @@
           "200": {
             "description": "OK"
           },
-          "404": {
-            "description": "Not Found"
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -677,9 +715,6 @@
                   "example": "any"
                 },
                 "lang": {
-                  "example": "any"
-                },
-                "hasLoggedIn": {
                   "example": "any"
                 },
                 "active": {
@@ -890,7 +925,7 @@
         }
       }
     },
-    "/auth/{id}/change-password": {
+    "/auth/password/reset/{id}/": {
       "post": {
         "description": "",
         "parameters": [
@@ -922,6 +957,9 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }

@@ -47,7 +47,6 @@ const NewsFeedCard = () => {
                 </h6>
               </div>
               <div className="col-md-2">
-                {/*TODO: link this to news feed page */}
                 <Link to="/news-feed">
                 <p className="text-end font-xs color-text-paragraph-2">
                   See more

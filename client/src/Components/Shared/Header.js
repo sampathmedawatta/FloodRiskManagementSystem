@@ -36,6 +36,8 @@ function Header() {
   console.log('logout')
    sessionStorage.removeItem("user");
    sessionStorage.removeItem("userToken");
+   localStorage.clear(); 
+   sessionStorage.clear();
 
    window.location.href = "http://localhost:3000/";
  };
