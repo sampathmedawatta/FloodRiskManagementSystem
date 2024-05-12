@@ -5,7 +5,7 @@ class WeatherHistory(BaseModel):
     location: str
     year: int
     month: int
-    date: int
+    day: int
     humidity: int
     mean_windspeed: float
     wind_direction: int
