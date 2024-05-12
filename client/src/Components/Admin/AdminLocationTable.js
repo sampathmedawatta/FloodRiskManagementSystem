@@ -5,7 +5,9 @@ function AdminLocationTable({
   locations,
   toggleEditModal,
   handleLocationAction,
-}) {
+})
+
+{
   return (
     <div className="table-responsive">
       <table className="table no-wrap user-table mb-0">
@@ -23,24 +25,33 @@ function AdminLocationTable({
               className="pl-4"
               style={{ width: "30%", textAlign: "left" }}
             >
-              Title
+              Name
             </th>
-            <th scope="col" style={{ width: "50%", textAlign: "left" }}>
+            <th scope="col" style={{ width: "20%", textAlign: "left" }}>
               Description
             </th>
             <th scope="col" style={{ width: "10%", textAlign: "left" }}>
-              Status
+              Type
+            </th>
+            <th scope="col" style={{ width: "20%", textAlign: "left" }}>
+              Address
+            </th>
+            <th scope="col" style={{ width: "10%", textAlign: "left" }}>
+              Contact
+            </th>
+            <th scope="col" style={{ width: "10%", textAlign: "left" }}>
+              Ref Location
             </th>
             <th scope="col" style={{ width: "10%", textAlign: "left" }}>
               Manage
             </th>
           </tr>
         </thead>
-        {/* <AdminLocationList
+        <AdminLocationList
           locations={locations}
           toggleEditModal={toggleEditModal}
           handleLocationAction={handleLocationAction}
-        /> */}
+        />
       </table>
     </div>
   );
