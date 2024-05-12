@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import LocationService from "../../services/location.service";
 
 function AdminLocationCreate({ showModal, toggleModal, createLocation }) {
+  const [locations, setLocations] = useState([]);
+
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [type, setType] = useState("");
@@ -18,6 +21,22 @@ function AdminLocationCreate({ showModal, toggleModal, createLocation }) {
   const [refLocationError, setRefLocationError] = useState(false);
   const [latitudeError, setLatitudeError] = useState(false);
   const [longitudeError, setLongitudeError] = useState(false);
+
+  useEffect(() => {
+    const fetchLocations = async () => {
+      try {
+        const floodLocations = await LocationService.getFloodLocations("Flood");
+        if (floodLocations) {
+          setLocations(floodLocations);
+        }
+      } catch (error) {
+        console.error("Error while fetching flood location data", error);
+      }
+    };
+    fetchLocations();
+  }, []);
+
+  
 
   const handleCreateLocation = () => {
     if (!name.trim()) {
@@ -88,7 +107,8 @@ function AdminLocationCreate({ showModal, toggleModal, createLocation }) {
         longitude,
         address,
         contact
-      ); 
+      );
+      
       setName("");
       setDescription("");
       setType("");
@@ -247,22 +267,26 @@ function AdminLocationCreate({ showModal, toggleModal, createLocation }) {
               </div>
               <div className="col-md-6">
                 <div class="form-group">
-                  <label class="font-sm mb-10 " required>
+                  <label className="font-sm mb-10" required>
                     Reference Location *
                   </label>
-                  <input
-                    type="text"
-                    placeholder="Ref-Location"
+                  <select
                     className={`form-control ${
                       refLocationError ? "is-invalid" : ""
                     }`}
                     value={refLocation}
                     onChange={(e) => {
                       setRefLocation(e.target.value);
-                      setRefLocationError(false); // Clear error when typing
+                      setRefLocationError(false);
                     }}
-                  />
-
+                  >
+                    <option value="">Select Location</option>
+                    {locations.map((location) => (
+                      <option key={location.id} value={location.id}>
+                        {location.name}
+                      </option>
+                    ))}
+                  </select>
                   {refLocationError && (
                     <div className="invalid-feedback">
                       Ref-Location is required
