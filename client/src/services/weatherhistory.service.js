@@ -27,8 +27,33 @@ const getWeatherHistory = async (location, year, month) => {
   }
 };
 
+const updateHistoryData = async (locationCode) => {
+  try {
+    return await axiosInstance
+      .get("/history/update?location=" + locationCode, {
+        headers,
+      })
+      .then((response) => {
+        if (response != undefined && response != null) {
+          return response.data;
+        }
+      });
+  } catch (error) {
+    if (error.response) {
+      throw new Error(
+        `Request failed with status ${error.response.status}: ${error.response.data}`
+      );
+    } else if (error.request) {
+      throw new Error("No response received from the server");
+    } else {
+      throw new Error("Error setting up the request: " + error.message);
+    }
+  }
+};
+
 const WeatherHistoryService = {
-  getWeatherHistory
+  getWeatherHistory,
+  updateHistoryData,
 };
 
 export default WeatherHistoryService;
