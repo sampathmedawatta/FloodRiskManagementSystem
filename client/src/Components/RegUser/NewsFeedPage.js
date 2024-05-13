@@ -38,7 +38,7 @@ const NewsFeedPage = () => {
   }, [location]);
 
   return (
-    <div className="section-box query-section-box mx-2">
+    <div className="box-content">
       <div className="container">
         <div className="panel-white">
           <div className="panel-head">

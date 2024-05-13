@@ -56,7 +56,6 @@ const QueryTable = ({ queryData }) => {
 
   return (
     <>
-      <div className="section-box query-section-box">
         <div className="container">
           <div className="panel-white">
             <div className="panel-head">
@@ -207,7 +206,7 @@ const QueryTable = ({ queryData }) => {
             </div>
           </div>
         </div>
-      </div>
+     
       <div
         class="modal fade"
         id="askQueryModal"
@@ -218,7 +217,7 @@ const QueryTable = ({ queryData }) => {
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h1 class="modal-title fs-5"><i class="bi bi-chat-text-fill fs-5"></i> 	&nbsp;&nbsp; Ask your Query</h1>
+              <h1 class="modal-title fs-5"><i class="bi bi-chat-text-fill fs-5"> &nbsp;&nbsp;</i> 	&nbsp;&nbsp; Ask your Query</h1>
               <button
                 type="button"
                 class="btn-close"
