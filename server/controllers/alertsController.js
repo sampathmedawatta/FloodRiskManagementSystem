@@ -18,9 +18,25 @@ exports.getAlertById = async (request, response) => {
   response.status(200).json(alert);
 };
 
+exports.getAlertsByDate = async (request, response) => {
+  const { date } = request.body; 
+
+  console.log(date);
+  const alerts = await Alerts.find({
+    alertDate: date,
+  });
+
+  if (!alerts) {
+    return response.status(404).json({ message: "alerts not found" });
+  }
+
+  response.status(200).json(alerts);
+};
+
 exports.getAlertsByDays = async (request, response) => {
   try {
     const { days } = request.query; 
+    
 
     // Check if days is provided and is a valid number
     if (!days || isNaN(parseInt(days))) {

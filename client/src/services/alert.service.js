@@ -21,6 +21,17 @@ const getAllAlerts = async () => {
     return response.data;
   });
 };
+
+const getAlertsByDate = async (formData) => {
+  try {
+    const response = await axiosInstance.get("/ByDate/", {formData}, headers);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching alerts:", error);
+    throw error; // Propagate the error up the call stack
+  }
+};
+
 const getAlertsByDays = async (days) => {
   try {
     const response = await axiosInstance.get(`/days?days=${days}`, headers);
@@ -56,6 +67,7 @@ const AlertService = {
   createAlert,
   getAlertsByDays,
   updateAlertById,
+  getAlertsByDate,
 };
 
 export default AlertService;

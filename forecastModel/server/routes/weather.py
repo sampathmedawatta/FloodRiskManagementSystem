@@ -101,10 +101,8 @@ async def find_weather(location: str, days: int):
         # forecast_weather_data = await get_weather_record(days)
 
         # use sample weather data
-        print('sample data')
         forecast_weather_data = await sampleWeatherData(location, days)
 
-        print(forecast_weather_data)
         # get response from ML model
         response = requests.post(url, data=json.dumps(forecast_weather_data))
 
