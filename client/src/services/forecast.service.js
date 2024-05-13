@@ -18,7 +18,7 @@ const getForecastByLocation = async (location, days) => {
   } else if (location == "Cheung Chau") {
     loc = "CC";
   } else if (location == "Yau Ma Tei") {
-    loc = "YMI";
+    loc = "YMT";
   } else if (location == "Shek Kong") {
     loc = "SK";
   } else if (location == "Sha Tin") {

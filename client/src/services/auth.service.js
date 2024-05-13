@@ -23,8 +23,7 @@ const login = async (parms) => {
 };
 
 const resetPassword = async (parms, _id) => {
-  console.log(parms);
-  console.log(_id);
+
   return await axiosInstance
     .post("/password/reset/" + _id, parms, {
       headers,
