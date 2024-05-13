@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import AlertService from "../../services/alert.service";
 import AlertsView from "./AlertsView";
+import { useLocation } from "../../contexts/LocationContext";
 
-const AlertsComponent = ({ forecastPeriod, location }) => {
+const AlertsComponent = ({ forecastPeriod }) => {
   const [alertsbyDaysLoc, setAlertsbyDaysLoc] = useState(null);
   const [userLang, setUserLang] = useState(null);
   const [selectedAlert, setSelectedAlert] = useState(null);
+  const { location } = useLocation();
 
   const getlocation = (name) => {
     if (name === "Chek Lap Kok") {
