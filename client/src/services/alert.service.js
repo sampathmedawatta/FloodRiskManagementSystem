@@ -24,7 +24,6 @@ const getAllAlerts = async () => {
 const getAlertsByDays = async (days) => {
   try {
     const response = await axiosInstance.get(`/days?days=${days}`, headers);
-    console.log("Response from server:", response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching alerts:", error);

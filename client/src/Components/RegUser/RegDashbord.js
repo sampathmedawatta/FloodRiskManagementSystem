@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import RegMainAlert from "./RegMainAlert";
+import { useLocation } from "../../contexts/LocationContext";
 import RegFloodForecast5Days from "./RegFloodForecast5Days";
 import Map from "../Shared/Map";
 import AlertService from "../../services/alert.service";
@@ -8,102 +8,71 @@ import NewsFeedCard from "./NewsFeedCard";
 import EmergencyContactCardHolder from "./EmergencyContactCard";
 import AlertsComponent from "./AlertsComponent";
 
-function RegDashbord() {
+function RegDashboard() {
+  const {location} = useLocation(); //can use this after modifying alert data to existing locations
+  //const location = "location";
   const [alertData, setAlertData] = useState(null);
-  //TODO: const {location} = useLocation(); can use this after modifying alert data to existing locations
-  const location = "location";
+  const dummylocation="Chek Lap Kok";
+
 
   useEffect(() => {
     const fetchLocationData = async () => {
-      try {
+     /* try {
         const alerts = await AlertService.getAllAlerts();
         if (alerts) {
-          // Sort alerts based on publish date in descending order
           const sortedAlerts = alerts.sort(
             (a, b) => new Date(b.publishDate) - new Date(a.publishDate)
           );
-
-          // Filter alerts based on location
           const filteredAlerts = sortedAlerts.filter(
             (alert) => alert.location === location
           );
-
-          // Set latest alert
           if (filteredAlerts.length > 0) {
             setAlertData(filteredAlerts[0]);
+          } else {
+            setAlertData(null); // Clear alert data if no alerts for the location
           }
         }
       } catch (error) {
         console.error("Error fetching location data:", error);
-      }
+        // You might want to handle this error more gracefully, like displaying a message to the user
+      }*/
     };
 
     fetchLocationData();
-  }, [location]);
+  }, );
 
-  /*return (
+
+
+  return (
     <div className="box-content">
       <div className="row">
-        
-      </div>
-      <div className="row">
-        <div className="col-md-12">
+        <div className="col-md-9">
           <RegFloodForecast5Days />
+        </div>
+        <div className="col-md-3">
+          <WeatherObservationCard />
         </div>
       </div>
       <div className="row mt-1">
         <div className="col-md-8">
-          <Map></Map>
+          <Map />
         </div>
         <div className="col-md-4">
-          <WeatherObservationCard />
+          <AlertsComponent 
+          forecastPeriod={7} 
+          location={dummylocation} />
         </div>
       </div>
       <div className="row mt-2">
         <div className="col-md-6">
-          <EmergencyContactCardHolder />;
+          <EmergencyContactCardHolder />
         </div>
         <div className="col-md-6">
           <NewsFeedCard />
         </div>
       </div>
     </div>
-  );*/
-
-
-
-
-  return (
-    <div className="box-content">
-
-      <div className="row">
-        <div className="col-md-9">
-        <RegFloodForecast5Days />
-        </div>
-        <div className="col-md-3">
-        <WeatherObservationCard />
-        </div>
-        
-      </div>
-      <div className="row mt-1">
-        <div className="col-md-8">
-          <Map></Map>
-        </div>
-        <div className="col-md-4">
-<AlertsComponent></AlertsComponent>
-        </div>
-      </div>
-      <div className="row mt-2">
-        <div className="col-md-6">
-          <EmergencyContactCardHolder />;
-        </div>
-        <div className="col-md-6">
-          <NewsFeedCard />
-        </div>
-      </div>
-      </div>
-
- 
   );
 }
-export default RegDashbord;
+
+export default RegDashboard;
