@@ -3,14 +3,9 @@ import Pagination from "./Pagination";
 import LocationService from "../../services/location.service";
 import WeatherHistoryService from "../../services/weatherhistory.service";
 
-function AdminFloodHistory() {
+const UpdateHistoryData = (showModal) => {
   const [locations, setLocations] = useState(null);
-  const [months, setMonths] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState("");
-  const [selectedYear, setSelectedYear] = useState("");
-  const [selectedMonth, setSelectedMonth] = useState("");
-  const [historyData, setHistoryData] = useState(null); // State to hold history data
-  const [loading, setLoading] = useState(false); // State to manage loading state
 
   useEffect(() => {
     const fetchLocations = async () => {
@@ -25,6 +20,125 @@ function AdminFloodHistory() {
     };
     fetchLocations();
   }, []);
+
+  const handleUpdateData = async () => {
+    if (selectedLocation !== "" && selectedLocation !== undefined) {
+      try {
+        await WeatherHistoryService.updateHistoryData(selectedLocation);
+      } catch (error) {
+        console.error("Error creating update history data:", error);
+      }
+    } else {
+      console.log("Select Location");
+    }
+  };
+
+  const toggleModal = () => {
+    
+  };
+
+  return (
+    <div className="panel-body">
+      <div
+        className={`modal fade ${showModal ? "show" : ""}`}
+        style={{ display: showModal ? "block" : "none" }}
+      >
+        <div className="modal-dialog modal-lg" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h6 className="modal-title">
+                <i className="bi bi-file-plus-fill"></i> &nbsp;&nbsp;Update
+                Flood History Data
+              </h6>
+              <button
+                type="button"
+                data-dismiss="modal"
+                aria-label="Close"
+                className="btn"
+                onClick={() => {
+                  toggleModal();
+                }}
+              >
+                <i className="bi bi-x-square-fill fs-5 "></i>
+              </button>
+            </div>
+            <div className="modal-body">
+              <div className="row">
+                <div className="col-md-5">
+                  <div className="form-group">
+                    <label className="font-sm mb-10" required>
+                      Select Location *
+                    </label>
+                    <select
+                      required
+                      className="form-control"
+                      value={selectedLocation}
+                      onChange={(e) => setSelectedLocation(e.target.value)}
+                    >
+                      <option value="">Select Location</option>
+                      {locations &&
+                        locations.map((location, index) => (
+                          <option key={index} value={location.code}>
+                            {location.name}
+                          </option>
+                        ))}
+                    </select>
+                    <div className="invalid-feedback">Location is required</div>
+                  </div>
+                </div>
+                <div className="col-md-4 align-self-end">
+                  <div className="form-group ">
+                    <button
+                      onClick={handleUpdateData}
+                      className="btn btn-login hover-up text-12 w-100"
+                    >
+                      <i className="bi bi-download"></i> &nbsp; Update History
+                      Data
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="row modal-footer">
+              <div className="col-md-9"></div>
+              <div className="col-md-3 d-flex justify-content-end"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+
+function AdminFloodHistory() {
+  const [locations, setLocations] = useState(null);
+  const [months, setMonths] = useState([]);
+  const [selectedLocation, setSelectedLocation] = useState("");
+  const [selectedYear, setSelectedYear] = useState("");
+  const [selectedMonth, setSelectedMonth] = useState("");
+  const [historyData, setHistoryData] = useState(null); // State to hold history data
+  const [loading, setLoading] = useState(false); // State to manage loading state
+
+  const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    const fetchLocations = async () => {
+      try {
+        const floodLocations = await LocationService.getFloodLocations("Flood");
+        if (floodLocations) {
+          setLocations(floodLocations);
+        }
+      } catch (error) {
+        console.error("Error while fetching flood location data", error);
+      }
+    };
+    fetchLocations();
+  }, []);
+
+  const updateHistoryData = async () => {
+    setShowModal(true);
+  };
 
   useEffect(() => {
     // Generate months based on the selected year
@@ -104,23 +218,7 @@ function AdminFloodHistory() {
     form.classList.add("was-validated");
   };
 
-   const updateHistoryData = async () => {
-
-    if (selectedLocation !== '' && selectedLocation !== undefined) {
-      try {
-        await WeatherHistoryService.updateHistoryData(
-          selectedLocation
-        );
-
-      } catch (error) {
-        console.error("Error creating FAQ:", error);
-      }
-    }
-    else{
-       console.log("Select Location");
-    }
-  };
-
+  
   return (
     <div className="box-content">
       <div className="row">
@@ -324,6 +422,8 @@ function AdminFloodHistory() {
                     <Pagination />{" "}
                   </div>
                 </div>
+
+                {showModal && <UpdateHistoryData showModal={showModal} />}
               </div>
             </div>
           </div>
