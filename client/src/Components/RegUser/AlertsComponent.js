@@ -105,6 +105,7 @@ const AlertsComponent = ({ forecastPeriod }) => {
                         <p
                           className="text-end font-xs color-text-paragraph-2"
                           onClick={() => handleSeeMoreClick(alert,userLang)}
+                          style={{ cursor: 'pointer' }}
                         >
                           See more
                         </p>

@@ -305,7 +305,7 @@ function UserRegistration() {
                                         Select Preferred Language
                                       </option>
                                       <option value="English">English</option>
-                                      <option value="Chinese">Chinese</option>
+                                      <option value="Chinese">Cantonese</option>
                                     </select>
                                     {errors.lang && (
                                       <div className="invalid-feedback">

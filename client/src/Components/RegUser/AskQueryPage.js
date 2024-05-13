@@ -28,9 +28,9 @@ const AskQueryPage = () => {
 
   return (
     <div className="box-content">
-      <div className="row">
+
         <QueryTable queryData={queries}/>
-      </div>
+   
     </div>
   );
 };

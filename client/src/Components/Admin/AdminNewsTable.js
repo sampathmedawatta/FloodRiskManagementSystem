@@ -40,13 +40,13 @@ function AdminNewsTable({ news, toggleEditModal, handleNewsAction }) {
               scope="col"
               style={{ width: "14%", textAlign: "left" }} // Adjusted width for Title Zh
             >
-              Title Zh
+              Title Cantonese
             </th>
             <th
               scope="col"
               style={{ width: "18%", textAlign: "left" }} // Adjusted width for Description Zh
             >
-              Description Zh
+              Description Cantonese
             </th>
             <th
               scope="col"

@@ -52,7 +52,6 @@ function AdminCreateNews({ showModal, toggleModal }) {
       console.error("Error while fetching flood location data", error);
     }
   };
-  
 
   const handleCreateNews = async () => {
     const titleValid = title.trim();
@@ -69,9 +68,16 @@ function AdminCreateNews({ showModal, toggleModal }) {
     setLocationError(!locationValid);
     setFileError(!fileValid);
 
-    if (titleValid && descriptionValid && titleZhValid && descriptionZhValid && locationValid && fileValid) {
-       const createdBy=userId;
-   
+    if (
+      titleValid &&
+      descriptionValid &&
+      titleZhValid &&
+      descriptionZhValid &&
+      locationValid &&
+      fileValid
+    ) {
+      const createdBy = userId;
+
       try {
         console.log("File:", file);
         const formData = new FormData();
@@ -82,7 +88,7 @@ function AdminCreateNews({ showModal, toggleModal }) {
         formData.append("description_zh", descriptionZh);
         formData.append("createdBy", createdBy);
         formData.append("imageURL", file); // Append the file with the correct field name
-  
+
         await NewsService.createNewsItem(formData);
         console.log("FormData:", formData);
         resetFormData();
@@ -94,7 +100,10 @@ function AdminCreateNews({ showModal, toggleModal }) {
   };
 
   return (
-    <div className={`modal fade ${showModal ? "show" : ""}`} style={{ display: showModal ? "block" : "none" }}>
+    <div
+      className={`modal fade ${showModal ? "show" : ""}`}
+      style={{ display: showModal ? "block" : "none" }}
+    >
       <div className="modal-dialog modal-lg" role="document">
         <div className="modal-content">
           <div className="modal-header">
@@ -117,9 +126,13 @@ function AdminCreateNews({ showModal, toggleModal }) {
             <div className="row">
               <div className="col-md-6">
                 <div className="form-group">
-                  <label className="font-sm mb-10" required>Location *</label>
+                  <label className="font-sm mb-10" required>
+                    Location *
+                  </label>
                   <select
-                    className={`form-control ${locationError ? "is-invalid" : ""}`}
+                    className={`form-control ${
+                      locationError ? "is-invalid" : ""
+                    }`}
                     value={location}
                     onChange={(e) => {
                       setLocation(e.target.value);
@@ -128,13 +141,19 @@ function AdminCreateNews({ showModal, toggleModal }) {
                   >
                     <option value="">Select Location</option>
                     {locations.map((location) => (
-                      <option key={location.id} value={location.id}>{location.name}</option>
+                      <option key={location.id} value={location.id}>
+                        {location.name}
+                      </option>
                     ))}
                   </select>
-                  {locationError && <div className="invalid-feedback">Location is required</div>}
+                  {locationError && (
+                    <div className="invalid-feedback">Location is required</div>
+                  )}
                 </div>
                 <div className="form-group">
-                  <label className="font-sm mb-10" required>Title *</label>
+                  <label className="font-sm mb-10" required>
+                    Title *
+                  </label>
                   <input
                     type="text"
                     placeholder="Title"
@@ -145,20 +164,30 @@ function AdminCreateNews({ showModal, toggleModal }) {
                       setTitleError(false);
                     }}
                   />
-                  {titleError && <div className="invalid-feedback">Title is required</div>}
+                  {titleError && (
+                    <div className="invalid-feedback">Title is required</div>
+                  )}
                 </div>
                 <div className="form-group">
-                  <label className="font-sm mb-10" required>Description *</label>
+                  <label className="font-sm mb-10" required>
+                    Description *
+                  </label>
                   <textarea
                     placeholder="Description"
-                    className={`form-control ${descriptionError ? "is-invalid" : ""}`}
+                    className={`form-control ${
+                      descriptionError ? "is-invalid" : ""
+                    }`}
                     value={description}
                     onChange={(e) => {
                       setDescription(e.target.value);
                       setDescriptionError(false);
                     }}
                   ></textarea>
-                  {descriptionError && <div className="invalid-feedback">Description is required</div>}
+                  {descriptionError && (
+                    <div className="invalid-feedback">
+                      Description is required
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="col-md-6">
@@ -167,36 +196,58 @@ function AdminCreateNews({ showModal, toggleModal }) {
                   <input
                     type="file"
                     onChange={(e) => setFile(e.target.files[0])}
-                    className={` btn form-control-file ${fileError ? "is-invalid" : ""}`}
+                    className={` btn form-control-file ${
+                      fileError ? "is-invalid" : ""
+                    }`}
                   />
-                  {fileError && <div className="invalid-feedback">File upload is required</div>}
+                  {fileError && (
+                    <div className="invalid-feedback">
+                      File upload is required
+                    </div>
+                  )}
                 </div>
                 <div className="form-group">
-                  <label className="font-sm mb-10" required>Title (Chinese) *</label>
+                  <label className="font-sm mb-10" required>
+                    Title (Cantonese) *
+                  </label>
                   <input
                     type="text"
-                    placeholder="Title (Chinese)"
-                    className={`form-control ${titleZhError ? "is-invalid" : ""}`}
+                    placeholder="Title (Cantonese)"
+                    className={`form-control ${
+                      titleZhError ? "is-invalid" : ""
+                    }`}
                     value={titleZh}
                     onChange={(e) => {
                       setTitleZh(e.target.value);
                       setTitleZhError(false);
                     }}
                   />
-                  {titleZhError && <div className="invalid-feedback">Title (Chinese) is required</div>}
+                  {titleZhError && (
+                    <div className="invalid-feedback">
+                      Title (Cantonese) is required
+                    </div>
+                  )}
                 </div>
                 <div className="form-group">
-                  <label className="font-sm mb-10" required>Description (Chinese) *</label>
+                  <label className="font-sm mb-10" required>
+                    Description (Cantonese) *
+                  </label>
                   <textarea
-                    placeholder="Description (Chinese)"
-                    className={`form-control ${descriptionZhError ? "is-invalid" : ""}`}
+                    placeholder="Description (Cantonese)"
+                    className={`form-control ${
+                      descriptionZhError ? "is-invalid" : ""
+                    }`}
                     value={descriptionZh}
                     onChange={(e) => {
                       setDescriptionZh(e.target.value);
                       setDescriptionZhError(false);
                     }}
                   ></textarea>
-                  {descriptionZhError && <div className="invalid-feedback">Description (Chinese) is required</div>}
+                  {descriptionZhError && (
+                    <div className="invalid-feedback">
+                      Description (Chinese) is required
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

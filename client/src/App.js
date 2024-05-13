@@ -26,6 +26,7 @@ import AdminFloodHistory from './Components/Admin/AdminFloodHistory';
 import AdminFloodForecastPage from './Components/Admin/AdminFloodForecastPage';
 import AdminAlerts from './Components/Admin/AdminAlerts';
 import AdminLocations from "./Components/Admin/AdminLocations";
+import AdminFloodMissing from './Components/Admin/AdminFloodMissing';
 
 
 const userSession = getUserSession();
@@ -57,7 +58,7 @@ function App() {
             {isAdmin && <Route path="view-forecast" element={<AdminFloodForecastPage />} />}
             {isAdmin && <Route path="manage-alerts" element={<AdminAlerts />} />}
             {isAdmin && <Route path="manage-locations" element={<AdminLocations />} />}
-            
+            {isAdmin && <Route path="manage-history" element={<AdminFloodMissing />} />}
 
 
             {/* For Registered Users */}

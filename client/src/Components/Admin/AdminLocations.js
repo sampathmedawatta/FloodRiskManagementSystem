@@ -3,7 +3,6 @@ import AdminLocationManage from "./AdminLocationManage";
 function AdminLocation() {
   return (
     <div className="box-content">
-      <br />
       <div className="row">
         <AdminLocationManage />
       </div>

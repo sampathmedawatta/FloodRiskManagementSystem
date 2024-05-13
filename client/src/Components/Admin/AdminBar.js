@@ -1,50 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { getCurrentDateInfo } from "../Shared/Utils";
 import AdminBarRegUsersCard from "./AdminBarRegUsersCard";
-import AdminBarPendingInquiriesCard from "./AdminBarPendingInquiriesCard"
+import AdminBarPendingInquiriesCard from "./AdminBarPendingInquiriesCard";
 import AdminBarNewsArticlesCard from "./AdminBarNewsArticlesCard";
 import AdminBarAlertCard from "./AdminBarAlertCard";
 
 function AdminBar() {
-  const { today, twoWeeksDate } =
-    getCurrentDateInfo();
+  const { today, twoWeeksDate } = getCurrentDateInfo();
   return (
     <div className="">
-
       <div className="section-box">
         <div className="container">
           <div className="panel-white">
             <div className="panel-body">
               <div className="container">
                 <div className="row gx-2 justify-content-between">
-                <AdminBarRegUsersCard></AdminBarRegUsersCard>
-                <AdminBarPendingInquiriesCard></AdminBarPendingInquiriesCard>
-                  
-                  <div className="col-2">
-                    <a href="#">
-                      <div className="card-style-1 hover-up hover-color ">
-                        <div className="card-info">
-                          <div className="card-title row">
-                            <div className="col">
-                              <h6 className="text-start">Flood  <br></br> Alerts</h6>
-                            </div>
-                            <div className="col-auto">
-                              <i className="bi bi-exclamation-triangle-fill fs-3 color-brand-1" />
-                            </div>
-                          </div>
-                          <div className="ptb-10">
-                            <p className="font-box-flood text-center color-brand-1">2000</p>
-                          </div>
-                          <br></br>
-                          <p className="text-10 text-center strong color-brand-1"><strong>4 </strong> new alerts this week.
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                  <AdminBarAlertCard></AdminBarAlertCard>
-<AdminBarNewsArticlesCard></AdminBarNewsArticlesCard>
+                  <AdminBarRegUsersCard></AdminBarRegUsersCard>
+                  <AdminBarPendingInquiriesCard></AdminBarPendingInquiriesCard>
 
+                  <AdminBarAlertCard></AdminBarAlertCard>
+                  <AdminBarNewsArticlesCard></AdminBarNewsArticlesCard>
                 </div>
               </div>
             </div>
@@ -52,7 +27,6 @@ function AdminBar() {
         </div>
       </div>
     </div>
-
   );
 }
 export default AdminBar;

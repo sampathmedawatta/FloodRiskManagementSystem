@@ -199,7 +199,7 @@ function AdminNewsManage() {
                                 Title
                               </th>
                               <th scope="col" style={{ textAlign: "left" }}>
-                                Title Zh
+                                Title Cantonese
                               </th>
                               <th scope="col" style={{ textAlign: "left" }}>
                                 View
