@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import AdminCreateAlert  from "./AdminAlertCreate"
+import AdminCreateAlert from "./AdminAlertCreate";
 import AlertsService from "../../services/alert.service";
 
 const ForecastPopup = ({ location, forecast, date, onClose }) => {
@@ -17,7 +17,7 @@ const ForecastPopup = ({ location, forecast, date, onClose }) => {
         const alerts = response.filter(
           (alert) => alert.alertDate === new Date(forecast.date).toISOString()
         );
-        
+
         if (!alerts || alerts.length === 0) {
           setShowAlertData(false);
           setShowModal(true);
@@ -25,7 +25,6 @@ const ForecastPopup = ({ location, forecast, date, onClose }) => {
           setShowAlertData(true);
           setShowModal(false);
         }
-
       }
     } catch (error) {
       console.error("Error fetching Users:", error);
@@ -91,8 +90,13 @@ const ForecastPopup = ({ location, forecast, date, onClose }) => {
               </div>
             </div>
             <div className="row">
+              <div className="col-md-12"> &nbsp;</div>
+            </div>
+            <div className="row">
               <div className="col-md-12">
-                <p>Allert message already created!</p>
+                <p className="color-brand-1" style={{ fontWeight: "bold" }}>
+                  Alert already exists.
+                </p>
               </div>
             </div>
           </div>

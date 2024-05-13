@@ -126,7 +126,21 @@ function Navbar() {
               >
                 <i class="bi bi-clock-history fs-5"></i>
                 <span class="name">
-                  &nbsp;&nbsp;&nbsp;Flood History &nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp;History Flood &nbsp;&nbsp;
+                </span>
+              </Link>
+            </a>
+          </li>
+          <li>
+            {" "}
+            <a
+              className={`dashboard ${isActiveLink("/") ? "active" : ""}`}
+              href="/"
+            >
+              <Link to="/manage-history" className="nav-link px-0 align-middle">
+                <i class="bi bi-cloud-upload-fill fs-5"></i>
+                <span class="name">
+                  &nbsp;&nbsp;&nbsp;Missing Flood Data&nbsp;&nbsp;
                 </span>
               </Link>
             </a>

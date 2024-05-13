@@ -148,30 +148,15 @@ function AdminCreateAlert({ showModal, toggleModal, alertData, fetchData }) {
                       </div>
                     )}
                   </div>
-                  <div className="form-group">
-                    <label className="font-sm mb-10" required>
-                      Urgent &nbsp;&nbsp;&nbsp;
-                    </label>
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      value=""
-                      id="urgentChecked"
-                      checked={urgentChecked}
-                      onChange={(e) => {
-                        setUrgentChecked(e.target.checked);
-                      }}
-                    />
-                  </div>
                 </div>
                 <div className="col-md-6">
                   <div className="form-group">
                     <label className="font-sm mb-10" required>
-                      Title (Chinese) *
+                      Title (Cantonese) *
                     </label>
                     <input
                       type="text"
-                      placeholder="Title (Chinese)"
+                      placeholder="Title (Cantonese)"
                       className={`form-control ${
                         titleZhError ? "is-invalid" : ""
                       }`}
@@ -180,13 +165,13 @@ function AdminCreateAlert({ showModal, toggleModal, alertData, fetchData }) {
                     />
                     {titleZhError && (
                       <div className="invalid-feedback">
-                        Title (Chinese) is required
+                        Title (Cantonese) is required
                       </div>
                     )}
                   </div>
                   <div className="form-group">
                     <label className="font-sm mb-10" required>
-                      Description (Chinese) *
+                      Description (Cantonese) *
                     </label>
                     <Quill
                       className={`form-control ${
@@ -198,7 +183,7 @@ function AdminCreateAlert({ showModal, toggleModal, alertData, fetchData }) {
                     />
                     {descriptionZhError && (
                       <div className="invalid-feedback">
-                        Description (Chinese) is required
+                        Description (Cantonese) is required
                       </div>
                     )}
                   </div>
