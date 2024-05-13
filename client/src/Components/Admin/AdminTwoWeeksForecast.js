@@ -41,19 +41,19 @@ const ForecastComponent = ({ forecastData }) => {
     []
   );
 
-   const getlocation = (code) => {
-     if (code == "CLK") {
-       return "Chek Lap Kok";
-     } else if (code == "CC") {
-       return "Cheung Chau";
-     } else if (code == "SK") {
-       return "Shek Kong";
-     } else if (code == "ST") {
-       return "Sha Tin";
-     } else if (code == "YMT") {
-       return "Yau Ma Tei";
-     }
-   };
+     const getlocation = (code) => {
+       if (code == "CLK") {
+         return "Chek Lap Kok";
+       } else if (code == "CC") {
+         return "Cheung Chau";
+       } else if (code == "SK") {
+         return "Shek Kong";
+       } else if (code == "ST") {
+         return "Sha Tin";
+       } else if (code == "YMT") {
+         return "Yau Ma Tei";
+       }
+     };
 
     const toSentenceCase = (str) => {
       if (!str) return '';
@@ -101,7 +101,7 @@ const ForecastComponent = ({ forecastData }) => {
                       onClick={() => {
                         if (forecast.riskLevel !== "low") {
                           togglePopup(
-                            getlocation(location),
+                            location,
                             forecast,
                             `Day ${1}`
                           );
