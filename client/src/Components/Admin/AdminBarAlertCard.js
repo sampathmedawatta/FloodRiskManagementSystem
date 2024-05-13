@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ForecastService from "../../services/forecast.service";
+import AlertService from "../../services/alert.service";
 import { getCurrentDateInfo } from "../Shared/Utils";
 
 function AdminBarAlertCard() {
@@ -7,51 +7,31 @@ function AdminBarAlertCard() {
   const [alerts7, setAlerts7] = useState([]);
 
   useEffect(() => {
-    fetchData14();
-    fetchData7();
+    fetchAllAlerts();
+    fetch7Alerts();
   }, []);
 
-  const fetchData14 = async () => {
+  const fetchAllAlerts = async () => {
     try {
-      const response = await ForecastService.getForecastByDate(14);
-      console.log("Response from fetchData14:", response); // Log the response
-      if (response.success) {
-        const filteredAlerts = response.data.flatMap(entry => {
-          console.log("Forecast data for location:", entry.location, entry.forecast); // Log the forecast data
-          return entry.forecast.filter(alert =>
-            alert.riskLevel.toLowerCase() === "moderate" || alert.riskLevel.toLowerCase() === "high"
-          );
-        });
-        console.log("Filtered Alerts for 14 days:", filteredAlerts); // Log the filtered alerts
-        setAlerts(filteredAlerts);
-      } else {
-        console.warn("No alerts found in the response.");
-      }
+      const response = await AlertService.getAllAlerts();
+      setAlerts(response.length);
     } catch (error) {
       console.error("Error fetching Alerts:", error);
     }
   };
-  const fetchData7 = async () => {
-  try {
-    const response = await ForecastService.getForecastByDate(7);
-    console.log("Response from fetchData7:", response); // Log the response
-    if (response.success) {
-      const filteredAlerts7 = response.data.flatMap(entry => {
-        console.log("Forecast data for location:", entry.location, entry.forecast); // Log the forecast data
-        return entry.forecast.filter(alert =>
-          alert.riskLevel.toLowerCase() === "moderate" || alert.riskLevel.toLowerCase() === "high"
-        );
-      });
-      console.log("Filtered Alerts for 7 days:", filteredAlerts7); // Log the filtered alerts
-      setAlerts7(filteredAlerts7);
-    } else {
-      console.warn("No alerts found in the response.");
+  const fetch7Alerts = async () => {
+    try {
+      const response = await AlertService.getAlertsByDays(7);
+      if (!response || !response.alerts || !Array.isArray(response.alerts)) {
+        console.error("Alerts data is not available or is not an array.");
+        return;
+      }
+      const alerts = response.alerts;
+      setAlerts7(alerts.length);
+    } catch (error) {
+      console.error("Error fetching Alerts:", error);
     }
-  } catch (error) {
-    console.error("Error fetching Alerts:", error);
-  }
-};
-
+  };
 
   return (
     <div className="col-2">
@@ -68,12 +48,12 @@ function AdminBarAlertCard() {
             </div>
             <div className="ptb-10">
               <p className="font-box-flood text-center color-brand-1">
-                {alerts.length}
+                {alerts}
               </p>
             </div>
             <br />
             <p className="text-10 text-center strong color-brand-1">
-              <strong>{alerts7.length} </strong> new alerts this week.
+              <strong>{alerts7}</strong> new alerts this week.
             </p>
           </div>
         </div>
