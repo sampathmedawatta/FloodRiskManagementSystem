@@ -3,8 +3,7 @@ import Quill from "react-quill";
 import "react-quill/dist/quill.snow.css"; // Import Quill styles
 import AlertsService from "../../services/alert.service";
 
-
-function AdminCreateAlert({ showModal, toggleModal, alertData }) {
+function AdminCreateAlert({ showModal, toggleModal, alertData, fetchData }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [titleZh, setTitleZh] = useState("");
@@ -62,9 +61,28 @@ function AdminCreateAlert({ showModal, toggleModal, alertData }) {
 
         resetFormData();
         toggleModal();
+        fetchData();
       } catch (error) {
         console.error("Error creating alert item:", error);
       }
+    }
+  };
+
+  const handleTitleChange = (e) => {
+    const value = e.target.value;
+    const words = value.trim().split(/\s+/);
+    if (words.length <= 25) {
+      setTitle(value);
+      setTitleError(false);
+    }
+  };
+
+  const handleTitleZhChange = (e) => {
+    const value = e.target.value;
+    const words = value.trim().split(/\s+/);
+    if (words.length <= 25) {
+      setTitleZh(value);
+      setTitleZhError(false);
     }
   };
 
@@ -106,10 +124,7 @@ function AdminCreateAlert({ showModal, toggleModal, alertData }) {
                         titleError ? "is-invalid" : ""
                       }`}
                       value={title}
-                      onChange={(e) => {
-                        setTitle(e.target.value);
-                        setTitleError(false);
-                      }}
+                      onChange={handleTitleChange}
                     />
                     {titleError && (
                       <div className="invalid-feedback">Title is required</div>
@@ -125,7 +140,7 @@ function AdminCreateAlert({ showModal, toggleModal, alertData }) {
                       }`}
                       value={description}
                       onChange={setDescription}
-                      style={{ minHeight: '200px' }}
+                      style={{ minHeight: "200px" }}
                     />
                     {descriptionError && (
                       <div className="invalid-feedback">
@@ -161,10 +176,7 @@ function AdminCreateAlert({ showModal, toggleModal, alertData }) {
                         titleZhError ? "is-invalid" : ""
                       }`}
                       value={titleZh}
-                      onChange={(e) => {
-                        setTitleZh(e.target.value);
-                        setTitleZhError(false);
-                      }}
+                      onChange={handleTitleZhChange}
                     />
                     {titleZhError && (
                       <div className="invalid-feedback">
@@ -182,7 +194,7 @@ function AdminCreateAlert({ showModal, toggleModal, alertData }) {
                       }`}
                       value={descriptionZh}
                       onChange={setDescriptionZh}
-                      style={{ minHeight: '200px' }}
+                      style={{ minHeight: "200px" }}
                     />
                     {descriptionZhError && (
                       <div className="invalid-feedback">

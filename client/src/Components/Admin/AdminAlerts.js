@@ -3,59 +3,70 @@ import ForecastService from "../../services/forecast.service";
 import AlertService from "../../services/alert.service";
 import Pagination from "./Pagination";
 import AdminCreateAlert from "./AdminAlertCreate";
+import AdminAlertsView from "./AdminAlertsView";
 
 function AdminNewsManage() {
   const [floodWarningAlerts, setFloodWarningAlerts] = useState([]);
   const [alertsCreated, setAlertsCreated] = useState([]);
   const [loading, setLoading] = useState(false);
   let inex = 0;
-  const [showCreateAlertModal, setShowCreateAlertModal] = useState(false); // State to control modal visibility
+  const [showCreateAlertModal, setShowCreateAlertModal] = useState(false);
   const [alertData, setAlertData] = useState({});
+  const [showViewAlertModal, setShowViewAlertModal] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const floodWarnings = await ForecastService.getForecastByDate(14);
-        const alerts = await AlertService.getAlertsByDays(14);
-        console.log("Alerts received:", alerts);
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const floodWarnings = await ForecastService.getForecastByDate(14);
+      const alerts = await AlertService.getAlertsByDays(14);
 
-        setAlertsCreated(alerts.alerts);
-        console.log("Alerts stored:", alertsCreated);
-        const groupedByDate = {};
+      setAlertsCreated(alerts.alerts);
+      const groupedByDate = {};
 
-        // Group the forecast items by date and filter by risk level
-        floodWarnings.forEach((location) => {
-          location.data.forEach((item) => {
-            item.forecast.forEach((forecastItem) => {
-              const date = forecastItem.date;
-              if (!groupedByDate[date]) {
-                groupedByDate[date] = [];
-              }
-              // Filter by risk level (Moderate or high)
-              if (
-                forecastItem.riskLevel === "Moderate" ||
-                forecastItem.riskLevel === "High"
-              ) {
-                groupedByDate[date].push({
-                  location: location.location,
-                  forecastItem: forecastItem,
-                });
-              }
-            });
+      floodWarnings.forEach((location) => {
+        location.data.forEach((item) => {
+          item.forecast.forEach((forecastItem) => {
+            const date = forecastItem.date;
+            if (!groupedByDate[date]) {
+              groupedByDate[date] = [];
+            }
+            if (
+              forecastItem.riskLevel === "Moderate" ||
+              forecastItem.riskLevel === "High"
+            ) {
+              groupedByDate[date].push({
+                location: location.location,
+                forecastItem: forecastItem,
+              });
+            }
           });
         });
+      });
 
-        setFloodWarningAlerts(groupedByDate);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setLoading(false);
-      }
-    };
+      setFloodWarningAlerts(groupedByDate);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
   }, []);
+
+  const manageAlert = async (id, action) => {
+    try {
+      if (action === "publish") {
+        await AlertService.updateAlertById(id, { active: true });
+      } else if (action === "unpublish") {
+        await AlertService.updateAlertById(id, { active: false });
+      }
+      fetchData();
+    } catch (error) {
+      console.error("Error updating News:", error);
+    }
+  };
 
   const getlocation = (code) => {
     if (code === "CLK") {
@@ -82,6 +93,7 @@ function AdminNewsManage() {
       return "risklevel-norisk";
     }
   };
+
   const toSentenceCase = (str) => {
     if (!str) return "";
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
@@ -90,6 +102,27 @@ function AdminNewsManage() {
   const toggleCreateAlertModal = (riskLevel, flood, date, location) => {
     setShowCreateAlertModal(!showCreateAlertModal);
     setAlertData({ riskLevel, flood, date, location });
+  };
+
+  const toggleViewAlertModal = (
+    date,
+    location,
+    riskLevel,
+    title,
+    title_zh,
+    description,
+    description_zh
+  ) => {
+    setShowViewAlertModal(true);
+    setAlertData({
+      date,
+      location,
+      riskLevel,
+      title,
+      title_zh,
+      description,
+      description_zh,
+    });
   };
 
   return (
@@ -131,13 +164,16 @@ function AdminNewsManage() {
                               >
                                 #
                               </th>
-                              <th scope="col" style={{ textAlign: "left" }}>
+                              <th
+                                scope="col"
+                                style={{ width: "8%", textAlign: "left" }}
+                              >
                                 Date
                               </th>
                               <th
                                 scope="col"
                                 className="pl-4"
-                                style={{ textAlign: "left" }}
+                                style={{ width: "8%", textAlign: "left" }}
                               >
                                 Location
                               </th>
@@ -146,9 +182,12 @@ function AdminNewsManage() {
                                 className="pl-4"
                                 style={{ textAlign: "left" }}
                               >
-                                Flood Prediction %
+                                Flood %
                               </th>
-                              <th scope="col" style={{ textAlign: "left" }}>
+                              <th
+                                scope="col"
+                                style={{ width: "8%", textAlign: "left" }}
+                              >
                                 Risk Level
                               </th>
                               <th
@@ -161,25 +200,16 @@ function AdminNewsManage() {
                                 Title
                               </th>
                               <th scope="col" style={{ textAlign: "left" }}>
-                                Description
-                              </th>
-                              <th scope="col" style={{ textAlign: "left" }}>
                                 Title Zh
                               </th>
                               <th scope="col" style={{ textAlign: "left" }}>
-                                Description Zh
-                              </th>
-                              <th scope="col" style={{ textAlign: "left" }}>
-                                Published Date
+                                View
                               </th>
                               <th scope="col" style={{ textAlign: "left" }}>
                                 Status
                               </th>
                               <th scope="col" style={{ textAlign: "left" }}>
                                 Manage
-                              </th>
-                              <th scope="col" style={{ textAlign: "left" }}>
-                                View
                               </th>
                             </tr>
                           </thead>
@@ -264,54 +294,106 @@ function AdminNewsManage() {
                                               </span>
                                             </td>
                                             <td className="text-left">
-                                              {!isDisabled && (
-                                                <button
-                                                  className="btn btn-alert text-12"
-                                                  onClick={() =>
-                                                    toggleCreateAlertModal(
-                                                      forecastItem.riskLevel,
-                                                      forecastItem.flood,
-                                                      forecastItem.date,
-                                                      location
-                                                    )
-                                                  }
-                                                >
-                                                  <i className="bi bi-exclamation-triangle-fill"></i>{" "}
-                                                  &nbsp; Create Alert
-                                                </button>
-                                              )}
+                                              <button
+                                                className="btn btn-alert text-12"
+                                                onClick={() =>
+                                                  !isDisabled &&
+                                                  toggleCreateAlertModal(
+                                                    forecastItem.riskLevel,
+                                                    forecastItem.flood,
+                                                    forecastItem.date,
+                                                    location
+                                                  )
+                                                }
+                                                disabled={isDisabled}
+                                              >
+                                                <i className="bi bi-exclamation-triangle-fill"></i>{" "}
+                                                &nbsp; Create Alert
+                                              </button>
                                             </td>
-                                            <td className="text-center">
+                                            <td className="text-left">
                                               {matchingAlert
                                                 ? matchingAlert.title
                                                 : ""}
                                             </td>
-
-                                            {matchingAlert && (
-                                              <td className="text-center">
-                                                <div
-                                                  dangerouslySetInnerHTML={{
-                                                    __html:
-                                                      matchingAlert.description,
-                                                  }}
-                                                />
-                                              </td>
-                                            )}
-                                            <td className="text-center">
+                                            <td className="text-left">
                                               {matchingAlert
                                                 ? matchingAlert.title_zh
                                                 : ""}
                                             </td>
-                                            {matchingAlert && (
-                                              <td className="text-center">
-                                                <div
-                                                  dangerouslySetInnerHTML={{
-                                                    __html:
-                                                      matchingAlert.description_zh,
-                                                  }}
-                                                />
-                                              </td>
-                                            )}
+
+                                            <td className="text-left">
+                                              {isDisabled ? (
+                                                <button
+                                                  type="button"
+                                                  className="btn btn-pops"
+                                                  onClick={() =>
+                                                    toggleViewAlertModal(
+                                                      forecastItem.date,
+                                                      getlocation(location),
+                                                      forecastItem.riskLevel,
+                                                      matchingAlert.title,
+                                                      matchingAlert.title_zh,
+                                                      matchingAlert.description,
+                                                      matchingAlert.description_zh
+                                                    )
+                                                  }
+                                                >
+                                                  <i className="bi bi-newspaper fs-6"></i>
+                                                </button>
+                                              ) : null}
+                                            </td>
+                                            <td className="text-left">
+                                              {isDisabled ? (
+                                                <span
+                                                  className={`label-status ${
+                                                    matchingAlert &&
+                                                    matchingAlert.active
+                                                      ? "label-active"
+                                                      : "label-inactive"
+                                                  }`}
+                                                >
+                                                  {matchingAlert &&
+                                                  matchingAlert.active
+                                                    ? "Active"
+                                                    : "Inactive"}
+                                                </span>
+                                              ) : null}
+                                            </td>
+                                            <td className="text-left">
+                                              {isDisabled ? (
+                                                <>
+                                                  {matchingAlert &&
+                                                  matchingAlert.active ? (
+                                                    <button
+                                                      type="button"
+                                                      className="btn btn-pops"
+                                                      onClick={() =>
+                                                        manageAlert(
+                                                          matchingAlert._id,
+                                                          "unpublish"
+                                                        )
+                                                      }
+                                                    >
+                                                      <i className="bi bi-trash fs-6"></i>
+                                                    </button>
+                                                  ) : (
+                                                    <button
+                                                      type="button"
+                                                      className="btn btn-pops "
+                                                      onClick={() =>
+                                                        manageAlert(
+                                                          matchingAlert._id,
+                                                          "publish"
+                                                        )
+                                                      }
+                                                    >
+                                                      <i className="bi bi-check-circle-fill fs-6"></i>
+                                                    </button>
+                                                  )}
+                                                </>
+                                              ) : null}
+                                            </td>
                                           </tr>
                                         );
                                       } else {
@@ -330,6 +412,12 @@ function AdminNewsManage() {
                   <AdminCreateAlert
                     showModal={showCreateAlertModal}
                     toggleModal={toggleCreateAlertModal}
+                    alertData={alertData}
+                    fetchData={fetchData}
+                  />
+                  <AdminAlertsView
+                    show={showViewAlertModal}
+                    handleClose={() => setShowViewAlertModal(false)}
                     alertData={alertData}
                   />
                   <Pagination />
