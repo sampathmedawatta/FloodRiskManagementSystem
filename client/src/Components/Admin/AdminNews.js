@@ -3,7 +3,6 @@ import AdminNewsManage from "./AdminNewsManage";
 function AdminNews() {
   return (
     <div className="box-content">
-      <br />
       <div className="row">
         <AdminNewsManage />
      

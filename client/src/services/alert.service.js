@@ -33,11 +33,8 @@ const getAlertsByDate = async (formData) => {
 };
 
 const getAlertsByDays = async (days) => {
-  console.log("Fetching alerts for", days, "days");
-
   try {
     const response = await axiosInstance.get(`/days?days=${days}`, headers);
-    console.log("Response from server:", response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching alerts:", error);

@@ -89,7 +89,6 @@ const RegisteredUserProfile = () => {
 
   return (
     <div className="box-content">
-      <br />
       <div className="row">
         <div className="col-md-6">
           <div className="box-content">

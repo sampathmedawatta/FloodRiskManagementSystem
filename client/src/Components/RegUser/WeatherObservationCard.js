@@ -40,10 +40,31 @@ const WeatherObservationCard = () => {
   },[location]);
 
   return (
-    <div className="container bg-subtle observation-table-header">
+    <div className="row gx-2 justify-content-between">
+    <div className="col-12">
+      <div className="section-box">
+        <div className="container">
+          <div className="panel-white">
+            <div className="panel-head">
+              <div className="row">
+                <div className="col-md-10">
+                  <h6 className="text-start">
+                    <i className="bi bi-tsunami fs-5" />
+                    &nbsp;&nbsp;Weather Observation
+                  </h6>
+                </div>
+                <div className="col-md-2">
+                  
+                </div>
+              </div>
+            </div>
+            <div className="panel-body">
+              <div className="container">
+                <div className="row gx-2 justify-content-between">
+                <div className="container bg-subtle observation-table-header">
       <div className="row p-2">
         <div className="col-8">
-          <h6 className="text-white">Weather Observation-{location}</h6>
+          <h6 className="text-white">{location}</h6>
           <p>
             {dayOfWeek}, {dayOfMonth}
           </p>
@@ -103,6 +124,16 @@ const WeatherObservationCard = () => {
         </table>
       </div>
     </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
   );
 };
 
