@@ -59,8 +59,7 @@ function RegDashboard() {
         </div>
         <div className="col-md-4">
           <AlertsComponent 
-          forecastPeriod={7} 
-          location={dummylocation} />
+          forecastPeriod={7}  />
         </div>
       </div>
       <div className="row mt-2">
