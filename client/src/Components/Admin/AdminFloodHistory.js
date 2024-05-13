@@ -104,6 +104,23 @@ function AdminFloodHistory() {
     form.classList.add("was-validated");
   };
 
+   const updateHistoryData = async () => {
+
+    if (selectedLocation !== '' && selectedLocation !== undefined) {
+      try {
+        await WeatherHistoryService.updateHistoryData(
+          selectedLocation
+        );
+
+      } catch (error) {
+        console.error("Error creating FAQ:", error);
+      }
+    }
+    else{
+       console.log("Select Location");
+    }
+  };
+
   return (
     <div className="box-content">
       <div className="row">
@@ -217,6 +234,17 @@ function AdminFloodHistory() {
                         </div>
                       </div>
                     </form>
+                    <div className="col-md-2 align-self-end">
+                      <div className="form-group ">
+                        <button
+                          onClick={updateHistoryData}
+                          className="btn btn-login hover-up text-12 w-100"
+                        >
+                          <i className="bi bi-download"></i> &nbsp; Refresh
+                          History Data
+                        </button>
+                      </div>
+                    </div>
                     <hr></hr>
                     <div className="row">
                       <div className="table-responsive">

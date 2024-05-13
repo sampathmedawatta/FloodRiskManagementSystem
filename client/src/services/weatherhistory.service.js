@@ -27,8 +27,21 @@ const getWeatherHistory = async (location, year, month) => {
   }
 };
 
+const updateHistoryData = async (locationCode) => {
+  return await axiosInstance
+    .get("/history/update?location=" + locationCode, {
+      headers,
+    })
+    .then((response) => {
+      if (response != undefined && response != null) {
+        return response.data;
+      }
+    });
+};
+
 const WeatherHistoryService = {
-  getWeatherHistory
+  getWeatherHistory,
+  updateHistoryData,
 };
 
 export default WeatherHistoryService;
