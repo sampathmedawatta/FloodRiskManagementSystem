@@ -8,7 +8,7 @@ import FloodForecastLineGraph from "./FloodForecastLineGraph";
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 import RainfallBarGraph from "./RailfallBarGraph";
-import AlertsContainer from "./AlertsContainer";
+import AlertsComponent from "./AlertsComponent";
 
 Chart.register(CategoryScale);
 
@@ -42,7 +42,7 @@ const FloodForecastPage = () => {
   useEffect(() => {
     handleLocationSelect(location);
   }, [location]);
-  
+
   const handleDurationSelect = (duration) => {
     setForecastPeriod(duration);
   };
@@ -50,7 +50,6 @@ const FloodForecastPage = () => {
   const getFloodForecastOnPeriod = async () => {
     setLocation(selectedLocation);
     try {
-
       const locationForecast = await ForecastService.getForecastByLocation(
         selectedLocation,
         forecastPeriod
@@ -63,7 +62,6 @@ const FloodForecastPage = () => {
       };
 
       setForecastData(forecastWithDetails);
-
     } catch (error) {
       console.error(error);
     }
@@ -82,8 +80,8 @@ const FloodForecastPage = () => {
             onGetForecast={getFloodForecastOnPeriod}
           />
         </div>
-        </div>
-        <div className="row">
+      </div>
+      <div className="row">
         <div className="col-md-7">
           <FloodForecastTable
             forecastTableValues={forecastData}
@@ -92,11 +90,14 @@ const FloodForecastPage = () => {
           />
         </div>
         <div className="col-md-5">
-          <AlertsContainer />
-        </div>
-        </div>
+  <AlertsComponent
+    forecastPeriod={forecastPeriod}
+    location={selectedLocation}
+  />
+</div>
 
-      
+      </div>
+
       <div className="row">
         <div className="col-md-6">
           <FloodForecastLineGraph chartData={forecastData} />
@@ -105,10 +106,8 @@ const FloodForecastPage = () => {
           <RainfallBarGraph chartData={forecastData} />
         </div>
       </div>
-      </div>
-  
-
-  );    
+    </div>
+  );
 };
 
 export default FloodForecastPage;

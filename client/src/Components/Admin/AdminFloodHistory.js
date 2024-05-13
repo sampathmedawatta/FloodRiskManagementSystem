@@ -106,7 +106,6 @@ function AdminFloodHistory() {
 
   return (
     <div className="box-content">
-      <br />
       <div className="row">
         <div className="col-md-12">
           <div className="box-content">

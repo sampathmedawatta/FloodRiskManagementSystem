@@ -5,7 +5,6 @@ import AdminInquireReply from "./AdminInquireReply";
 function AdminInquire() {
   return (
     <div className="box-content">
-      <br />
       <div className="row">
         <AdminInquirePending />  
       </div>

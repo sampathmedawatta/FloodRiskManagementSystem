@@ -5,6 +5,12 @@ import AlertCard from "./AlertCard";
 
 const AlertsContainer = () => {
   const { alertList } = useAlerts();
+
+  // Ensure alertList is an array before mapping over it
+  if (!Array.isArray(alertList)) {
+    return null; // Or render a loading indicator or message
+  }
+
   return (
     <div className="section-box">
       <div className="container">
@@ -20,7 +26,7 @@ const AlertsContainer = () => {
             </div>
           </div>
           <div className="panel-body overflow-auto">
-            {alertList?.map((alert, index) => (
+            {alertList.map((alert, index) => (
               <AlertCard
                 message={alert.description}
                 title={alert.title}

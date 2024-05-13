@@ -3,7 +3,6 @@ import AdminFaqManage from "./AdminFaqManage";
 function AdminFaq() {
   return (
     <div className="box-content">
-      <br />
       <div className="row">
         <AdminFaqManage />
      

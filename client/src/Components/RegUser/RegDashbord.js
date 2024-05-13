@@ -6,6 +6,7 @@ import AlertService from "../../services/alert.service";
 import WeatherObservationCard from "./WeatherObservationCard";
 import NewsFeedCard from "./NewsFeedCard";
 import EmergencyContactCardHolder from "./EmergencyContactCard";
+import AlertsComponent from "./AlertsComponent";
 
 function RegDashbord() {
   const [alertData, setAlertData] = useState(null);
@@ -40,16 +41,10 @@ function RegDashbord() {
     fetchLocationData();
   }, [location]);
 
-  return (
+  /*return (
     <div className="box-content">
       <div className="row">
-        {alertData && (
-          <RegMainAlert
-            key={alertData.id}
-            message={alertData.description}
-            alertType={alertData.riskLevel}
-          />
-        )}
+        
       </div>
       <div className="row">
         <div className="col-md-12">
@@ -73,6 +68,42 @@ function RegDashbord() {
         </div>
       </div>
     </div>
+  );*/
+
+
+
+
+  return (
+    <div className="box-content">
+
+      <div className="row">
+        <div className="col-md-9">
+        <RegFloodForecast5Days />
+        </div>
+        <div className="col-md-3">
+        <WeatherObservationCard />
+        </div>
+        
+      </div>
+      <div className="row mt-1">
+        <div className="col-md-8">
+          <Map></Map>
+        </div>
+        <div className="col-md-4">
+<AlertsComponent></AlertsComponent>
+        </div>
+      </div>
+      <div className="row mt-2">
+        <div className="col-md-6">
+          <EmergencyContactCardHolder />;
+        </div>
+        <div className="col-md-6">
+          <NewsFeedCard />
+        </div>
+      </div>
+      </div>
+
+ 
   );
 }
 export default RegDashbord;

@@ -70,8 +70,7 @@ function AdminManageAdmins() {
   };
 
   return (
-    <div className="container-fluid">
-      <br />
+    <div className="box-content">
       <div className="col-md-12">
         <div className="box-content">
           <div className="container">

@@ -6,7 +6,6 @@ import AdminBar from "./AdminBar";
 function AdminDashbord() {
   return (
     <div className="box-content">
-      <br />
       <div className="row">
         <div className="col-md-6">
           <AdminTodayForecast />
