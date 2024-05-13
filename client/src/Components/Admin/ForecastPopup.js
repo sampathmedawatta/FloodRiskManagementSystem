@@ -32,6 +32,20 @@ const ForecastPopup = ({ location, forecast, date, onClose }) => {
     }
   };
 
+  const getlocation = (location) => {
+    if (location == "CLK") {
+      return "Chek Lap Kok";
+    } else if (location == "CC") {
+      return "Cheung Chau";
+    } else if (location == "SK") {
+      return "Shek Kong";
+    } else if (location == "ST") {
+      return "Sha Tin";
+    } else if (location == "YMT") {
+      return "Yau Ma Tei";
+    }
+  };
+
   const handleCloseModal = () => {
     setShowModal(false);
     setShowAlertData(false);
@@ -47,7 +61,8 @@ const ForecastPopup = ({ location, forecast, date, onClose }) => {
                 <div className="row">
                   <div className="col-md-10">
                     <h6 className="text-start td-nowrap">
-                      <i className="bi bi bi-geo-alt-fill"></i>&nbsp;{location}
+                      <i className="bi bi bi-geo-alt-fill"></i>&nbsp;
+                      {getlocation(location)}
                     </h6>
                   </div>
                   <div className="col-md-2">
