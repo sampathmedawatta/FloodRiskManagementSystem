@@ -26,6 +26,39 @@ const AdminFloodHistory = () => {
     fetchLocations();
   }, []);
 
+  const getRiskLevel = (riskLevel) => {
+    if (riskLevel == "Black") {
+      return "risklevel-high";
+    } if (riskLevel == "Red") {
+      return "risklevel-high";
+    } else if (riskLevel == "Amber") {
+      return "risklevel-moderate";
+    } else if (riskLevel == "Green") {
+      return "risklevel-norisk";
+    } else {
+      return "risklevel-norisk";
+    }
+  };
+
+    const getRisk = (code) => {
+      if (code == "Black") {
+        return "High";
+      }if (code == "Red") {
+        return "High";
+      } else if (code == "Amber") {
+        return "Moderate";
+      } else if (code == "Green") {
+        return "Low";
+      } else {
+        return "Low";
+      }
+    };
+
+  const toSentenceCase = (str) => {
+    if (!str) return "";
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  };
+  
   const updateHistoryData = async () => {};
 
   useEffect(() => {
@@ -230,33 +263,39 @@ const AdminFloodHistory = () => {
                                 className="pl-4"
                                 style={{ width: "1%", textAlign: "left" }}
                               >
-                                #
+                                Day
                               </th>
-                              <th
+                              {/* <th
                                 scope="col"
                                 className="pl-4"
                                 style={{ textAlign: "left" }}
                               >
                                 Location
-                              </th>
-                              <th
-                                scope="col"
-                                className="pl-4"
-                                style={{ textAlign: "left" }}
-                              >
-                                Flood %
+                              </th> */}
+                              <th scope="col" style={{ textAlign: "left" }}>
+                                Wind Speed
                               </th>
                               <th scope="col" style={{ textAlign: "left" }}>
-                                Rainfall
-                              </th>
-                              <th scope="col" style={{ textAlign: "left" }}>
-                                Rain Duration
+                                Wind Direction
                               </th>
                               <th scope="col" style={{ textAlign: "left" }}>
                                 Temperature
                               </th>
                               <th scope="col" style={{ textAlign: "left" }}>
                                 Humidity
+                              </th>
+                              <th scope="col" style={{ textAlign: "left" }}>
+                                Rain Duration
+                              </th>
+                              <th scope="col" style={{ textAlign: "left" }}>
+                                Rainfall
+                              </th>
+                              <th
+                                scope="col"
+                                className="pl-4"
+                                style={{ textAlign: "left" }}
+                              >
+                                Risk Level
                               </th>
                             </tr>
                           </thead>
@@ -276,14 +315,28 @@ const AdminFloodHistory = () => {
                               historyData.map((item, index) => (
                                 <tr key={index} className="tr-border">
                                   <td className="text-left">{index + 1}</td>
-                                  <td className="text-left">{item.location}</td>
-                                  <td className="text-left">0</td>
-                                  <td className="text-left">{item.rainfall}</td>
-                                  <td className="text-left">{item.duration}</td>
+                                  {/* <td className="text-left">{item.location}</td> */}
+                                  <td className="text-left">
+                                    {item.mean_windspeed}
+                                  </td>
+                                  <td className="text-left">
+                                    {item.wind_direction}
+                                  </td>
                                   <td className="text-left">
                                     {item.mean_tempurature}
                                   </td>
                                   <td className="text-left">{item.humidity}</td>
+                                  <td className="text-left">{item.duration}</td>
+                                  <td className="text-left">{item.rainfall}</td>
+                                  <td className="text-left">
+                                    <span
+                                      className={`text-muted font-sm ${getRiskLevel(
+                                        item.color
+                                      )}`}
+                                    >
+                                      {getRisk(item.color)}
+                                    </span>
+                                  </td>
                                 </tr>
                               ))
                             ) : (
