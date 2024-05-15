@@ -3,6 +3,7 @@ pip install uvicorn
 pip install requests
 pip install pymongo
 pip install pandas
+pip install sklearn
 
 Run the ML Model with API 
 cd forecastModel/server/ml_model/api
