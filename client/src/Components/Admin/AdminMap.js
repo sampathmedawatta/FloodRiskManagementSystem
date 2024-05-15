@@ -94,7 +94,7 @@ const MapComponent = ({ locations }) => {
             ),
           anchor: [0.5, 1],
         });
-      } else if (location.type == "Police") {
+      } else if (location.type == "Police Station") {
         icn = new Icon({
           anchor: [0.5, 46],
           anchorXUnits: "fraction",
@@ -103,6 +103,24 @@ const MapComponent = ({ locations }) => {
           height: 25,
         });
       } else if (location.type == "Pump Station") {
+        icn = new Icon({
+          src:
+            "data:image/svg+xml," +
+            encodeURIComponent(
+              '<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 32 48"><path fill="#04b8b9" d="M16 0c-8.837 0-16 7.163-16 16 0 17.063 16 32 16 32s16-14.937 16-32c0-8.837-7.163-16-16-16zm0 24c-4.418 0-8-3.582-8-8s3.582-8 8-8 8 3.582 8 8-3.582 8-8 8z"/></svg>'
+            ),
+          anchor: [0.5, 1],
+        });
+      } else if (location.type == "Flood Shelter") {
+        icn = new Icon({
+          src:
+            "data:image/svg+xml," +
+            encodeURIComponent(
+              '<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 32 48"><path fill="#04b8b9" d="M16 0c-8.837 0-16 7.163-16 16 0 17.063 16 32 16 32s16-14.937 16-32c0-8.837-7.163-16-16-16zm0 24c-4.418 0-8-3.582-8-8s3.582-8 8-8 8 3.582 8 8-3.582 8-8 8z"/></svg>'
+            ),
+          anchor: [0.5, 1],
+        });
+      } else if (location.type == "Fire Station") {
         icn = new Icon({
           src:
             "data:image/svg+xml," +
