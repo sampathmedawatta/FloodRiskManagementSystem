@@ -84,7 +84,7 @@ exports.login = async (request, response) => {
 
        if (newOTP) {
         // Enable this before DEMO
-          //await otpEmail(user.email, otp);
+        await otpEmail(user.email, otp);
        } else {
          console.log("otp not saved! " + error);
        }
