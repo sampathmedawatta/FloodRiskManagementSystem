@@ -14,8 +14,11 @@ const ForecastPopup = ({ location, forecast, date, onClose }) => {
     try {
       const response = await AlertsService.getAllAlerts();
       if (response) {
+
         const alerts = response.filter(
-          (alert) => alert.alertDate === new Date(forecast.date).toISOString()
+          (alert) =>
+            alert.alertDate === new Date(forecast.date).toISOString() &&
+            alert.location === location
         );
 
         if (!alerts || alerts.length === 0) {
