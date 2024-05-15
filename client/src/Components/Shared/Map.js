@@ -27,7 +27,7 @@ const MapComponent = ({ locations }) => {
       ],
       view: new View({
         center: fromLonLat([114.17882, 22.32139]), // Hong Kong coordinates
-        zoom: 11.1, // Adjust the zoom level as needed
+        zoom: 10.5, // Adjust the zoom level as needed
       }),
     });
 
