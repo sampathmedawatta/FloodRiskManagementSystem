@@ -28,7 +28,8 @@ function AdminFaqEdit({ showModal, toggleModal, faq, editFAQ }) {
       }
 
       if (title.trim() && description.trim()) {
-        await editFAQ(faq.id, "edit", { title, description });
+     
+        await editFAQ(faq._id, "edit", { title, description });
         toggleModal(); // Close modal after updating FAQ
       }
     } catch (error) {

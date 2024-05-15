@@ -51,8 +51,25 @@ exports.updateFAQ = async (request, response) => {
   const faqId = request.params.id;
 
   try {
-    // Update the FAQ in the database
-    const updatedFAQ = await Faq.findByIdAndUpdate(faqId, { title, description, active }, { new: true });
+    let faq = await Faq.findById(faqId);
+
+    if (!faq) {
+      return response.status(404).json({ message: "FAQ not found." });
+    }
+
+    if (title) {
+      faq.title = title;
+    }
+    if (description) {
+      faq.description = description;
+    }
+
+    if (active !== undefined) {
+      faq.active = active;
+    }
+
+    // Save the updated FAQ
+    updatedFAQ = await faq.save();
 
     // If FAQ is not found, return 404
     if (!updatedFAQ) {
@@ -60,7 +77,9 @@ exports.updateFAQ = async (request, response) => {
     }
 
     // Respond with success message and updated FAQ
-    response.status(200).json({ message: "FAQ updated successfully", updatedFAQ });
+    response
+      .status(200)
+      .json({ message: "FAQ updated successfully", updatedFAQ });
   } catch (error) {
     // If an error occurs, respond with an error message
     response.status(500).json({ message: error.message });
