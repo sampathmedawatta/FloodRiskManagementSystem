@@ -22,7 +22,7 @@ function AlertsView({ show, handleClose, alertData ,userLang}) {
           <div className="modal-header">
             <h6 className="modal-title">
               <i className="bi bi-file-plus-fill"></i> &nbsp;&nbsp;Alert Message
-              for {alertData.location} on {alertData.date}
+              for {alertData.location}
             </h6>
             <button
               type="button"
