@@ -265,9 +265,11 @@ function AdminLocationCreate({ showModal, toggleModal, createLocation }) {
                     <option value="Hospital">Hospital</option>
                     <option value="Evacuation Point">Evacuation Point</option>
                     <option value="Police Station">Police Station</option>
+                    <option value="Fire Station"> Fire Station</option>
+                    <option value="Flood Shelter">Flood Shelter</option>
                     <option value="Other">Other</option>
                   </select>
-                 
+
                   {typeError && (
                     <div className="invalid-feedback">Type is required</div>
                   )}
