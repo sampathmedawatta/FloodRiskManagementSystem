@@ -17,9 +17,15 @@ const getAlertById = async (id) => {
 };
 
 const getAllAlerts = async () => {
-  return await axiosInstance.get("/", { headers }).then((response) => {
+  try{
+    return await axiosInstance.get("/", { headers }).then((response) => {
     return response.data;
   });
+  }
+  catch(error){
+    console.log(error);
+  }
+  
 };
 
 const getAlertsByDate = async (formData) => {
