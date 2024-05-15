@@ -36,7 +36,9 @@ function AdminLocationCreate({ showModal, toggleModal, createLocation }) {
     fetchLocations();
   }, []);
 
-  
+  const handleSelectCategory = (event) => {
+    setType(event.target.value);
+  };
 
   const handleCreateLocation = () => {
     if (!name.trim()) {
@@ -156,7 +158,7 @@ function AdminLocationCreate({ showModal, toggleModal, createLocation }) {
           <div className="modal-body">
             <div class="form-group">
               <label class="font-sm mb-10 " required>
-                Name *
+                Location Name *
               </label>
               <input
                 type="text"
@@ -170,7 +172,9 @@ function AdminLocationCreate({ showModal, toggleModal, createLocation }) {
               />
 
               {nameError && (
-                <div className="invalid-feedback">Name is required</div>
+                <div className="invalid-feedback">
+                  Location name is required
+                </div>
               )}
             </div>
             <div className="row">
@@ -248,18 +252,22 @@ function AdminLocationCreate({ showModal, toggleModal, createLocation }) {
               <div className="col-md-6">
                 <div class="form-group">
                   <label class="font-sm mb-10 " required>
-                    Type *
+                    Location Category *
                   </label>
-                  <input
-                    type="text"
-                    placeholder="Type"
-                    className={`form-control ${typeError ? "is-invalid" : ""}`}
+
+                  <select
+                    className="form-control"
+                    id="locationCategory"
                     value={type}
-                    onChange={(e) => {
-                      setType(e.target.value);
-                      setTypeError(false); // Clear error when typing
-                    }}
-                  />
+                    onChange={handleSelectCategory}
+                  >
+                    <option value="">Select Location Category</option>
+                    <option value="Hospital">Hospital</option>
+                    <option value="Evacuation Point">Evacuation Point</option>
+                    <option value="Police Station">Police Station</option>
+                    <option value="Other">Other</option>
+                  </select>
+                 
                   {typeError && (
                     <div className="invalid-feedback">Type is required</div>
                   )}
