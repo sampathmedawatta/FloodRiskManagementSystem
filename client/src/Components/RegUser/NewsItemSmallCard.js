@@ -4,7 +4,7 @@ const NewsItemSmallCard = ({ newsData, lang }) => {
   // Truncate title if it exceeds a character limit of 15
 
   const truncatedTitle =
-  newsData.title.length > 60
+    newsData.title.length > 60
       ? newsData.title.substring(0, 50) + "..."
       : newsData.title;
 
@@ -13,7 +13,7 @@ const NewsItemSmallCard = ({ newsData, lang }) => {
     newsData.description.length > 150
       ? newsData.description.substring(0, 120) + "..."
       : newsData.description;
-   
+
   const truncatedTitle_zh =
     newsData.title_zh.length > 60
       ? newsData.title_zh.substring(0, 50) + "..."
@@ -102,6 +102,27 @@ const NewsItemSmallCard = ({ newsData, lang }) => {
                   style={{ maxWidth: "500px", height: "250px" }}
                 />
               </div>
+              <div>
+                <span className="text-muted text-justify font-sm color-brand-1">
+                  Location:{" "}
+                </span>
+                <span className="text-muted text-justify font-sm ">
+                  {newsData.location}
+                </span>
+              </div>
+              <div>
+              <span className="text-muted text-justify font-sm color-brand-1">
+             Published Date:{" "}
+                    </span>
+                <span className="text-muted text-justify font-sm ">
+                  {newsData.publishedDate
+                    ? new Date(newsData.publishedDate)
+                        .toISOString()
+                        .split("T")[0]
+                    : "publishedDate"}
+                </span>
+              </div>
+
               <div className="row justify-content-center p-3">
                 {lang == "Chinese"
                   ? newsData.description_zh
