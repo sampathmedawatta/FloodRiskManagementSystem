@@ -39,6 +39,7 @@ const NewsDisplayCard = ({ newsData, lang }) => {
             <div>
               <p className="text-12">{formatDate(newsData.publishedDate)}</p>
             </div>
+ 
           </div>
 
           <div
@@ -83,6 +84,27 @@ const NewsDisplayCard = ({ newsData, lang }) => {
                   alt="news"
                   style={{ maxWidth: "500px", height: "250px" }}
                 />
+              </div>
+
+              <div>
+                <span className="text-muted text-justify font-sm color-brand-1">
+                  Location:{" "}
+                </span>
+                <span className="text-muted text-justify font-sm ">
+                  {newsData.location}
+                </span>
+              </div>
+              <div>
+                <span className="text-muted text-justify font-sm color-brand-1">
+                  Published Date:{" "}
+                </span>
+                <span className="text-muted text-justify font-sm ">
+                  {newsData.publishedDate
+                    ? new Date(newsData.publishedDate)
+                        .toISOString()
+                        .split("T")[0]
+                    : "publishedDate"}
+                </span>
               </div>
               <div className="row justify-content-center p-3">
                 {lang == "Chinese"
