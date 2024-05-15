@@ -107,8 +107,7 @@ const notificationEmail = async (emailList, title, riskLevel, message) => {
             <p>Message: ${message}</p>`,
     };
 
-    // Enable this before DEMO
-    // await transporter.sendMail(mailOptions);
+    await transporter.sendMail(mailOptions);
 
     console.log("Alert email sent! - " + emailList);
   } catch (error) {
