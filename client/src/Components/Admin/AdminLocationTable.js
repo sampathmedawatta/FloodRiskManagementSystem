@@ -23,13 +23,13 @@ function AdminLocationTable({
               className="pl-4"
               style={{ width: "15%", textAlign: "left" }}
             >
-              Name
+              Location Name
             </th>
             <th scope="col" style={{ width: "12%", textAlign: "left" }}>
               Description
             </th>
             <th scope="col" style={{ width: "5%", textAlign: "left" }}>
-              Type
+              Location Category
             </th>
             <th scope="col" style={{ width: "15%", textAlign: "left" }}>
               Address
@@ -38,7 +38,7 @@ function AdminLocationTable({
               Contact
             </th>
             <th scope="col" style={{ width: "10%", textAlign: "left" }}>
-              Ref Location
+              Reference Location
             </th>
             <th scope="col" style={{ width: "5%", textAlign: "left" }}>
               Manage
