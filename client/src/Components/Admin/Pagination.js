@@ -24,7 +24,7 @@ function Pagination() {
             aria-labelledby="dropdownSort"
           >
             <li>
-              <a className="dropdown-item active font-xxs" href="#">
+              <a className="dropdown-item font-xxs" href="#">
                 10
               </a>
             </li>
@@ -34,7 +34,7 @@ function Pagination() {
               </a>
             </li>
             <li>
-              <a className="dropdown-item font-xxs"  href="#">
+              <a className="dropdown-item font-xxs active "  href="#">
               30
               </a>
             </li>

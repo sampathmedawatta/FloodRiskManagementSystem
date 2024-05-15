@@ -228,7 +228,7 @@ const RegisteredUserProfile = () => {
                                       setLanguagePreference("Chinese")
                                     }
                                   >
-                                    Chinese
+                                    Cantonese
                                   </button>
                                   <button
                                     className="dropdown-item"
