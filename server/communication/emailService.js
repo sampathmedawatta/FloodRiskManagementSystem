@@ -38,7 +38,7 @@ const verifyPassword = async ( email, password) => {
                     <p>Password: <b>${password}</b></p>`,
     };
 
-    await transporter.sendMail(mailOptions);
+    //await transporter.sendMail(mailOptions);
     console.log("Admin password email sent!");
   } catch (error) {
     console.log(error);
@@ -65,7 +65,7 @@ const verifyEmail = async (id, email) => {
                     }> here </a> to proceed.</p>`,
     };
 
-    await transporter.sendMail(mailOptions);
+    //await transporter.sendMail(mailOptions);
     console.log("Verification email sent!");
   } catch (error) {
     console.log(error);
@@ -86,7 +86,7 @@ const otpEmail = async (email, otp) => {
       html: `<p>Your one-time password is <b> ${otp} </b></p>`,
     };
 
-    await transporter.sendMail(mailOptions);
+    // await transporter.sendMail(mailOptions);
     console.log("OTP Verification email sent! - " + toList);
   } catch (error) {
     console.log(error);
@@ -107,7 +107,7 @@ const notificationEmail = async (emailList, title, riskLevel, message) => {
             <p>Message: ${message}</p>`,
     };
 
-    await transporter.sendMail(mailOptions);
+    //await transporter.sendMail(mailOptions);
 
     console.log("Alert email sent! - " + emailList);
   } catch (error) {
