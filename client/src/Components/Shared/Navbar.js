@@ -250,7 +250,7 @@ function Navbar() {
               >
                 <i class="bi bi-geo-alt-fill fs-5"></i>
                 <span class="name">
-                  &nbsp;&nbsp;&nbsp;Emergency Locations &nbsp;&nbsp;
+                Emergency Contacts 
                 </span>
               </Link>
             </a>

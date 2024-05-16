@@ -100,7 +100,7 @@ function AdminLocationManage() {
                 <div className="col-md-7">
                   <h6 className="text-start">
                     <i className="bi bi-geo-alt-fill fs-5 " />
-                    &nbsp;&nbsp;Manage Locations
+                    &nbsp;&nbsp;Manage Emergency Contacts
                   </h6>
                 </div>
                 <div className="col-md-5">
