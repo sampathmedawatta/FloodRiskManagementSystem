@@ -126,7 +126,7 @@ function Navbar() {
               >
                 <i class="bi bi-clock-history fs-5"></i>
                 <span class="name">
-                  &nbsp;&nbsp;&nbsp;History Flood &nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp;Flood History &nbsp;&nbsp;
                 </span>
               </Link>
             </a>
@@ -250,7 +250,7 @@ function Navbar() {
               >
                 <i class="bi bi-geo-alt-fill fs-5"></i>
                 <span class="name">
-                  &nbsp;&nbsp;&nbsp;Manage Locations &nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp;Emergency Locations &nbsp;&nbsp;
                 </span>
               </Link>
             </a>
